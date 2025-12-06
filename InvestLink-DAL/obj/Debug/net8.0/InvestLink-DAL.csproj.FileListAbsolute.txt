@@ -1,0 +1,14 @@
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.csproj.AssemblyReference.cache
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.AssemblyInfoInputs.cache
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.AssemblyInfo.cs
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.csproj.CoreCompileInputs.cache
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\bin\Debug\net8.0\InvestLink-DAL.deps.json
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\bin\Debug\net8.0\InvestLink-DAL.runtimeconfig.json
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\bin\Debug\net8.0\InvestLink-DAL.dll
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\bin\Debug\net8.0\InvestLink-DAL.pdb
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.dll
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\refint\InvestLink-DAL.dll
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.pdb
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.genruntimeconfig.cache
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\ref\InvestLink-DAL.dll
