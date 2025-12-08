@@ -63,11 +63,11 @@ namespace InvestLink_DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Emial = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone1 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Phone2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    SecondPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NationalityId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -90,10 +90,10 @@ namespace InvestLink_DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone1 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Phone2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    FirstPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    SecondPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NationalityId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -104,29 +104,6 @@ namespace InvestLink_DAL.Migrations
                         name: "FK_Investor_Nationality_NationalityId",
                         column: x => x.NationalityId,
                         principalTable: "Nationality",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FollowUpReport",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FollowUpReport", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FollowUpReport_Project_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Project",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -178,7 +155,7 @@ namespace InvestLink_DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmployeeProjects",
+                name: "ProjectFollowUps",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -189,14 +166,14 @@ namespace InvestLink_DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeProjects", x => new { x.Id, x.EmployeeId, x.ProjectId });
+                    table.PrimaryKey("PK_ProjectFollowUps", x => new { x.Id, x.EmployeeId, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_EmployeeProjects_Employee_EmployeeId",
+                        name: "FK_ProjectFollowUps_Employee_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_EmployeeProjects_Project_ProjectId",
+                        name: "FK_ProjectFollowUps_Project_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Project",
                         principalColumn: "Id");
@@ -225,6 +202,31 @@ namespace InvestLink_DAL.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FollowUpReport",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ProjectFollowUpId = table.Column<int>(type: "int", nullable: false),
+                    ProjectFollowUpEmployeeId = table.Column<int>(type: "int", nullable: false),
+                    ProjectFollowUpProjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FollowUpReport", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FollowUpReport_ProjectFollowUps_ProjectFollowUpId_ProjectFollowUpEmployeeId_ProjectFollowUpProjectId",
+                        columns: x => new { x.ProjectFollowUpId, x.ProjectFollowUpEmployeeId, x.ProjectFollowUpProjectId },
+                        principalTable: "ProjectFollowUps",
+                        principalColumns: new[] { "Id", "EmployeeId", "ProjectId" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisement_EmployeeId",
                 table: "Advertisement",
@@ -236,19 +238,9 @@ namespace InvestLink_DAL.Migrations
                 column: "NationalityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeProjects_EmployeeId",
-                table: "EmployeeProjects",
-                column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeProjects_ProjectId",
-                table: "EmployeeProjects",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FollowUpReport_ProjectId",
+                name: "IX_FollowUpReport_ProjectFollowUpId_ProjectFollowUpEmployeeId_ProjectFollowUpProjectId",
                 table: "FollowUpReport",
-                column: "ProjectId");
+                columns: new[] { "ProjectFollowUpId", "ProjectFollowUpEmployeeId", "ProjectFollowUpProjectId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Investor_NationalityId",
@@ -258,6 +250,16 @@ namespace InvestLink_DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_License_ProjectId",
                 table: "License",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectFollowUps_EmployeeId",
+                table: "ProjectFollowUps",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectFollowUps_ProjectId",
+                table: "ProjectFollowUps",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -278,9 +280,6 @@ namespace InvestLink_DAL.Migrations
                 name: "Advertisement");
 
             migrationBuilder.DropTable(
-                name: "EmployeeProjects");
-
-            migrationBuilder.DropTable(
                 name: "FollowUpReport");
 
             migrationBuilder.DropTable(
@@ -290,10 +289,13 @@ namespace InvestLink_DAL.Migrations
                 name: "ProjectInvestors");
 
             migrationBuilder.DropTable(
-                name: "Employee");
+                name: "ProjectFollowUps");
 
             migrationBuilder.DropTable(
                 name: "Investor");
+
+            migrationBuilder.DropTable(
+                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "Project");

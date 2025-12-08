@@ -1,13 +1,13 @@
-﻿using InvestLink_DAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvestLink_BLL.Models
+namespace InvestLink_DAL.Entities
 {
-   public class EmployeeProjectVM
+    public class ProjectFollowUp
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }// تاريخ بداية
@@ -17,7 +17,9 @@ namespace InvestLink_BLL.Models
         public Employee? Employee { get; set; }
         //-------------------------------------------
         public int ProjectId { get; set; }
-
+    
         public Project? Project { get; set; }
+        //--------------------------------------
+        public virtual List<FollowUpReport>? FollowUpReports { get; set; }
     }
 }

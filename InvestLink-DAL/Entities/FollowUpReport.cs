@@ -23,8 +23,8 @@ namespace InvestLink_DAL.Entities
         public string? Status { get; set; }// حالة تقرير
 
         //-------------------------------------------------
-        public int ProjectId { get; set; }
-        public Project? Project { get; set; }
+        public int ProjectFollowUpId { get; set; }
+        public ProjectFollowUp? ProjectFollowUp { get; set; }
         //----------------------------------
     }
 }

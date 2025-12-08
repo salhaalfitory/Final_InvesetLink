@@ -16,13 +16,16 @@ namespace InvestLink_BLL.Models
         public string Name { get; set; }//اسم مستثمر
         [EmailAddress(ErrorMessage = " invalid Email ")]
         public string Emial { get; set; }//بريد الالكتروني
-        [Required(ErrorMessage = "Phone1 is Required")]
-        [MinLength(10, ErrorMessage = "min Len 10")]
-        [MaxLength(10, ErrorMessage = "max Len 10")]
-        public string Phone1 { get; set; }//رقم تلفون 1
-        public string? Phone2 { get; set; }//رقم تلفون2
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
+        [MinLength(10)]
+        [MaxLength(10)]
+        public string FirstPhoneNumber { get; set; }//رقم تلفون 1
+        [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
+        [MinLength(10)]
+        [MaxLength(10)]
+        public string? SecondPhoneNumber { get; set; }//رقم تلفون2
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; } = DateTime.Now;//تاريخ تسجيل
         //------------------------------
         public int NationalityId { get; set; }
@@ -30,7 +33,7 @@ namespace InvestLink_BLL.Models
         //------------------------------------
 
 
-        public virtual List<EmployeeProject>? EmployeeProjects { get; set; }
+        public virtual List<ProjectFollowUp>? ProjectFollowUps { get; set; }
         public virtual List<Advertisement>? Advertisements { get; set; }
     }
 }

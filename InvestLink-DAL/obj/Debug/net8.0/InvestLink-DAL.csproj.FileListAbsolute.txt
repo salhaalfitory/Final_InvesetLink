@@ -12,3 +12,4 @@ C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\refint\Inves
 C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.pdb
 C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.genruntimeconfig.cache
 C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\ref\InvestLink-DAL.dll
+C:\Users\pc\source\repos\InvestLink\InvestLink-DAL\obj\Debug\net8.0\InvestLink-DAL.sourcelink.json

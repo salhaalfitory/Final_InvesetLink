@@ -26,7 +26,7 @@ namespace InvestLink_DAL.DataBase
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Investor> Investors { get; set; }
         public DbSet<ProjectInvestor> ProjectInvestors { get; set; }
-        public DbSet<EmployeeProject> EmployeeProjects { get; set; }
+        public DbSet<ProjectFollowUp> ProjectFollowUps { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         //----------------------------------------------
         //--------------------------------------
@@ -34,20 +34,20 @@ namespace InvestLink_DAL.DataBase
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<EmployeeProject>()
+            modelBuilder.Entity<ProjectFollowUp>()
                 .HasKey(sc => new { sc.Id, sc.EmployeeId, sc.ProjectId });
 
 
-            modelBuilder.Entity<EmployeeProject>()
+            modelBuilder.Entity<ProjectFollowUp>()
             .HasOne(bc => bc.Employee)
-            .WithMany(b => b.EmployeeProjects)
+            .WithMany(b => b.ProjectFollowUps)
             .HasForeignKey(bc => bc.EmployeeId)
             .OnDelete(DeleteBehavior.ClientSetNull);
 
 
-            modelBuilder.Entity<EmployeeProject>()
+            modelBuilder.Entity<ProjectFollowUp>()
             .HasOne(bc => bc.Project)
-            .WithMany(c => c.EmployeeProjects)
+            .WithMany(c => c.ProjectFollowUps)
             .HasForeignKey(bc => bc.ProjectId)
             .OnDelete(DeleteBehavior.ClientSetNull);
             //--------------------------------------------

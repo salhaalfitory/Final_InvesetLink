@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,13 +18,17 @@ namespace InvestLink_DAL.Entities
         public string Name { get; set; }//اسم مستثمر
         [EmailAddress(ErrorMessage = " invalid Email ")]
         public string Email { get; set; } //بريد الالكتروني
-        [Required(ErrorMessage = "Phone1 is Required")]
-        [MinLength(10, ErrorMessage = "min Len 10")]
-        [MaxLength(10, ErrorMessage = "max Len 10")]
-        public string Phone1 { get; set; }//رقم تلفون 1
-        public string? Phone2 { get; set; }//رقم تلفون2
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        [RegularExpression("09[0-9]{8}",ErrorMessage ="0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
+        [MinLength(10)]
+        [MaxLength(10)]
+        public string FirstPhoneNumber { get; set; }//رقم تلفون 1
+
+        [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
+        [MinLength(10)]
+        [MaxLength(10)]
+        public string? SecondPhoneNumber { get; set; }//رقم تلفون2
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 
         //------------------------------------
         public int NationalityId { get; set; }

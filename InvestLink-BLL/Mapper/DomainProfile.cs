@@ -38,8 +38,8 @@ namespace InvestLink_BLL.Mapper
             CreateMap<ProjectInvestor, ProjectInvestorVM>();
             CreateMap<ProjectInvestorVM, ProjectInvestor>();
             ////---------------------------------
-            CreateMap<EmployeeProject, EmployeeProjectVM>();
-            CreateMap<EmployeeProjectVM, EmployeeProject>();
+            CreateMap<ProjectFollowUp, ProjectFollowUpVM>();
+            CreateMap<ProjectFollowUpVM, ProjectFollowUp>();
             ////---------------------------------
         }
     

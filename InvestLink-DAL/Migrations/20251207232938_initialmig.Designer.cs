@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20251205200755_initialmig")]
+    [Migration("20251207232938_initialmig")]
     partial class initialmig
     {
         /// <inheritdoc />
@@ -67,14 +67,19 @@ namespace InvestLink_DAL.Migrations
                     b.Property<DateTime>("CreationData")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Emial")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<string>("FirstPhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -85,45 +90,15 @@ namespace InvestLink_DAL.Migrations
                     b.Property<int>("NationalityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Phone1")
-                        .IsRequired()
+                    b.Property<string>("SecondPhoneNumber")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Phone2")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NationalityId");
 
                     b.ToTable("Employee");
-                });
-
-            modelBuilder.Entity("InvestLink_DAL.Entities.EmployeeProject", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id", "EmployeeId", "ProjectId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("EmployeeProjects");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.FollowUpReport", b =>
@@ -145,7 +120,13 @@ namespace InvestLink_DAL.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int>("ProjectFollowUpEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectFollowUpId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectFollowUpProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -155,7 +136,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectFollowUpId", "ProjectFollowUpEmployeeId", "ProjectFollowUpProjectId");
 
                     b.ToTable("FollowUpReport");
                 });
@@ -175,10 +156,15 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<string>("FirstPhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -189,13 +175,9 @@ namespace InvestLink_DAL.Migrations
                     b.Property<int>("NationalityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Phone1")
-                        .IsRequired()
+                    b.Property<string>("SecondPhoneNumber")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Phone2")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -356,6 +338,32 @@ namespace InvestLink_DAL.Migrations
                     b.ToTable("Project");
                 });
 
+            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectFollowUp", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id", "EmployeeId", "ProjectId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectFollowUps");
+                });
+
             modelBuilder.Entity("InvestLink_DAL.Entities.ProjectInvestor", b =>
                 {
                     b.Property<int>("Id")
@@ -398,32 +406,15 @@ namespace InvestLink_DAL.Migrations
                     b.Navigation("Nationality");
                 });
 
-            modelBuilder.Entity("InvestLink_DAL.Entities.EmployeeProject", b =>
-                {
-                    b.HasOne("InvestLink_DAL.Entities.Employee", "Employee")
-                        .WithMany("EmployeeProjects")
-                        .HasForeignKey("EmployeeId")
-                        .IsRequired();
-
-                    b.HasOne("InvestLink_DAL.Entities.Project", "Project")
-                        .WithMany("EmployeeProjects")
-                        .HasForeignKey("ProjectId")
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("InvestLink_DAL.Entities.FollowUpReport", b =>
                 {
-                    b.HasOne("InvestLink_DAL.Entities.Project", "Project")
+                    b.HasOne("InvestLink_DAL.Entities.ProjectFollowUp", "ProjectFollowUp")
                         .WithMany("FollowUpReports")
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("ProjectFollowUpId", "ProjectFollowUpEmployeeId", "ProjectFollowUpProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Project");
+                    b.Navigation("ProjectFollowUp");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Investor", b =>
@@ -444,6 +435,23 @@ namespace InvestLink_DAL.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectFollowUp", b =>
+                {
+                    b.HasOne("InvestLink_DAL.Entities.Employee", "Employee")
+                        .WithMany("ProjectFollowUps")
+                        .HasForeignKey("EmployeeId")
+                        .IsRequired();
+
+                    b.HasOne("InvestLink_DAL.Entities.Project", "Project")
+                        .WithMany("ProjectFollowUps")
+                        .HasForeignKey("ProjectId")
+                        .IsRequired();
+
+                    b.Navigation("Employee");
 
                     b.Navigation("Project");
                 });
@@ -469,7 +477,7 @@ namespace InvestLink_DAL.Migrations
                 {
                     b.Navigation("Advertisements");
 
-                    b.Navigation("EmployeeProjects");
+                    b.Navigation("ProjectFollowUps");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Investor", b =>
@@ -486,13 +494,16 @@ namespace InvestLink_DAL.Migrations
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Project", b =>
                 {
-                    b.Navigation("EmployeeProjects");
-
-                    b.Navigation("FollowUpReports");
-
                     b.Navigation("Licenses");
 
+                    b.Navigation("ProjectFollowUps");
+
                     b.Navigation("ProjectInvestors");
+                });
+
+            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectFollowUp", b =>
+                {
+                    b.Navigation("FollowUpReports");
                 });
 #pragma warning restore 612, 618
         }

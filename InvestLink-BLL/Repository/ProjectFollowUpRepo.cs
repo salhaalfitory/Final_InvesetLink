@@ -10,39 +10,39 @@ using System.Threading.Tasks;
 
 namespace InvestLink_BLL.Repository
 {
-    public class EmployeeProjectRepo : IEmployeeProject
+    public class ProjectFollowUpRepo : IProjectFollowUp
     {
         private readonly MyContext db;
 
-        public EmployeeProjectRepo(MyContext db)
+        public ProjectFollowUpRepo(MyContext db)
         {
             this.db = db;
         }
-        public async Task CreateAsync(EmployeeProject obj)
+        public async Task CreateAsync(ProjectFollowUp obj)
         {
-            await db.EmployeeProjects.AddAsync(obj);
+            await db.ProjectFollowUps.AddAsync(obj);
             await db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(EmployeeProject obj)
+        public async Task DeleteAsync(ProjectFollowUp obj)
         {
             db.Entry(obj).State = EntityState.Deleted;
             await db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<EmployeeProject>> GetAllAsync()
+        public async Task<IEnumerable<ProjectFollowUp>> GetAllAsync()
         {
-            var data = await db.EmployeeProjects.ToListAsync();
+            var data = await db.ProjectFollowUps.ToListAsync();
             return data;
         }
 
-        public async Task<EmployeeProject> GetByIdAsync(int Id)
+        public async Task<ProjectFollowUp> GetByIdAsync(int Id)
         {
-            var data = await db.EmployeeProjects.Where(a => a.Id == Id).FirstOrDefaultAsync();
+            var data = await db.ProjectFollowUps.Where(a => a.Id == Id).FirstOrDefaultAsync();
             return data;
         }
 
-        public  async Task UpdateAsync(EmployeeProject obj)
+        public  async Task UpdateAsync(ProjectFollowUp obj)
         {
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();

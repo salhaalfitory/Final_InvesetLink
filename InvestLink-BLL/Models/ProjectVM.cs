@@ -59,7 +59,7 @@ namespace InvestLink_BLL.Models
 
 
         public virtual List<ProjectInvestor>? ProjectInvestors { get; set; }
-        public virtual List<EmployeeProject>? EmployeeProjects { get; set; }
+
         public virtual List<License>? Licenses { get; set; }
         public virtual List<FollowUpReport>? FollowUpReports { get; set; }
     }

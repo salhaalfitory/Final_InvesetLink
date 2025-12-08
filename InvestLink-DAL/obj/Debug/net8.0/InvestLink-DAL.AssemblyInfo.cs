@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InvestLink-DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d72e0b3c3ae4dcd4d39fa7f02e236d9752be04f")]
 [assembly: System.Reflection.AssemblyProductAttribute("InvestLink-DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InvestLink-DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
