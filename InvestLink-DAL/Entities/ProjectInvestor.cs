@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InvestLink_DAL.Entities
 {
-   public class ProjectInvestor
+    public class ProjectInvestor
     {
         public int Id { get; set; }
 

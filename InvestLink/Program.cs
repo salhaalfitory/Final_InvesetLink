@@ -23,9 +23,9 @@ builder.Services.AddScoped<IEmployee, EmployeeRepo>();
 builder.Services.AddScoped<IInvestor, InvestorRepo>();
 builder.Services.AddScoped<IProjectInvestor, ProjectInvestorRepo>();
 builder.Services.AddScoped<ILicense, LicenseRepo>();
-builder.Services.AddScoped<IFollowUpReport, FollowUpReportRepo>();
+builder.Services.AddScoped<ICoordinatorReport, CoordinatorReportRepo>();
 builder.Services.AddScoped<IAdvertisement, AdvertisementRepo>();
-builder.Services.AddScoped<IProjectFollowUp, ProjectFollowUpRepo>();
+builder.Services.AddScoped<IProjectCoordinator, ProjectCoordinatorRepo>();
 
 var app = builder.Build();
 

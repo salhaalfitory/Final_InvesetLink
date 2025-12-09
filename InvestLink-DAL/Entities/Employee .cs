@@ -20,7 +20,7 @@ namespace InvestLink_DAL.Entities
         [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
         [MinLength(10)]
         [MaxLength(10)]
-        public string FirstPhoneNumber { get; set; }//رقم تلفون 1
+        public string PhoneNumber { get; set; }//رقم تلفون 1
         [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
         [MinLength(10)]
         [MaxLength(10)]
@@ -32,9 +32,9 @@ namespace InvestLink_DAL.Entities
         public int NationalityId { get; set; }
         public Nationality? Nationality { get; set; }
         //------------------------------------
-       
 
-        public virtual List<ProjectFollowUp>? ProjectFollowUps { get; set; }
+
+        public virtual List<ProjectCoordinator>? ProjectCoordinators { get; set; }
         public virtual List<Advertisement>? Advertisements { get; set; }
     }
 }

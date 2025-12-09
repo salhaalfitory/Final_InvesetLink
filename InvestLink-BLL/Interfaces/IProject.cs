@@ -10,11 +10,8 @@ namespace InvestLink_BLL.Interfaces
    public interface IProject
     {
         Task CreateAsync(Project obj);
-
         Task UpdateAsync(Project obj);
         Task<IEnumerable<Project>> GetAllAsync();
-
-
         Task<Project> GetByIdAsync(int Id);
         Task<IEnumerable<Project>> GetByStateAsync(string state);
     }

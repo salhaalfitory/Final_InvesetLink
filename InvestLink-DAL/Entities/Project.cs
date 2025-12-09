@@ -58,9 +58,8 @@ namespace InvestLink_DAL.Entities
         //--------------------------------------
 
 
-
         public virtual List<ProjectInvestor>? ProjectInvestors { get; set; }
-        public virtual List<ProjectFollowUp>? ProjectFollowUps { get; set; }
+        public virtual List<ProjectCoordinator>? ProjectCoordinators { get; set; }
         public virtual List<License>? Licenses { get; set; }
 
     }

@@ -33,7 +33,7 @@ namespace InvestLink_BLL.Models
         //------------------------------------
 
 
-        public virtual List<ProjectFollowUp>? ProjectFollowUps { get; set; }
+        public virtual List<ProjectCoordinator>? ProjectFollowUps { get; set; }
         public virtual List<Advertisement>? Advertisements { get; set; }
     }
 }

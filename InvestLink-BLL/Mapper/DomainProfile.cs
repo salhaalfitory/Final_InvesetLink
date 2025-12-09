@@ -17,8 +17,8 @@ namespace InvestLink_BLL.Mapper
             CreateMap<ProjectVM, Project>();
             //-----------------------
 
-            CreateMap<FollowUpReport, FollowUpReportVM>();
-            CreateMap<FollowUpReportVM, FollowUpReport>();
+            CreateMap<CoordinatorReport, CoordinatorReport>();
+            CreateMap<CoordinatorReport, CoordinatorReport>();
             //------------------------------------------------
             CreateMap<Nationality, NationalityVM>();
             CreateMap<NationalityVM, Nationality>();
@@ -38,10 +38,10 @@ namespace InvestLink_BLL.Mapper
             CreateMap<ProjectInvestor, ProjectInvestorVM>();
             CreateMap<ProjectInvestorVM, ProjectInvestor>();
             ////---------------------------------
-            CreateMap<ProjectFollowUp, ProjectFollowUpVM>();
-            CreateMap<ProjectFollowUpVM, ProjectFollowUp>();
+            CreateMap<ProjectCoordinator, ProjectCoordinatorVM>();
+            CreateMap<ProjectCoordinatorVM, ProjectCoordinator>();
             ////---------------------------------
         }
-    
+
     }
 }

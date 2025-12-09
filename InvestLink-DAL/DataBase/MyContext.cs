@@ -20,13 +20,13 @@ namespace InvestLink_DAL.DataBase
 
         public DbSet<Project> Projects { get; set; }
 
-        public DbSet<FollowUpReport> FollowUpReports { get; set; }
+        public DbSet<CoordinatorReport> CoordinatorReports { get; set; }
         public DbSet<License> Licenses { get; set; }
         public DbSet<Nationality> Nationalitys { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Investor> Investors { get; set; }
         public DbSet<ProjectInvestor> ProjectInvestors { get; set; }
-        public DbSet<ProjectFollowUp> ProjectFollowUps { get; set; }
+        public DbSet<ProjectCoordinator> ProjectCoordinators { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         //----------------------------------------------
         //--------------------------------------
@@ -34,20 +34,20 @@ namespace InvestLink_DAL.DataBase
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProjectFollowUp>()
+            modelBuilder.Entity<ProjectCoordinator>()
                 .HasKey(sc => new { sc.Id, sc.EmployeeId, sc.ProjectId });
 
 
-            modelBuilder.Entity<ProjectFollowUp>()
+            modelBuilder.Entity<ProjectCoordinator>()
             .HasOne(bc => bc.Employee)
-            .WithMany(b => b.ProjectFollowUps)
+            .WithMany(b => b.ProjectCoordinators)
             .HasForeignKey(bc => bc.EmployeeId)
             .OnDelete(DeleteBehavior.ClientSetNull);
 
 
-            modelBuilder.Entity<ProjectFollowUp>()
+            modelBuilder.Entity<ProjectCoordinator>()
             .HasOne(bc => bc.Project)
-            .WithMany(c => c.ProjectFollowUps)
+            .WithMany(c => c.ProjectCoordinators)
             .HasForeignKey(bc => bc.ProjectId)
             .OnDelete(DeleteBehavior.ClientSetNull);
             //--------------------------------------------
