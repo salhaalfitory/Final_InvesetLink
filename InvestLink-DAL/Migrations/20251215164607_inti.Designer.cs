@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20251207232938_initialmig")]
-    partial class initialmig
+    [Migration("20251215164607_inti")]
+    partial class inti
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,52 +56,7 @@ namespace InvestLink_DAL.Migrations
                     b.ToTable("Advertisement");
                 });
 
-            modelBuilder.Entity("InvestLink_DAL.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstPhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("NationalityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecondPhoneNumber")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NationalityId");
-
-                    b.ToTable("Employee");
-                });
-
-            modelBuilder.Entity("InvestLink_DAL.Entities.FollowUpReport", b =>
+            modelBuilder.Entity("InvestLink_DAL.Entities.CoordinatorReport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,13 +75,13 @@ namespace InvestLink_DAL.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjectFollowUpEmployeeId")
+                    b.Property<int>("ProjectCoordinatorEmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectFollowUpId")
+                    b.Property<int>("ProjectCoordinatorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectFollowUpProjectId")
+                    b.Property<int>("ProjectCoordinatorProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -136,9 +91,54 @@ namespace InvestLink_DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectFollowUpId", "ProjectFollowUpEmployeeId", "ProjectFollowUpProjectId");
+                    b.HasIndex("ProjectCoordinatorId", "ProjectCoordinatorEmployeeId", "ProjectCoordinatorProjectId");
 
-                    b.ToTable("FollowUpReport");
+                    b.ToTable("CoordinatorReport");
+                });
+
+            modelBuilder.Entity("InvestLink_DAL.Entities.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationData")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("NationalityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("SecondPhoneNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NationalityId");
+
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Investor", b =>
@@ -156,11 +156,6 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstPhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -174,6 +169,11 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<int>("NationalityId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("SecondPhoneNumber")
                         .HasMaxLength(10)
@@ -338,7 +338,7 @@ namespace InvestLink_DAL.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectFollowUp", b =>
+            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectCoordinator", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -361,7 +361,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectFollowUps");
+                    b.ToTable("ProjectCoordinators");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.ProjectInvestor", b =>
@@ -395,6 +395,17 @@ namespace InvestLink_DAL.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("InvestLink_DAL.Entities.CoordinatorReport", b =>
+                {
+                    b.HasOne("InvestLink_DAL.Entities.ProjectCoordinator", "ProjectCoordinator")
+                        .WithMany("CoordinatorReports")
+                        .HasForeignKey("ProjectCoordinatorId", "ProjectCoordinatorEmployeeId", "ProjectCoordinatorProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProjectCoordinator");
+                });
+
             modelBuilder.Entity("InvestLink_DAL.Entities.Employee", b =>
                 {
                     b.HasOne("InvestLink_DAL.Entities.Nationality", "Nationality")
@@ -404,17 +415,6 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Nationality");
-                });
-
-            modelBuilder.Entity("InvestLink_DAL.Entities.FollowUpReport", b =>
-                {
-                    b.HasOne("InvestLink_DAL.Entities.ProjectFollowUp", "ProjectFollowUp")
-                        .WithMany("FollowUpReports")
-                        .HasForeignKey("ProjectFollowUpId", "ProjectFollowUpEmployeeId", "ProjectFollowUpProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProjectFollowUp");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Investor", b =>
@@ -439,15 +439,15 @@ namespace InvestLink_DAL.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectFollowUp", b =>
+            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectCoordinator", b =>
                 {
                     b.HasOne("InvestLink_DAL.Entities.Employee", "Employee")
-                        .WithMany("ProjectFollowUps")
+                        .WithMany("ProjectCoordinators")
                         .HasForeignKey("EmployeeId")
                         .IsRequired();
 
                     b.HasOne("InvestLink_DAL.Entities.Project", "Project")
-                        .WithMany("ProjectFollowUps")
+                        .WithMany("ProjectCoordinators")
                         .HasForeignKey("ProjectId")
                         .IsRequired();
 
@@ -477,7 +477,7 @@ namespace InvestLink_DAL.Migrations
                 {
                     b.Navigation("Advertisements");
 
-                    b.Navigation("ProjectFollowUps");
+                    b.Navigation("ProjectCoordinators");
                 });
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Investor", b =>
@@ -496,14 +496,14 @@ namespace InvestLink_DAL.Migrations
                 {
                     b.Navigation("Licenses");
 
-                    b.Navigation("ProjectFollowUps");
+                    b.Navigation("ProjectCoordinators");
 
                     b.Navigation("ProjectInvestors");
                 });
 
-            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectFollowUp", b =>
+            modelBuilder.Entity("InvestLink_DAL.Entities.ProjectCoordinator", b =>
                 {
-                    b.Navigation("FollowUpReports");
+                    b.Navigation("CoordinatorReports");
                 });
 #pragma warning restore 612, 618
         }

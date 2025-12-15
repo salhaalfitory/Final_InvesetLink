@@ -9,15 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //ConnectionStrings
-var connectionString = builder.Configuration.GetConnectionString("InvestLink");
+//var connectionString = builder.Configuration.GetConnectionString("InvestLink");
+//builder.Services.AddDbContext<MyContext>(options =>
+//options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<MyContext>(options =>
-options.UseSqlServer(connectionString));
-
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 
 builder.Services.AddAutoMapper(typeof(DomainProfile));
 builder.Services.AddScoped<IProject, ProjectRepo>();
-
 builder.Services.AddScoped<INationality, NationalityRepo>();
 builder.Services.AddScoped<IEmployee, EmployeeRepo>();
 builder.Services.AddScoped<IInvestor, InvestorRepo>();

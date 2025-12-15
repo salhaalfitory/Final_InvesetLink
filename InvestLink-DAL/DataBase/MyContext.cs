@@ -10,10 +10,9 @@ namespace InvestLink_DAL.DataBase
 {
     public class MyContext:DbContext
     {
-
-        public MyContext(DbContextOptions<MyContext> opt) : base(opt)
+        public MyContext(DbContextOptions<MyContext> options)
+           : base(options)
         {
-
         }
 
 
@@ -29,6 +28,9 @@ namespace InvestLink_DAL.DataBase
         public DbSet<ProjectCoordinator> ProjectCoordinators { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         //----------------------------------------------
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
         //--------------------------------------
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
