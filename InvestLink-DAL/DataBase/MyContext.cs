@@ -28,10 +28,8 @@ namespace InvestLink_DAL.DataBase
         public DbSet<ProjectCoordinator> ProjectCoordinators { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         //----------------------------------------------
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
-        //--------------------------------------
+       
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

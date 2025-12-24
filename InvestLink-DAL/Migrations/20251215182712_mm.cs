@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class inti : Migration
+    public partial class mm : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
