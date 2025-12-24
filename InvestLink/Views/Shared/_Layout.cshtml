@@ -28,15 +28,15 @@
 	
 
   <!--Theme Styles-->
-    <link href="~/assets/css/dark-theme.css" rel="stylesheet" />
+    @* <link href="~/assets/css/dark-theme.css" rel="stylesheet" />
     <link href="~/assets/css/semi-dark.css" rel="stylesheet" />
-    <link href="~/assets/css/header-colors.css" rel="stylesheet" />
+    <link href="~/assets/css/header-colors.css" rel="stylesheet" /> *@
 
   <title>Fobia - Bootstrap5 Admin Template</title>
 </head>
 
 <body>
-
+javascript:;
 
   <!--start wrapper-->
   <div class="wrapper">
@@ -52,7 +52,7 @@
         </div>
       </div>
       <!--navigation-->
-            @* ////////////////// مستثمر////////////////////// *@
+            @* //////////////////مستثمر////////////////////// *@
 
       <ul class="metismenu" id="menu">
                 <li>
@@ -591,28 +591,30 @@
           </div>
         </form>
         <div class="top-navbar-right ms-auto">
-
+                    <div class="col">
+                        <button type="button" class="btn btn-info px-5 radius-30">Info</button>
+                    </div>
           <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
+            @* <li class="nav-item">
               <a class="nav-link mobile-search-button" href="javascript:;">
                 <div class="">
                   <ion-icon name="search-outline"></ion-icon>
                 </div>
               </a>
-            </li>
-            <li class="nav-item">
+            </li> *@
+            @* <li class="nav-item">
               <a class="nav-link dark-mode-icon" href="javascript:;">
                 <div class="mode-icon">
                   <ion-icon name="moon-outline"></ion-icon>
                 </div>
               </a>
-            </li>
+            </li> *@
             <li class="nav-item dropdown dropdown-large dropdown-apps">
-              <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
+              @* <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="">
                   <ion-icon name="apps-outline"></ion-icon>
                 </div>
-              </a>
+              </a> *@
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                 <div class="row row-cols-3 g-3 p-3">
                   <div class="col text-center">
@@ -1001,7 +1003,9 @@
 	<script src="~/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="~/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
     <script src="~/plugins/metismenu/metisMenu.min.js"></script>
-	@* <a href="~/js/bootstrap.bundle.min.js.map">~/js/bootstrap.bundle.min.js.map</a>
+
+
+	<a href="~/js/bootstrap.bundle.min.js.map">~/js/bootstrap.bundle.min.js.map</a>
 	<script src="~/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/form-date-time-pickes.js"></script>
 	<script src="~/js/component-popovers-tooltips.js"></script>
@@ -1015,7 +1019,7 @@
 	<script src="~/js/table-datatable.js"></script>
 	<script src="~/js/todo.js"></script>
 	<script src="~/js/jquery.min.js"></script>
-	<script src="~/js/widgets.js"></script> *@
+	<script src="~/js/widgets.js"></script>
 
 
 
@@ -1023,19 +1027,27 @@
 
 
     <!-- JS Files-->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
-    <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="~/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <!--plugins-->
-    <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-    <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
-    <script src="assets/plugins/easyPieChart/jquery.easypiechart.js"></script>
-    <script src="assets/js/widgets.js"></script>
+    <script src="~/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="~/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+    <script src="~/plugins/easyPieChart/jquery.easypiechart.js"></script>
+    <script src="~/js/widgets.js"></script>
+
+
+    <script src="~/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="~/assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+    <script src="~/assets/plugins/easyPieChart/jquery.easypiechart.js"></script>
+    <script src="~/assets/plugins/chartjs/chart.min.js"></script>
+    <script src="~/assets/js/index.js"></script>
+
 
     <!-- Main JS-->
-    <script src="assets/js/main.js"></script>
+    <script src="~/js/main.js"></script>
 
 
 
