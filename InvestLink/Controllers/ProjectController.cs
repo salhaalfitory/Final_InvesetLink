@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Humanizer;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
@@ -18,18 +19,20 @@ namespace InvestLink.Controllers
         private readonly IMapper mapper;
         private readonly ILicense license;
         private readonly IInvestor investor;
-        
+        private readonly IProjectInvestor projectinvestor;
 
+        
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public ProjectController(IProject project, IMapper mapper, ILicense license, IInvestor investor)
+        public ProjectController(IProject project, IMapper mapper, ILicense license, IInvestor investor, IProjectInvestor projectinvestor)
         {
             this.project = project;
             this.mapper = mapper;
             this.license = license;
             this.investor = investor;
+            this.projectinvestor = projectinvestor;
         }
         #endregion
         //--------------------------------------------------
@@ -48,39 +51,43 @@ namespace InvestLink.Controllers
             return View();
         }
         [HttpPost]
-        //public async Task<IActionResult> Create(ProjectVM obj)
-        public async Task<IActionResult> Create(ProjectInvestorVM obj)
+        public async Task<IActionResult> Create(Invesitor_ProjectVM obj)
         {
             try
             {
                 if (ModelState.IsValid == true)
                 {
                     var Project_info = mapper.Map<Project>(obj.Project);
+
                     await project.CreateAsync(Project_info);
 
 
-                    //var Investors_info = mapper.Map<Investor>(obj.Investors);
-
-
-                    if (obj.Investor != null )
+                    if (obj.Investors != null && obj.Investors.Any())
                     {
 
-                        var Investors_info = mapper.Map<List<Investor>>(obj.Investor);
+                        var Investors_info = mapper.Map<List<Investor>>(obj.Investors);
 
-                        foreach (var inv in Investors_info)
+                        foreach (var item in Investors_info)
                         {
 
-                            inv.Id = Project_info.Id;
+                            await investor.CreateAsync(item);
 
-                            await investor.CreateAsync(inv);
+                            var Link = new ProjectInvestor
+                            {
+                                ProjectId = Project_info.Id,
+                                InvestorId = item.Id
+                            };
+
+                            await projectinvestor.CreateAsync(Link);
                         }
+  
+
                         return RedirectToAction("Index");
 
                     }
-                    //await investor.CreateAsync(Investors_info);
 
                 }
-                TempData["Meesage"] = "validation Error";
+                TempData["Message"] = "validation Error";
                 return View(obj);
             }
             catch (Exception ex)
@@ -89,6 +96,49 @@ namespace InvestLink.Controllers
                 return View(obj);
             }
         }
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Invesitor_ProjectVM obj)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid == true)
+        //        {
+        //            var Project_info = mapper.Map<Project>(obj.Project);
+        //            await project.CreateAsync(Project_info);
+        //            //var Investors_info = mapper.Map<Investor>(obj.Investor);
+        //            if (obj.Investors != null && obj.Investors.Any())
+        //            {
+        //                obj.Investors = obj.Investors;
+
+        //                //var Investors_info = mapper.Map<List<Investor>>(obj.Investor);
+
+        //                foreach (var inv in obj.Investors)
+        //                {
+        //                    investor.Id = obj.Project; // ربط المستثمر بهذا المشروع
+
+        //                    //inv.Id = Project_info.Id;
+        //                }                
+        //                var Investors_info = mapper.Map<List<Investor>>(obj.Investor);
+
+        //                await investor.CreateAsync(Investors_info);
+
+        //                return RedirectToAction("Index");
+
+        //            }
+        //            //await investor.CreateAsync(Investors_info);
+
+        //        }
+        //        TempData["Meesage"] = "validation Error";
+        //        return View(obj);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["Message"] = ex.Message;
+        //        return View(obj);
+        //    }
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Update(int Id)
