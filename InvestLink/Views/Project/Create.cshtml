@@ -1,25 +1,21 @@
-﻿@model InvestLink_BLL.Models.ProjectVM
+﻿@model InvestLink_BLL.Models.Invesitor_ProjectVM
 
 
 
 @{
     ViewBag.Title = "Create";
 }
- 
+
 <!doctype html>
 <html lang="en" dir="rtl">
 
 <head>
-
-<link href="~/plugins/bs-stepper/css/bs-stepper-custom.css" rel="stylesheet" />
-<link href="~/plugins/bs-stepper/css/bs-stepper.css" rel="stylesheet" />
-
-  <title>تقديم طلب استثمار</title>
+    <link href="~/plugins/bs-stepper/css/bs-stepper-custom.css" rel="stylesheet" />
+    <link href="~/plugins/bs-stepper/css/bs-stepper.css" rel="stylesheet" />
+    <title>تقديم طلب استثمار</title>
 </head>
 
-
 <body>
-
 
     <h6 class="text-uppercase">نموذج طلب الاستثمار (P.I.B)</h6>
 <hr>
@@ -119,16 +115,14 @@
         
         <hr class="mt-4">
 
-     
+                                <div id="investors-container" class="col-12">
+                                </div>
 
-        <div id="investors-container" class="col-12">
-            </div>
-
-        <div class="col-12 mt-4">
-            <button class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
-        </div>
-    </div>
-</div>
+                                <div class="col-12 mt-4">
+                                    <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                </div>
+                            </div>
+                        </div>
 
                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                         <h5 class="mb-1">بيانات المشروع التفصيلية</h5>
@@ -300,86 +294,85 @@
 
 
     <script>
-        let investorCount = 0;
-    function addBootstrapInvestor() {
-    investorCount++;
-    const container = document.getElementById('investors-container');
+        // المتغير index يبدأ من 0، لأن 0 محجوز لمقدم الطلب الأساسي
+        // عند إضافة مستثمر جديد سنبدأ من 1
+        let investorIndex = 0;
+        let visualCount = 1; // للعرض (المستثمر الإضافي رقم 1)
+
+        function addBootstrapInvestor() {
+            investorIndex++;
+
+            const container = document.getElementById('investors-container');
+            const cardDiv = document.createElement('div');
 
     // إنشاء عنصر div للبطاقة
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card mb-3 border shadow-sm investor-card-animation';
     cardDiv.id = investor-card-$;{investorCount};
 
-    // محتوى البطاقة بتنسيق Bootstrap
-    cardDiv.innerHTML = `
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="card-title m-0"><span class="badge bg-primary rounded-pill me-2">${investorCount}</span> بيانات المستثمر</h6>
-            ${investorCount > 1 ? <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeInvestor(this)"><i class='bx bx-trash'></i> حذف</button> : ''}
-        </div>
+            // الأسماء هنا (Name, Email, PhoneNumber...) تطابق كلاس Investor الجديد تماماً
+            cardDiv.innerHTML = `
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="card-title m-0"><span class="badge bg-success rounded-pill me-2">+</span> بيانات المستثمر الإضافي (${visualCount})</h6>
+                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeInvestor(this)"><i class='bx bx-trash'></i> حذف</button>
+                </div>
 
-        <div class="row g-3">
-            <div class="col-12 col-lg-6">
-                <label class="form-label">أسم المستثمر</label>
-                <input type="text" class="form-control" name="investor_name_${investorCount}">
-            </div>
-            <div class="col-12 col-lg-6">
-                <label class="form-label">الجنسية</label>
-                <input type="text" class="form-control" name="investor_nationality_${investorCount}">
-            </div>
-            <div class="col-12 col-lg-4">
-                <label class="form-label">قيمة المساهمة</label>
-                <input type="number" class="form-control" name="investor_value_${investorCount}">
-            </div>
-            <div class="col-12 col-lg-4">
-                <label class="form-label">نوع العملة</label>
-                <select class="form-select" name="investor_currency_${investorCount}">
-                    <option value="LYD">دينار ليبي</option>
-                    <option value="USD">دولار أمريكي</option>
-                    <option value="EUR">يورو</option>
-                </select>
-            </div>
-            <div class="col-12 col-lg-4">
-                <label class="form-label">نسبة المساهمة (%)</label>
-                <input type="number" class="form-control" name="investor_percent_${investorCount}">
-            </div>
-            <div class="col-12 col-lg-6">
-                <label class="form-label">رقم الهاتف</label>
-                <input type="text" class="form-control" name="investor_phone_${investorCount}">
-            </div>
-        </div>
-    </div>
-    `;
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label">أسم المستثمر</label>
+                        <input type="text" class="form-control" name="Investors[${investorIndex}].Name" required>
+                    </div>
 
-    container.appendChild(cardDiv);
-    }
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" name="Investors[${investorIndex}].Email">
+                    </div>
 
-    function removeInvestor(btn) {
-    btn.closest('.card').remove();
-    }
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label">رقم الهاتف الأساسي</label>
+                        <input type="text" class="form-control" name="Investors[${investorIndex}].PhoneNumber" placeholder="09xxxxxxxx">
+                    </div>
 
-    // إضافة مستثمر واحد تلقائياً عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-    addBootstrapInvestor();
-    });
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label">رقم الهاتف الثاني</label>
+                        <input type="text" class="form-control" name="Investors[${investorIndex}].SecondPhoneNumber" placeholder="09xxxxxxxx">
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label">رقم الجنسية (Nationality ID)</label>
+                        <input type="number" class="form-control" name="Investors[${investorIndex}].NationalityId">
+                    </div>
+
+                     </div>
+            </div>
+            `;
+
+            container.appendChild(cardDiv);
+            visualCount++;
+        }
+
+        function removeInvestor(btn) {
+            btn.closest('.card').remove();
+            visualCount--;
+            // ملاحظة: لإصلاح الـ Index بشكل كامل عند الحذف من المنتصف يتطلب كوداً أعقد،
+            // هذا الكود يكفي للإضافة والحذف البسيط.
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // لا نستدعي addBootstrapInvestor تلقائياً الآن لأننا لدينا مقدم الطلب ثابت في الأعلى
+        });
     </script>
 
+    <script src="~/js/main.js"></script>
+    <script src="~/plugins/bs-stepper/css/custom.js"></script>
+    <script src="~/plugins/bs-stepper/js/util.js"></script>
+    <script src="~/plugins/bs-stepper/js/polyfill.js"></script>
+    <script src="~/plugins/bs-stepper/js/listeners.js"></script>
+    <script src="~/plugins/bs-stepper/js/main.js"></script>
+    <script src="~/plugins/bs-stepper/js/index.spec.js"></script>
+    <script src="~/plugins/bs-stepper/js/index.js"></script>
+    <script src="~/plugins/bs-stepper/js/bs-stepper.min.js"></script>
 
-
-    <!-- Main JS-->
-  <script src="~/js/main.js"></script>
-
-<script src="~/plugins/bs-stepper/css/custom.js"></script>
-<script src="~/plugins/bs-stepper/js/util.js"></script>
-<script src="~/plugins/bs-stepper/js/polyfill.js"></script>
-<script src="~/plugins/bs-stepper/js/listeners.js"></script>
-<script src="~/plugins/bs-stepper/js/main.js"></script>
-<script src="~/plugins/bs-stepper/js/index.spec.js"></script>
-<script src="~/plugins/bs-stepper/js/index.js"></script>
-<script src="~/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-<script src="~/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-
-  </body>
-
-
+</body>
 </html>

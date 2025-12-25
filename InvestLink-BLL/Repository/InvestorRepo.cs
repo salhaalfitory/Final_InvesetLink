@@ -19,7 +19,8 @@ namespace InvestLink_BLL.Repository
             this.db = db;
         }
         public  async Task CreateAsync(Investor obj)
-        {       await db.Investors.AddAsync(obj);
+        {       
+            await db.Investors.AddAsync(obj);
             await db.SaveChangesAsync();
         }
 
