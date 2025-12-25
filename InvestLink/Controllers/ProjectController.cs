@@ -4,6 +4,8 @@ using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Project = InvestLink_DAL.Entities.Project;
 
 namespace InvestLink.Controllers
 {
@@ -15,19 +17,19 @@ namespace InvestLink.Controllers
         private readonly IProject project;
         private readonly IMapper mapper;
         private readonly ILicense license;
-
+        private readonly IInvestor investor;
+        
 
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public ProjectController(IProject project, IMapper mapper, ILicense license)
+        public ProjectController(IProject project, IMapper mapper, ILicense license, IInvestor investor)
         {
             this.project = project;
             this.mapper = mapper;
             this.license = license;
-          
-
+            this.investor = investor;
         }
         #endregion
         //--------------------------------------------------
@@ -46,16 +48,37 @@ namespace InvestLink.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectVM obj)
+        //public async Task<IActionResult> Create(ProjectVM obj)
+        public async Task<IActionResult> Create(ProjectInvestorVM obj)
         {
             try
             {
                 if (ModelState.IsValid == true)
                 {
-                    var data = mapper.Map<Project>(obj);
+                    var Project_info = mapper.Map<Project>(obj.Project);
+                    await project.CreateAsync(Project_info);
 
-                    await project.CreateAsync(data);
-                    return RedirectToAction("Index");
+
+                    //var Investors_info = mapper.Map<Investor>(obj.Investors);
+
+
+                    if (obj.Investor != null )
+                    {
+
+                        var Investors_info = mapper.Map<List<Investor>>(obj.Investor);
+
+                        foreach (var inv in Investors_info)
+                        {
+
+                            inv.Id = Project_info.Id;
+
+                            await investor.CreateAsync(inv);
+                        }
+                        return RedirectToAction("Index");
+
+                    }
+                    //await investor.CreateAsync(Investors_info);
+
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);
@@ -65,8 +88,8 @@ namespace InvestLink.Controllers
                 TempData["Message"] = ex.Message;
                 return View(obj);
             }
-
         }
+
         [HttpGet]
         public async Task<IActionResult> Update(int Id)
         {

@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InvestLink-BLL\InvestLink-BLL.csproj" />
+    <Folder Include="Views\Partials\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Partials\" />
+    <ProjectReference Include="..\InvestLink-BLL\InvestLink-BLL.csproj" />
   </ItemGroup>
 
 </Project>
