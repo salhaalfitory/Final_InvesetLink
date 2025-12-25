@@ -59,7 +59,7 @@ namespace InvestLink.Controllers
                     await project.CreateAsync(Project_info);
 
 
-                    //var Investors_info = mapper.Map<Investor>(obj.Investors);
+                   
 
 
                     if (obj.Investor != null )
@@ -77,7 +77,7 @@ namespace InvestLink.Controllers
                         return RedirectToAction("Index");
 
                     }
-                    //await investor.CreateAsync(Investors_info);
+                   
 
                 }
                 TempData["Meesage"] = "validation Error";

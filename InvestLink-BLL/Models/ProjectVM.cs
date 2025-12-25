@@ -1,4 +1,5 @@
 ﻿using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,8 @@ namespace InvestLink_BLL.Models
 
         [Required]
         public string? LegalBodyName { get; set; }//شكل قانوني تحميل
+        public IFormFile LegalBodyFile { get; set; }//شكل قانوني
+
         [Required]
         public string Area { get; set; }//مجال
         [Required, StringLength(100)]
@@ -35,13 +38,31 @@ namespace InvestLink_BLL.Models
         public string ConstructionPeriod { get; set; }// العمر الافتراضي
         [Required, StringLength(100)]
         public string SourcOfFunding { get; set; }//مصادر تمويل
+        public string LocalLoans { get; set; }//قروض محلية
+        public string ForeignLoans { get; set; }//قروض اجنبية
 
-        public string ProjectsCapitalCosts { get; set; }//تكاليف رأس مال المشروع
+
+        public string CostLandBuild { get; set; }//الأراضي والمباني والإنشاءات
+        public string CostMachine { get; set; }//الآلات والمعدات ووسائل النقل
+        public string CostSetup { get; set; }//مصروفات التأسيس والأثاث
+
+        public string TotalCost { get; set; }//إجمالي التكاليف الاستثمارية
+
+        public string Technology { get; set; }//التقنية المستخدمة
+
+        public string RawMaterialLocal { get; set; }//نسبة المواد الخام المحلية
+
+
+        public string RawMaterialForeign { get; set; }//نسبة المواد الخام الأجنبية
+       
+
+
+
         [Required, StringLength(500)]
         public string AboutTheProject { get; set; }//نبذه عن مشروع
 
 
-        public string? SourcesOfRawMaterial { get; set; }//مصادر مواد خام
+      
         public string? EnvironmentalImpact { get; set; }//اثر البيئي
 
         [Required]

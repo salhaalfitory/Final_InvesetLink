@@ -1,4 +1,5 @@
 ﻿using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,6 +25,14 @@ namespace InvestLink_BLL.Models
         [MinLength(10)]
         [MaxLength(10)]
         public string? SecondPhoneNumber { get; set; }//رقم تلفون2
+        [Required(ErrorMessage = "Adjective  is Required")]
+        public string Position { get; set; }//صفة المستثمر
+        [Required(ErrorMessage = "IDNumber  is Required")]
+       
+        public string IDNumber { get; set; }
+
+        public string? ImageName { get; set; }
+        public IFormFile? Image { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 
