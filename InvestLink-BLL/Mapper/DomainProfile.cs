@@ -17,8 +17,8 @@ namespace InvestLink_BLL.Mapper
             CreateMap<ProjectVM, Project>();
             //-----------------------
 
-            CreateMap<CoordinatorReport, CoordinatorReport>();
-            CreateMap<CoordinatorReport, CoordinatorReport>();
+            CreateMap<CoordinatorReport, CoordinatorReportVM>();
+            CreateMap<CoordinatorReportVM, CoordinatorReport>();
             //------------------------------------------------
             CreateMap<Nationality, NationalityVM>();
             CreateMap<NationalityVM, Nationality>();

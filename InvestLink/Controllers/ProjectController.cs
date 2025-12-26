@@ -56,45 +56,63 @@ namespace InvestLink.Controllers
         {
             try
             {
-                var LegalBodyName = FileUpLoader.UploaderFile(obj.LegalBodyFile, "Doc");
-                var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+
+                if (obj.Project.LegalBodyFile != null)
+                {
+                    var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
+                    obj.Project.LegalBodyName = LegalBodyName;
+                }
 
 
                 if (ModelState.IsValid == true)
                 {
 
-                    
                     var Project_info = mapper.Map<Project>(obj.Project);
-                    Project_info.LegalBodyName = LegalBodyName;
 
-                    await project.CreateAsync(Project_info);
+                    var Project_info_Id = await project.CreateAsync(Project_info);
 
 
                     if (obj.Investors != null && obj.Investors.Any())
                     {
-
-                        var Investors_info = mapper.Map<List<Investor>>(obj.Investors);
-                      
-                        foreach (var item in Investors_info)
+                        foreach (var item in obj.Investors)
                         {
-                            item.ImageName = ImageName;
-                            await investor.CreateAsync(item);
-
-                            var Link = new ProjectInvestor
+                            if (item.Image != null)
                             {
-                                ProjectId = Project_info.Id,
-                                InvestorId = item.Id
+                                var ImageName = FileUpLoader.UploaderFile(item.Image, "Doc");
+                                item.ImageName = ImageName;
+                            }
+
+                            var submittedInvestor = await investor.GetByEmailAsync(item.Email);
+                            int investorId;
+
+                            if (submittedInvestor != null)
+                            {
+                                // Existing investor
+                                investorId = submittedInvestor.Id;
+                            }
+                            else
+                            {
+                                // New investor
+                                var newInvestor = mapper.Map<Investor>(item);
+                                investorId = await investor.CreateAsync(newInvestor);
+                            }
+                            var link = new ProjectInvestor
+                            {
+                                ProjectId = Project_info_Id,
+                                InvestorId = investorId
                             };
 
-                            await projectinvestor.CreateAsync(Link);
+                            await projectinvestor.CreateAsync(link);
                         }
-  
 
+                        return RedirectToAction("Index");
+                    }
+  
                         return RedirectToAction("Index");
 
                     }
 
-                }
+                
                 TempData["Message"] = "validation Error";
                 return View(obj);
             }

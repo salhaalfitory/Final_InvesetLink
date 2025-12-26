@@ -18,10 +18,11 @@ namespace InvestLink_BLL.Repository
         {
             this.db = db;
         }
-        public async Task CreateAsync(Project obj)
+        public async Task<int> CreateAsync(Project obj)
         {
-            await db.Projects.AddAsync(obj);
+            db.Projects.Add(obj);
             await db.SaveChangesAsync();
+            return obj.Id;
         }
 
         public async Task<IEnumerable<Project>> GetAllAsync()
@@ -29,6 +30,8 @@ namespace InvestLink_BLL.Repository
             var data = await db.Projects.ToListAsync();
             return data;
         }
+
+        
 
         public async Task<Project> GetByIdAsync(int Id)
         {

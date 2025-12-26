@@ -10,9 +10,8 @@ namespace InvestLink_BLL.Models
 {
     public class Investor_ProjectVM
     {
-        public Project Project { get; set; }
+        public ProjectVM Project { get; set; }
         public List<InvestorVM> Investors { get; set; } = new List<InvestorVM>();
-        public IFormFile? Image { get; set; }
-        public IFormFile? LegalBodyFile { get; set; }
+        
     }
 }

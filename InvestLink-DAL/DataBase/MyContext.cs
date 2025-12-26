@@ -35,8 +35,11 @@ namespace InvestLink_DAL.DataBase
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProjectCoordinator>()
-                .HasKey(sc => new { sc.Id, sc.EmployeeId, sc.ProjectId });
+                .HasKey(sc => sc.Id);
 
+            modelBuilder.Entity<ProjectCoordinator>()
+                .HasIndex(sc => new { sc.EmployeeId, sc.ProjectId })
+                .IsUnique(); // Ensure unique pair
 
             modelBuilder.Entity<ProjectCoordinator>()
             .HasOne(bc => bc.Employee)
@@ -52,7 +55,11 @@ namespace InvestLink_DAL.DataBase
             .OnDelete(DeleteBehavior.ClientSetNull);
             //--------------------------------------------
             modelBuilder.Entity<ProjectInvestor>()
-               .HasKey(sc => new { sc.Id, sc.InvestorId, sc.ProjectId });
+               .HasKey(sc => sc.Id);
+
+            modelBuilder.Entity<ProjectInvestor>()
+               .HasIndex(sc => new { sc.InvestorId, sc.ProjectId })
+               .IsUnique(); // Ensure unique pair
 
 
             modelBuilder.Entity<ProjectInvestor>()

@@ -106,8 +106,8 @@
                                     <input type="text" class="form-control" asp-for="Investors[0].IDNumber">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Image" class="form-label">صورة البطاقة أو جواز السفر</label>
-                                    <input type="file" class="form-control" asp-for="Image">
+                                    <label asp-for="Investors[0].Image" class="form-label">صورة البطاقة أو جواز السفر</label>
+                                    <input type="file" class="form-control" asp-for="Investors[0].Image">
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].PhoneNumber" class="form-label">الهاتف / النقال</label>
@@ -140,8 +140,8 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="LegalBodyFile" class="form-label">الشكل القانوني للمشروع (ملف)</label>
-                                    <input class="form-control" type="file" asp-for="LegalBodyFile">
+                                    <label asp-for="Project.LegalBodyFile" class="form-label">الشكل القانوني للمشروع (ملف)</label>
+                                    <input class="form-control" type="file" asp-for="Project.LegalBodyFile">
                                 </div>
 
                                 <div class="col-12 col-lg-6">

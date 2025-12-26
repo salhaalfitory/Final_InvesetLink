@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitiMig : Migration
+    public partial class newone : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,8 +31,8 @@ namespace InvestLink_DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LegalBodyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LegalBodyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfActivity = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ProposedSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -167,15 +167,16 @@ namespace InvestLink_DAL.Migrations
                 name: "ProjectCoordinators",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectCoordinators", x => new { x.Id, x.EmployeeId, x.ProjectId });
+                    table.PrimaryKey("PK_ProjectCoordinators", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProjectCoordinators_Employee_EmployeeId",
                         column: x => x.EmployeeId,
@@ -192,13 +193,14 @@ namespace InvestLink_DAL.Migrations
                 name: "ProjectInvestors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
                     InvestorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectInvestors", x => new { x.Id, x.InvestorId, x.ProjectId });
+                    table.PrimaryKey("PK_ProjectInvestors", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProjectInvestors_Investor_InvestorId",
                         column: x => x.InvestorId,
@@ -223,18 +225,16 @@ namespace InvestLink_DAL.Migrations
                     Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsUpdated = table.Column<bool>(type: "bit", nullable: false),
                     UpdateData = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProjectCoordinatorId = table.Column<int>(type: "int", nullable: false),
-                    ProjectCoordinatorEmployeeId = table.Column<int>(type: "int", nullable: false),
-                    ProjectCoordinatorProjectId = table.Column<int>(type: "int", nullable: false)
+                    ProjectCoordinatorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CoordinatorReport", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CoordinatorReport_ProjectCoordinators_ProjectCoordinatorId_ProjectCoordinatorEmployeeId_ProjectCoordinatorProjectId",
-                        columns: x => new { x.ProjectCoordinatorId, x.ProjectCoordinatorEmployeeId, x.ProjectCoordinatorProjectId },
+                        name: "FK_CoordinatorReport_ProjectCoordinators_ProjectCoordinatorId",
+                        column: x => x.ProjectCoordinatorId,
                         principalTable: "ProjectCoordinators",
-                        principalColumns: new[] { "Id", "EmployeeId", "ProjectId" },
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -244,9 +244,9 @@ namespace InvestLink_DAL.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CoordinatorReport_ProjectCoordinatorId_ProjectCoordinatorEmployeeId_ProjectCoordinatorProjectId",
+                name: "IX_CoordinatorReport_ProjectCoordinatorId",
                 table: "CoordinatorReport",
-                columns: new[] { "ProjectCoordinatorId", "ProjectCoordinatorEmployeeId", "ProjectCoordinatorProjectId" });
+                column: "ProjectCoordinatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employee_NationalityId",
@@ -264,9 +264,10 @@ namespace InvestLink_DAL.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectCoordinators_EmployeeId",
+                name: "IX_ProjectCoordinators_EmployeeId_ProjectId",
                 table: "ProjectCoordinators",
-                column: "EmployeeId");
+                columns: new[] { "EmployeeId", "ProjectId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectCoordinators_ProjectId",
@@ -274,9 +275,10 @@ namespace InvestLink_DAL.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectInvestors_InvestorId",
+                name: "IX_ProjectInvestors_InvestorId_ProjectId",
                 table: "ProjectInvestors",
-                column: "InvestorId");
+                columns: new[] { "InvestorId", "ProjectId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectInvestors_ProjectId",
