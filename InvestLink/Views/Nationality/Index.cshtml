@@ -1,1 +1,43 @@
-﻿
+﻿@model IEnumerable<InvestLink_BLL.Models.NationalityVM>
+@{
+    ViewBag.Title = "Index ";
+}
+
+
+
+
+
+
+
+
+
+<h6 class="mb-0 text-uppercase">الجنسيات</h6>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">اسم</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                  int Count = 0;
+                 }
+                 @foreach (var Item in Model)
+                  {
+                            Count++;
+                            <tr>
+                                <th scope="row">@Count</th>
+
+                                <td>@Item.Name</td>
+                               
+                            </tr>
+                        }
+            </tbody>
+        </table>
+    </div>
+</div>

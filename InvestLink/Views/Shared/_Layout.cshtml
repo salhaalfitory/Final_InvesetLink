@@ -50,6 +50,7 @@
 
       <!--navigation-->
       <ul class="metismenu" id="menu">
+                @*     //-------------------المستثمر------------------ *@
         <li>
           <a asp-controller="Home" asp-action="Index">
             <div class="parent-icon">
@@ -86,17 +87,17 @@
           </a>
           <ul>
                         <li>
-             <a asp-controller="Project" asp-action="Index">
+                            <a asp-controller="Project" asp-action="NewRequests">
                 <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
               </a>
             </li>
             <li>
-              <a asp-controller="Project" asp-action="Index">
+                            <a asp-controller="Project" asp-action="RequestsReferredtomanagement">
                 <ion-icon name="ellipse-outline"></ion-icon>الطلبات المحالة للادارة
               </a>
             </li>
                         <li>
-                            <a asp-controller="Project" asp-action="Index">
+                            <a asp-controller="Project" asp-action="RejectedRequests">
                 <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
               </a>
             </li>
@@ -121,12 +122,12 @@
           </a>
           <ul>
           <li>
-    <a asp-controller="License" asp-action="Index">
+                            <a asp-controller="License" asp-action="LicenseRenewal">
                 <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
               </a>
             </li>
          <li>
-       <a asp-controller="License" asp-action="Index">
+                            <a asp-controller="License" asp-action="RejectedLicenses">
                 <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
               </a>
                         
@@ -141,6 +142,7 @@
                 </a>
 
               </li>
+               
 
       @*     //-------------------مدير------------------ *@
       <li>
@@ -152,13 +154,13 @@
                </a>
                 <ul>
               <li>
-               <a asp-controller="Project" asp-action="Index">
+                            <a asp-controller="Project" asp-action="NewRequests">
               <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
                </a>
            </li>
                                         
           <li>
-           <a asp-controller="Project" asp-action="Index">
+                            <a asp-controller="Project" asp-action="RejectedRequests">
          <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
       </a>
        </li>
@@ -182,12 +184,12 @@
      </a>
     <ul>
     <li>
-   <a asp-controller="License" asp-action="Index">
+                            <a asp-controller="License" asp-action="LicenseRenewal">
    <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
   </a>
         </li>
       <li>
-    <a asp-controller="License" asp-action="Index">
+                            <a asp-controller="License" asp-action="RejectedLicenses">
    <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
  </a>
     </ul>
@@ -199,6 +201,15 @@
  <div class="menu-title">إدارة الإعلانات</div>
    </a>
  </li>
+                <li>
+                    <a asp-controller="Nationality" asp-action="Index">
+                        <div class="parent-icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </div>
+                        <div class="menu-title">إدارة الجنسيات</div>
+                    </a>
+
+                </li>
    <li>
    <a asp-controller="User" asp-action="Index" class="has-arrow">
      <div class="parent-icon">
@@ -246,7 +257,7 @@
      </a>
       </li>
       <li>
-    <a asp-controller="CoordinatorReport" asp-action="Update">
+                            <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
      <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
    </a>
    </li>
@@ -267,23 +278,22 @@
         <div class="top-navbar-right ms-auto">
                     
           <ul class="navbar-nav align-items-center">
+                        @*     //-------------------المستثمر------------------ *@
+                        <li>
+                            <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                <div class="font-22">
+                                    <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
+                                </div>
+                            </a>
+                        </li>
 
                         <li>
-                            <div class="col">
-                                <a asp-controller="Project" asp-action="Create" class="btn btn-info px-5">
-                                    <i class="fa fa-plus-circle"></i>
-                                    تقديم طلب استثماري
-                                </a>
+                        <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                            <div class="font-22">
+                                <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
                             </div>
+                        </a>
                         </li>
-            <li class="nav-item">
-                <a asp-controller="Advertisement" asp-action="Index" class="nav-link dark-mode-icon" >
-                <div class="mode-icon">
-                                    <ion-icon name="albums-outline">الإعلانات</ion-icon>
-                </div>
-              </a>
-            </li>
-           
                   
             <li class="nav-item dropdown dropdown-user-setting">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">

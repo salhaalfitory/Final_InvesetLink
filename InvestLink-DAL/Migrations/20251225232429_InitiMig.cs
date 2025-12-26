@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class mm : Migration
+    public partial class InitiMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,10 +40,16 @@ namespace InvestLink_DAL.Migrations
                     TypeOfBenefitFromSite = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     projectTimeLine = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ConstructionPeriod = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SourcOfFunding = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ProjectsCapitalCosts = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LocalLoans = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ForeignLoans = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CostLandBuild = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CostMachine = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CostSetup = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TotalCost = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RawMaterialLocal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RawMaterialForeign = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AboutTheProject = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    SourcesOfRawMaterial = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EnvironmentalImpact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocalManpower = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ForeignManpower = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -92,6 +98,9 @@ namespace InvestLink_DAL.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     SecondPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IDNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -212,6 +221,8 @@ namespace InvestLink_DAL.Migrations
                     CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsUpdated = table.Column<bool>(type: "bit", nullable: false),
+                    UpdateData = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProjectCoordinatorId = table.Column<int>(type: "int", nullable: false),
                     ProjectCoordinatorEmployeeId = table.Column<int>(type: "int", nullable: false),
                     ProjectCoordinatorProjectId = table.Column<int>(type: "int", nullable: false)

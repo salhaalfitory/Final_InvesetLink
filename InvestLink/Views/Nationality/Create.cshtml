@@ -1,1 +1,24 @@
-﻿
+﻿@model InvestLink_BLL.Models.NationalityVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div asp-validation-summary="All"></div>
+
+<div class="card">
+    <div class="card-header">
+        <h6 class="mb-0">إنشاء جنسيات</h6>
+    </div>
+    <div class="card-body">
+
+            <form asp-controller="Nationality" asp-action="Create">
+        <input class="form-control mb-3" type="text" placeholder="ادخل اسم جنسية">
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <input type="submit" value="حفظ" class="btn btn-primary m-t-15 waves-effect" />
+            <a asp-controller="Nationality" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+       </form>
+    </div>
+</div>
