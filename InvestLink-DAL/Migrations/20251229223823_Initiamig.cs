@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:InvestLink-DAL/Migrations/20251226142901_newone.cs
-    public partial class newone : Migration
-========
-    public partial class initmig : Migration
->>>>>>>> 0720502 (انشاء جنسيات واعلان):InvestLink-DAL/Migrations/20251227195319_initmig.cs
+    public partial class Initiamig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,15 +30,9 @@ namespace InvestLink_DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-<<<<<<<< HEAD:InvestLink-DAL/Migrations/20251226142901_newone.cs
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LegalBodyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-========
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LegalBodyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
->>>>>>>> 0720502 (انشاء جنسيات واعلان):InvestLink-DAL/Migrations/20251227195319_initmig.cs
+                    LegalBodyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfActivity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProposedSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -110,7 +100,7 @@ namespace InvestLink_DAL.Migrations
                     SecondPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IDNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),

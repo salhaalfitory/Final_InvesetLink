@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-<<<<<<<< HEAD:InvestLink-DAL/Migrations/20251226142901_newone.Designer.cs
-    [Migration("20251226142901_newone")]
-    partial class newone
-========
-    [Migration("20251227195319_initmig")]
-    partial class initmig
->>>>>>>> 0720502 (انشاء جنسيات واعلان):InvestLink-DAL/Migrations/20251227195319_initmig.Designer.cs
+    [Migration("20251229223823_Initiamig")]
+    partial class Initiamig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,7 +161,6 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -314,7 +308,6 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LegalBodyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocalLoans")

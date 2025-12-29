@@ -6,6 +6,7 @@ using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Project = InvestLink_DAL.Entities.Project;
 
@@ -63,7 +64,7 @@ namespace InvestLink.Controllers
                 
                     var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
                     obj.Project.LegalBodyName = LegalBodyName;
-              
+
 
                 if (ModelState.IsValid == true)
                 {
@@ -79,88 +80,53 @@ namespace InvestLink.Controllers
                     {
                         foreach (var item in obj.Investors)
                         {
-                            if (item.Image != null)
-                            {
-                                var ImageName = FileUpLoader.UploaderFile(item.Image, "Doc");
-                                item.ImageName = ImageName;
-                            }
-
-                        foreach (var item in obj.Investors)
-                        {
-
                            
                                 var ImageName = FileUpLoader.UploaderFile(item.Image, "Doc");
                                 item.ImageName = ImageName;
-                           
-                       
-                            var submittedInvestor = await investor.GetByEmailAsync(item.Email);
 
-                            int investorId;
-                            if (submittedInvestor != null)
-                            {
-                                //existing investor
-                                investorId = submittedInvestor.Id;
-                            
-                            }
-                            else
-                            {
-                                //New investor
-                                var newInvestor = mapper.Map<Investor>(item);
-                                investorId = await investor.CreateAsync(newInvestor);
-                            }
-                        
-                            var Link = new ProjectInvestor
-                            {
-                                ProjectId = Project_info_Id,
-                                InvestorId = investorId
-                            };
 
-                            await projectinvestor.CreateAsync(link);
+                                var submittedInvestor = await investor.GetByEmailAsync(item.Email);
+
+                                int investorId;
+                                if (submittedInvestor != null)
+                                {
+                                    //existing investor
+                                    investorId = submittedInvestor.Id;
+
+                                }
+                                else
+                                {
+                                    //New investor
+                                    var newInvestor = mapper.Map<Investor>(item);
+                                    investorId = await investor.CreateAsync(newInvestor);
+                                }
+
+                                var Link = new ProjectInvestor
+                                {
+                                    ProjectId = Project_info_Id,
+                                    InvestorId = investorId
+                                };
+
+                                await projectinvestor.CreateAsync(Link);
+                            }
+
                         }
-
+                        return RedirectToAction("Index");
                     }
-                    return RedirectToAction("Index");
+                    TempData["Message"] = "validation Error";
+                    return View(obj);
                 }
-                TempData["Message"] = "validation Error";
-                return View(obj);
-            }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
                 return View(obj);
             }
         }
-
+         
 
        
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int Id)
-        {
-            var data = await project.GetByIdAsync(Id);
-            var result = mapper.Map<ProjectVM>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(ProjectVM obj)
-        {
-            try
-            {
-                if (ModelState.IsValid == true)
-                {
-                    var data = mapper.Map<Project>(obj);
-                    await project.UpdateAsync(data);
-                    return RedirectToAction("Index");
-                }
-                TempData["Meesage"] = "validation Error";
-                return View(obj);
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-                return View(obj);
-            }
-        }
+       
        
         
         public async Task<IActionResult> Details(int Id)
