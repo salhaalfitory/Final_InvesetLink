@@ -34,6 +34,7 @@ namespace InvestLink_DAL.DataBase
         {
             base.OnModelCreating(modelBuilder);
 
+
             modelBuilder.Entity<ProjectCoordinator>()
                 .HasKey(sc => sc.Id);
 

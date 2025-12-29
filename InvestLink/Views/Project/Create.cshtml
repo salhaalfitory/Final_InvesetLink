@@ -70,7 +70,7 @@
             <div class="card-body">
                 <div class="bs-stepper-content">
 
-                    <form asp-action="Create" method="post" enctype="multipart/form-data" id="applicationForm">
+                    <form asp-controller="Project" asp-action="Create" enctype="multipart/form-data" id="applicationForm">
 
                         <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                             <h5 class="mb-1">بيانات مقدم الطلب والمستثمر</h5>
@@ -94,11 +94,8 @@
                                     <input type="text" class="form-control" asp-for="Investors[0].Position" placeholder="مثال: مدير عام، وكيل...">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <select class="form-select mb-3" asp-for="Investors[0].NationalityId">
-                                        <option selected="">اختر الجنسية</option>
-                                        <option value="1">ليبي</option>
-                                        <option value="2">مصري</option>
-                                        <option value="3">سوري</option>
+                                    <select class="form-select mb-3" asp-for="Investors[0].NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
+                                        <option value=""> اختر  الجنسية</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -291,6 +288,8 @@
             </div>
         </div>
     </div>
+   
+    
     <script>
         function addBootstrapInvestor() {
             const container = document.getElementById('investors-container');
@@ -379,8 +378,6 @@
                 // تحديث عنوان الكارد
                 item.querySelector('.card-title').innerText = `بيانات الشريك / المستثمر الإضافي (${newIndex})`;
 
-                // تحديث الـ Names لكل الحقول
-                // نستخدم Class مميز لكل حقل للوصول إليه بسهولة
 
                 if(item.querySelector('.field-name'))
                     item.querySelector('.field-name').name = `Investors[${newIndex}].Name`;
@@ -394,9 +391,9 @@
                 if(item.querySelector('.field-idnumber'))
                     item.querySelector('.field-idnumber').name = `Investors[${newIndex}].IDNumber`;
 
-                // ملاحظة بخصوص الملف: يفضل تسمية الخاصية في الموديل ImageFile لكل مستثمر
+              
                 if(item.querySelector('.field-file'))
-                    item.querySelector('.field-file').name = `Investors[${newIndex}].ImageFile`;
+                    item.querySelector('.field-file').name = `Investors[${newIndex}].Image`;
 
                 if(item.querySelector('.field-phone'))
                     item.querySelector('.field-phone').name = `Investors[${newIndex}].PhoneNumber`;

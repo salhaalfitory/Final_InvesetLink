@@ -19,6 +19,7 @@ namespace InvestLink.Controllers
         private readonly IProject project;
         private readonly IMapper mapper;
         private readonly ILicense license;
+        private readonly INationality nationality;
         private readonly IInvestor investor;
         private readonly IProjectInvestor projectinvestor;
 
@@ -27,11 +28,12 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public ProjectController(IProject project, IMapper mapper, ILicense license, IInvestor investor, IProjectInvestor projectinvestor)
+        public ProjectController(IProject project, IMapper mapper, ILicense license, INationality nationality, IInvestor investor, IProjectInvestor projectinvestor)
         {
             this.project = project;
             this.mapper = mapper;
             this.license = license;
+            this.nationality = nationality;
             this.investor = investor;
             this.projectinvestor = projectinvestor;
         }
@@ -47,8 +49,10 @@ namespace InvestLink.Controllers
             return View(result);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -56,18 +60,17 @@ namespace InvestLink.Controllers
         {
             try
             {
-
-                if (obj.Project.LegalBodyFile != null)
-                {
+                
                     var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
                     obj.Project.LegalBodyName = LegalBodyName;
-                }
-
+              
 
                 if (ModelState.IsValid == true)
                 {
 
+                    obj.Project.State = "تم استلام";
                     var Project_info = mapper.Map<Project>(obj.Project);
+
 
                     var Project_info_Id = await project.CreateAsync(Project_info);
 
@@ -82,21 +85,31 @@ namespace InvestLink.Controllers
                                 item.ImageName = ImageName;
                             }
 
-                            var submittedInvestor = await investor.GetByEmailAsync(item.Email);
-                            int investorId;
+                        foreach (var item in obj.Investors)
+                        {
 
+                           
+                                var ImageName = FileUpLoader.UploaderFile(item.Image, "Doc");
+                                item.ImageName = ImageName;
+                           
+                       
+                            var submittedInvestor = await investor.GetByEmailAsync(item.Email);
+
+                            int investorId;
                             if (submittedInvestor != null)
                             {
-                                // Existing investor
+                                //existing investor
                                 investorId = submittedInvestor.Id;
+                            
                             }
                             else
                             {
-                                // New investor
+                                //New investor
                                 var newInvestor = mapper.Map<Investor>(item);
                                 investorId = await investor.CreateAsync(newInvestor);
                             }
-                            var link = new ProjectInvestor
+                        
+                            var Link = new ProjectInvestor
                             {
                                 ProjectId = Project_info_Id,
                                 InvestorId = investorId
@@ -105,14 +118,9 @@ namespace InvestLink.Controllers
                             await projectinvestor.CreateAsync(link);
                         }
 
-                        return RedirectToAction("Index");
                     }
-  
-                        return RedirectToAction("Index");
-
-                    }
-
-                
+                    return RedirectToAction("Index");
+                }
                 TempData["Message"] = "validation Error";
                 return View(obj);
             }
@@ -160,6 +168,14 @@ namespace InvestLink.Controllers
             var data = await project.GetByIdAsync(Id);
             var result = mapper.Map<ProjectVM>(data);
 
+            return View(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> NewRequests()
+        {
+
+            var data = await project.GetByStateAsync("تم استلام");
+            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
             return View(result);
         }
 

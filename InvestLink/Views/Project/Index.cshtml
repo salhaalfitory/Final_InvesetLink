@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<InvestLink_BLL.Models.ProjectVM>
 @{
+    ViewBag.Title = "Index ";
 }
+
+
+
+
+
+
+
+
+
+<h6 class="mb-0 text-uppercase">الطلبات الجديدة</h6>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">اسم</th>
+                    <th scope="col">تاريخ إنشاء</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                    <tr>
+                        <th scope="row">@Count</th>
+
+                        <td>@Item.Name</td>
+                        <td>@Item.CreationData</td>
+                      
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

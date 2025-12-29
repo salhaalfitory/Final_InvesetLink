@@ -15,7 +15,7 @@ namespace InvestLink_DAL.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required, StringLength(100)]
+        [Required]
         public string Name { get; set; }//اسم 
        
         public string? State { get; set; } // الحقل المسؤول عن تصنيف الطلب
@@ -26,53 +26,57 @@ namespace InvestLink_DAL.Entities
 
         [Required]
         public string Area { get; set; }//مجال
-        [Required, StringLength(100)]
+        [Required]
         public string TypeOfActivity { get; set; }//نوع نشاط
         [Required]
         public string ProposedSite { get; set; }//  موقع مقترح تحميل
-        [Required, StringLength(100)]
+        [Required]
         public string AreaWanted { get; set; }//مساحة مطلوبة
-        [Required, StringLength(100)]
+        [Required]
         public string TypeOfBenefitFromSite { get; set; }//نوع انتفاع بموقع
-        [Required, StringLength(100)]
+        [Required]
         public string projectTimeLine { get; set; }//مدة تنفيذ مشروع
-        [Required, StringLength(100)]
+        [Required]
         public string ConstructionPeriod { get; set; }// العمر الافتراضي
-        [Required, StringLength(100)]
-       
+        [Required]
+
         public string LocalLoans { get; set; }//قروض محلية
+        [Required]
         public string ForeignLoans { get; set; }//قروض اجنبية
 
-
+        [Required]
         public string CostLandBuild { get; set; }//الأراضي والمباني والإنشاءات
+        [Required]
         public string CostMachine { get; set; }//الآلات والمعدات ووسائل النقل
+        [Required]
         public string CostSetup { get; set; }//مصروفات التأسيس والأثاث
-
+        [Required]
         public string TotalCost { get; set; }//إجمالي التكاليف الاستثمارية
-
+        [Required]
         public string Technology { get; set; }//التقنية المستخدمة
-
+        [Required]
         public string RawMaterialLocal { get; set; }//نسبة المواد الخام المحلية
-
+        [Required]
 
         public string RawMaterialForeign { get; set; }//نسبة المواد الخام الأجنبية
 
 
 
-
-        [Required, StringLength(500)]
+        [Required]
         public string AboutTheProject { get; set; }//نبذه عن مشروع
 
 
-
-        public string? EnvironmentalImpact { get; set; }//اثر البيئي
+        [Required]
+        public string EnvironmentalImpact { get; set; }//اثر البيئي
 
         [Required]
         public string LocalManpower { get; set; }//العمالة المحلية 
         [Required]
         public string ForeignManpower { get; set; }//العمالة الاجنبية
-        public string? TrainingPrograms { get; set; }//البرامج التدريبة للعمالة
-        public string? ExperienceOfInvestor { get; set; }//خبرة المستثمر
+        [Required]
+        public string TrainingPrograms { get; set; }//البرامج التدريبة للعمالة
+        [Required]
+        public string ExperienceOfInvestor { get; set; }//خبرة المستثمر
 
         public DateTime CreationData { get; set; } = DateTime.Now;
 

@@ -32,11 +32,12 @@ namespace InvestLink_BLL.Models
         public string IDNumber { get; set; }
 
         public string? ImageName { get; set; }
-        public IFormFile? Image { get; set; }
+        public IFormFile Image { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 
         //------------------------------------
+        [Required(ErrorMessage = "الرجاء اختيار الجنسية")]
         public int NationalityId { get; set; }
         public Nationality? Nationality { get; set; }
         //------------------------------------

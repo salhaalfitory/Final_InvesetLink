@@ -14,7 +14,8 @@
     <div class="card-body">
 
             <form asp-controller="Nationality" asp-action="Create">
-        <input class="form-control mb-3" type="text" placeholder="ادخل اسم جنسية">
+            <label asp-for="Name" class="form-label">الجنسية</label>
+            <input type="text" class="form-control mb-3" asp-for="Name" placeholder="ادخل اسم جنسية">
             <span asp-validation-for="Name" class="text-danger"></span>
 
             <input type="submit" value="حفظ" class="btn btn-primary m-t-15 waves-effect" />
