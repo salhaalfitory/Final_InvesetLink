@@ -23,6 +23,7 @@ namespace InvestLink_DAL.Entities
         //-------------------------------------------------
         public int ProjectId { get; set; }
         public Project? Project { get; set; }
+
         //----------------------------------
     }
 }

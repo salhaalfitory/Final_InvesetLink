@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:InvestLink-DAL/Migrations/20251229194849_init1.cs
-    public partial class init1 : Migration
-========
-    public partial class Initiamig : Migration
->>>>>>>> 8edacad640088e316386e964fc6c2582e50e8f1c:InvestLink-DAL/Migrations/20251229223823_Initiamig.cs
+    public partial class t6 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,18 +36,10 @@ namespace InvestLink_DAL.Migrations
                     Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfActivity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProposedSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
-<<<<<<<< HEAD:InvestLink-DAL/Migrations/20251229194849_init1.cs
-                    AreaWanted = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TypeOfBenefitFromSite = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    projectTimeLine = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ConstructionPeriod = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SourcOfFunding = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-========
                     AreaWanted = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfBenefitFromSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     projectTimeLine = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConstructionPeriod = table.Column<string>(type: "nvarchar(max)", nullable: false),
->>>>>>>> 8edacad640088e316386e964fc6c2582e50e8f1c:InvestLink-DAL/Migrations/20251229223823_Initiamig.cs
                     LocalLoans = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ForeignLoans = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CostLandBuild = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -61,13 +49,8 @@ namespace InvestLink_DAL.Migrations
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RawMaterialLocal = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RawMaterialForeign = table.Column<string>(type: "nvarchar(max)", nullable: false),
-<<<<<<<< HEAD:InvestLink-DAL/Migrations/20251229194849_init1.cs
-                    AboutTheProject = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    EnvironmentalImpact = table.Column<string>(type: "nvarchar(max)", nullable: true),
-========
                     AboutTheProject = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EnvironmentalImpact = table.Column<string>(type: "nvarchar(max)", nullable: false),
->>>>>>>> 8edacad640088e316386e964fc6c2582e50e8f1c:InvestLink-DAL/Migrations/20251229223823_Initiamig.cs
                     LocalManpower = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ForeignManpower = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrainingPrograms = table.Column<string>(type: "nvarchar(max)", nullable: false),

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20251225152222_t2")]
-    partial class t2
+    [Migration("20251230015054_t6")]
+    partial class t6
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,13 +78,7 @@ namespace InvestLink_DAL.Migrations
                     b.Property<bool>("IsUpdated")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProjectCoordinatorEmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProjectCoordinatorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectCoordinatorProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -97,7 +91,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectCoordinatorId", "ProjectCoordinatorEmployeeId", "ProjectCoordinatorProjectId");
+                    b.HasIndex("ProjectCoordinatorId");
 
                     b.ToTable("CoordinatorReport");
                 });
@@ -162,6 +156,13 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -180,6 +181,10 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondPhoneNumber")
                         .HasMaxLength(10)
@@ -257,8 +262,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("AboutTheProject")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Area")
                         .IsRequired()
@@ -266,13 +270,11 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("AreaWanted")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionPeriod")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CostLandBuild")
                         .IsRequired()
@@ -290,9 +292,11 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EnvironmentalImpact")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExperienceOfInvestor")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ForeignLoans")
@@ -304,7 +308,6 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LegalBodyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocalLoans")
@@ -317,8 +320,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProposedSite")
                         .IsRequired()
@@ -332,15 +334,8 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SourcOfFunding")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Technology")
                         .IsRequired()
@@ -351,22 +346,20 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrainingPrograms")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfActivity")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfBenefitFromSite")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("projectTimeLine")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -376,25 +369,29 @@ namespace InvestLink_DAL.Migrations
             modelBuilder.Entity("InvestLink_DAL.Entities.ProjectCoordinator", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id", "EmployeeId", "ProjectId");
-
-                    b.HasIndex("EmployeeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("EmployeeId", "ProjectId")
+                        .IsUnique();
 
                     b.ToTable("ProjectCoordinators");
                 });
@@ -402,7 +399,10 @@ namespace InvestLink_DAL.Migrations
             modelBuilder.Entity("InvestLink_DAL.Entities.ProjectInvestor", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("InvestorId")
                         .HasColumnType("int");
@@ -410,11 +410,12 @@ namespace InvestLink_DAL.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id", "InvestorId", "ProjectId");
-
-                    b.HasIndex("InvestorId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("InvestorId", "ProjectId")
+                        .IsUnique();
 
                     b.ToTable("ProjectInvestors");
                 });
@@ -434,7 +435,7 @@ namespace InvestLink_DAL.Migrations
                 {
                     b.HasOne("InvestLink_DAL.Entities.ProjectCoordinator", "ProjectCoordinator")
                         .WithMany("CoordinatorReports")
-                        .HasForeignKey("ProjectCoordinatorId", "ProjectCoordinatorEmployeeId", "ProjectCoordinatorProjectId")
+                        .HasForeignKey("ProjectCoordinatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

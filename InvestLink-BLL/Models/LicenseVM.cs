@@ -10,6 +10,14 @@ namespace InvestLink_BLL.Models
 {
     public class LicenseVM
     {
+        public LicenseVM()
+        {
+            //this.IsActive = true;
+            //this.IsDeleted = false;
+            //this.IsGraduated = false;
+            this.CreatedDate = DateTime.Now;
+        }
+
         [Key]
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }//تاريخ إنشاء 

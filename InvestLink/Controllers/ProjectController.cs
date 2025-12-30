@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Project = InvestLink_DAL.Entities.Project;
 
 namespace InvestLink.Controllers
@@ -70,6 +71,7 @@ namespace InvestLink.Controllers
                 {
 
                     obj.Project.State = "تم استلام";
+
                     var Project_info = mapper.Map<Project>(obj.Project);
 
 
@@ -101,6 +103,7 @@ namespace InvestLink.Controllers
                                     investorId = await investor.CreateAsync(newInvestor);
                                 }
 
+                                //تعديل لأنها تتعامل من DAL مباشرا
                                 var Link = new ProjectInvestor
                                 {
                                     ProjectId = Project_info_Id,
@@ -201,18 +204,41 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> ApproveFinal(int Id)
         {
             var request = await project.GetByIdAsync(Id);
-
-
             request.State = "معتمد";
-
             await project.UpdateAsync(request);
-            //DAL.Entities.License obj = new DAL.Entities.License();
 
-            //obj.ProjectId = request.ProjectId;
-            //obj.CreatedDate = DateTime.Now;
-            //obj.LicenseNumber = $"{DateTime.Now.Year}-{ProjectId}-LIC";
-            //obj.State = "سارية";
-            //await license.CreateAsync(obj);
+
+            //var result = mapper.Map<IEnumerable<licenseVM>>(data);
+            //var licenseVM = new LicenseVM
+            //{
+            //    ProjectId = request.Id,
+            //    //obj.CreatedDate = DateTime.Now,
+            //    //obj.LicenseNumber = $"{DateTime.Now.Year}-{ProjectId}-LIC",
+            //    //obj.State = "سارية"
+            //};
+
+
+            License obj = new License();
+
+            obj.ProjectId = request.Id;
+            obj.CreatedDate = DateTime.Now;
+            obj.ExpireDate = DateTime.Now.AddMinutes(2);
+            // توليد رقم رخصة تلقائي مميز
+            // مثال: 2025-569-LIC
+            obj.LicenseNumber = $"{DateTime.Now.Year}-{Id}-LIC";
+            //obj.LicenseNumber = $"{DateTime.Now.Year}-{new Random().Next(100, 999)}-LIC";
+            //var newLicense = new Graduation_project.DAL.Entities.License
+            //{
+            //    ProjectId = ProjectId, // الربط بالمشروع
+
+            //    CreatedDate = DateTime.Now, // تاريخ الإصدار = اللحظة الحالية
+
+            //    ExpireDate = DateTime.Now.AddYears(3), // مثال: مدة الصلاحية 3 اشهر
+
+            //    // توليد رقم رخصة تلقائي مميز
+            //    // مثال: 2025-569-LIC
+            //    LicenseNumber = $"{DateTime.Now.Year}-{new Random().Next(100, 999)}-LIC"
+            //};
             TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
             return RedirectToAction("ApproveFinal");
         }

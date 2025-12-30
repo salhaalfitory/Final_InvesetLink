@@ -44,9 +44,16 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public Task<IEnumerable<Project>> GetByStateAsync(string state)
+        //public Task<IEnumerable<Project>> GetByStateAsync(string state)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        public async Task<IEnumerable<Project>> GetByStateAsync(string state)
         {
-            throw new NotImplementedException();
+            var data = await db.Projects
+            .Where(p => p.State == state)
+            .ToListAsync();
+            return data;
         }
 
 
