@@ -3,106 +3,106 @@
 <html lang="en" dir="rtl">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- loader-->
+  <!-- loader-->
     <link href="~/css/pace.min.css" rel="stylesheet" />
     <script src="~/js/pace.min.js"></script>
 
-    <!--plugins-->
+  <!--plugins-->
     <link href="~/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="~/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
 
-    <!-- CSS Files -->
+  <!-- CSS Files -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/bootstrap-extended.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!--Theme Styles-->
+  <!--Theme Styles-->
     <link href="~/css/dark-theme.css" rel="stylesheet" />
     <link href="~/css/semi-dark.css" rel="stylesheet" />
     <link href="~/css/header-colors.css" rel="stylesheet" />
 
-    <title>الهيئة العامة لتشجيع الاستثمار و شؤون الخصخصة</title>
+  <title>الهيئة العامة لتشجيع الاستثمار و شؤون الخصخصة</title>
 </head>
 
 <body>
 
 
-    <!--start wrapper-->
-    <div class="wrapper">
+  <!--start wrapper-->
+  <div class="wrapper">
 
-        <!--start sidebar -->
-        <aside class="sidebar-wrapper" data-simplebar="true">
-            <div class="sidebar-header">
-                <div>
-                    <img src="~/images/logo-icon-2.png" class="logo-icon" alt="logo icon">
-                </div>
-                <div>
-                    <h4 class="logo-text">Fobia</h4>
-                </div>
-            </div>
+    <!--start sidebar -->
+    <aside class="sidebar-wrapper" data-simplebar="true">
+      <div class="sidebar-header">
+        <div>
+        <img src="~/images/logo-icon-2.png" class="logo-icon" alt="logo icon">
+        </div>
+        <div>
+          <h4 class="logo-text">Fobia</h4>
+        </div>
+      </div>
 
-            <!--navigation-->
-            <ul class="metismenu" id="menu">
+      <!--navigation-->
+      <ul class="metismenu" id="menu">
                 @*     //-------------------المستثمر------------------ *@
-                <li>
-                    <a asp-controller="Home" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">الرئيسية</div>
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Project" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
+        <li>
+          <a asp-controller="Home" asp-action="Index">
+            <div class="parent-icon">
+              <ion-icon name="home-outline"></ion-icon>
+            </div>
+            <div class="menu-title">الرئيسية</div>
+          </a>
+        </li>
+        <li>
+       <a asp-controller="Project" asp-action="Index">
+        <div class="parent-icon">
+         <ion-icon name="home-outline"></ion-icon>
+         </div>
+          <div class="menu-title">الطلبات الاستثمارية</div>
+           </a>
+           </li>
+             <li>
+              <a asp-controller="Project" asp-action="Index">
+               <div class="parent-icon">
+                <ion-icon name="home-outline"></ion-icon>
+                </div>
+                  <div class="menu-title">المشاريع الاستثمارية</div>
+                   </a>
+          
+                 </li>
+             @*     //-------------------رئيس خدمات------------------ *@
+               
+        <li>
+                    <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon">
+              <ion-icon name="gift-outline"></ion-icon>
+            </div>
                         <div class="menu-title">الطلبات الاستثمارية</div>
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Project" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">المشاريع الاستثمارية</div>
-                    </a>
-
-                </li>
-                @*     //-------------------رئيس خدمات------------------ *@
-
-                <li>
-                    <a asp-controller="Project" asp-action="Index" class="has-arrow">
-                        <div class="parent-icon">
-                            <ion-icon name="gift-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">الطلبات الاستثمارية</div>
-                    </a>
-                    <ul>
+          </a>
+          <ul>
                         <li>
                             <a asp-controller="Project" asp-action="NewRequests">
-                                <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
-                            </a>
-                        </li>
-                        <li>
+                <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
+              </a>
+            </li>
+            <li>
                             <a asp-controller="Project" asp-action="RequestsReferredtomanagement">
-                                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المحالة للادارة
-                            </a>
-                        </li>
+                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المحالة للادارة
+              </a>
+            </li>
                         <li>
                             <a asp-controller="Project" asp-action="RejectedRequests">
-                                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
-                            </a>
-                        </li>
+                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
+              </a>
+            </li>
 
-                    </ul>
+            </ul>
                 <li>
                     <a asp-controller="Project" asp-action="Index">
                         <div class="parent-icon">
@@ -112,95 +112,99 @@
                     </a>
 
                 </li>
-
-                <li>
-                    <a asp-controller="License" asp-action="Index" class="has-arrow">
-                        <div class="parent-icon">
-                            <ion-icon name="leaf-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">إدارة الرخص</div>
-                    </a>
-                    <ul>
-                        <li>
+       
+        <li>
+                    <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon">
+              <ion-icon name="leaf-outline"></ion-icon>
+            </div>
+            <div class="menu-title">إدارة الرخص</div>
+          </a>
+          <ul>
+          <li>
                             <a asp-controller="License" asp-action="LicenseRenewal">
-                                <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
-                            </a>
-                        </li>
-                        <li>
+                <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
+              </a>
+            </li>
+         <li>
                             <a asp-controller="License" asp-action="RejectedLicenses">
-                                <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
-                            </a>
+                <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
+              </a>
+                        
+            
+          </ul>
+      <li>
+      <a asp-controller="Advertisement" asp-action="Index">
+        <div class="parent-icon">
+           <ion-icon name="home-outline"></ion-icon>
+            </div>
+           <div class="menu-title">إدارة الإعلانات</div>
+                </a>
 
+              </li>
+               
 
-                    </ul>
-                <li>
-                    <a asp-controller="Advertisement" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">إدارة الإعلانات</div>
-                    </a>
-
-                </li>
-
-
-                @*     //-------------------مدير------------------ *@
-                <li>
-                    <a asp-controller="Project" asp-action="Index" class="has-arrow">
-                        <div class="parent-icon">
-                            <ion-icon name="gift-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">الطلبات الاستثمارية</div>
-                    </a>
-                    <ul>
-                        <li>
+      @*     //-------------------مدير------------------ *@
+      <li>
+                    <a href="javascript:;" class="has-arrow">
+         <div class="parent-icon">
+           <ion-icon name="gift-outline"></ion-icon>
+              </div>
+              <div class="menu-title">الطلبات الاستثمارية</div>
+               </a>
+                <ul>
+              <li>
                             <a asp-controller="Project" asp-action="NewRequests">
-                                <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
-                            </a>
-                        </li>
+              <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
+               </a>
+           </li>
+           <li>
+               <a asp-controller="Project" asp-action="ApproveFinal">
+                     <ion-icon name="ellipse-outline"></ion-icon>الطلبات المعتمده
+                     </a>
+                  </li>
+                  <li>
+              <a asp-controller="Project" asp-action="RejectedRequests">
+         <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
+      </a>
+       </li>
 
-                        <li>
-                            <a asp-controller="Project" asp-action="RejectedRequests">
-                                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
-                            </a>
-                        </li>
+         </ul>
+       <li>
+      <a asp-controller="Project" asp-action="Index">
+       <div class="parent-icon">
+     <ion-icon name="home-outline"></ion-icon>
+    </div>
+   <div class="menu-title">المشاريع الاستثمارية</div>
+     </a>
 
-                    </ul>
-                <li>
-                    <a asp-controller="Project" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">المشاريع الاستثمارية</div>
-                    </a>
-
-                </li>
-                <li>
-                    <a asp-controller="License" asp-action="Index" class="has-arrow">
-                        <div class="parent-icon">
-                            <ion-icon name="leaf-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">إدارة الرخص</div>
-                    </a>
-                    <ul>
-                        <li>
+              </li>
+          <li>
+                    <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+         <ion-icon name="leaf-outline"></ion-icon>
+          </div>
+       <div class="menu-title">إدارة الرخص</div>
+     </a>
+    <ul>
+    <li>
                             <a asp-controller="License" asp-action="LicenseRenewal">
-                                <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
-                            </a>
-                        </li>
-                        <li>
+   <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
+  </a>
+        </li>
+      <li>
                             <a asp-controller="License" asp-action="RejectedLicenses">
-                                <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
-                            </a>
-                    </ul>
-                <li>
-                    <a asp-controller="Advertisement" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">إدارة الإعلانات</div>
-                    </a>
-                </li>
+   <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
+ </a>
+    </ul>
+  <li>
+ <a asp-controller="Advertisement" asp-action="Index">
+ <div class="parent-icon">
+    <ion-icon name="home-outline"></ion-icon>
+       </div>
+ <div class="menu-title">إدارة الإعلانات</div>
+   </a>
+ </li>
                 <li>
                     <a asp-controller="Nationality" asp-action="Index">
                         <div class="parent-icon">
@@ -210,76 +214,77 @@
                     </a>
 
                 </li>
-                <li>
-                    <a asp-controller="User" asp-action="Index" class="has-arrow">
-                        <div class="parent-icon">
-                            <ion-icon name="leaf-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">إدارة المستخدمين</div>
-                    </a>
-                    <ul>
-                        <li>
-                            <a asp-controller="User" asp-action="Index">
-                                <ion-icon name="ellipse-outline"></ion-icon>المستثمرين
-                            </a>
-                        </li>
-                        <a asp-controller="User" asp-action="Index">
-                            <ion-icon name="ellipse-outline"></ion-icon>الموظفين
-                        </a>
+   <li>
+                    <a href="javascript:;" class="has-arrow">
+     <div class="parent-icon">
+       <ion-icon name="leaf-outline"></ion-icon>
+     </div>
+ <div class="menu-title">إدارة المستخدمين</div>
+      </a>
+    <ul>
+    <li>
+         <a asp-controller="User" asp-action="Index">
+      <ion-icon name="ellipse-outline"></ion-icon>المستثمرين
+    </a>
+    </li>
+       <a asp-controller="User" asp-action="Index">
+      <ion-icon name="ellipse-outline"></ion-icon>الموظفين
+      </a>
 
-                    </ul>
-                    @*     //-------------------موظف متابعه------------------ *@
-                <li>
-                    <a asp-controller="Project" asp-action="Index">
-                        <div class="parent-icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">المشاريع الاستثمارية</div>
-                    </a>
+    </ul>
+    @*     //-------------------موظف متابعه------------------ *@
+    <li>
+ <a asp-controller="Project" asp-action="Index">
+   <div class="parent-icon">
+      <ion-icon name="home-outline"></ion-icon>
+       </div>
+   <div class="menu-title">المشاريع الاستثمارية</div>
+    </a>
 
-                </li>
-                <li>
-                    <a asp-controller="CoordinatorReport" asp-action="Index" class="has-arrow">
-                        <div class="parent-icon">
-                            <ion-icon name="leaf-outline"></ion-icon>
-                        </div>
-                        <div class="menu-title">إدارة التقارير</div>
-                    </a>
-                    <ul>
-                        <li>
-                            <a asp-controller="CoordinatorReport" asp-action="Create">
-                                <ion-icon name="ellipse-outline"></ion-icon>إصدار تقرير
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="CoordinatorReport" asp-action="Update">
-                                <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
-                            </a>
-                        </li>
-                        <li>
+    </li>
+  <li>
+                    <a href="javascript:;" class="has-arrow">
+    <div class="parent-icon">
+      <ion-icon name="leaf-outline"></ion-icon>
+          </div>
+    <div class="menu-title">إدارة التقارير</div>
+          </a>
+      <ul>
+      <li>
+        <a asp-controller="CoordinatorReport" asp-action="Create">
+         <ion-icon name="ellipse-outline"></ion-icon>إصدار تقرير
+      </a>
+   </li>
+   <li>
+     <a asp-controller="CoordinatorReport" asp-action="Update">
+       <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
+     </a>
+      </li>
+      <li>
                             <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
-                                <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
-                            </a>
-                        </li>
-                    </ul>
+     <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
+   </a>
+   </li>
+   </ul>
             </ul>
-            <!--end navigation-->
-        </aside>
-        <!--end sidebar -->
-        <!--start top header-->
-        <header class="top-header">
-            <nav class="navbar navbar-expand gap-3">
-                <div class="toggle-icon">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
+      <!--end navigation-->
+    </aside>
+    <!--end sidebar -->
 
-
-                <div class="top-navbar-right ms-auto">
-
-                    <ul class="navbar-nav align-items-center">
+    <!--start top header-->
+    <header class="top-header">
+      <nav class="navbar navbar-expand gap-3">
+        <div class="toggle-icon">
+          <ion-icon name="menu-outline"></ion-icon>
+        </div>
+       
+       
+        <div class="top-navbar-right ms-auto">
+                    
+          <ul class="navbar-nav align-items-center">
                         @*     //-------------------المستثمر------------------ *@
                         <li>
-                            <a asp-controller="Project" asp-action="Create" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                            <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
                                 <div class="font-22">
                                     <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
                                 </div>
@@ -287,107 +292,107 @@
                         </li>
 
                         <li>
-                            <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                                <div class="font-22">
-                                    <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
-                                </div>
-                            </a>
+                        <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                            <div class="font-22">
+                                <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
+                            </div>
+                        </a>
                         </li>
-
-                        <li class="nav-item dropdown dropdown-user-setting">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
-                                <div class="user-setting">
+                  
+            <li class="nav-item dropdown dropdown-user-setting">
+              <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
+                <div class="user-setting">
                                     <img src="~/images/avatars/06.png" class="user-img" alt="">
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex flex-row align-items-center gap-2">
-                                            <img src="assets/images/avatars/06.png" alt="" class="rounded-circle" width="54" height="54">
-                                            <div class="">
-                                                <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
-                                                <small class="mb-0 dropdown-user-designation text-secondary">UI Developer</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <ion-icon name="person-outline"></ion-icon>
-                                            </div>
-                                            <div class="ms-3"><span>Profile</span></div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <ion-icon name="settings-outline"></ion-icon>
-                                            </div>
-                                            <div class="ms-3"><span>Setting</span></div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <ion-icon name="speedometer-outline"></ion-icon>
-                                            </div>
-                                            <div class="ms-3"><span>Dashboard</span></div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <ion-icon name="wallet-outline"></ion-icon>
-                                            </div>
-                                            <div class="ms-3"><span>Earnings</span></div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <ion-icon name="cloud-download-outline"></ion-icon>
-                                            </div>
-                                            <div class="ms-3"><span>Downloads</span></div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="">
-                                                <ion-icon name="log-out-outline"></ion-icon>
-                                            </div>
-                                            <div class="ms-3"><span>Logout</span></div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                    </ul>
-
                 </div>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex flex-row align-items-center gap-2">
+                      <img src="assets/images/avatars/06.png" alt="" class="rounded-circle" width="54" height="54">
+                      <div class="">
+                        <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
+                        <small class="mb-0 dropdown-user-designation text-secondary">UI Developer</small>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <ion-icon name="person-outline"></ion-icon>
+                      </div>
+                      <div class="ms-3"><span>Profile</span></div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <ion-icon name="settings-outline"></ion-icon>
+                      </div>
+                      <div class="ms-3"><span>Setting</span></div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <ion-icon name="speedometer-outline"></ion-icon>
+                      </div>
+                      <div class="ms-3"><span>Dashboard</span></div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <ion-icon name="wallet-outline"></ion-icon>
+                      </div>
+                      <div class="ms-3"><span>Earnings</span></div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <ion-icon name="cloud-download-outline"></ion-icon>
+                      </div>
+                      <div class="ms-3"><span>Downloads</span></div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" href="javascript:;">
+                    <div class="d-flex align-items-center">
+                      <div class="">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                      </div>
+                      <div class="ms-3"><span>Logout</span></div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-            </nav>
-        </header>
-        <!--end top header-->
+          </ul>
+                   
+        </div>
+              
+      </nav>
+    </header>
+    <!--end top header-->
 
 
         <div class="page-content-wrapper">
@@ -395,38 +400,44 @@
                 @RenderBody()
             </div>
         </div>
-        <!--start footer-->
-        <footer class="footer">
-            <div class="footer-text">
-                Copyright © 2023. All right reserved.
-            </div>
-        </footer>
-        <!--end footer-->
-        <!--Start Back To Top Button-->
-        <a href="javaScript:;" class="back-to-top">
-            <ion-icon name="arrow-up-outline"></ion-icon>
-        </a>
-        <!--End Back To Top Button-->
-        <!--start overlay-->
-        <div class="overlay nav-toggle-icon"></div>
-        <!--end overlay-->
+    <!--start footer-->
+    <footer class="footer">
+      <div class="footer-text">
+        Copyright © 2023. All right reserved.
+      </div>
+    </footer>
+    <!--end footer-->
 
-    </div>
-    <!--end wrapper-->
-    <!-- JS Files-->
+
+    <!--Start Back To Top Button-->
+    <a href="javaScript:;" class="back-to-top">
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </a>
+    <!--End Back To Top Button-->
+
+  
+    <!--start overlay-->
+    <div class="overlay nav-toggle-icon"></div>
+    <!--end overlay-->
+
+  </div>
+  <!--end wrapper-->
+
+
+  <!-- JS Files-->
     <script src="~/js/jquery.min.js"></script>
     <script src="~/plugins/simplebar/js/simplebar.min.js"></script>
     <script src="~/plugins/metismenu/js/metisMenu.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <!--plugins-->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <!--plugins-->
     <script src="~/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
     <script src="~/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
     <script src="~/plugins/easyPieChart/jquery.easypiechart.js"></script>
     <script src="~/plugins/chartjs/chart.min.js"></script>
     <script src="~/js/index.js"></script>
-    <!-- Main JS-->
-    <script src="~/js/main.js"></script>
+  <!-- Main JS-->
+  <script src="~/js/main.js"></script>
 
 
 </body>

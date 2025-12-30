@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,31 @@ namespace InvestLink_BLL.Helper
             }
 
         }
+
+        public static string RemoveFile(string FolderName, string FileName)
+        {
+            try
+            {
+
+
+
+                var finalPath = Path.Combine(Directory.GetCurrentDirectory(), @"\wwwroot\Files\" + FolderName, FileName);
+                if (File.Exists(finalPath))
+
+                {
+                    File.Delete(finalPath);
+                    return "file deleted successfulyl";
+                }
+
+                else
+                    return FileName + "This file does not exists";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
     }
 }
 

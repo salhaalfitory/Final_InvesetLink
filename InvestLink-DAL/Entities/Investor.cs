@@ -28,14 +28,14 @@ namespace InvestLink_DAL.Entities
         [MaxLength(10)]
         public string? SecondPhoneNumber { get; set; }//رقم تلفون2
 
-        //[Required(ErrorMessage = " Position  is Required")]
+        [Required(ErrorMessage = " Position  is Required")]
         public string Position { get; set; }//صفة المستثمر
+        [Required(ErrorMessage = "IDNumber  is Required")]
 
-        //[Required(ErrorMessage = "IDNumber  is Required")]
-        public string? IDNumber { get; set; }
+        public string IDNumber { get; set; }
 
         public string? ImageName { get; set; }
-
+    
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 

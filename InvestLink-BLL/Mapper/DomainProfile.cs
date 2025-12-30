@@ -15,10 +15,21 @@ namespace InvestLink_BLL.Mapper
         {
             CreateMap<Project, ProjectVM>();
             CreateMap<ProjectVM, Project>();
+
+
+           
+            CreateMap<Project, Investor_ProjectVM>()
+               
+                .ForMember(dest => dest.Project, opt => opt.MapFrom(src => src))
+
+                .ForMember(dest => dest.Investors, opt => opt.MapFrom(src => src.ProjectInvestors.Select(pi => pi.Investor)));
+            CreateMap<Investor, InvestorVM>()
+    // حل مشكلة الجنسية
+    .ForMember(dest => dest.Nationality, opt => opt.MapFrom(src => src.Nationality));
             //-----------------------
 
-            CreateMap<CoordinatorReport, CoordinatorReport>();
-            CreateMap<CoordinatorReport, CoordinatorReport>();
+            CreateMap<CoordinatorReport, CoordinatorReportVM>();
+            CreateMap<CoordinatorReportVM, CoordinatorReport>();
             //------------------------------------------------
             CreateMap<Nationality, NationalityVM>();
             CreateMap<NationalityVM, Nationality>();

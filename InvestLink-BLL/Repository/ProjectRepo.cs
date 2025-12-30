@@ -20,7 +20,7 @@ namespace InvestLink_BLL.Repository
         }
         public async Task<int> CreateAsync(Project obj)
         {
-            await db.Projects.AddAsync(obj);
+            db.Projects.Add(obj);
             await db.SaveChangesAsync();
             return obj.Id;
         }
@@ -31,9 +31,16 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
+        
+
         public async Task<Project> GetByIdAsync(int Id)
         {
-            var data = await db.Projects.Where(a => a.Id == Id).FirstOrDefaultAsync();
+            var data = await db.Projects.Where(a => a.Id == Id)
+               .Include(a => a.ProjectInvestors)       // 1. جدول الربط
+            .ThenInclude(pi => pi.Investor)     // 2. المستثمر
+                .ThenInclude(i => i.Nationality)
+
+                .FirstOrDefaultAsync();
             return data;
         }
 
@@ -57,5 +64,7 @@ namespace InvestLink_BLL.Repository
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
+
+        
     }
 }

@@ -154,6 +154,7 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IDNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
@@ -258,8 +259,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("AboutTheProject")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Area")
                         .IsRequired()
@@ -267,13 +267,11 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("AreaWanted")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionPeriod")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CostLandBuild")
                         .IsRequired()
@@ -291,9 +289,11 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EnvironmentalImpact")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExperienceOfInvestor")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ForeignLoans")
@@ -305,7 +305,6 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LegalBodyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocalLoans")
@@ -318,8 +317,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProposedSite")
                         .IsRequired()
@@ -333,15 +331,8 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SourcOfFunding")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Technology")
                         .IsRequired()
@@ -352,22 +343,20 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrainingPrograms")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfActivity")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfBenefitFromSite")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("projectTimeLine")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InvestLink.Controllers
 {
@@ -42,8 +43,10 @@ namespace InvestLink.Controllers
             return View(result);
         }
         [HttpGet]
-        public IActionResult Create()
+        public ActionResult Create()
         {
+           
+
             return View();
         }
         [HttpPost]

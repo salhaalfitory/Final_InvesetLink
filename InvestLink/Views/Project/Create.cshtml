@@ -1,7 +1,5 @@
 ﻿@model InvestLink_BLL.Models.Investor_ProjectVM
 
-@* @model IEnumerable<InvestLink_BLL.Models.Invesitor_ProjectVM> *@
-
 @{
     ViewBag.Title = "Create";
 }
@@ -24,6 +22,7 @@
 
     <div id="stepper1" class="bs-stepper" dir="rtl">
         <div class="card">
+
             <div class="card-header">
                 <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
                     <div class="step" data-target="#test-l-1">
@@ -70,7 +69,8 @@
 
             <div class="card-body">
                 <div class="bs-stepper-content">
-                    <form asp-controller="Project" asp-action="Create" enctype="multipart/form-data" method="post">
+
+                    <form asp-controller="Project" asp-action="Create" enctype="multipart/form-data" id="applicationForm">
 
                         <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                             <h5 class="mb-1">بيانات مقدم الطلب والمستثمر</h5>
@@ -128,6 +128,8 @@
 
                         <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                             <h5 class="mb-1">بيانات المشروع التفصيلية</h5>
+                            <p class="mb-4">معلومات الموقع، النشاط، والشكل القانوني</p>
+
                             <div class="row g-3">
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.Name" class="form-label">أسم المشروع</label>
@@ -135,22 +137,15 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6">
-                                    <div class="mb-3">
-                                        <label asp-for="Project.LegalBodyName" class="form-label">الشكل القانوني للمشروع</label>
-                                        <input class="form-control" type="file" asp-for="Project.LegalBodyName">
-                                    </div>
-
-                                    @* <div class="col-12 col-lg-6">
-                                        <label asp-for="Project.LegalBodyFile" class="form-label">الشكل القانوني للمشروع (ملف)</label>
-                                        <input class="form-control" type="file" asp-for="Project.LegalBodyFile">
-                                    </div> *@
-
-                    
+                                    <label asp-for="Project.LegalBodyFile" class="form-label">الشكل القانوني للمشروع (ملف)</label>
+                                    <input class="form-control" type="file" asp-for="Project.LegalBodyFile">
                                 </div>
+
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.Area" class="form-label">مجال الاستثمار</label>
                                     <input type="text" class="form-control" asp-for="Project.Area">
                                 </div>
+
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.TypeOfActivity" class="form-label">نوع النشاط</label>
                                     <input type="text" class="form-control" asp-for="Project.TypeOfActivity">
@@ -163,8 +158,8 @@
                                     <label asp-for="Project.AreaWanted" class="form-label">المساحة المطلوبة (م²)</label>
                                     <input type="number" class="form-control" asp-for="Project.AreaWanted">
                                 </div>
-                                <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.TypeOfBenefitFromSite" class="form-label">نوع الانتفاع بالموقع</label>
+                                <div class="col-12 col-lg-4">
+                                    <label asp-for="Project.TypeOfBenefitFromSite" class="form-label">نوع الانتفاع بموقع</label>
                                     <input type="text" class="form-control" asp-for="Project.TypeOfBenefitFromSite">
                                 </div>
                                 <div class="col-12 col-lg-6">
@@ -172,60 +167,67 @@
                                     <input type="text" class="form-control" asp-for="Project.projectTimeLine">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.ConstructionPeriod" class="form-label">العمر الافتراضي</label>
+                                    <label asp-for="Project.ConstructionPeriod" class="form-label">العمر الافتراضي للمشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.ConstructionPeriod">
                                 </div>
-                                <div class="col-12 col-lg-12">
+                                <div class="col-12">
                                     <label asp-for="Project.AboutTheProject" class="form-label">نبذه عن المشروع</label>
-                                    <textarea class="form-control" asp-for="Project.AboutTheProject"></textarea>
+                                    <textarea type="text" class="form-control" asp-for="Project.AboutTheProject"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
-                                        <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()">السابق</button>
-                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي</button>
+                                        <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
+                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div id="test-l-3" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger3">
-                            <h5 class="mb-1">مصادر التمويل والتكاليف</h5>
+                            <h5 class="mb-1">مصادر التمويل والتكاليف الاستثمارية</h5>
+                            <p class="mb-4">تفاصيل رأس المال وتوزيع التكاليف</p>
+
                             <div class="row g-3">
                                 <h6 class="text-primary">أولاً: مصادر التمويل</h6>
-                                <div class="col-12 col-lg-4">
-                                    <label asp-for="Project.SourcOfFunding" class="form-label">مصادر التمويل</label>
-                                    <input type="text" class="form-control" asp-for="Project.SourcOfFunding">
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Project.LocalManpower" class="form-label">رأس المال وطني</label>
+                                    <input type="number" class="form-control" asp-for="Project.LocalManpower">
                                 </div>
-                                <div class="col-12 col-lg-4">
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Project.ForeignManpower" class="form-label">رأس المال أجنبي</label>
+                                    <input type="number" class="form-control" asp-for="Project.ForeignManpower">
+                                </div>
+                                <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LocalLoans" class="form-label">قروض محلية</label>
                                     <input type="number" class="form-control" asp-for="Project.LocalLoans">
                                 </div>
-                                <div class="col-12 col-lg-4">
+                                <div class="col-12 col-lg-6">
                                     <label asp-for="Project.ForeignLoans" class="form-label">قروض أجنبية</label>
                                     <input type="number" class="form-control" asp-for="Project.ForeignLoans">
                                 </div>
 
-                                <h6 class="text-primary mt-3">ثانياً: التكاليف الاستثمارية</h6>
+                                <h6 class="text-primary mt-3"> ثانياً: التكاليف الاستثمارية للمشروع "حجم الاستثمار المتوقع "</h6>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.CostLandBuild" class="form-label">الأراضي والمباني</label>
+                                    <label asp-for="Project.CostLandBuild" class="form-label">الأراضي والمباني والإنشاءات</label>
                                     <input type="number" class="form-control" asp-for="Project.CostLandBuild">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.CostMachine" class="form-label">الآلات والمعدات</label>
+                                    <label asp-for="Project.CostMachine" class="form-label">الآلات والمعدات ووسائل النقل</label>
                                     <input type="number" class="form-control" asp-for="Project.CostMachine">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.CostSetup" class="form-label">مصروفات التأسيس</label>
+                                    <label asp-for="Project.CostSetup" class="form-label">مصروفات التأسيس والأثاث</label>
                                     <input type="number" class="form-control" asp-for="Project.CostSetup">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.TotalCost" class="form-label">إجمالي التكاليف</label>
-                                    <input type="number" class="form-control" asp-for="Project.TotalCost" style="background-color: #e9ecef;">
+                                    <label asp-for="Project.TotalCost" class="form-label">إجمالي التكاليف الاستثمارية</label>
+                                    <input type="number" class="form-control" asp-for="Project.TotalCost">
                                 </div>
+
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
-                                        <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()">السابق</button>
-                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي</button>
+                                        <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
+                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -233,19 +235,23 @@
 
                         <div id="test-l-4" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger4">
                             <h5 class="mb-1">البيانات الفنية والتشغيلية</h5>
+                            <p class="mb-4">التقنية، المواد الخام، والعمالة</p>
+
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label asp-for="Project.Technology" class="form-label">التقنية المستخدمة</label>
-                                    <textarea class="form-control" asp-for="Project.Technology" rows="2"></textarea>
+                                    <textarea class="form-control" asp-for="Project.Technology" rows="2" placeholder="شرح مختصر للتقنية المستخدمة..."></textarea>
                                 </div>
+
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.RawMaterialLocal" class="form-label">مواد خام محلية (%)</label>
+                                    <label asp-for="Project.RawMaterialLocal" class="form-label">نسبة المواد الخام المحلية (%)</label>
                                     <input type="number" class="form-control" asp-for="Project.RawMaterialLocal">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.RawMaterialForeign" class="form-label">مواد خام أجنبية (%)</label>
+                                    <label asp-for="Project.RawMaterialForeign" class="form-label">نسبة المواد الخام الأجنبية (%)</label>
                                     <input type="number" class="form-control" asp-for="Project.RawMaterialForeign">
                                 </div>
+
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LocalManpower" class="form-label">العمالة الوطنية (عدد)</label>
                                     <input type="number" class="form-control" asp-for="Project.LocalManpower">
@@ -254,23 +260,25 @@
                                     <label asp-for="Project.ForeignManpower" class="form-label">العمالة الأجنبية (عدد)</label>
                                     <input type="number" class="form-control" asp-for="Project.ForeignManpower">
                                 </div>
+
                                 <div class="col-12">
-                                    <label asp-for="Project.EnvironmentalImpact" class="form-label">الأثر البيئي</label>
+                                    <label asp-for="Project.EnvironmentalImpact" class="form-label">الأثر البيئي وطرق معالجته</label>
                                     <input type="text" class="form-control" asp-for="Project.EnvironmentalImpact">
                                 </div>
                                 <div class="col-12">
-                                    <label asp-for="Project.TrainingPrograms" class="form-label">برامج التدريب</label>
+                                    <label asp-for="Project.TrainingPrograms" class="form-label">البرامج التدريبية للعمالة الوطنية بالمشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.TrainingPrograms">
                                 </div>
+
                                 <div class="col-12">
-                                    <label asp-for="Project.ExperienceOfInvestor" class="form-label">خبرة المستثمر</label>
-                                    <textarea class="form-control" asp-for="Project.ExperienceOfInvestor"></textarea>
+                                    <label asp-for="Project.ExperienceOfInvestor" class="form-label">خبرة المستثمر في النشاط</label>
+                                    <textarea class="form-control" asp-for="Project.ExperienceOfInvestor" rows="2"></textarea>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
-                                        <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()">السابق</button>
-                                        <input type="submit" value="إرسال الطلب" class="btn btn-primary btn-lg w-50 mt-3" />
+                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
+                                        <input type="submit" value="إرسال الطلب" class="btn btn-success px-4" />
                                     </div>
                                 </div>
                             </div>
@@ -280,76 +288,107 @@
             </div>
         </div>
     </div>
-
-
+   
+    
     <script>
-        // المتغير index يبدأ من 0، لأن 0 محجوز لمقدم الطلب الأساسي
-        // عند إضافة مستثمر جديد سنبدأ من 1
-        let investorIndex = 0;
-        let visualCount = 1; // للعرض (المستثمر الإضافي رقم 1)
+        // جلب البيانات من السيرفر وتخزينها في متغير جافاسكربت
+        var nationalityList = @Html.Raw(Json.Serialize(ViewBag.NationalityList));
 
         function addBootstrapInvestor() {
-            investorIndex++;
-
             const container = document.getElementById('investors-container');
+
+            // تحضير خيارات الجنسية (HTML Options)
+            let nationalityOptions = '<option value=""> اختر الجنسية</option>';
+            if (nationalityList) {
+                nationalityList.forEach(function(item) {
+                    // item.value هو معرف الجنسية، item.text هو اسم الدولة
+                    nationalityOptions += `<option value="${item.value}">${item.text}</option>`;
+                });
+            }
+
             const cardDiv = document.createElement('div');
+            cardDiv.className = 'card mb-3 border shadow-sm investor-item';
 
-            cardDiv.className = 'card mb-3 border shadow-sm investor-card-animation';
-
-            // الأسماء هنا (Name, Email, PhoneNumber...) تطابق كلاس Investor الجديد تماماً
             cardDiv.innerHTML = `
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="card-title m-0"><span class="badge bg-success rounded-pill me-2">+</span> بيانات المستثمر الإضافي (${visualCount})</h6>
-                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeInvestor(this)"><i class='bx bx-trash'></i> حذف</button>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="card-title m-0 text-primary fw-bold"> بيانات الشريك / المستثمر الإضافي</h6>
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeInvestor(this)">
+                            <i class='bx bx-trash'></i> حذف
+                        </button>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label">أسم المستثمر</label>
+                            <input type="text" class="form-control field-name" placeholder="الاسم الثلاثي" required>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label">الصفة</label>
+                            <input type="text" class="form-control field-position" placeholder="مثال: شريك، عضو مجلس إدارة...">
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                             <label class="form-label">الجنسية</label>
+                             <select class="form-select field-nationality">
+                                 ${nationalityOptions}
+                             </select>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label">رقم البطاقة أو جواز السفر</label>
+                            <input type="text" class="form-control field-idnumber">
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label">صورة البطاقة أو جواز السفر</label>
+                            <input type="file" class="form-control field-file">
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label">الهاتف / النقال</label>
+                            <input type="text" class="form-control field-phone">
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control field-email">
+                        </div>
+                    </div>
                 </div>
-
-                <div class="row g-3">
-                    <div class="col-12 col-lg-6">
-                        <label class="form-label">أسم المستثمر</label>
-                        <input type="text" class="form-control" name="Investors[${investorIndex}].Name" required>
-                    </div>
-
-                    <div class="col-12 col-lg-6">
-                        <label class="form-label">البريد الإلكتروني</label>
-                        <input type="email" class="form-control" name="Investors[${investorIndex}].Email">
-                    </div>
-
-                    <div class="col-12 col-lg-6">
-                        <label class="form-label">رقم الهاتف الأساسي</label>
-                        <input type="text" class="form-control" name="Investors[${investorIndex}].PhoneNumber" placeholder="09xxxxxxxx">
-                    </div>
-
-                    <div class="col-12 col-lg-6">
-                        <label class="form-label">رقم الهاتف الثاني</label>
-                        <input type="text" class="form-control" name="Investors[${investorIndex}].SecondPhoneNumber" placeholder="09xxxxxxxx">
-                    </div>
-
-                    <div class="col-12 col-lg-6">
-                        <label class="form-label">رقم الجنسية (Nationality ID)</label>
-                        <input type="number" class="form-control" name="Investors[${investorIndex}].NationalityId">
-                    </div>
-
-                     </div>
-            </div>
             `;
 
             container.appendChild(cardDiv);
-            visualCount++;
+            reindexInvestors();
         }
 
+        // ... بقية دوال الحذف وإعادة الترتيب كما هي
         function removeInvestor(btn) {
-            btn.closest('.card').remove();
-            visualCount--;
-            // ملاحظة: لإصلاح الـ Index بشكل كامل عند الحذف من المنتصف يتطلب كوداً أعقد،
-            // هذا الكود يكفي للإضافة والحذف البسيط.
+            btn.closest('.investor-item').remove();
+            reindexInvestors();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // لا نستدعي addBootstrapInvestor تلقائياً الآن لأننا لدينا مقدم الطلب ثابت في الأعلى
-        });
-    </script>
+        function reindexInvestors() {
+            const items = document.querySelectorAll('.investor-item');
+            items.forEach((item, index) => {
+                const newIndex = index + 1;
 
+                item.querySelector('.card-title').innerText = `بيانات الشريك / المستثمر الإضافي (${newIndex})`;
+
+                if(item.querySelector('.field-name')) item.querySelector('.field-name').name = `Investors[${newIndex}].Name`;
+                if(item.querySelector('.field-position')) item.querySelector('.field-position').name = `Investors[${newIndex}].Position`;
+
+                // تصحيح: البحث عن الكلاس الصحيح للجنسية
+                if(item.querySelector('.field-nationality')) item.querySelector('.field-nationality').name = `Investors[${newIndex}].NationalityId`;
+
+                if(item.querySelector('.field-idnumber')) item.querySelector('.field-idnumber').name = `Investors[${newIndex}].IDNumber`;
+                if(item.querySelector('.field-file')) item.querySelector('.field-file').name = `Investors[${newIndex}].Image`;
+                if(item.querySelector('.field-phone')) item.querySelector('.field-phone').name = `Investors[${newIndex}].PhoneNumber`;
+                if(item.querySelector('.field-email')) item.querySelector('.field-email').name = `Investors[${newIndex}].Email`;
+            });
+        }
+    </script>
     <script src="~/js/main.js"></script>
     <script src="~/plugins/bs-stepper/css/custom.js"></script>
     <script src="~/plugins/bs-stepper/js/util.js"></script>

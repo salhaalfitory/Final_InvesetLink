@@ -18,9 +18,9 @@ namespace InvestLink_BLL.Repository
         {
             this.db = db;
         }
-        public async Task<int> CreateAsync(Investor obj)
+        public  async Task<int> CreateAsync(Investor obj)
         {       
-            await db.Investors.AddAsync(obj);
+            db.Investors.Add(obj);
             await db.SaveChangesAsync();
             return obj.Id;
         }
@@ -37,6 +37,12 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
+        public async Task<Investor> GetByEmailAsync(string email)
+        {
+            var data = await db.Investors.Where(a => a.Email == email).FirstOrDefaultAsync();
+            return data;
+        }
+
         public async Task<Investor> GetByIdAsync(int Id)
         {
             var data = await db.Investors.Where(a => a.Id == Id).FirstOrDefaultAsync();
@@ -47,11 +53,6 @@ namespace InvestLink_BLL.Repository
         {
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
-        }
-        public async Task<Investor> GetByEmailAsync(string email)
-        {
-            var data = await db.Investors.Where(a => a.Email == email).FirstOrDefaultAsync();
-            return data;
         }
     }
 }
