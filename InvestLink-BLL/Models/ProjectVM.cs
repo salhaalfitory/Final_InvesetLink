@@ -85,7 +85,7 @@ namespace InvestLink_BLL.Models
 
 
 
-        public virtual List<ProjectInvestor>? ProjectInvestors { get; set; }
+        public virtual List<ProjectInvestor> ProjectInvestors { get; set; } = new List<ProjectInvestor>();
 
         public virtual List<License>? Licenses { get; set; }
         public virtual List<CoordinatorReportVM>? CoordinatorReports { get; set; }

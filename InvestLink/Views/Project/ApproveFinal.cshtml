@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<InvestLink_BLL.Models.ProjectVM>
 @{
-    ViewBag.Title = "Index ";
+    ViewBag.Title = "ApproveFinal";
 }
 
 
@@ -22,6 +22,7 @@
                     <th scope="col">اسم</th>
                     <th scope="col">تاريخ إنشاء</th>
                     <th scope="col">تفاصيل</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -37,13 +38,13 @@
                         <td>@Item.Name</td>
                         <td>@Item.CreationData</td>
                         <td>
-                        <div class="col">
-                                   <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
+                            <div class="col">
+                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
                                     <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
                                 </a>
-                        </div>
+                            </div>
                         </td>
-                        
+
                     </tr>
                 }
             </tbody>

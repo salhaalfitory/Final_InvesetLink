@@ -291,16 +291,24 @@
    
     
     <script>
+        // جلب البيانات من السيرفر وتخزينها في متغير جافاسكربت
+        var nationalityList = @Html.Raw(Json.Serialize(ViewBag.NationalityList));
+
         function addBootstrapInvestor() {
             const container = document.getElementById('investors-container');
 
-            // إنشاء الكارد الجديد
+            // تحضير خيارات الجنسية (HTML Options)
+            let nationalityOptions = '<option value=""> اختر الجنسية</option>';
+            if (nationalityList) {
+                nationalityList.forEach(function(item) {
+                    // item.value هو معرف الجنسية، item.text هو اسم الدولة
+                    nationalityOptions += `<option value="${item.value}">${item.text}</option>`;
+                });
+            }
+
             const cardDiv = document.createElement('div');
-            // نضيف كلاس investor-item عشان نقدر نتحكم في الترتيب لاحقاً
             cardDiv.className = 'card mb-3 border shadow-sm investor-item';
 
-            // لاحظ: لم أضع الأرقام هنا (مثل [1])، سنترك دالة reindex تعبئها
-            // هذا يضمن الترتيب الصحيح دائماً
             cardDiv.innerHTML = `
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -322,13 +330,10 @@
                         </div>
 
                         <div class="col-12 col-lg-6">
-                            <label class="form-label">الجنسية</label>
-                            <select class="form-select field-nationality">
-                                <option value="">اختر الجنسية</option>
-                                <option value="1">ليبي</option>
-                                <option value="2">مصري</option>
-                                <option value="3">سوري</option>
-                            </select>
+                             <label class="form-label">الجنسية</label>
+                             <select class="form-select field-nationality">
+                                 ${nationalityOptions}
+                             </select>
                         </div>
 
                         <div class="col-12 col-lg-6">
@@ -355,51 +360,32 @@
             `;
 
             container.appendChild(cardDiv);
-
-            // استدعاء دالة إعادة الترتيب فوراً لتعيين الأسماء والأرقام الصحيحة
             reindexInvestors();
         }
 
+        // ... بقية دوال الحذف وإعادة الترتيب كما هي
         function removeInvestor(btn) {
-            // حذف الكارد
             btn.closest('.investor-item').remove();
-            // إعادة الترتيب فوراً لسد الفجوة (مثلاً لو حذفت رقم 1، رقم 2 يصبح 1)
             reindexInvestors();
         }
 
-        // هذه الدالة هي سر الحل: تقوم بالمرور على كل الكروت وتسميتها بالترتيب الصحيح
         function reindexInvestors() {
             const items = document.querySelectorAll('.investor-item');
-
             items.forEach((item, index) => {
-                // الرقم يبدأ من 1 لأن 0 محجوز لمقدم الطلب في الـ HTML الثابت
                 const newIndex = index + 1;
 
-                // تحديث عنوان الكارد
                 item.querySelector('.card-title').innerText = `بيانات الشريك / المستثمر الإضافي (${newIndex})`;
 
+                if(item.querySelector('.field-name')) item.querySelector('.field-name').name = `Investors[${newIndex}].Name`;
+                if(item.querySelector('.field-position')) item.querySelector('.field-position').name = `Investors[${newIndex}].Position`;
 
-                if(item.querySelector('.field-name'))
-                    item.querySelector('.field-name').name = `Investors[${newIndex}].Name`;
+                // تصحيح: البحث عن الكلاس الصحيح للجنسية
+                if(item.querySelector('.field-nationality')) item.querySelector('.field-nationality').name = `Investors[${newIndex}].NationalityId`;
 
-                if(item.querySelector('.field-position'))
-                    item.querySelector('.field-position').name = `Investors[${newIndex}].Position`;
-
-                if(item.querySelector('.field-nationality'))
-                    item.querySelector('.field-nationality').name = `Investors[${newIndex}].NationalityId`;
-
-                if(item.querySelector('.field-idnumber'))
-                    item.querySelector('.field-idnumber').name = `Investors[${newIndex}].IDNumber`;
-
-              
-                if(item.querySelector('.field-file'))
-                    item.querySelector('.field-file').name = `Investors[${newIndex}].Image`;
-
-                if(item.querySelector('.field-phone'))
-                    item.querySelector('.field-phone').name = `Investors[${newIndex}].PhoneNumber`;
-
-                if(item.querySelector('.field-email'))
-                    item.querySelector('.field-email').name = `Investors[${newIndex}].Email`;
+                if(item.querySelector('.field-idnumber')) item.querySelector('.field-idnumber').name = `Investors[${newIndex}].IDNumber`;
+                if(item.querySelector('.field-file')) item.querySelector('.field-file').name = `Investors[${newIndex}].Image`;
+                if(item.querySelector('.field-phone')) item.querySelector('.field-phone').name = `Investors[${newIndex}].PhoneNumber`;
+                if(item.querySelector('.field-email')) item.querySelector('.field-email').name = `Investors[${newIndex}].Email`;
             });
         }
     </script>

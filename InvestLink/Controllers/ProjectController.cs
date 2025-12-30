@@ -132,7 +132,9 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> Details(int Id)
         {
             var data = await project.GetByIdAsync(Id);
-            var result = mapper.Map<ProjectVM>(data);
+            var result = mapper.Map<Investor_ProjectVM>(data);
+            var nat = mapper.Map<IEnumerable<NationalityVM>>(await nationality.GetAllAsync());
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
 
             return View(result);
         }
@@ -144,6 +146,90 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<ProjectVM>>(data);
             return View(result);
         }
+        [HttpPost]
+        public async Task<IActionResult> SendToAdmin(int Id)
+        {
+            var request = await project.GetByIdAsync(Id);
+
+            request.State = "قيد المراجعة من الإدارة";
+            await project.UpdateAsync(request);
+
+            TempData["Message"] = "تم إرسال الطلب إلى الإدارة بنجاح ✅";
+            return RedirectToAction("RequestsReferredtomanagement");
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Reject(int Id)
+        {
+            var request = await project.GetByIdAsync(Id);
+
+
+            request.State = "مرفوض";
+            await project.UpdateAsync(request);
+
+            TempData["Message"] = "تم رفض الطلب ❌";
+            return RedirectToAction("RejectedRequests");
+        }
+        [HttpGet]
+        public async Task<IActionResult> RejectedRequests()
+        {
+            var data = await project.GetByStateAsync("مرفوض");
+            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
+            return View(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> RequestsReferredtomanagement()
+        {
+            var data = await project.GetByStateAsync("قيد المراجعة من الإدارة");
+            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
+            return View(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ApproveFinal()
+        {
+
+            var data = await project.GetByStateAsync("معتمد");
+
+            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
+            return View(result);
+        }
+
+     
+        [HttpPost]
+        public async Task<IActionResult> ApproveFinal(int Id)
+        {
+            var request = await project.GetByIdAsync(Id);
+
+
+            request.State = "معتمد";
+
+            await project.UpdateAsync(request);
+            //DAL.Entities.License obj = new DAL.Entities.License();
+
+            //obj.ProjectId = request.ProjectId;
+            //obj.CreatedDate = DateTime.Now;
+            //obj.LicenseNumber = $"{DateTime.Now.Year}-{ProjectId}-LIC";
+            //obj.State = "سارية";
+            //await license.CreateAsync(obj);
+            TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
+            return RedirectToAction("ApproveFinal");
+        }
+
+      
+        [HttpPost]
+        public async Task<IActionResult> RejectFinal(int Id)
+        {
+            var request = await project.GetByIdAsync(Id);
+
+            request.State = "مرفوض ";
+            await project.UpdateAsync(request);
+
+            TempData["Message"] = "تم رفض الطلب نهائياً ";
+            return RedirectToAction("Details", new { Id });
+        }
+
 
     }
 }

@@ -35,7 +35,12 @@ namespace InvestLink_BLL.Repository
 
         public async Task<Project> GetByIdAsync(int Id)
         {
-            var data = await db.Projects.Where(a => a.Id == Id).FirstOrDefaultAsync();
+            var data = await db.Projects.Where(a => a.Id == Id)
+               .Include(a => a.ProjectInvestors)       // 1. جدول الربط
+            .ThenInclude(pi => pi.Investor)     // 2. المستثمر
+                .ThenInclude(i => i.Nationality)
+
+                .FirstOrDefaultAsync();
             return data;
         }
 
