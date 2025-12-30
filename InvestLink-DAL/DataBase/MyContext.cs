@@ -35,7 +35,14 @@ namespace InvestLink_DAL.DataBase
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProjectCoordinator>()
-                .HasKey(sc => new { sc.Id, sc.EmployeeId, sc.ProjectId });
+               .HasKey(sc => sc.Id);
+
+            modelBuilder.Entity<ProjectCoordinator>()
+               .HasIndex(sc => new { sc.EmployeeId, sc.ProjectId })
+               .IsUnique(); // Ensure unique pair
+
+            //modelBuilder.Entity<ProjectCoordinator>()
+            //    .HasKey(sc => new { sc.Id, sc.EmployeeId, sc.ProjectId });
 
 
             modelBuilder.Entity<ProjectCoordinator>()
@@ -51,8 +58,17 @@ namespace InvestLink_DAL.DataBase
             .HasForeignKey(bc => bc.ProjectId)
             .OnDelete(DeleteBehavior.ClientSetNull);
             //--------------------------------------------
+
             modelBuilder.Entity<ProjectInvestor>()
-               .HasKey(sc => new { sc.Id, sc.InvestorId, sc.ProjectId });
+             .HasKey(sc => sc.Id);
+
+            //modelBuilder.Entity<ProjectInvestor>()
+            //   .HasKey(sc => new { sc.Id, sc.InvestorId, sc.ProjectId });
+
+            modelBuilder.Entity<ProjectInvestor>()
+            .HasIndex(sc => new { sc.InvestorId, sc.ProjectId })
+            .IsUnique(); // Ensure unique pair
+
 
 
             modelBuilder.Entity<ProjectInvestor>()

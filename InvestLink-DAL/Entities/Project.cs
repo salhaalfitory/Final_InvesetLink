@@ -84,10 +84,11 @@ namespace InvestLink_DAL.Entities
         [Required, StringLength(100)]
         public string Name { get; set; }//اسم 
         [Required, StringLength(50)]
-        public string? State { get; set; } // الحقل المسؤول عن تصنيف الطلب
+
+        public string State { get; set; } // الحقل المسؤول عن تصنيف الطلب
 
         [Required]
-        public string? LegalBodyName { get; set; }//شكل قانوني تحميل
+        public string LegalBodyName { get; set; }//شكل قانوني تحميل
 
         [Required]
         public string Area { get; set; }//مجال

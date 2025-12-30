@@ -10,9 +10,10 @@ namespace InvestLink_BLL.Interfaces
     public interface IInvestor
     {
         Task<IEnumerable<Investor>> GetAllAsync();
-        Task CreateAsync(Investor obj);
+        Task<int> CreateAsync(Investor obj);
         Task<Investor> GetByIdAsync( int Id);
         Task UpdateAsync(Investor obj);
         Task DeleteAsync(Investor obj);
+        Task<Investor> GetByEmailAsync(string email);
     }
 }

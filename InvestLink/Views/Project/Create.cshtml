@@ -1,4 +1,6 @@
-﻿@model InvestLink_BLL.Models.Invesitor_ProjectVM
+﻿@model InvestLink_BLL.Models.Investor_ProjectVM
+
+@* @model IEnumerable<InvestLink_BLL.Models.Invesitor_ProjectVM> *@
 
 @{
     ViewBag.Title = "Create";
@@ -74,38 +76,43 @@
                             <h5 class="mb-1">بيانات مقدم الطلب والمستثمر</h5>
 
                             <div class="col-12 d-flex justify-content-between align-items-center">
-                                <h6 class="mb-2 text-primary">ثانياً: بيانات المستثمرين الإضافيين</h6>
+                                <h6 class="mb-2 text-primary">ثانياً: بيانات المستثمرين</h6>
                                 <button type="button" class="btn btn-sm btn-success" onclick="addBootstrapInvestor()">
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>
                             </div>
 
                             <div class="row g-3">
-                                <div class="col-12"><h6 class="text-primary">أولاً: بيانات مقدم الطلب (المستثمر الرئيسي)</h6></div>
+                                <div class="col-12"><h6 class="text-primary">أولاً: بيانات مقدم الطلب</h6></div>
 
                                 <div class="col-12 col-lg-6">
-                                    <label class="form-label">أسم المستثمر (مقدم الطلب)</label>
-                                    <input type="text" class="form-control" name="Investors[0].Name" placeholder="الاسم الثلاثي" required>
+                                    <label asp-for="Investors[0].Name" class="form-label">أسم مقدم الطلب</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].Name" placeholder="الاسم الثلاثي">
                                 </div>
-
                                 <div class="col-12 col-lg-6">
-                                    <label class="form-label">البريد الإلكتروني</label>
-                                    <input type="email" class="form-control" name="Investors[0].Email" placeholder="example@email.com">
+                                    <label asp-for="Investors[0].Position" class="form-label">الصفة</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].Position" placeholder="مثال: مدير عام، وكيل...">
                                 </div>
-
                                 <div class="col-12 col-lg-6">
-                                    <label class="form-label">رقم الهاتف الأساسي</label>
-                                    <input type="text" class="form-control" name="Investors[0].PhoneNumber" placeholder="09xxxxxxxx">
+                                    <select class="form-select mb-3" asp-for="Investors[0].NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
+                                        <option value=""> اختر  الجنسية</option>
+                                    </select>
                                 </div>
-
                                 <div class="col-12 col-lg-6">
-                                    <label class="form-label">رقم الهاتف الثاني (اختياري)</label>
-                                    <input type="text" class="form-control" name="Investors[0].SecondPhoneNumber" placeholder="09xxxxxxxx">
+                                    <label asp-for="Investors[0].IDNumber" class="form-label">رقم البطاقة أو جواز السفر</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].IDNumber">
                                 </div>
-
                                 <div class="col-12 col-lg-6">
-                                    <label class="form-label">رقم الجنسية (Nationality ID)</label>
-                                    <input type="number" class="form-control" name="Investors[0].NationalityId" placeholder="أدخل رقم المعرف">
+                                    <label asp-for="Investors[0].Image" class="form-label">صورة البطاقة أو جواز السفر</label>
+                                    <input type="file" class="form-control" asp-for="Investors[0].Image">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].PhoneNumber" class="form-label">الهاتف / النقال</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].PhoneNumber">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].Email" class="form-label">البريد الإلكتروني</label>
+                                    <input type="email" class="form-control" asp-for="Investors[0].Email">
                                 </div>
 
                                 <hr class="mt-4">
@@ -126,11 +133,17 @@
                                     <label asp-for="Project.Name" class="form-label">أسم المشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.Name">
                                 </div>
+
                                 <div class="col-12 col-lg-6">
                                     <div class="mb-3">
                                         <label asp-for="Project.LegalBodyName" class="form-label">الشكل القانوني للمشروع</label>
                                         <input class="form-control" type="file" asp-for="Project.LegalBodyName">
                                     </div>
+
+                                    @* <div class="col-12 col-lg-6">
+                                        <label asp-for="Project.LegalBodyFile" class="form-label">الشكل القانوني للمشروع (ملف)</label>
+                                        <input class="form-control" type="file" asp-for="Project.LegalBodyFile">
+                                    </div> *@
 
                     
                                 </div>

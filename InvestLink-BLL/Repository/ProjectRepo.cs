@@ -18,10 +18,11 @@ namespace InvestLink_BLL.Repository
         {
             this.db = db;
         }
-        public async Task CreateAsync(Project obj)
+        public async Task<int> CreateAsync(Project obj)
         {
             await db.Projects.AddAsync(obj);
             await db.SaveChangesAsync();
+            return obj.Id;
         }
 
         public async Task<IEnumerable<Project>> GetAllAsync()
@@ -36,13 +37,20 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public async Task<IEnumerable<Project>> GetByStateAsync(string state)
+        public Task<IEnumerable<Project>> GetByStateAsync(string state)
         {
-            var data = await db.Projects
-            .Where(p => p.State == state)
-            .ToListAsync();
-            return data;
+            throw new NotImplementedException();
         }
+
+
+
+        //public async Task<IEnumerable<Project>> GetByStateAsync(string state)
+        //{
+        //    var data = await db.Projects
+        //    .Where(p => p.State == state)
+        //    .ToListAsync();
+        //    return data;
+        //}
 
         public async Task UpdateAsync(Project obj)
         {

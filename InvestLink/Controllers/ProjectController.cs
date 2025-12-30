@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Humanizer;
+using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Project = InvestLink_DAL.Entities.Project;
 
@@ -20,19 +22,21 @@ namespace InvestLink.Controllers
         private readonly ILicense license;
         private readonly IInvestor investor;
         private readonly IProjectInvestor projectinvestor;
+        private readonly INationality nationality;
 
-        
+
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public ProjectController(IProject project, IMapper mapper, ILicense license, IInvestor investor, IProjectInvestor projectinvestor)
+        public ProjectController(IProject project, IMapper mapper, ILicense license, IInvestor investor, IProjectInvestor projectinvestor, INationality nationality)
         {
             this.project = project;
             this.mapper = mapper;
             this.license = license;
             this.investor = investor;
             this.projectinvestor = projectinvestor;
+            this.nationality = nationality;
         }
         #endregion
         //--------------------------------------------------
@@ -45,48 +49,106 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<ProjectVM>>(data);
             return View(result);
         }
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+        //    //ViewBag.Nationalities = new SelectList(_context.Nationalities, "Id", "Name");
+        //    return View();
+        //}
+
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> Create(Invesitor_ProjectVM obj)
+                                //id اللي جاي فالrequest =0) 
+                                //منعرفش id  الإ لما يتكريت
+        public async Task<IActionResult> Create(Investor_ProjectVM obj)
         {
             try
             {
+
+               var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
+               obj.Project.LegalBodyName = LegalBodyName;
+
+                //obj.Project.State = "تم استلام";
+
                 if (ModelState.IsValid == true)
                 {
+                    obj.Project.State = "تم استلام";
+
+                    //obj.Project.State = "تم استلام";
+
                     var Project_info = mapper.Map<Project>(obj.Project);
 
-                    await project.CreateAsync(Project_info);
+                    var Project_info_Id = await project.CreateAsync(Project_info);
 
 
                     if (obj.Investors != null && obj.Investors.Any())
                     {
+                        //var Investors_info = mapper.Map<List<Investor>>(obj.Investors);
 
-                        var Investors_info = mapper.Map<List<Investor>>(obj.Investors);
-
-                        foreach (var item in Investors_info)
+                        //mapping عشان ميريحش قبل مندير  IFormFile
+                        foreach (var item in obj.Investors)
                         {
-
-                            await investor.CreateAsync(item);
-
-                            var Link = new ProjectInvestor
+                            if (item.Image != null)
                             {
-                                ProjectId = Project_info.Id,
-                                InvestorId = item.Id
+                                var ImageName = FileUpLoader.UploaderFile(item.Image, "Doc");
+                                item.ImageName = ImageName;
+                             }
+                            //اللي توا دار سبميت investorIdال 
+                            var submittedInvestor = await investor.GetByEmailAsync(item.Email);
+                            int investorId;
+
+
+                            if (submittedInvestor != null)
+                            {
+                                // Existing investor
+                                investorId = submittedInvestor.Id;
+                            }
+                            else
+                            {
+                                // New investor
+
+                                //لما نديرmapping   ImageName تكون واتيه 
+                                var newInvestor = mapper.Map<Investor>(item);
+                                investorId = await investor.CreateAsync(newInvestor);
+                            }
+                            var link = new ProjectInvestor
+                            {
+                                ProjectId = Project_info_Id,
+                                InvestorId = investorId
                             };
 
-                            await projectinvestor.CreateAsync(Link);
+                            await projectinvestor.CreateAsync(link);
                         }
-  
 
+                        //لما نديرmapping   ImageName تكون واتيه 
+                        //var Investors_info = mapper.Map<List<Investor>>(obj.Investors);
+
+                        //foreach (var item in Investors_info)
+                        //{
+                        //  var Investors_info_Id = await investor.CreateAsync(item);
+
+                        //    var Link = new ProjectInvestor
+                        //    {
+                        //        ProjectId = Project_info_Id,
+                        //        InvestorId = Investors_info_Id
+                        //    };
+
+                        //await projectinvestor.CreateAsync(Link);
+                        //}
                         return RedirectToAction("Index");
-
                     }
 
+                    return RedirectToAction("Index");
+
                 }
+            
                 TempData["Message"] = "validation Error";
                 return View(obj);
             }

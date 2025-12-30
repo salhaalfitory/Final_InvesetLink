@@ -66,6 +66,7 @@
 //}
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -81,11 +82,12 @@ namespace InvestLink_BLL.Models
         public int Id { get; set; }
         [Required, StringLength(100)]
         public string Name { get; set; }//اسم 
-        [Required, StringLength(50)]
-        public string? State { get; set; } // الحقل المسؤول عن تصنيف الطلب
+        //[Required, StringLength(50)]
+        [ValidateNever]
+        public string State { get; set; } // الحقل المسؤول عن تصنيف الطلب
 
         [Required]
-        public string? LegalBodyName { get; set; }//شكل قانوني تحميل
+        public string LegalBodyName { get; set; }//شكل قانوني تحميل
         public IFormFile LegalBodyFile { get; set; }//شكل قانوني
 
         [Required]
