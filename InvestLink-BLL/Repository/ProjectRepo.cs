@@ -25,20 +25,26 @@ namespace InvestLink_BLL.Repository
             return obj.Id;
         }
 
+        //public async Task<IEnumerable<Project>> GetAllAsync()
+        //{
+        //    var data = await db.Projects.ToListAsync();
+        //    return data;
+        //}
+
+        // داخل ProjectRepo.cs
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
-            var data = await db.Projects.ToListAsync();
-            return data;
+            return await db.Projects
+                           .Include(p => p.Licenses) // <--- هذا السطر هو الذي يملأ القائمة
+                           .ToListAsync();
         }
-
-        
 
         public async Task<Project> GetByIdAsync(int Id)
         {
             var data = await db.Projects.Where(a => a.Id == Id)
                .Include(a => a.ProjectInvestors)       // 1. جدول الربط
-            .ThenInclude(pi => pi.Investor)     // 2. المستثمر
-                .ThenInclude(i => i.Nationality)
+               .ThenInclude(pi => pi.Investor)     // 2. المستثمر
+               .ThenInclude(i => i.Nationality)
 
                 .FirstOrDefaultAsync();
             return data;

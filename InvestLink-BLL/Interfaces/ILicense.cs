@@ -15,5 +15,7 @@ namespace InvestLink_BLL.Interfaces
         Task<License> GetByIdAsync(int Id);
         Task UpdateAsync(License obj);
         Task DeleteAsync(License obj);
+        Task<License?> GetByProjectIdAsync(int Id);
+
     }
 }

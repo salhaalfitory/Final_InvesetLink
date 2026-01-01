@@ -199,11 +199,15 @@ namespace InvestLink.Controllers
             return View(result);
         }
 
-     
+
         [HttpPost]
         public async Task<IActionResult> ApproveFinal(int Id)
         {
+           
+        try {
+
             var request = await project.GetByIdAsync(Id);
+
             request.State = "معتمد";
             await project.UpdateAsync(request);
 
@@ -226,21 +230,22 @@ namespace InvestLink.Controllers
             // توليد رقم رخصة تلقائي مميز
             // مثال: 2025-569-LIC
             obj.LicenseNumber = $"{DateTime.Now.Year}-{Id}-LIC";
-            //obj.LicenseNumber = $"{DateTime.Now.Year}-{new Random().Next(100, 999)}-LIC";
-            //var newLicense = new Graduation_project.DAL.Entities.License
-            //{
-            //    ProjectId = ProjectId, // الربط بالمشروع
+            await license.CreateAsync(obj);
 
-            //    CreatedDate = DateTime.Now, // تاريخ الإصدار = اللحظة الحالية
 
-            //    ExpireDate = DateTime.Now.AddYears(3), // مثال: مدة الصلاحية 3 اشهر
+           TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
+           return RedirectToAction("ApproveFinal");
 
-            //    // توليد رقم رخصة تلقائي مميز
-            //    // مثال: 2025-569-LIC
-            //    LicenseNumber = $"{DateTime.Now.Year}-{new Random().Next(100, 999)}-LIC"
-            //};
-            TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
-            return RedirectToAction("ApproveFinal");
+            }
+
+            catch (Exception ex)
+            {
+               TempData["Error"] = "حدث خطأ أثناء عملية الاعتماد: " + ex.Message;        
+               return RedirectToAction("ApproveFinal");
+            }
+           
+            //TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
+            //return RedirectToAction("ApproveFinal");
         }
 
       

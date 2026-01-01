@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using System.ComponentModel;
 using License = InvestLink_DAL.Entities.License;
 
@@ -45,13 +46,13 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
-        public async Task<IActionResult> Details(int Id)
-        {
-            var data = await license.GetByIdAsync(Id);
-            var result = mapper.Map<LicenseVM>(data);
+        //public async Task<IActionResult> Details(int Id)
+        //{
+        //    var data = await license.GetByIdAsync(Id);
+        //    var result = mapper.Map<LicenseVM>(data);
 
-            return View(result);
-        }
+        //    return View(result);
+        //}
 
         [HttpGet]
         public IActionResult Create()
@@ -114,6 +115,7 @@ namespace InvestLink.Controllers
             var result = mapper.Map<LicenseVM>(data);
             return View(result);
         }
+
         [HttpPost]
         public async Task<IActionResult> Delete(LicenseVM obj)
         {
@@ -135,13 +137,14 @@ namespace InvestLink.Controllers
         {
             return View();
         }
-        //public async Task<IActionResult> Details(int Id)
-        //{
-        //    var data = await license.GetByIdAsync(Id);
-        //    var result = mapper.Map<LicenseVM>(data);
+        public async Task<IActionResult> Details(int Id)
+        {
+            var data = await license.GetByProjectIdAsync(Id);
+       
+            //var result = mapper.Map<LicenseVM>(data);
 
-        //    return View(result);
-        //}
+            return View();
+        }
 
     }
 }

@@ -41,11 +41,36 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public async Task<License> GetByIdAsync(int Id)
+        public Task<License> GetByIdAsync(int Id)
         {
-            var data = await db.Licenses.Where(a => a.Id == Id).FirstOrDefaultAsync();
-            return data;
+            throw new NotImplementedException();
         }
+
+        //public async Task<License> GetByIdAsync(int Id)
+        //{
+        //    var data = await db.Licenses.Where(a => a.Id == Id)
+        //        .Include("Project")
+        //       .FirstOrDefaultAsync();
+        //    return data;
+        //}
+        public async Task<License?> GetByProjectIdAsync(int Id)
+        {
+            return await db.Licenses
+                            .Include("Project")
+                           //.Include(x => x.Project)
+                           .FirstOrDefaultAsync(x => x.Id == Id);
+        }
+
+        //public async Task<License?> GetByIdAsync(int id)
+        //{
+        //    return await db.Licenses
+        //          .Include(x => x.Project) // هذا أفضل وأضمن من "Project"
+        //          .FirstOrDefaultAsync(x => x.Id == id);
+        //}
+            //return await db.Licenses
+            //               .Include("Project")
+            //               .FirstOrDefaultAsync(x => x.Id == id);
+        
 
         public async Task UpdateAsync(License obj)
         {

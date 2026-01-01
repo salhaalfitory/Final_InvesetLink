@@ -6,11 +6,6 @@
 
 
 
-
-
-
-
-
 <h6 class="mb-0 text-uppercase">الطلبات </h6>
 <hr>
 <div class="card">
@@ -19,6 +14,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th>رقم</th>
                     <th scope="col">اسم</th>
                     <th scope="col">تاريخ إنشاء</th>
                     <th scope="col">تفاصيل</th>
@@ -35,6 +31,7 @@
                     <tr>
                         <th scope="row">@Count</th>
 
+                        <td>@Item.Id</td>
                         <td>@Item.Name</td>
                         <td>@Item.CreationData</td>
                         <td>
