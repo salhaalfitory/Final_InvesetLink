@@ -1,4 +1,4 @@
-
+﻿
 
 /*
 Template Name: Fobia Admin
@@ -59,8 +59,8 @@ ion-icon {
 .wrapper .page-content-wrapper {
 
     margin-right: 260px;
-    margin-top: 65px;
-    padding-bottom: 20px;
+    margin-top: 50px;
+    padding-bottom: 2px;
     transition: .3s all;
 
 }
@@ -136,8 +136,10 @@ ion-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 20px;
+/*    //تغيير
+*/
+    height: 30px;
     border-radius: 50%;
     font-size: 22px;
     cursor: pointer;
@@ -234,6 +236,7 @@ ion-icon {
     border: 1px solid #f4ebf8;
 }
 
+/*/تغيير*/
 .sidebar-wrapper .metismenu ul ul a {
 	padding: 8px 30px 8px 15px
 }

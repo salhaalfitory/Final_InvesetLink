@@ -16,9 +16,9 @@
                     <th scope="col">#</th>
                     <th>رقم</th>
                     <th scope="col">اسم</th>
-                    <th scope="col">تاريخ إنشاء</th>
+                    <th scope="col">تاريخ تقديم الطلب</th>
                     <th scope="col">تفاصيل</th>
-                    <th scope="col">تفاصيل</th>
+                    <th scope="col"> رخصة المشروع</th>
 
                 </tr>
             </thead>
@@ -34,24 +34,41 @@
 
                         <td>@Item.Id</td>
                         <td>@Item.Name</td>
-                        @* <td>@Item.CreationData</td> *@
-                        <td>@Item.State</td>
-                        <td>@Item.Name</td>
+                        <td>@Item.CreationData</td>
                         <td>
-                            <div class="col">
-                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id
+                                   class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="" data-bs-original-title="View detail" aria-label="Views">
+                                    <ion-icon name="eye-outline"></ion-icon>
                                 </a>
                             </div>
                         </td>
 
+                        @*     <div class="col">
+                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
+                                    <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
+                                </a>
+                            </div>
+                        </td> *@
+
                         <td>
-                            <div class="col">
-                                <a asp-controller="License" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> الرخصة
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a asp-controller="License" asp-action="Details" asp-route-Id=@Item.Id
+                                   class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="" data-bs-original-title="View detail" aria-label="Views">
+                                    <ion-icon name="document-text-sharp"></ion-icon> 
+
                                 </a>
                             </div>
                         </td>
+
+
+                            @* <div class="col">
+                                <a asp-controller="License" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
+                                    <ion-icon name="document-text-sharp"></ion-icon> الرخصة
+                                </a>
+                            </div> *@
 
                     </tr>
                 }
