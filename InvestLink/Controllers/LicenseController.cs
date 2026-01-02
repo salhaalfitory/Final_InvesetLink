@@ -81,40 +81,50 @@ namespace InvestLink.Controllers
             }
 
         }
-        [HttpGet]
-        public async Task<IActionResult> Update(int Id)
-        {
-            var data = await license.GetByIdAsync(Id);
-            var result = mapper.Map<LicenseVM>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(LicenseVM obj)
-        {
-            try
-            {
-                if (ModelState.IsValid == true)
-                {
-                    var data = mapper.Map<License>(obj);
-                    await license.UpdateAsync(data);
-                    return RedirectToAction("Index");
-                }
-                TempData["Meesage"] = "validation Error";
-                return View(obj);
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-                return View(obj);
-            }
-        }
-        [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var data = await license.GetByIdAsync(Id);
-            var result = mapper.Map<LicenseVM>(data);
-            return View(result);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Update(int Id)
+        //{
+        //    // 1. جلب البيانات
+        //    var data = await license.GetByIdAsync(Id);
+
+        //    // 2. التحقق: إذا كانت البيانات غير موجودة (null)
+        //    if (data == null)
+        //    {
+        //        // إما أن تظهر صفحة "غير موجود"
+        //        // return NotFound(); 
+
+        //        // أو تعيد المستخدم للصفحة الرئيسية مع رسالة خطأ (أفضل للمستخدم)
+        //        TempData["Message"] = "عفواً، هذا السجل غير موجود.";
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    // 3. التحويل والإرسال في حال وجود بيانات
+        //    var result = mapper.Map<LicenseVM>(data);
+        //    return View(result);
+        //}
+
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(int Id)
+        //{
+        //    var data = await license.GetByIdAsync(Id);
+
+        //    // نفس التحقق هنا ضروري جداً لتجنب الخطأ في صفحة الحذف
+        //    if (data == null)
+        //    {
+        //        TempData["Message"] = "عفواً، هذا السجل غير موجود.";
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    var result = mapper.Map<LicenseVM>(data);
+        //    return View(result);
+        //}
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(int Id)
+        //{
+        //    var data = await license.GetByIdAsync(Id);
+        //    var result = mapper.Map<LicenseVM>(data);
+        //    return View(result);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Delete(LicenseVM obj)
@@ -140,10 +150,14 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> Details(int Id)
         {
             var data = await license.GetByProjectIdAsync(Id);
-       
-            //var result = mapper.Map<LicenseVM>(data);
+            if (data == null)
+            {
+                TempData["Message"] = "الرخصة غير موجودة";
+                return RedirectToAction("Index");
+            }
+            var result = mapper.Map<LicenseVM>(data);
 
-            return View();
+            return View(result);
         }
 
     }

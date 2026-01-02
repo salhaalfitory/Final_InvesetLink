@@ -18,6 +18,7 @@
                     <th scope="col">اسم</th>
                     <th scope="col">تاريخ إنشاء</th>
                     <th scope="col">تفاصيل</th>
+                    <th scope="col">تفاصيل</th>
 
                 </tr>
             </thead>
@@ -33,7 +34,9 @@
 
                         <td>@Item.Id</td>
                         <td>@Item.Name</td>
-                        <td>@Item.CreationData</td>
+                        @* <td>@Item.CreationData</td> *@
+                        <td>@Item.State</td>
+                        <td>@Item.Name</td>
                         <td>
                             <div class="col">
                                 <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
