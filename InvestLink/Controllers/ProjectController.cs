@@ -203,32 +203,36 @@ namespace InvestLink.Controllers
       
         [HttpPost]
         public async Task<IActionResult> ApproveFinal(int Id)
-        {
-            try
-            {
-                var request = await project.GetByIdAsync(Id);
+        {         
+        try {
+            var request = await project.GetByIdAsync(Id);
 
+            request.State = "معتمد";
+            await project.UpdateAsync(request);
+           InvestLink_DAL.Entities.License obj = new InvestLink_DAL.Entities.License();
 
-                request.State = "معتمد";
-
-                await project.UpdateAsync(request);
-                InvestLink_DAL.Entities.License obj = new InvestLink_DAL.Entities.License();
-
-                obj.ProjectId = request.Id;
-                obj.CreatedDate = DateTime.Now;
-                obj.ExpireDate = DateTime.Now.AddMinutes(2);
-                obj.LicenseNumber = $"{DateTime.Now.Year}-{Id}-LIC";
-                obj.State = "سارية";
-                obj.Type = "تنفيذ";
-
+            obj.ProjectId = request.Id;
+            obj.CreatedDate = DateTime.Now;
+            obj.ExpireDate = DateTime.Now.AddMinutes(2);
+            obj.State = "سارية المفعول";
+            obj.Type = "رخصة استثمارية";
+                // توليد رقم رخصة تلقائي مميز
+                //ssssٍسٍ مثال: 2025-569-LIC
+                obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
                 await license.CreateAsync(obj);
-                TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
-                return RedirectToAction("ApproveFinal");
-            }catch (Exception ex)
+
+           TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
+           return RedirectToAction("ApproveFinal");
+
+            }
+
+            catch (Exception ex)
             {
                 TempData["Message"] = "حدث خطا اثناء الاعتماد";
                 return RedirectToAction("ApproveFinal");
             }
+            //TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
+            //return RedirectToAction("ApproveFinal");
         }
         [HttpPost]
         public async Task<IActionResult> RejectFinal(int Id)

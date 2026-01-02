@@ -251,14 +251,14 @@
 
                               <div class="details-grid">
                                 <label class="form-label"> فــي مجـــــال: </label>
-                                    <input type="text" value="@Model.Project?.Area" class="form-control" readonly>
+                                <input type="text" asp-for="@Model.Project.Area" class="form-control" readonly>
 
                             </div>
 
 
                             <div class="details-grid">
                                 <label class="form-label"> نــوع النشـــــــاط : </label>
-                                    <input type="text" value="@Model.Project?.TypeOfActivity" class="form-control" readonly>
+                                <input type="text" asp-for="@Model.Project.TypeOfActivity" class="form-control" readonly>
 
                             </div> 
  
@@ -348,3 +348,6 @@
       });
     });
     </script>
+
+
+
