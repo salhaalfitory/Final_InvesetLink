@@ -200,55 +200,36 @@ namespace InvestLink.Controllers
         }
 
 
+      
         [HttpPost]
         public async Task<IActionResult> ApproveFinal(int Id)
         {
-           
-        try {
-
-            var request = await project.GetByIdAsync(Id);
-
-            request.State = "معتمد";
-            await project.UpdateAsync(request);
-
-
-            //var result = mapper.Map<IEnumerable<licenseVM>>(data);
-            //var licenseVM = new LicenseVM
-            //{
-            //    ProjectId = request.Id,
-            //    //obj.CreatedDate = DateTime.Now,
-            //    //obj.LicenseNumber = $"{DateTime.Now.Year}-{ProjectId}-LIC",
-            //    //obj.State = "سارية"
-            //};
-
-
-            License obj = new License();
-
-            obj.ProjectId = request.Id;
-            obj.CreatedDate = DateTime.Now;
-            obj.ExpireDate = DateTime.Now.AddMinutes(2);
-            // توليد رقم رخصة تلقائي مميز
-            // مثال: 2025-569-LIC
-            obj.LicenseNumber = $"{DateTime.Now.Year}-{Id}-LIC";
-            await license.CreateAsync(obj);
-
-
-           TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
-           return RedirectToAction("ApproveFinal");
-
-            }
-
-            catch (Exception ex)
+            try
             {
-               TempData["Error"] = "حدث خطأ أثناء عملية الاعتماد: " + ex.Message;        
-               return RedirectToAction("ApproveFinal");
-            }
-           
-            //TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
-            //return RedirectToAction("ApproveFinal");
-        }
+                var request = await project.GetByIdAsync(Id);
 
-      
+
+                request.State = "معتمد";
+
+                await project.UpdateAsync(request);
+                InvestLink_DAL.Entities.License obj = new InvestLink_DAL.Entities.License();
+
+                obj.ProjectId = request.Id;
+                obj.CreatedDate = DateTime.Now;
+                obj.ExpireDate = DateTime.Now.AddMinutes(2);
+                obj.LicenseNumber = $"{DateTime.Now.Year}-{Id}-LIC";
+                obj.State = "سارية";
+                obj.Type = "تنفيذ";
+
+                await license.CreateAsync(obj);
+                TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
+                return RedirectToAction("ApproveFinal");
+            }catch (Exception ex)
+            {
+                TempData["Message"] = "حدث خطا اثناء الاعتماد";
+                return RedirectToAction("ApproveFinal");
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> RejectFinal(int Id)
         {

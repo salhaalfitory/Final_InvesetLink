@@ -46,13 +46,7 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
-        //public async Task<IActionResult> Details(int Id)
-        //{
-        //    var data = await license.GetByIdAsync(Id);
-        //    var result = mapper.Map<LicenseVM>(data);
-
-        //    return View(result);
-        //}
+      
 
         [HttpGet]
         public IActionResult Create()
@@ -133,17 +127,14 @@ namespace InvestLink.Controllers
                 return View(obj);
             }
         }
-        public IActionResult Save()
-        {
-            return View();
-        }
+
+
         public async Task<IActionResult> Details(int Id)
         {
             var data = await license.GetByProjectIdAsync(Id);
-       
-            //var result = mapper.Map<LicenseVM>(data);
+            var result = mapper.Map<LicenseVM>(data);
 
-            return View();
+            return View(result);
         }
 
     }
