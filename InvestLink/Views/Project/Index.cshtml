@@ -5,23 +5,18 @@
 
 
 
-
-
-
-
-
-
-<h6 class="mb-0 text-uppercase">الطلبات </h6>
-<hr>
+@* <h6 class="mb-0 text-uppercase">الطلبات </h6> *@
+@* <hr> *@
 <div class="card">
     <div class="card-body">
         <table class="table mb-0 table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">اسم</th>
-                    <th scope="col">تاريخ إنشاء</th>
-                    <th scope="col">تفاصيل</th>
+                    <th scope="col">اسم المشروع</th>
+                    <th scope="col">تاريخ الإنشاء</th>
+                    <th scope="col">حالة الطلب </th>
+                    <th scope="col">التفاصيل</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,13 +31,22 @@
 
                         <td>@Item.Name</td>
                         <td>@Item.CreationData</td>
+                        <td>@Item.State</td>
                         <td>
-                        <div class="col">
-                                   <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id 
+                                    class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                   title="" data-bs-original-title="View detail" aria-label="Views">
+                                    <ion-icon name="eye-outline"></ion-icon>
                                 </a>
-                        </div>
+                            </div>
                         </td>
+                        @* <div class="col">
+
+                                   <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
+                                    <ion-icon name="document-text-sharp"></ion-icon> التفاصيل
+                                </a> *@
+
                         
                     </tr>
                 }
@@ -50,3 +54,35 @@
         </table>
     </div>
 </div>
+
+
+
+
+<!-- JS Files-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<!--plugins-->
+<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+
+<!-- Main JS-->
+<script src="assets/js/main.js"></script>
+
+
+
+<!-- JS Files-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<!--plugins-->
+<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+<script src="assets/plugins/easyPieChart/jquery.easypiechart.js"></script>
+<script src="assets/plugins/chartjs/chart.min.js"></script>
+<script src="assets/js/index.js"></script>
+<!-- Main JS-->
+<script src="assets/js/main.js"></script>

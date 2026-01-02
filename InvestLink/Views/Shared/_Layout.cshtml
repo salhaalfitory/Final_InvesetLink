@@ -67,8 +67,9 @@
           <div class="menu-title">الطلبات الاستثمارية</div>
            </a>
            </li>
+
              <li>
-              <a asp-controller="Project" asp-action="Index">
+              <a asp-controller="Project" asp-action="ApproveFinal">
                <div class="parent-icon">
                 <ion-icon name="home-outline"></ion-icon>
                 </div>
@@ -283,9 +284,9 @@
                     
           <ul class="navbar-nav align-items-center">
                         @*     //-------------------المستثمر------------------ *@
-                        <li>
+                        <li
                             <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                                <div class="font-22">
+                                <div class="font-16">
                                     <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
                                 </div>
                             </a>
@@ -293,11 +294,30 @@
 
                         <li>
                         <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                            <div class="font-22">
+                                <div class="font-16">
                                 <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
                             </div>
                         </a>
                         </li>
+
+                        @* <div class="col" tabindex="377"> 
+                            <div class="d-flex align-items-center theme-icons shadow-sm p-1 cursor-pointer rounded">
+                                <div class="font-22">
+                                    <i class="fadeIn animated bx bx-pencil"></i>
+                                </div>
+                                <div class="ms-2">تقديم طلب استثماري</div>
+                            </div>
+                        </div> 
+
+                         <div class="col" tabindex="378"> 
+                            <div class="d-flex align-items-center theme-icons shadow-sm p-1 cursor-pointer rounded">
+                                <div class="font-22">
+                                    <i class="fadeIn animated bx bx-paste"></i>
+                                </div>
+                                <div class="ms-2">الإعلانات</div>
+                            </div>
+                        </div> *@
+
                   
             <li class="nav-item dropdown dropdown-user-setting">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
@@ -387,11 +407,13 @@
             </li>
 
           </ul>
-                   
-        </div>
-              
-      </nav>
+
+                </div>
+
+            </nav>
+
     </header>
+    <hr />
     <!--end top header-->
 
 
@@ -442,3 +464,16 @@
 </body>
 
 </html>
+
+
+
+<style>
+    /* زيادة المسافة بين أيقونات الشريط العلوي */
+    .top-header .navbar-nav > li {
+        margin-left: 20px !important; /* يمكنك زيادة الرقم 20 لزيادة التباعد */
+    }
+
+    /* (اختياري) إذا كانت العناصر داخل div وليست li في بعض النسخ */
+    .top-header .navbar-nav .nav-item {
+        margin-left: 20px !important;
+    }</style>

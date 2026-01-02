@@ -57,12 +57,12 @@ namespace InvestLink.Controllers
             ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(Investor_ProjectVM obj)
         {
             try
             {
-                
                     var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
                     obj.Project.LegalBodyName = LegalBodyName;
 
@@ -103,7 +103,6 @@ namespace InvestLink.Controllers
                                     investorId = await investor.CreateAsync(newInvestor);
                                 }
 
-                                //تعديل لأنها تتعامل من DAL مباشرا
                                 var Link = new ProjectInvestor
                                 {
                                     ProjectId = Project_info_Id,
