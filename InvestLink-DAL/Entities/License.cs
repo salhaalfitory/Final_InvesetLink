@@ -19,7 +19,7 @@ namespace InvestLink_DAL.Entities
         [Required, StringLength(100)]
         public string State { get; set; }//حالة رخصة 
         public string Type { get; set; }//نوع رخصة 
-
+       
         //-------------------------------------------------
         public int ProjectId { get; set; }
         public Project? Project { get; set; }

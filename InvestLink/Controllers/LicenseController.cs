@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using System.ComponentModel;
 using License = InvestLink_DAL.Entities.License;
@@ -149,6 +150,20 @@ namespace InvestLink.Controllers
             }
             var result = mapper.Map<LicenseVM>(data);
 
+            return View(result);
+        }
+        public async Task<IActionResult> Expiredlicenses()
+        {
+
+            // 1. استدعاء الدالة الجديدة من السيرفس/الريبو
+            var expiredData = await license.GetExpiredLicensesAsync();
+
+            // 2. التحويل إلى LicenseVM (تأكدي أنك تحولين لـ LicenseVM مش ProjectVM)
+            var result = mapper.Map<IEnumerable<LicenseVM>>(expiredData);
+            var employeesData = await project.GetAllAsync();
+
+            ViewBag.EmployeesList = new SelectList(employeesData, "EmployeeId", "Name");
+            // 3. إرسال البيانات للصفحة
             return View(result);
         }
 
