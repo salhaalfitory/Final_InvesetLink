@@ -29,6 +29,10 @@
     <link href="~/css/header-colors.css" rel="stylesheet" />
 
   <title>الهيئة العامة لتشجيع الاستثمار و شؤون الخصخصة</title>
+
+
+  @* ////////////////////////////////////////////// *@
+    @await RenderSectionAsync("jqueryUICSS", required: false)
 </head>
 
 <body>
@@ -284,7 +288,7 @@
                     
           <ul class="navbar-nav align-items-center">
                         @*     //-------------------المستثمر------------------ *@
-                        <li
+                        <li>
                             <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
                                 <div class="font-16">
                                     <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
@@ -460,6 +464,10 @@
   <!-- Main JS-->
   <script src="~/js/main.js"></script>
 
+
+  @* ///////////////////////////////////////// *@
+    @await RenderSectionAsync("jqueryUI", required: false)
+    @await RenderSectionAsync("jqueryvalidation", required: false)
 
 </body>
 
