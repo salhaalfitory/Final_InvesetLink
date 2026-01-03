@@ -215,10 +215,8 @@ namespace InvestLink_DAL.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Type")
                         .IsRequired()

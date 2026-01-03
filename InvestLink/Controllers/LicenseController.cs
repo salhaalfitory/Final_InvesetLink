@@ -152,13 +152,14 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
+
+
+
         public async Task<IActionResult> Expiredlicenses()
         {
 
-            // 1. استدعاء الدالة الجديدة من السيرفس/الريبو
             var expiredData = await license.GetExpiredLicensesAsync();
 
-            // 2. التحويل إلى LicenseVM (تأكدي أنك تحولين لـ LicenseVM مش ProjectVM)
             var result = mapper.Map<IEnumerable<LicenseVM>>(expiredData);
             //var employeesData = await project.GetAllAsync();
 

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<InvestLink_BLL.Models.LicenseVM>
 @{
-    ViewBag.Title = "Index ";
+    ViewBag.Title = "Expiredlicenses";
 }
 
 
@@ -10,8 +10,7 @@
 
 
 
-
-<h6 class="mb-0 text-uppercase">الطلبات </h6>
+<h6 class="mb-0 text-uppercase">الطلبات</h6>
 <hr>
 <div class="card">
     <div class="card-body">
@@ -19,11 +18,15 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">اسم</th>
-                    <th scope="col">تاريخ إنشاء</th>
+                    <th scope="col">الاسم</th>
+                    <th scope="col">تاريخ تقديم الطلب</th>
                     <th scope="col">تفاصيل</th>
+                    <th scope="col">رخصة المشروع</th>
+                    <th scope="col">ملف رخصة المشروع</th>
                 </tr>
             </thead>
+
+
             <tbody>
                 @{
                     int Count = 0;
@@ -31,22 +34,21 @@
                 @foreach (var Item in Model)
                 {
                     Count++;
-                    <tr>
+                   <tr>
                         <th scope="row">@Count</th>
-
-                        <td>@Item.</td>
-                        <td>@Item.</td>
+                        <td>@Item.LicenseNumber</td>
+                        <td>@Item.Project?.Name</td>
+                        <td>@Item.ExpireDate</td>
                         <td>
-                            <div class="col">
-                                <a asp-controller="License" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
-                                </a>
-                            </div>
-                        </td>
-
-                    </tr>
+                            <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
+                                منتهية
+                            </span>
+                        </td>                    
+                </tr>
+                    @* </tr> *@
                 }
             </tbody>
         </table>
     </div>
 </div>
+

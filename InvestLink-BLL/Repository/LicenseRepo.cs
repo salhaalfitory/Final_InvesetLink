@@ -39,8 +39,21 @@ namespace InvestLink_BLL.Repository
 
         public async Task<IEnumerable<License>> GetAllAsync()
         {
-            var data = await db.Licenses.ToListAsync();
+            var data = await db.Licenses
+               .Include("Project") 
+               .ToListAsync();
+
+           //Extra
+            foreach (var item in data)
+            {
+                if (DateTime.Now > item.ExpireDate && item.State == true)
+                {
+                    item.State = false;                                       
+                }
+            }
+            await db.SaveChangesAsync();
             return data;
+
         }
 
 
@@ -63,19 +76,12 @@ namespace InvestLink_BLL.Repository
                            .FirstOrDefaultAsync(x => x.ProjectId == Id);
         }
 
-        public async Task<IEnumerable<License>> GetByStateAsync(string state)
-        {
-            var data = await db.Licenses
-            .Where(p => p.State == state)
-            .ToListAsync();
-            return data;
-        }
-
+    
         public async Task<IEnumerable<License>> GetExpiredLicensesAsync()
         {
             var data = await db.Licenses
-          .Include(a => a.Project) // ضروري عشان اسم المشروع يظهر
-          .Where(a => DateTime.Now > a.ExpireDate) // شرط الانتهاء: تاريخ اليوم تجاوز تاريخ الانتهاء
+          .Include(a => a.Project) 
+          .Where(a => a.State==false) 
           .ToListAsync();
 
             return data;

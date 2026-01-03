@@ -33,6 +33,7 @@
 
   @* ////////////////////////////////////////////// *@
     @await RenderSectionAsync("jqueryUICSS", required: false)
+    @await RenderSectionAsync("jqueryvalidation", required: false)
 </head>
 
 <body>
@@ -126,8 +127,14 @@
             <div class="menu-title">إدارة الرخص</div>
           </a>
           <ul>
-          <li>
-                            <a asp-controller="License" asp-action="LicenseRenewal">
+           <li>
+                            <a asp-controller="License" asp-action="Index">
+                                <ion-icon name="ellipse-outline"></ion-icon> الرخص
+                            </a>
+           </li>
+                        
+                        <li>
+                            <a asp-controller="License" asp-action="Expiredlicenses">
                 <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
               </a>
             </li>
@@ -466,12 +473,22 @@
 
 
   @* ///////////////////////////////////////// *@
-    @await RenderSectionAsync("jqueryUI", required: false)
     @await RenderSectionAsync("jqueryvalidation", required: false)
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
 
 
 
+<style>
+    /* زيادة المسافة بين أيقونات الشريط العلوي */
+    .top-header .navbar-nav > li {
+        margin-left: 20px !important; /* يمكنك زيادة الرقم 20 لزيادة التباعد */
+    }
+
+    /* (اختياري) إذا كانت العناصر داخل div وليست li في بعض النسخ */
+    .top-header .navbar-nav .nav-item {
+        margin-left: 20px !important;
+    }
+</style>

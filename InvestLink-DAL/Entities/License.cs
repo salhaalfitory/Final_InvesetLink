@@ -16,8 +16,8 @@ namespace InvestLink_DAL.Entities
         public DateTime CreatedDate { get; set; }//تاريخ إنشاء 
         public DateTime ExpireDate { get; set; }//تاريخ إنتهاء 
         public string LicenseNumber { get; set; }//رقم ترخيص 
-        [Required, StringLength(100)]
-        public string State { get; set; }//حالة رخصة 
+        //[Required, StringLength(100)]
+        public bool State { get; set; }//حالة رخصة 
         public string Type { get; set; }//نوع رخصة 
        
         //-------------------------------------------------
