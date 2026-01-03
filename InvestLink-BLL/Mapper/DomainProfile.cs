@@ -44,6 +44,7 @@ namespace InvestLink_BLL.Mapper
             CreateMap<InvestorVM, Investor>();
             ////---------------------------------
             CreateMap<License, LicenseVM>();
+
             CreateMap<LicenseVM, License>();
             ////---------------------------------
             CreateMap<ProjectInvestor, ProjectInvestorVM>();

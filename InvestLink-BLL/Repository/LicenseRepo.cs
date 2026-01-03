@@ -43,15 +43,18 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public async Task<License?> GetByIdAsync(int Id)
+
+
+
+
+        public async Task<License> GetByIdAsync(int Id)
         {
-            return await db.Licenses
-                           .Include(x => x.Project)
-                           .FirstOrDefaultAsync(x => x.Id == Id);
+            var data = await db.Licenses
+                        .Include(x => x.Project)  // هذا أضمن وأفضل من كتابة "Project"
+                        .Where(a => a.Id == Id)
+                        .FirstOrDefaultAsync();
+            return data;
         }
-
-
-        //}
         public async Task<License?> GetByProjectIdAsync(int Id)
         {
             return await db.Licenses
@@ -60,7 +63,23 @@ namespace InvestLink_BLL.Repository
                            .FirstOrDefaultAsync(x => x.ProjectId == Id);
         }
 
+        public async Task<IEnumerable<License>> GetByStateAsync(string state)
+        {
+            var data = await db.Licenses
+            .Where(p => p.State == state)
+            .ToListAsync();
+            return data;
+        }
 
+        public async Task<IEnumerable<License>> GetExpiredLicensesAsync()
+        {
+            var data = await db.Licenses
+          .Include(a => a.Project) // ضروري عشان اسم المشروع يظهر
+          .Where(a => DateTime.Now > a.ExpireDate) // شرط الانتهاء: تاريخ اليوم تجاوز تاريخ الانتهاء
+          .ToListAsync();
+
+            return data;
+        }
 
         public async Task UpdateAsync(License obj)
         {

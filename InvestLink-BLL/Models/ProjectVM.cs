@@ -30,6 +30,9 @@ namespace InvestLink_BLL.Models
         [Required]
         public string ProposedSite { get; set; }//  موقع مقترح تحميل
         [Required]
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
         public string AreaWanted { get; set; }//مساحة مطلوبة
         [Required]
         public string TypeOfBenefitFromSite { get; set; }//نوع انتفاع بموقع
@@ -78,6 +81,9 @@ namespace InvestLink_BLL.Models
         [Required]
         public string ExperienceOfInvestor { get; set; }//خبرة المستثمر
 
+
+        public string? LicenseName { get; set; }//مسار 
+        public IFormFile? LicenseFile { get; set; }//ملف رخصه 
         public DateTime CreationData { get; set; } = DateTime.Now;
 
 

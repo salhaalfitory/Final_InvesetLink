@@ -1,4 +1,5 @@
 ﻿using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,7 @@ namespace InvestLink_BLL.Models
         [Required, StringLength(100)]
         public string State { get; set; }//حالة رخصة 
         public string Type { get; set; }//نوع رخصة 
-
+  
         //-------------------------------------------------
         public int ProjectId { get; set; }
         public Project? Project { get; set; }

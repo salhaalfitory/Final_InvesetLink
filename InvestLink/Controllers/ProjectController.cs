@@ -3,11 +3,14 @@ using Humanizer;
 using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
+using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
+using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Project = InvestLink_DAL.Entities.Project;
 
@@ -199,6 +202,7 @@ namespace InvestLink.Controllers
         }
 
 
+      
         [HttpPost]
         public async Task<IActionResult> ApproveFinal(int Id)
         {         
@@ -226,14 +230,12 @@ namespace InvestLink.Controllers
 
             catch (Exception ex)
             {
-               TempData["Error"] = "حدث خطأ أثناء عملية الاعتماد: " + ex.Message;        
-               return RedirectToAction("ApproveFinal");
+                TempData["Message"] = "حدث خطا اثناء الاعتماد";
+                return RedirectToAction("ApproveFinal");
             }
             //TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
             //return RedirectToAction("ApproveFinal");
         }
-
-      
         [HttpPost]
         public async Task<IActionResult> RejectFinal(int Id)
         {
@@ -245,7 +247,36 @@ namespace InvestLink.Controllers
             TempData["Message"] = "تم رفض الطلب نهائياً ";
             return RedirectToAction("Details", new { Id });
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadLicense(int projectId, IFormFile licenseFile)
+        {
+            // 1. التحقق من وجود الملف
+            if (licenseFile != null)
+            {
+                // 2. رفع الملف والحصول على الاسم
+                // ملاحظة: تأكد أن المجلد "Doc" موجود، سأضع لك ملاحظة بالأسفل بخصوص هذا
+                var fileName = FileUpLoader.UploaderFile(licenseFile, "Doc");
 
+                // 3. جلب المشروع باستخدام "الريبو" (_projectRepo)
+                // خطأك السابق كان: var project = await project.GetByIdAsync
+                // التصحيح:
+                var request = await project.GetByIdAsync(projectId);
+
+                if (project != null)
+                {
+                    // 4. تحديث الاسم في الكائن الراجع
+                    request.LicenseName = fileName;
+
+                    // 5. حفظ التعديلات باستخدام "الريبو"
+                    // خطأك السابق كان: await project.UpdateAsync(project)
+                    // التصحيح:
+                    await project.UpdateAsync(request);
+                }
+            }
+
+            // العودة للصفحة
+            return RedirectToAction("ApproveFinal");
+        }
 
     }
 }

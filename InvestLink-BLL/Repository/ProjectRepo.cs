@@ -25,17 +25,11 @@ namespace InvestLink_BLL.Repository
             return obj.Id;
         }
 
-        //public async Task<IEnumerable<Project>> GetAllAsync()
-        //{
-        //    var data = await db.Projects.ToListAsync();
-        //    return data;
-        //}
-
-        // داخل ProjectRepo.cs
+     
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
             return await db.Projects
-                           .Include(p => p.Licenses) // <--- هذا السطر هو الذي يملأ القائمة
+                           .Include(p => p.Licenses) 
                            .ToListAsync();
         }
 
@@ -50,10 +44,7 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        //public Task<IEnumerable<Project>> GetByStateAsync(string state)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        
         public async Task<IEnumerable<Project>> GetByStateAsync(string state)
         {
             var data = await db.Projects
@@ -64,13 +55,7 @@ namespace InvestLink_BLL.Repository
 
 
 
-        //public async Task<IEnumerable<Project>> GetByStateAsync(string state)
-        //{
-        //    var data = await db.Projects
-        //    .Where(p => p.State == state)
-        //    .ToListAsync();
-        //    return data;
-        //}
+       
 
         public async Task UpdateAsync(Project obj)
         {
