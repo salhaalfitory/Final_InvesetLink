@@ -29,6 +29,9 @@ namespace InvestLink_DAL.Entities
         [Required]
         public string TypeOfActivity { get; set; }//نوع نشاط
         [Required]
+
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string ProposedSite { get; set; }//  موقع مقترح تحميل
         [Required]
         public string AreaWanted { get; set; }//مساحة مطلوبة

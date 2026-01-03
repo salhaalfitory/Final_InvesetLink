@@ -160,9 +160,9 @@ namespace InvestLink.Controllers
 
             // 2. التحويل إلى LicenseVM (تأكدي أنك تحولين لـ LicenseVM مش ProjectVM)
             var result = mapper.Map<IEnumerable<LicenseVM>>(expiredData);
-            var employeesData = await project.GetAllAsync();
+            //var employeesData = await project.GetAllAsync();
 
-            ViewBag.EmployeesList = new SelectList(employeesData, "EmployeeId", "Name");
+            //ViewBag.EmployeesList = new SelectList(employeesData, "EmployeeId", "Name");
             // 3. إرسال البيانات للصفحة
             return View(result);
         }
