@@ -57,10 +57,13 @@
                             @if (!string.IsNullOrEmpty(Item.LicenseName))
                             {
                                 // إذا كان الملف مرفوعاً سابقاً
-                                <div class="text-success">
+                               @*  <div class="text-success">
                                     <ion-icon name="checkmark-done-circle" style="font-size: 1.5rem; vertical-align: middle;"></ion-icon>
                                     <span class="fw-bold">تم رفع الرخصة</span>
-                                </div>
+                                </div> *@
+                                <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id" class="btn btn-sm btn-success" target="_blank">
+                                    <ion-icon name="eye-outline" style="vertical-align: middle;"></ion-icon> عرض
+                                </a>
                             }
                             else
                             {
