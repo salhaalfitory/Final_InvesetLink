@@ -53,6 +53,15 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<ProjectVM>>(data);
             return View(result);
         }
+
+        //public async Task<IActionResult> Index()
+        //{
+
+        //    var data = await license.GetAllAsync();
+
+        //    return View(data);
+
+        //}
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -216,7 +225,7 @@ namespace InvestLink.Controllers
             obj.ProjectId = request.Id;
             obj.CreatedDate = DateTime.Now;
             obj.ExpireDate = DateTime.Now.AddMinutes(2);
-            obj.State = "سارية المفعول";
+            obj.State = true;
             obj.Type = "رخصة استثمارية";
                 // توليد رقم رخصة تلقائي مميز
                 //ssssٍسٍ مثال: 2025-569-LIC
@@ -278,6 +287,7 @@ namespace InvestLink.Controllers
             return RedirectToAction("ApproveFinal");
         }
 
+      
     }
 }
 
