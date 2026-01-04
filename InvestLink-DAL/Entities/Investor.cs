@@ -17,6 +17,7 @@ namespace InvestLink_DAL.Entities
         [Required, StringLength(100)]
         public string Name { get; set; }//اسم مستثمر
         [EmailAddress(ErrorMessage = " invalid Email ")]
+
         public string Email { get; set; } //بريد الالكتروني
         [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
         [MinLength(10)]

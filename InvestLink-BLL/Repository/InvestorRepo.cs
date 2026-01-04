@@ -54,5 +54,9 @@ namespace InvestLink_BLL.Repository
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
         }
+
+        //اضافه داله للايميل
+
+
     }
 }
