@@ -54,14 +54,7 @@ namespace InvestLink.Controllers
             return View(result);
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-
-        //    var data = await license.GetAllAsync();
-
-        //    return View(data);
-
-        //}
+       
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -223,13 +216,16 @@ namespace InvestLink.Controllers
            InvestLink_DAL.Entities.License obj = new InvestLink_DAL.Entities.License();
 
             obj.ProjectId = request.Id;
-            obj.CreatedDate = DateTime.Now;
-            obj.ExpireDate = DateTime.Now.AddMinutes(2);
-            obj.State = true;
-            obj.Type = "رخصة استثمارية";
-                // توليد رقم رخصة تلقائي مميز
-                //ssssٍسٍ مثال: 2025-569-LIC
-                obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
+                //    // 1. تحديد تاريخ اليوم
+                //obj.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
+
+                //    // 2. تحديد تاريخ الانتهاء (إضافة سنتين ثم التحويل)
+                //obj.ExpireDate = DateOnly.FromDateTime(DateTime.Now.AddMinutes(2));
+
+                obj.CreatedDate = DateTime.Now;
+                obj.ExpireDate = DateTime.Now.AddMinutes(2);
+                obj.Type = "رخصة استثمارية";
+            obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
                 await license.CreateAsync(obj);
 
            TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
@@ -242,8 +238,7 @@ namespace InvestLink.Controllers
                 TempData["Message"] = "حدث خطا اثناء الاعتماد";
                 return RedirectToAction("ApproveFinal");
             }
-            //TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
-            //return RedirectToAction("ApproveFinal");
+          
         }
         [HttpPost]
         public async Task<IActionResult> RejectFinal(int Id)
