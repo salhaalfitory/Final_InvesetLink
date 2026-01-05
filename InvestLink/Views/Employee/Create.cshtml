@@ -21,9 +21,9 @@
                 </div>
 
                 <div class="col-12">
-                    <label asp-for="Emial" class="form-label">البريد الإلكتروني</label>
-                    <input asp-for="Emial" class="form-control" type="email" placeholder="example@mail.com" />
-                    <span asp-validation-for="Emial" class="text-danger"></span>
+                    <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
+                    <input asp-for="Email" class="form-control" type="email" placeholder="example@mail.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-6">
@@ -38,13 +38,14 @@
                     <span asp-validation-for="SecondPhoneNumber" class="text-danger"></span>
                 </div>
 
-                <div class="col-12">
-                    <label asp-for="NationalityId" class="form-label">الجنسية</label>
-                    <select asp-for="NationalityId" class="form-select" asp-items="ViewBag.NationalityId">
-                        <option value="">-- اختر الجنسية --</option>
+                <div class="col-12 col-lg-6">
+                    <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
+                        <option value=""> اختر  الجنسية</option>
                     </select>
                     <span asp-validation-for="NationalityId" class="text-danger"></span>
                 </div>
+                  
+                
 
                 <div class="col-12">
                     <div class="form-check">
@@ -57,10 +58,10 @@
 
                 <div class="col-12">
                     <div class="d-flex justify-content-center gap-2 mt-3">
+                        <input type="submit" value="حفظ" class="btn btn-success px-4" />
 
-                        <button type="submit" class="btn btn-success btn-sm px-4">حفظ البيانات</button>
 
-                        <a asp-action="Index" class="btn btn-secondary btn-sm px-4">الرجوع للقائمة</a>
+                        <a asp-action="Index" class="btn btn-secondary btn-sm px-4">الرجوع </a>
 
                     </div>
                 </div>
@@ -70,4 +71,3 @@
 </div>
 
 
-}

@@ -21,18 +21,21 @@ namespace InvestLink.Controllers
         private readonly IProject project;
         private readonly IMapper mapper;
         private readonly ILicense license;
-
+        private readonly IProjectCoordinator projectcoordinator;
+        private readonly IEmployee employee;
 
         #endregion
-
+        
         //-----------------------------------------
         #region Ctor
-        public LicenseController(IProject project, IMapper mapper, ILicense license)
+        public LicenseController(IProject project, IMapper mapper, ILicense license, IProjectCoordinator projectcoordinator, IEmployee employee)
         {
             this.project = project;
             this.mapper = mapper;
             this.license = license;
-
+            this.projectcoordinator = projectcoordinator;
+            this.employee = employee;
+            
 
         }
 
@@ -161,11 +164,31 @@ namespace InvestLink.Controllers
             var expiredData = await license.GetExpiredLicensesAsync();
 
             var result = mapper.Map<IEnumerable<LicenseVM>>(expiredData);
-            //var employeesData = await project.GetAllAsync();
+            var employeesData = await employee.GetAllAsync();
 
-            //ViewBag.EmployeesList = new SelectList(employeesData, "EmployeeId", "Name");
+            ViewBag.EmployeesList = new SelectList(employeesData, "Id", "Name");
             // 3. إرسال البيانات للصفحة
             return View(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SendReportRequest(int LicenseId, int EmployeeId)
+        {
+
+            // 2. البحث عن الرخصة لجلب رقم المشروع (لأن الجدول يطلب ProjectId)
+            // نستخدم الـ Repo الخاص بالرخص لجلبها
+            var licenseData = await license.GetByIdAsync(LicenseId);
+            InvestLink_DAL.Entities.ProjectCoordinator obj = new InvestLink_DAL.Entities.ProjectCoordinator();
+            obj.ProjectId = licenseData.ProjectId;
+            obj.EmployeeId = EmployeeId;
+            obj.StartDate = DateTime.Now;
+
+            await projectcoordinator.CreateAsync(obj);
+
+            TempData["Message"] = "تم تعيين الموظف للمشروع بنجاح ✅";
+            return RedirectToAction("Expiredlicenses");
+
         }
 
     }

@@ -22,7 +22,7 @@ namespace InvestLink_DAL.Entities
         [Required, StringLength(100)]
         public string? Status { get; set; }// حالة تقرير 
         public bool IsUpdated { get; set; }
-        public DateTime UpdateData { get; set; } // تاريخ إنشاء تقرير
+        public DateTime UpdateData { get; set; } 
 
 
 

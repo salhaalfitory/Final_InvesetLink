@@ -14,5 +14,6 @@ namespace InvestLink_BLL.Interfaces
         Task<ProjectCoordinator> GetByIdAsync(int Id);
         Task UpdateAsync(ProjectCoordinator obj);
         Task DeleteAsync(ProjectCoordinator obj);
+
     }
 }

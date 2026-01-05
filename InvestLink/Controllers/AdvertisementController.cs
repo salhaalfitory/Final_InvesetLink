@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
@@ -13,6 +14,8 @@ namespace InvestLink.Controllers
 
 
         private readonly IAdvertisement advertisement;
+        private readonly IEmployee employee;
+        private readonly ILicense license;
         private readonly IMapper mapper;
      
 
@@ -21,10 +24,12 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public AdvertisementController(IAdvertisement advertisement, IMapper mapper)
+        public AdvertisementController(IAdvertisement advertisement,IEmployee employee,ILicense license, IMapper mapper)
         {
 
             this.advertisement = advertisement;
+            this.employee = employee;
+            this.license = license;
             this.mapper = mapper;
           
 
@@ -41,16 +46,25 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
             return View(result);
         }
+        
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int EmployeeId)
         {
-            return View();
+
+            var model = new AdvertisementVM();
+
+
+            model.EmployeeId = EmployeeId;
+
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Create(AdvertisementVM obj)
         {
             try
             {
+                //var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                obj.ImageName = "hkv";
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Advertisement>(obj);

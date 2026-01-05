@@ -1,1 +1,46 @@
-﻿
+﻿@model InvestLink_BLL.Models.CoordinatorReportVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">إضافة تقرير جديد</h6>
+            <hr>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <form asp-controller="CoordinatorReport" asp-action="Create" enctype="multipart/form-data" class="row g-3">
+                <input type="hidden" asp-for="ProjectCoordinatorId" />
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label">الوصف</label>
+                    <textarea asp-for="Description" class="form-control" ></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Image" class="form-label">صورة</label>
+                    <input asp-for="Image" class="form-control" type="file" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                
+                
+
+                <div class="col-12">
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        <input type="submit" value="حفظ" class="btn btn-success px-4" />
+
+
+                        <a asp-action="Index" class="btn btn-secondary btn-sm px-4">الرجوع </a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

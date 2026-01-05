@@ -33,14 +33,23 @@ namespace InvestLink_BLL.Repository
 
         public async Task<IEnumerable<CoordinatorReport>> GetAllAsync()
         {
-            var data = await db.CoordinatorReports.ToListAsync();
-            return data;
+
+            return await db.CoordinatorReports
+        .Include(x => x.ProjectCoordinator)       // 1. ضروري: إحضار بيانات المنسق المرتبط بالتقرير
+            .ThenInclude(y => y.Project)          // 2. ضروري جداً: الدخول لجدول المنسق وإحضار اسم المشروع
+        .ToListAsync();
         }
 
         public async Task<CoordinatorReport> GetByIdAsync(int Id)
         {
-            var data = await db.CoordinatorReports.Where(a => a.Id == Id).FirstOrDefaultAsync();
-            return data;
+
+
+            return await db.CoordinatorReports
+                        .Include(x => x.ProjectCoordinator)      // جلب بيانات المنسق
+                            .ThenInclude(y => y.Project)         // جلب بيانات المشروع التابع للمنسق
+                        .Include(x => x.ProjectCoordinator)
+                            .ThenInclude(y => y.Employee)        // جلب بيانات الموظف (اختياري)
+                        .FirstOrDefaultAsync(x => x.Id == Id);
         }
 
         public async Task UpdateAsync(CoordinatorReport obj)

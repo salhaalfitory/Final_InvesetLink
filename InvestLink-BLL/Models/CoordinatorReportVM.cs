@@ -1,4 +1,5 @@
 ﻿using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,11 +14,11 @@ namespace InvestLink_BLL.Models
         [Key]
         public int Id { get; set; }
 
-        [Required, StringLength(500)]
+       
         public string Description { get; set; }// وصف تقرير
         public DateTime CreationData { get; set; } = DateTime.Now;// تاريخ إنشاء تقرير
         public string? ImageName { get; set; }// صور
-        [Required, StringLength(100)]
+      public IFormFile Image { get; set; }
         public string? Status { get; set; }// حالة تقرير
 
         //-------------------------------------------------

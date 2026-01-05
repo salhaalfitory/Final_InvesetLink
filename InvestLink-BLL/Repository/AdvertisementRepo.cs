@@ -38,8 +38,10 @@ namespace InvestLink_BLL.Repository
 
         public async Task<Advertisement> GetByIdAsync(int Id)
         {
-            var data = await db.Advertisements.Where(a => a.Id == Id).FirstOrDefaultAsync();
-            return data;
+            return await db.Advertisements
+                       .Include(x => x.Employee)     
+                             
+                       .FirstOrDefaultAsync(x => x.Id == Id);
         }
 
         public  async Task UpdateAsync(Advertisement obj)
