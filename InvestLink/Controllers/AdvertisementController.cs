@@ -52,8 +52,6 @@ namespace InvestLink.Controllers
         {
 
             var model = new AdvertisementVM();
-
-
             model.EmployeeId = EmployeeId;
 
             return View(model);
@@ -63,8 +61,8 @@ namespace InvestLink.Controllers
         {
             try
             {
-                //var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
-                obj.ImageName = "hkv";
+                var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                //obj.ImageName = "hkv";
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Advertisement>(obj);

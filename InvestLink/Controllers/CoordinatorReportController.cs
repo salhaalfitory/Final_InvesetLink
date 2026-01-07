@@ -161,17 +161,10 @@ namespace InvestLink.Controllers
       
         public async Task<IActionResult> Details(int Id)
         {
-            
-
-           
-            var data = await coordinatorReport.GetByIdAsync(Id);
-
-          
-
-           
+         
+            var data = await coordinatorReport.GetByIdAsync(Id);                    
             var result = mapper.Map<CoordinatorReportVM>(data);
 
-          
             return View(result);
         }
 
