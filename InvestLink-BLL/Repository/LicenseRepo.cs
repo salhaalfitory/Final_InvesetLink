@@ -62,7 +62,8 @@ namespace InvestLink_BLL.Repository
             return await db.Licenses
                             .Include("Project")
                            //.Include(x => x.Project)
-                           .FirstOrDefaultAsync(x => x.ProjectId == Id);
+                           .OrderBy(l => l.Id)
+                           .LastOrDefaultAsync(x => x.ProjectId == Id);
         }
 
 
