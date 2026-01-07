@@ -31,6 +31,7 @@ namespace InvestLink_DAL.Entities
 
         [Required(ErrorMessage = " Position  is Required")]
         public string Position { get; set; }//صفة المستثمر
+
         [Required(ErrorMessage = "IDNumber  is Required")]
 
         public string IDNumber { get; set; }

@@ -31,6 +31,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var data = await projectCoordinator.GetAllAsync();

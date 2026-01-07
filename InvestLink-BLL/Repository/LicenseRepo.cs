@@ -48,16 +48,13 @@ namespace InvestLink_BLL.Repository
 
         }
 
-
-
-
-
         public async Task<License> GetByIdAsync(int Id)
         {
             var data = await db.Licenses
                         .Include(x => x.Project)  
                         .Where(a => a.Id == Id)
-                        .FirstOrDefaultAsync();
+                        .OrderBy(x => x.Id) // يجب الترتيب أولاً
+                        .LastOrDefaultAsync();
             return data;
         }
         public async Task<License?> GetByProjectIdAsync(int Id)
@@ -80,14 +77,9 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public async Task UpdateAsync(License obj)
+        public Task UpdateAsync(License obj)
         {
-            db.Entry(obj).State = EntityState.Modified;
-            await db.SaveChangesAsync();
+            throw new NotImplementedException();
         }
-
-
-
-       
     }
 }

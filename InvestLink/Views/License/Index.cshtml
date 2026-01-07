@@ -35,16 +35,15 @@
                         <td>@Item.Project?.Name</td>
                         <td>@Item.ExpireDate</td>
                         <td>
-                            @* @if (Item.ExpireDate > DateTime.Now) *@
 
 
-                            @* //****************** *@
-                            @if (Item.State == true){
-                            <td>
-                                <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
-                                    سارية
-                                </span>
-                            </td>
+                        @if (Item.ExpireDate > DateTime.Now)
+                        {
+                        <td>
+                            <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
+                                سارية
+                            </span>
+                        </td>
                         }
                         else
                         {

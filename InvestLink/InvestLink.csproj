@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Partials\" />
-    <Folder Include="Views\NewhFolder\" />
     <Folder Include="wwwroot\Files\Doc\" />
     <Folder Include="wwwroot\Files\Images\" />
   </ItemGroup>

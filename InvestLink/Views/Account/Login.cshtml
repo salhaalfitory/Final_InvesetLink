@@ -1,0 +1,100 @@
+﻿@model InvestLink_BLL.Models.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+
+<!doctype html>
+<html lang="ar" dir="rtl" class="light-theme">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- loader-->
+    <link href="~/css/pace.min.css" rel="stylesheet" />
+    <script src="~/js/pace.min.js"></script>
+
+    <!--plugins-->
+    <link href="~/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+
+    <!-- CSS Files -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="login-bg-overlay au-sign-in-basic"></div>
+
+    <!--start wrapper-->
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-5 col-md-7 mx-auto mt-5">
+                    <div class="card radius-10">
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h4>Sign In</h4>
+                                <p>Sign In to your account</p>
+                            </div>
+                            <form asp-controller="Account" asp-action="Login" method="post">
+                                <div class="col-12 col-lg-12">
+                                    <div class="position-relative border-bottom my-3">
+                                        <div class="position-absolute seperator-2 translate-middle-y">OR</div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" asp-for="Email" required>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="inputPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" asp-for="Password" minlength="5" required>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                @* <div class="col-12 col-lg-6">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckRemember">
+                                        <label class="form-check-label" for="flexSwitchCheckRemember">Remember Me</label>
+                                    </div>
+                                </div> *@
+
+                              
+                                <div class="col-12 col-lg-12">
+                                    <div class="d-grid">
+                                        <input type="submit" class="btn btn-primary" value="تسجيل الدخول" />
+
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-12 text-center">
+                                    <p class="mb-0">Don't have an account? <a asp-controller="Account" asp-action="Regestration"> إنشاء حساب</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+    <!--end wrapper-->
+
+
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
