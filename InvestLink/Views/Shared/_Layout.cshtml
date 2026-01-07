@@ -128,23 +128,32 @@
           </a>
           <ul>
            <li>
-                            <a asp-controller="License" asp-action="Index">
-                                <ion-icon name="ellipse-outline"></ion-icon> الرخص
-                            </a>
+            <a asp-controller="License" asp-action="Index">
+                <ion-icon name="ellipse-outline"></ion-icon> الرخص
+            </a>
            </li>
                         
-                        <li>
-                            <a asp-controller="License" asp-action="Expiredlicenses">
+            @* <li>
+                <a asp-controller="License" asp-action="Expiredlicenses">
                 <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
               </a>
+            </li> *@
+            @* //تغيير مسمى *@
+            <li>
+                <a asp-controller="License" asp-action="Expiredlicenses">
+                    <ion-icon name="ellipse-outline"></ion-icon>إحالة المشاريع للمتابعة
+                </a>
             </li>
-         <li>
-                            <a asp-controller="License" asp-action="RejectedLicenses">
+
+
+         @* <li>
+               <a asp-controller="License" asp-action="RejectedLicenses">
                 <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
               </a>
-                        
-            
+              </li> *@
+
           </ul>
+
       <li>
       <a asp-controller="Advertisement" asp-action="Index">
         <div class="parent-icon">
@@ -226,8 +235,9 @@
                     </a>
 
                 </li>
+
    <li>
-                    <a href="javascript:;" class="has-arrow">
+      <a href="javascript:;" class="has-arrow">
      <div class="parent-icon">
        <ion-icon name="leaf-outline"></ion-icon>
      </div>
@@ -239,45 +249,45 @@
       <ion-icon name="ellipse-outline"></ion-icon>المستثمرين
     </a>
     </li>
-                        <a asp-controller="Employee" asp-action="Index">
+       <a asp-controller="User" asp-action="Index">
       <ion-icon name="ellipse-outline"></ion-icon>الموظفين
       </a>
 
     </ul>
     @*     //-------------------موظف متابعه------------------ *@
-    <li>
- <a asp-controller="Project" asp-action="Index">
-   <div class="parent-icon">
-      <ion-icon name="home-outline"></ion-icon>
-       </div>
-   <div class="menu-title">المشاريع الاستثمارية</div>
-    </a>
+        <li>
+        <a asp-controller="Project" asp-action="Index">
+        <div class="parent-icon">
+            <ion-icon name="home-outline"></ion-icon>
+            </div>
+        <div class="menu-title">المشاريع الاستثمارية</div>
+        </a>
 
     </li>
-  <li>
+    <li>
                     <a href="javascript:;" class="has-arrow">
-    <div class="parent-icon">
-      <ion-icon name="leaf-outline"></ion-icon>
-          </div>
-    <div class="menu-title">إدارة التقارير</div>
-          </a>
-      <ul>
-      <li>
+        <div class="parent-icon">
+        <ion-icon name="leaf-outline"></ion-icon>
+        </div>
+        <div class="menu-title">إدارة التقارير</div>
+        </a>
+        <ul>
+        <li>
         <a asp-controller="CoordinatorReport" asp-action="Create">
-         <ion-icon name="ellipse-outline"></ion-icon>إصدار تقرير
-      </a>
-   </li>
-   <li>
-     <a asp-controller="CoordinatorReport" asp-action="Update">
-       <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
-     </a>
-      </li>
-      <li>
-                            <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
-     <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
-   </a>
-   </li>
-   </ul>
+        <ion-icon name="ellipse-outline"></ion-icon>إصدار تقرير
+        </a>
+        </li>
+        <li>
+        <a asp-controller="CoordinatorReport" asp-action="Update">
+        <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
+        </a>
+        </li>
+        <li>
+        <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
+        <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
+        </a>
+        </li>
+        </ul>
             </ul>
       <!--end navigation-->
     </aside>

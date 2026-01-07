@@ -1,7 +1,9 @@
-using InvestLink_BLL.Interfaces;
+﻿using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Mapper;
 using InvestLink_BLL.Repository;
 using InvestLink_DAL.DataBase;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,45 @@ builder.Services.AddScoped<ICoordinatorReport, CoordinatorReportRepo>();
 builder.Services.AddScoped<IAdvertisement, AdvertisementRepo>();
 builder.Services.AddScoped<IProjectCoordinator, ProjectCoordinatorRepo>();
 
+
+//لو الايميل و بااسس صح حيفتح سيشن مع المتصفح
+
+//------------------Authentication----------------
+builder.Services
+.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+options =>
+{
+    options.LoginPath = new PathString("/Account/Login");
+    options.AccessDeniedPath = new PathString("/Account/Login");
+});
+//----------------------------------------------
+
+//// Generate Token
+builder.Services.AddIdentityCore<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = false)
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<MyContext>()
+.AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider);
+
+//-----------------------------------------------
+
+// Password Configuration
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    // Default Password settings.
+    //Unique
+    options.User.RequireUniqueEmail = true;
+    //-----------------------------------------------
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 5;
+    options.Password.RequiredUniqueChars = 0;
+}).AddEntityFrameworkStores<MyContext>();
+//-----------------------------------------------
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,10 +81,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

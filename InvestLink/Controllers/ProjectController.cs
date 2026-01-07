@@ -216,17 +216,11 @@ namespace InvestLink.Controllers
            InvestLink_DAL.Entities.License obj = new InvestLink_DAL.Entities.License();
 
             obj.ProjectId = request.Id;
-                //    // 1. تحديد تاريخ اليوم
-                //obj.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
-
-                //    // 2. تحديد تاريخ الانتهاء (إضافة سنتين ثم التحويل)
-                //obj.ExpireDate = DateOnly.FromDateTime(DateTime.Now.AddMinutes(2));
-
-                obj.CreatedDate = DateTime.Now;
-                obj.ExpireDate = DateTime.Now.AddMinutes(2);
-                obj.Type = "رخصة استثمارية";
+            obj.CreatedDate = DateTime.Now;
+            obj.ExpireDate = DateTime.Now.AddMinutes(2);
+            obj.Type = "رخصة استثمارية";
             obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
-                await license.CreateAsync(obj);
+            await license.CreateAsync(obj);
 
            TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
            return RedirectToAction("ApproveFinal");

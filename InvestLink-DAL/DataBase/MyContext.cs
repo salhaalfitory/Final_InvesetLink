@@ -1,4 +1,5 @@
 ﻿using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InvestLink_DAL.DataBase
 {
-    public class MyContext:DbContext
+    public class MyContext:IdentityDbContext
     {
         public MyContext(DbContextOptions<MyContext> options)
            : base(options)
