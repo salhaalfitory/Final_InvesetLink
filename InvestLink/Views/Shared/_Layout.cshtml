@@ -103,6 +103,11 @@
               </a>
             </li>
                         <li>
+                            <a asp-controller="Project" asp-action="ApproveFinal">
+                                <ion-icon name="ellipse-outline"></ion-icon>اعتماد الترخيص
+                            </a>
+                        </li>
+                        <li>
                             <a asp-controller="Project" asp-action="RejectedRequests">
                 <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
               </a>
@@ -145,12 +150,16 @@
                 </a>
             </li>
 
-
-         @* <li>
+                        <li>
+                            <a asp-controller="CoordinatorReport" asp-action="Index">
+                <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
+              </a>
+            </li>
+         <li>
                <a asp-controller="License" asp-action="RejectedLicenses">
                 <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
               </a>
-              </li> *@
+              </li>
 
           </ul>
 
@@ -166,7 +175,7 @@
                
 
       @*     //-------------------مدير------------------ *@
-      <li>
+    @*   <li>
                     <a href="javascript:;" class="has-arrow">
          <div class="parent-icon">
            <ion-icon name="gift-outline"></ion-icon>
@@ -190,7 +199,7 @@
       </a>
        </li>
 
-         </ul>
+         </ul> *@
        <li>
       <a asp-controller="Project" asp-action="Index">
        <div class="parent-icon">
@@ -200,7 +209,7 @@
      </a>
 
               </li>
-          <li>
+      @*     <li>
                     <a href="javascript:;" class="has-arrow">
         <div class="parent-icon">
          <ion-icon name="leaf-outline"></ion-icon>
@@ -217,7 +226,7 @@
                             <a asp-controller="License" asp-action="RejectedLicenses">
    <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
  </a>
-    </ul>
+    </ul> *@
   <li>
  <a asp-controller="Advertisement" asp-action="Index">
  <div class="parent-icon">
