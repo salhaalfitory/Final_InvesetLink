@@ -110,6 +110,7 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int Id)
         {
+           
             var data = await coordinatorReport.GetByIdAsync(Id);
             var result = mapper.Map<CoordinatorReportVM>(data);
             return View(result);
@@ -119,13 +120,16 @@ namespace InvestLink.Controllers
         {
             try
             {
+                var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                obj.ImageName = ImageName;
                 if (ModelState.IsValid == true)
                 {
+                    obj.Status = "محدث";
                     var data = mapper.Map<CoordinatorReport>(obj);
                     await coordinatorReport.UpdateAsync(data);
                     return RedirectToAction("Index");
                 }
-                TempData["Meesage"] = "validation Error";
+                TempData["Message"] = "validation Error";
                 return View(obj);
             }
             catch (Exception ex)

@@ -40,11 +40,16 @@
                         </td>
 
                         <td>
-                            <a asp-controller="CoordinatorReport"
+                           @*  <a asp-controller="CoordinatorReport"
                                asp-action="Update"
-                               asp-route-projectCoordinatorId="@Item.Id"
+                               asp-route-Id="@Item.Id"
                                class="btn btn-success">
                                 تعديل التقرير
+                            </a> *@
+                            <a asp-controller="CoordinatorReport" asp-action="Update" asp-route-Id="@Item.Id" class="d-inline">
+
+                                   تعديل التقرير
+                              
                             </a>
                         </td>
 
