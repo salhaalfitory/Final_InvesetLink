@@ -3,6 +3,7 @@
     ViewBag.Title = "Index ";
 }
 
+@* لموظف المتابعة *@
 
 <h6 class="mb-0 text-uppercase">المشاريع </h6>
 <hr>
@@ -36,8 +37,17 @@
                                class="btn btn-primary">
                                 إصدار تقرير
                             </a>
-
                         </td>
+
+                        <td>
+                            <a asp-controller="CoordinatorReport"
+                               asp-action="Update"
+                               asp-route-projectCoordinatorId="@Item.Id"
+                               class="btn btn-success">
+                                تعديل التقرير
+                            </a>
+                        </td>
+
 
                     </tr>
                 }

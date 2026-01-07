@@ -281,21 +281,28 @@
         <div class="menu-title">إدارة التقارير</div>
         </a>
         <ul>
+
         <li>
-        <a asp-controller="CoordinatorReport" asp-action="Create">
-        <ion-icon name="ellipse-outline"></ion-icon>إصدار تقرير
+        <a asp-controller="ProjectCoordinator" asp-action="Index">
+        <ion-icon name="ellipse-outline"></ion-icon>المتابعة الميدانية 
         </a>
         </li>
+        
         <li>
+        <a asp-controller="CoordinatorReport" asp-action="Index">
+         <ion-icon name="ellipse-outline"></ion-icon> سجل تقارير
+         </a>
+        </li>
+        @* <li>
         <a asp-controller="CoordinatorReport" asp-action="Update">
         <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
         </a>
-        </li>
-        <li>
+        </li> *@
+        @* <li>
         <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
         <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
         </a>
-        </li>
+        </li> *@
         </ul>
             </ul>
       <!--end navigation-->
