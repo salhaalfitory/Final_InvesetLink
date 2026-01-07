@@ -38,10 +38,10 @@ namespace InvestLink_BLL.Repository
 
         public async Task<Advertisement> GetByIdAsync(int Id)
         {
-            return await db.Advertisements
-                       .Include(x => x.Employee)     
-                             
+             var data = await db.Advertisements
+                       .Include("Employee")
                        .FirstOrDefaultAsync(x => x.Id == Id);
+            return data;
         }
 
         public  async Task UpdateAsync(Advertisement obj)
