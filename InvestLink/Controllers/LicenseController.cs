@@ -172,25 +172,55 @@ namespace InvestLink.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> SendReportRequest(int LicenseId, int EmployeeId)
-        {
+        //[HttpPost]
+        //public async Task<IActionResult> SendReportRequest(int LicenseId, int EmployeeId)
+        //{
 
-            // 2. البحث عن الرخصة لجلب رقم المشروع (لأن الجدول يطلب ProjectId)
-            // نستخدم الـ Repo الخاص بالرخص لجلبها
-            var licenseData = await license.GetByIdAsync(LicenseId);
+        //    // 2. البحث عن الرخصة لجلب رقم المشروع (لأن الجدول يطلب ProjectId)
+        //    // نستخدم الـ Repo الخاص بالرخص لجلبها
+        //    var licenseData = await license.GetByIdAsync(LicenseId);
+        //    InvestLink_DAL.Entities.ProjectCoordinator obj = new InvestLink_DAL.Entities.ProjectCoordinator();
+        //    obj.ProjectId = licenseData.ProjectId;
+        //    obj.EmployeeId = EmployeeId;
+        //    obj.StartDate = DateTime.Now;
+
+        //    await projectcoordinator.CreateAsync(obj);
+
+        //    TempData["Message"] = "تم تعيين الموظف للمشروع بنجاح ✅";
+        //    return RedirectToAction("Expiredlicenses");
+
+        //}
+        [HttpPost]
+        public async Task<IActionResult> SendReportRequest(int licenseId, int employeeId)
+        {
+            // 1. جلب بيانات الرخصة للحصول على ProjectId
+            var licenseData = await license.GetByIdAsync(licenseId);
+            if (licenseData == null) return NotFound();
+
+            var projectId = licenseData.ProjectId;
+
+            // 2. التحقق: هل الموظف معين مسبقاً لهذا المشروع؟
+            // ملاحظة: افترضنا أن لديك ميثود في الـ Repo للبحث (مثلاً GetAll أو Find)
+            var allCoordinators = await projectcoordinator.GetAllAsync(); // أو ميثود تبحث بالشرط مباشرة
+            bool isAlreadyAssigned = allCoordinators.Any(pc => pc.EmployeeId == employeeId && pc.ProjectId == projectId);
+
+            if (isAlreadyAssigned)
+            {
+                TempData["Error"] = "هذا الموظف معين بالفعل لهذا المشروع مسبقاً ⚠️";
+                return RedirectToAction("Expiredlicenses");
+            }
+
+            // 3. إذا لم يكن موجوداً، نقوم بالإضافة
             InvestLink_DAL.Entities.ProjectCoordinator obj = new InvestLink_DAL.Entities.ProjectCoordinator();
-            obj.ProjectId = licenseData.ProjectId;
-            obj.EmployeeId = EmployeeId;
+            obj.ProjectId = projectId;
+            obj.EmployeeId = employeeId;
             obj.StartDate = DateTime.Now;
 
             await projectcoordinator.CreateAsync(obj);
 
             TempData["Message"] = "تم تعيين الموظف للمشروع بنجاح ✅";
             return RedirectToAction("Expiredlicenses");
-
         }
-
     }
 }
 
