@@ -9,8 +9,8 @@
             <hr>
             <form asp-controller="Advertisement" asp-action="Update" enctype="multipart/form-data" class="row g-3">
 
-                <input type="hidden" value="1" asp-for="EmployeeId" />
-
+                <input type="hidden" asp-for="EmployeeId" />
+                <input type="hidden" asp-for="ImageName" />
                 <div class="col-12">
                     <label class="form-label">اسم الإعلان</label>
                     <input type="text" asp-for="Name" class="form-control">
@@ -21,6 +21,7 @@
                     <input type="file" asp-for="Image" class="form-control">
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
+               
 
                 <div class="col-12">
                     <label class="form-label">محتوى الإعلان</label>

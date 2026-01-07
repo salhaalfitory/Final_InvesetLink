@@ -62,7 +62,7 @@ namespace InvestLink.Controllers
             try
             {
                 var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
-                //obj.ImageName = "hkv";
+                obj.ImageName = ImageName;
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Advertisement>(obj);
@@ -94,6 +94,25 @@ namespace InvestLink.Controllers
             {
                 if (ModelState.IsValid == true)
                 {
+                    //1.فحص هل قام المستخدم برفع صورة جديدة؟
+                    if (obj.Image != null)
+                    {
+                        // حالة: المستخدم اختار صورة جديدة
+                        // نقوم برفع الصورة وحفظ الاسم الجديد
+                        string fileName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                        obj.ImageName = fileName;
+
+                        // (اختياري) يمكنك هنا حذف الصورة القديمة لتوفير المساحة
+                    }
+                    else
+                    {
+                        // حالة: المستخدم لم يختر صورة (يريد إبقاء القديمة)
+                        // يجب أن نجلب الاسم القديم من قاعدة البيانات حتى لا يتم حفظه كـ null
+                        var oldEntity = await advertisement.GetByIdAsync(obj.Id);
+
+                        // نضع الاسم القديم في الكائن الجديد
+                        obj.ImageName = oldEntity.ImageName;
+                    }
                     var data = mapper.Map<Advertisement>(obj);
                     await advertisement.UpdateAsync(data);
                     return RedirectToAction("Index");
