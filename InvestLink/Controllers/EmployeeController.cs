@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InvestLink.Controllers
 {
@@ -13,8 +14,8 @@ namespace InvestLink.Controllers
 
 
         private readonly IEmployee employee;
+        private readonly INationality nationality;
         private readonly IMapper mapper;
-  
 
 
 
@@ -22,11 +23,11 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public EmployeeController(IEmployee employee, IMapper mapper)
+        public EmployeeController(IEmployee employee, INationality nationality, IMapper mapper)
         {
             this.employee = employee;
+            this.nationality = nationality;
             this.mapper = mapper;
-         
 
 
         }
@@ -43,8 +44,10 @@ namespace InvestLink.Controllers
             return View(result);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -59,7 +62,7 @@ namespace InvestLink.Controllers
                     await employee.CreateAsync(data);
                     return RedirectToAction("Index");
                 }
-                TempData["Meesage"] = "validation Error";
+                TempData["Message"] = "validation Error";
                 return View(obj);
             }
             catch (Exception ex)

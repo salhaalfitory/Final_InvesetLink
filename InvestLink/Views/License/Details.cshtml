@@ -1,1 +1,300 @@
-﻿LISENCE
+﻿@model InvestLink_BLL.Models.LicenseVM
+
+@{
+    ViewData["Title"] = "ترخيص استثمار";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ترخيص مشروع استثماري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --page-width: 210mm;
+            --page-height: 296mm;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #555;
+            font-family: 'Amiri', serif;
+        }
+
+        .page-container {
+            width: var(--page-width);
+            height: var(--page-height);
+            background: white;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .guilloche-border {
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 2px solid #5d6d7e;
+        }
+
+        .guilloche-inner {
+            width: 100%;
+            height: 100%;
+            border: 4px double #5d6d7e;
+            padding: 15px;
+            box-sizing: border-box;
+            /* نقشة الخلفية */
+            background: linear-gradient(45deg, transparent 48%, #cfd8dc 49%, #cfd8dc 51%, transparent 52%) 0 0 / 15px 15px, linear-gradient(-45deg, transparent 48%, #cfd8dc 49%, #cfd8dc 51%, transparent 52%) 0 0 / 15px 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-layer {
+            /* تعديل الشفافية هنا لتظهر النقشة الخلفية وتملأ الفراغ الأبيض */
+            background-color: rgba(255, 255, 255, 0.75);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 30px; /* زيادة الهوامش الجانبية قليلاً */
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.2;
+        }
+
+        p, li {
+            line-height: 1.6;
+            font-size: 14px;
+            color: #111;
+        }
+        /* زيادة ارتفاع السطر قليلاً */
+
+        .header-section {
+            flex-shrink: 0;
+        }
+
+        /* تعديل توزيع المحتوى في الوسط */
+        .body-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly; /* توزيع العناصر لملء الفراغ */
+            padding: 10px 0;
+        }
+
+        .footer-section {
+            flex-shrink: 0;
+            margin-top: auto;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px; /* تكبير العلامة المائية */
+            opacity: 0.08; /* زيادة وضوحها قليلاً */
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .details-box {
+            background: rgba(249, 250, 251, 0.8); /* خلفية شبه شفافة للصندوق */
+            border: 1px solid #d1d5db;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .row-line {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 8px; /* زيادة المسافة بين الأسطر */
+            font-size: 15px;
+        }
+
+        .row-label {
+            font-weight: bold;
+            width: 120px;
+            flex-shrink: 0;
+            font-family: 'Cairo';
+        }
+
+        .row-value {
+            border-bottom: 1px dashed #999;
+            flex-grow: 1;
+            padding-bottom: 2px;
+            font-weight: bold;
+        }
+
+        media print {
+            page
+
+        {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            background: white;
+            margin: 0;
+            padding: 0;
+            width: 210mm;
+            height: 297mm;
+        }
+
+        .page-container {
+            margin: 0;
+            box-shadow: none;
+            border: none;
+            transform: scale(1);
+            height: 100%;
+        }
+
+        .no-print {
+            display: none !important;
+        }
+
+        .guilloche-inner {
+            -webkit-print-color-adjust: exact;
+        }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed top-4 left-4 no-print z-50">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 font-bold">
+            طباعة (Print)
+        </button>
+    </div>
+
+    <div class="page-container">
+        <div class="guilloche-border">
+            <div class="guilloche-inner">
+                <div class="content-layer">
+
+                    <svg class="watermark" viewBox="0 0 100 100" fill="currentColor">
+                        <path d="M50 10 L90 90 H10 Z" stroke="currentColor" stroke-width="2" fill="none" />
+                    </svg>
+
+                    <div class="header-section border-b-2 border-double border-gray-400 pb-2 mb-2 flex justify-between items-center text-center">
+                        <div class="w-1/4"></div>
+                        <div class="w-2/4">
+                            <h4 class="font-bold text-sm text-gray-700">الحكومة الليبية - وزارة الاقتصاد</h4>
+                            <div class="my-2 flex justify-center">
+                                @* <div class="border-2 border-black p-1 w-12 h-12 flex items-center justify-center rounded-lg shadow-sm bg-white">
+                                    <span class="font-bold text-sm">PIB</span>
+                                </div> *@
+                            </div>
+                            <h2 class="font-bold text-xl text-[#2c3e50]">الهيئة العامة لتشجيع الاستثمار<br>وشؤون الخصخصة</h2>
+                            <div class="mt-2">
+                                <span class="text-xs block text-gray-500 mb-1">( رقم الترخيص )</span>
+                                <span class="font-mono font-bold text-xl border border-gray-400 bg-gray-50 px-4 py-1 rounded">@Model.LicenseNumber</span>
+                            </div>
+                            <br />
+                            <div class="mt-2">
+                                <span class="text-xs block text-gray-500 mb-1">( نوع الترخيص )</span>
+                                <span class="font-mono font-bold text-xl border border-gray-400 bg-gray-50 px-4 py-1 rounded">@Model.Type</span>
+                            </div>
+                        </div>
+                        <div class="w-1/4 flex justify-end items-start pt-2 px-2">
+                        </div>
+                    </div>
+
+                    <div class="body-section relative z-10">
+
+                        <div class="text-justify text-xs leading-relaxed space-y-1 px-2 text-gray-800">
+                            <p>- بناء على قرار اللجنة الشعبية العامة سابقاً رقم (89) لسنة (2009م) بشأن إنشاء الهيئة العامة للتمليك والاستثمار.</p>
+                            <p>- وعلى القانون رقم (9) لسنة (2010م) بشأن تشجيع الاستثمار ولائحته التنفيذية.</p>
+                            <p>- وعلى قرار وزير الاقتصاد والتجارة رقم (791) لسنة (2021م) بشأن الإذن بتنفيذ مشروع استثماري.</p>
+                        </div>
+
+                        <div class="text-center my-2">
+                            <h1 class="text-3xl font-bold inline-block border-b-4 border-double border-black pb-1 px-8 font-cairo">يــرخـــــــص</h1>
+                        </div>
+
+                        <div class="details-box">
+                            <div class="row-line">
+                                <span class="row-label">بتنفيذ مشـروع:</span>
+                                <span class="row-value">@Model.Project?.Name</span>
+                            </div>
+                            <div class="row-line">
+                                <span class="row-label">فــي مجـــــال:</span>
+                                <span class="row-value">@Model.Project?.Area</span>
+                            </div>
+                            <div class="row-line">
+                                <span class="row-label">نــوع النشـــــــاط:</span>
+                                <span class="row-value">@Model.Project?.TypeOfActivity</span>
+                            </div>
+                            <div class="row-line">
+                                <span class="row-label">الشكل القانوني:</span>
+                                <span class="row-value">شركة مساهمة ليبية</span>
+                            </div>
+                            <div class="row-line">
+                                <span class="row-label">الموقع الكائن:</span>
+                                <span class="row-value">@Model.Project?.ProposedSite</span>
+                            </div>
+                        </div>
+
+                        <div class="px-2 mt-2">
+                            <h4 class="font-bold underline text-sm mb-2 font-cairo">مع مراعاة مايلي:</h4>
+                            <ol class="list-decimal list-outside pr-4 text-xs space-y-2 font-semibold text-gray-800">
+                                <li>على أصحاب الترخيص عند تنفيذ وتشغيل المشروع الالتزام بالقوانين واللوائح المعمول بها في ليبيا.</li>
+                                <li>لا يجوز التنازل عن هذا الترخيص للغير.</li>
+                                <li>لا يجوز لأصحاب الترخيص أن يمارسوا نشاطاً غير منصوص عليه في الترخيص.</li>
+                                <li>أن يتم الحصول علي الموافقات والتراخيص الفنية من الجهات ذات العلاقة.</li>
+                                <li>على اصحاب المشروع التقدم لتجديد الترخيص قبل شهر من تاريخ انتهائه.</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-2 text-sm font-bold px-2 text-left ml-4">
+                            <span>حرر بتاريخ: </span>
+                            <span class="font-mono border-b border-black px-2" dir="ltr">@Model.CreatedDate</span>
+                        </div>
+                    </div>
+
+                    <div class="footer-section pt-4 pb-2">
+                        <div class="flex justify-between items-end px-8">
+                            <div class="text-center">
+                                <p class="font-bold text-sm mb-12 relative">
+                                    توقيع<br>
+                                    مدير إدارة الاستثمار<br>
+                                    / المكلف
+                                    <span class="absolute bottom-[-20px] left-0 right-0 border-b border-dashed border-gray-400 w-3/4 mx-auto"></span>
+                                </p>
+                            </div>
+
+                            <div class="text-center">
+                                <p class="font-bold text-sm mb-12 relative">
+                                    يعتمد<br>
+                                    المدير العام للهيئة العامة لتشجيع<br>
+                                    الاستثمار وشؤون الخصخصة
+                                    <span class="absolute bottom-[-20px] left-0 right-0 border-b border-dashed border-gray-400 w-3/4 mx-auto"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-300 mt-4 pt-1 text-center">
+                            <p class="text-[10px] text-gray-600 font-mono">هاتف: +218 51 262 3729 | العنوان: بنغازي - ليبيا</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

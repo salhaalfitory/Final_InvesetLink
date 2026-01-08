@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
@@ -13,6 +14,8 @@ namespace InvestLink.Controllers
 
 
         private readonly IAdvertisement advertisement;
+        private readonly IEmployee employee;
+        private readonly ILicense license;
         private readonly IMapper mapper;
      
 
@@ -21,10 +24,12 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public AdvertisementController(IAdvertisement advertisement, IMapper mapper)
+        public AdvertisementController(IAdvertisement advertisement,IEmployee employee,ILicense license, IMapper mapper)
         {
 
             this.advertisement = advertisement;
+            this.employee = employee;
+            this.license = license;
             this.mapper = mapper;
           
 
@@ -41,16 +46,23 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
             return View(result);
         }
+        
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int EmployeeId)
         {
-            return View();
+
+            var model = new AdvertisementVM();
+            model.EmployeeId = EmployeeId;
+
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Create(AdvertisementVM obj)
         {
             try
             {
+                var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                obj.ImageName = ImageName;
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Advertisement>(obj);
@@ -82,6 +94,25 @@ namespace InvestLink.Controllers
             {
                 if (ModelState.IsValid == true)
                 {
+                    //1.فحص هل قام المستخدم برفع صورة جديدة؟
+                    if (obj.Image != null)
+                    {
+                        // حالة: المستخدم اختار صورة جديدة
+                        // نقوم برفع الصورة وحفظ الاسم الجديد
+                        string fileName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                        obj.ImageName = fileName;
+
+                        // (اختياري) يمكنك هنا حذف الصورة القديمة لتوفير المساحة
+                    }
+                    else
+                    {
+                        // حالة: المستخدم لم يختر صورة (يريد إبقاء القديمة)
+                        // يجب أن نجلب الاسم القديم من قاعدة البيانات حتى لا يتم حفظه كـ null
+                        var oldEntity = await advertisement.GetByIdAsync(obj.Id);
+
+                        // نضع الاسم القديم في الكائن الجديد
+                        obj.ImageName = oldEntity.ImageName;
+                    }
                     var data = mapper.Map<Advertisement>(obj);
                     await advertisement.UpdateAsync(data);
                     return RedirectToAction("Index");

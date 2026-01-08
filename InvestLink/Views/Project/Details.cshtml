@@ -101,14 +101,15 @@
                                     <label asp-for="Investors[0].IDNumber" class="form-label">رقم البطاقة أو جواز السفر</label>
                                     <input type="text" class="form-control" asp-for="Investors[0].IDNumber" readonly >
                                 </div>
+                           
                                 <div class="col-12 col-lg-6">
                                     <label class="form-label">صورة الوثيقة</label>
 
                                     @if (!string.IsNullOrEmpty(Model.Investors[0].ImageName))
                                     {
                                         <div class="mt-2">
-                                            <a href="~/Files/Doc/@Model.Investors[0].Image" target="_blank" class="form-control">
-                                                <i class='bx bx-show'></i> عرض الملف 
+                                            <a href="@Url.Content("~/Files/Doc/" + Model.Investors[0].ImageName)" target="_blank" class="form-control">
+                                                <i class='bx bx-show'></i> عرض الملف
                                             </a>
                                         </div>
                                     }
@@ -173,14 +174,15 @@
                                                             <input type="email" class="form-control" asp-for="Investors[i].Email" readonly>
                                                         </div>
 
+                                
                                                         <div class="col-12 col-lg-6">
                                                             <label class="form-label">صورة الوثيقة</label>
 
-                                                            @if (!string.IsNullOrEmpty(Model.Investors[i].ImageName))
+                                                            @if (!string.IsNullOrEmpty(Model.Investors[0].ImageName))
                                                             {
                                                                 <div class="mt-2">
-                                                                    <a href="~/Files/Doc/@Model.Investors[i].ImageName" target="_blank" class="form-control">
-                                                                        <i class='bx bx-show'></i> عرض الملف 
+                                                                    <a href="@Url.Content("~/Files/Doc/" + Model.Investors[i].ImageName)" target="_blank" class="form-control">
+                                                                        <i class='bx bx-show'></i> عرض الملف
                                                                     </a>
                                                                 </div>
                                                             }
@@ -216,13 +218,13 @@
                                     <input type="text" class="form-control" asp-for="Project.Name" readonly>
                                 </div>
 
-                                <div class="col-12 col-lg-6">
-                                    
+                               
+                                    <div class="col-12 col-lg-6">
 
                                         @if (!string.IsNullOrEmpty(Model.Project.LegalBodyName))
                                         {
                                             <div class="mt-2">
-                                                <a href="~/Files/Doc/@Model.Project.LegalBodyName" target="_blank" class="form-control">
+                                                <a href="@Url.Content("~/Files/Doc/" + Model.Project.LegalBodyName)" target="_blank" class="form-control">
                                                     <i class='bx bx-show'></i> عرض الملف
                                                 </a>
                                             </div>
@@ -231,7 +233,7 @@
                                         {
                                             <input type="text" class="form-control text-muted" value="لا يوجد ملف مرفق" readonly>
                                         }
-                                </div>
+                                    </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.Area" class="form-label">مجال الاستثمار</label>
@@ -399,7 +401,7 @@
                             </button>
                         </form>
 
-                        <form asp-controller="Project" asp-action="RejectFinal" asp-route-Id="@Model.Project.Id" class="d-inline">
+                        <form asp-controller="Project" asp-action="Reject" asp-route-Id="@Model.Project.Id" class="d-inline">
                       
                             <button type="submit" class="btn btn-danger px-4">
                                 <i class="fa fa-times"></i> رفض نهائي

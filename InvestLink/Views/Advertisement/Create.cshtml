@@ -8,6 +8,9 @@
             <h6 class="mb-0 text-uppercase">إنشاء إعلان</h6>
             <hr>
             <form asp-controller="Advertisement" asp-action="Create" enctype="multipart/form-data" class="row g-3">
+
+                <input type="hidden" value="9" asp-for="EmployeeId" />
+
                 <div class="col-12">
                     <label  class="form-label">اسم الإعلان</label>
                     <input type="text" asp-for="Name" class="form-control">

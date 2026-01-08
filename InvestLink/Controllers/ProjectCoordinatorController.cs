@@ -18,7 +18,7 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public ProjectCoordinatorController(IProjectCoordinator projectfollowup, IMapper mapper)
+        public ProjectCoordinatorController(IProjectCoordinator projectCoordinator, IMapper mapper)
         {
             this.projectCoordinator = projectCoordinator;
             this.mapper = mapper;
@@ -31,6 +31,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var data = await projectCoordinator.GetAllAsync();

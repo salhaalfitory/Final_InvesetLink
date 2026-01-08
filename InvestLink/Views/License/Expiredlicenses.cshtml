@@ -1,0 +1,73 @@
+﻿@model IEnumerable<InvestLink_BLL.Models.LicenseVM>
+@{
+    ViewBag.Title = "Expiredlicenses";
+}
+
+
+
+
+
+
+
+
+<h6 class="mb-0 text-uppercase">الطلبات</h6>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">رقم الترخيص</th>
+                    <th scope="col">اسم المشروع</th>
+                    <th scope="col">تاريخ انتهاء</th>
+                  
+                    <th scope="col">حالة رخصة المشروع</th>
+                    <th scope="col">تعيين موظف للمتابعه</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                   <tr>
+                        <th scope="row">@Count</th>
+                        <td>@Item.LicenseNumber</td>
+                        <td>@Item.Project?.Name</td>
+                        <td>@Item.ExpireDate</td>
+                        <td>
+                            <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
+                                منتهية
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <form asp-controller="License" asp-action="SendReportRequest" method="post" class="form-inline">
+
+                                <input type="hidden" name="licenseId" value="@Item.Id" />
+
+                                <div class="form-group" style="display:inline-block; margin-bottom:0;">
+                                    <select name="EmployeeId" class="form-control input-sm" asp-items="ViewBag.EmployeesList" required>
+                                        <option value="">اختر موظف..</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-sm waves-effect">
+                                    <i class="material-icons">send</i>
+                                </button>
+                            </form>
+                        </td>
+                </tr>
+                    
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

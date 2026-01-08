@@ -19,7 +19,7 @@ namespace InvestLink_BLL.Models
         [Required, StringLength(500)]
         public string Description { get; set; }//وصف او محتوى
         public string? ImageName { get; set; }//صور
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
         //-------------------------
         public int EmployeeId { get; set; }
         public Employee? Employee { get; set; }

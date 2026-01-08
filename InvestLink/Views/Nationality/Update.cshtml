@@ -13,12 +13,12 @@
     </div>
     <div class="card-body">
 
-        <form asp-controller="Nationality" asp-action="Create">
+        <form asp-controller="Nationality" asp-action="Update">
             <label asp-for="Name" class="form-label">الجنسية</label>
             <input type="text" class="form-control mb-3" asp-for="Name" >
             <span asp-validation-for="Name" class="text-danger"></span>
 
-            <input type="submit" value="تعديل" class="btn btn-primary m-t-15 waves-effect" />
+            <input type="submit" value="حفظ" class="btn btn-primary m-t-15 waves-effect" />
             <a asp-controller="Nationality" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
         </form>
     </div>

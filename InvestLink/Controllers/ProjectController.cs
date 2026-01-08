@@ -3,11 +3,14 @@ using Humanizer;
 using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
+using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
+using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Project = InvestLink_DAL.Entities.Project;
 
@@ -50,6 +53,8 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<ProjectVM>>(data);
             return View(result);
         }
+
+       
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -57,12 +62,12 @@ namespace InvestLink.Controllers
             ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(Investor_ProjectVM obj)
         {
             try
             {
-                
                     var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
                     obj.Project.LegalBodyName = LegalBodyName;
 
@@ -103,7 +108,6 @@ namespace InvestLink.Controllers
                                     investorId = await investor.CreateAsync(newInvestor);
                                 }
 
-                                //تعديل لأنها تتعامل من DAL مباشرا
                                 var Link = new ProjectInvestor
                                 {
                                     ProjectId = Project_info_Id,
@@ -199,51 +203,37 @@ namespace InvestLink.Controllers
             return View(result);
         }
 
-     
+
+      
         [HttpPost]
         public async Task<IActionResult> ApproveFinal(int Id)
-        {
+        {         
+        try {
             var request = await project.GetByIdAsync(Id);
+
             request.State = "معتمد";
             await project.UpdateAsync(request);
-
-
-            //var result = mapper.Map<IEnumerable<licenseVM>>(data);
-            //var licenseVM = new LicenseVM
-            //{
-            //    ProjectId = request.Id,
-            //    //obj.CreatedDate = DateTime.Now,
-            //    //obj.LicenseNumber = $"{DateTime.Now.Year}-{ProjectId}-LIC",
-            //    //obj.State = "سارية"
-            //};
-
-
-            License obj = new License();
+           InvestLink_DAL.Entities.License obj = new InvestLink_DAL.Entities.License();
 
             obj.ProjectId = request.Id;
             obj.CreatedDate = DateTime.Now;
             obj.ExpireDate = DateTime.Now.AddMinutes(2);
-            // توليد رقم رخصة تلقائي مميز
-            // مثال: 2025-569-LIC
-            obj.LicenseNumber = $"{DateTime.Now.Year}-{Id}-LIC";
-            //obj.LicenseNumber = $"{DateTime.Now.Year}-{new Random().Next(100, 999)}-LIC";
-            //var newLicense = new Graduation_project.DAL.Entities.License
-            //{
-            //    ProjectId = ProjectId, // الربط بالمشروع
+            obj.Type = "رخصة استثمارية";
+            obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
+            await license.CreateAsync(obj);
 
-            //    CreatedDate = DateTime.Now, // تاريخ الإصدار = اللحظة الحالية
+           TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
+           return RedirectToAction("ApproveFinal");
 
-            //    ExpireDate = DateTime.Now.AddYears(3), // مثال: مدة الصلاحية 3 اشهر
+            }
 
-            //    // توليد رقم رخصة تلقائي مميز
-            //    // مثال: 2025-569-LIC
-            //    LicenseNumber = $"{DateTime.Now.Year}-{new Random().Next(100, 999)}-LIC"
-            //};
-            TempData["Message"] = "تم اعتماد الطلب نهائياً ✅";
-            return RedirectToAction("ApproveFinal");
+            catch (Exception ex)
+            {
+                TempData["Message"] = "حدث خطا اثناء الاعتماد";
+                return RedirectToAction("ApproveFinal");
+            }
+          
         }
-
-      
         [HttpPost]
         public async Task<IActionResult> RejectFinal(int Id)
         {
@@ -255,8 +245,38 @@ namespace InvestLink.Controllers
             TempData["Message"] = "تم رفض الطلب نهائياً ";
             return RedirectToAction("Details", new { Id });
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadLicense(int projectId, IFormFile licenseFile)
+        {
+            // 1. التحقق من وجود الملف
+            if (licenseFile != null)
+            {
+                // 2. رفع الملف والحصول على الاسم
+                // ملاحظة: تأكد أن المجلد "Doc" موجود، سأضع لك ملاحظة بالأسفل بخصوص هذا
+                var fileName = FileUpLoader.UploaderFile(licenseFile, "Doc");
 
+                // 3. جلب المشروع باستخدام "الريبو" (_projectRepo)
+                // خطأك السابق كان: var project = await project.GetByIdAsync
+                // التصحيح:
+                var request = await project.GetByIdAsync(projectId);
 
+                if (project != null)
+                {
+                    // 4. تحديث الاسم في الكائن الراجع
+                    request.LicenseName = fileName;
+
+                    // 5. حفظ التعديلات باستخدام "الريبو"
+                    // خطأك السابق كان: await project.UpdateAsync(project)
+                    // التصحيح:
+                    await project.UpdateAsync(request);
+                }
+            }
+
+            // العودة للصفحة
+            return RedirectToAction("ApproveFinal");
+        }
+
+      
     }
 }
 

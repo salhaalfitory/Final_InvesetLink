@@ -10,12 +10,19 @@ namespace InvestLink_BLL.Models
 {
     public class EmployeeVM
     {
+        public EmployeeVM()
+        {
+            this.IsActive = true;
+            this.IsDeleted = false;
+            this.CreationData = DateTime.Now;
+        }
+
         [Key]
         public int Id { get; set; }
         [Required, StringLength(100)]
         public string Name { get; set; }//اسم مستثمر
         [EmailAddress(ErrorMessage = " invalid Email ")]
-        public string Emial { get; set; }//بريد الالكتروني
+        public string Email { get; set; }//بريد الالكتروني
         [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
         [MinLength(10)]
         [MaxLength(10)]
@@ -24,7 +31,7 @@ namespace InvestLink_BLL.Models
         [MinLength(10)]
         [MaxLength(10)]
         public string? SecondPhoneNumber { get; set; }//رقم تلفون2
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } 
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; } = DateTime.Now;//تاريخ تسجيل
         //------------------------------

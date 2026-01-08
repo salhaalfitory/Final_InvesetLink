@@ -3,15 +3,7 @@
     ViewBag.Title = "ApproveFinal";
 }
 
-
-
-
-
-
-
-
-
-<h6 class="mb-0 text-uppercase">الطلبات </h6>
+<h6 class="mb-0 text-uppercase">الطلبات</h6>
 <hr>
 <div class="card">
     <div class="card-body">
@@ -19,16 +11,19 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">اسم</th>
-                    <th scope="col">تاريخ إنشاء</th>
+                    <th scope="col">الاسم</th>
+                    <th scope="col">تاريخ تقديم الطلب</th>
                     <th scope="col">تفاصيل</th>
-
+                    <th scope="col">رخصة المشروع</th>
+                    <th scope="col">ملف رخصة المشروع</th>
                 </tr>
             </thead>
             <tbody>
                 @{
                     int Count = 0;
                 }
+
+                @* بداية الـ Loop - يجب أن تكون مرة واحدة فقط *@
                 @foreach (var Item in Model)
                 {
                     Count++;
@@ -37,24 +32,61 @@
 
                         <td>@Item.Name</td>
                         <td>@Item.CreationData</td>
+
                         <td>
-                            <div class="col">
-                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a asp-controller="Project" asp-action="Details" asp-route-Id="@Item.Id"
+                                   class="text-primary" data-bs-toggle="tooltip" title="عرض التفاصيل">
+                                    <ion-icon name="eye-outline"></ion-icon>
                                 </a>
                             </div>
                         </td>
 
                         <td>
-                            <div class="col">
-                                <a asp-controller="License" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> الرخصة
+                            <div class="d-flex align-items-center gap-3 fs-6">
+                                <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                   class="text-primary" data-bs-toggle="tooltip" title="عرض الرخصة">
+                                    <ion-icon name="document-text-sharp"></ion-icon>
                                 </a>
                             </div>
                         </td>
 
+                        <td>
+                            @* نتحقق هنا باستخدام LicenseName لأنه النص المحفوظ في قاعدة البيانات *@
+                            @if (!string.IsNullOrEmpty(Item.LicenseName))
+                            {
+                                // إذا كان الملف مرفوعاً سابقاً
+                               @*  <div class="text-success">
+                                    <ion-icon name="checkmark-done-circle" style="font-size: 1.5rem; vertical-align: middle;"></ion-icon>
+                                    <span class="fw-bold">تم رفع الرخصة</span>
+                                </div> *@
+                                <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id" class="btn btn-sm btn-success" target="_blank">
+                                    <ion-icon name="eye-outline" style="vertical-align: middle;"></ion-icon> عرض
+                                </a>
+                            }
+                            else
+                            {
+                                // إذا لم يتم الرفع بعد
+                                <form asp-controller="Project" asp-action="UploadLicense" method="post" enctype="multipart/form-data">
+
+                                    <input type="hidden" name="projectId" value="@Item.Id" />
+
+                                    <div class="input-group">
+                                        <input type="file" name="licenseFile" class="form-control form-control-sm" required />
+
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <ion-icon name="cloud-upload-outline"></ion-icon> رفع
+                                        </button>
+                                    </div>
+
+                                
+                                </form>
+                            }
+                        </td>
                     </tr>
                 }
+                @* نهاية الـ Loop *@
+
             </tbody>
         </table>
     </div>

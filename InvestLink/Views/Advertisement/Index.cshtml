@@ -1,1 +1,66 @@
-﻿
+﻿@model IEnumerable<InvestLink_BLL.Models.AdvertisementVM>
+@{
+    ViewBag.Title = "Index ";
+}
+
+@* لموظف المتابعة *@
+
+@* <h6 class="mb-0 text-uppercase">المشاريع </h6> *@
+<a asp-controller="Advertisement" asp-action="Create" class="btn btn-primary">
+    إضافة الإعلان
+</a>
+<br />
+<br />
+
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">اسم</th>
+                    <th scope="col"> الاجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                    <tr>
+                        <th scope="row">@Count</th>
+
+                        <td>@Item.Name</td>
+                        <td>@Item.Description</td>
+                        @* <td>
+                            <a asp-controller="Advertisement" asp-action="Create" class="btn btn-primary">
+                                إصدار تقرير
+                            </a>
+                        </td> *@
+
+                        <td>
+                            <a asp-controller="Advertisement" asp-action="Update" asp-route-Id=@Item.Id  class="btn btn-success">
+                                تعديل الإعلان
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Advertisement" asp-action="Details" asp-route-Id=@Item.Id  class="btn btn-success">
+                                تفاصيل الإعلان
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Advertisement" asp-action="Delete" asp-route-Id=@Item.Id  class="btn btn-success">
+                                حذف الإعلان
+                            </a>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

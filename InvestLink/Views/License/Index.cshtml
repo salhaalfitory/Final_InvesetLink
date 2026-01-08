@@ -1,1 +1,124 @@
-﻿
+﻿@model IEnumerable<InvestLink_BLL.Models.LicenseVM>
+
+@{
+    ViewBag.Title = "Index ";
+}
+
+
+
+<h6 class="mb-0 text-uppercase">الطلبات</h6>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">الاسم</th>
+                    <th scope="col">تاريخ تقديم الطلب</th>
+                    <th scope="col">تفاصيل</th>
+                    @* <th scope="col">رخصة المشروع</th>
+                    <th scope="col">ملف رخصة المشروع</th> *@
+                </tr>
+            </thead>
+
+              <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                   <tr>
+                        <th scope="row">@Count</th>
+                        <td>@Item.LicenseNumber</td>
+                        <td>@Item.Project?.Name</td>
+                        <td>@Item.ExpireDate</td>
+                        <td>
+
+
+                        @if (Item.ExpireDate < DateTime.Now)
+                        {
+                        <td>
+                            <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
+                                سارية
+                            </span>
+                        </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
+                                    منتهية
+                                </span>
+                            </td>
+
+                        }
+                     
+
+                    </tr>
+                    @* </tr> *@
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@* 
+
+<h6 class="mb-0 text-uppercase">الطلبات </h6>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">رقم رخصة</th>
+                    <th scope="col">اسم المشروع</th>
+                    <th scope="col">تاريخ إنتهاء</th>
+                    <th scope="col">حالة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                    <tr>
+                        <th scope="row">@Count</th>
+                        <td>@Item.LicenseNumber</td>
+                        <td>@Item.Project?.Name</td>
+                        <td>@Item.ExpireDate</td>
+                        <td>
+                            @if (Item.ExpireDate > DateTime.Now)
+                            {
+
+
+                            <td>
+                                <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
+                                    سارية
+                                </span>
+                            </td>
+                            }
+                            else
+                            {
+                    <td>
+                        <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
+                            منتهية
+                        </span>
+                    </td>
+
+                            }
+                        </td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div> *@

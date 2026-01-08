@@ -38,7 +38,9 @@ namespace InvestLink_BLL.Repository
 
         public async Task<Advertisement> GetByIdAsync(int Id)
         {
-            var data = await db.Advertisements.Where(a => a.Id == Id).FirstOrDefaultAsync();
+             var data = await db.Advertisements
+                       .Include("Employee")
+                       .FirstOrDefaultAsync(x => x.Id == Id);
             return data;
         }
 

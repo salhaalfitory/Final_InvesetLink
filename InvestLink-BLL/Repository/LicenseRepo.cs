@@ -1,4 +1,5 @@
 ﻿using InvestLink_BLL.Interfaces;
+using InvestLink_BLL.Models;
 using InvestLink_DAL.DataBase;
 using InvestLink_DAL.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InvestLink_BLL.Repository
 {
@@ -33,28 +35,52 @@ namespace InvestLink_BLL.Repository
             await db.SaveChangesAsync();
         }
 
-      
 
+        //******************
         public async Task<IEnumerable<License>> GetAllAsync()
         {
-            var data = await db.Licenses.ToListAsync();
+            var data = await db.Licenses
+               .Include("Project") 
+               .Where(p => p.ExpireDate > DateTime.Now)
+               .ToListAsync();
+
             return data;
+
         }
 
         public async Task<License> GetByIdAsync(int Id)
         {
-            var data = await db.Licenses.Where(a => a.Id == Id).FirstOrDefaultAsync();
+            var data = await db.Licenses
+                        .Include(x => x.Project)  
+                        .Where(a => a.Id == Id)
+                        .OrderBy(x => x.Id) // يجب الترتيب أولاً
+                        .LastOrDefaultAsync();
+            return data;
+        }
+        public async Task<License?> GetByProjectIdAsync(int Id)
+        {
+            return await db.Licenses
+                            .Include("Project")
+                           //.Include(x => x.Project)
+                           .OrderBy(l => l.Id)
+                           .LastOrDefaultAsync(x => x.ProjectId == Id);
+        }
+
+
+        //******************
+        public async Task<IEnumerable<License>> GetExpiredLicensesAsync()
+        {
+           var data = await db.Licenses
+          .Include(a => a.Project) 
+          .Where(p => p.ExpireDate < DateTime.Now) 
+          .ToListAsync();
+
             return data;
         }
 
-        public async Task UpdateAsync(License obj)
+        public Task UpdateAsync(License obj)
         {
-            db.Entry(obj).State = EntityState.Modified;
-            await db.SaveChangesAsync();
+            throw new NotImplementedException();
         }
-
-
-
-       
     }
 }

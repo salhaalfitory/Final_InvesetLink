@@ -1,0 +1,98 @@
+﻿@model InvestLink_BLL.Models.RegestrationVM
+
+@{
+    ViewBag.Title = "Regestration";
+    Layout = null;
+}
+
+
+<!doctype html>
+<html lang="ar" dir="rtl" class="light-theme">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- loader-->
+    <link href="~/css/pace.min.css" rel="stylesheet" />
+    <script src="~/js/pace.min.js"></script>
+
+    <!--plugins-->
+    <link href="~/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+
+    <!-- CSS Files -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <title>Fobia - Bootstrap5 Admin Template</title>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-5 col-lg-6 col-md-7 mx-auto mt-5">
+            <div class="card radius-10">
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h4>Sign Up</h4>
+                        <p>Creat New account</p>
+                    </div>
+                        <form asp-controller="Account" asp-action="Regestration" method="post">
+                            <div class="col-12">
+                             <label for="inputName" class="form-label">الاسم </label>
+                               <input type="text" class="form-control" asp-for="UserName" required>
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-12">
+                              <label for="inputEmail" class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" asp-for="Email" required>
+                              <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                                <label for="inputPassword" class="form-label">كلمة المرور</label>
+                                <input type="password" class="form-control" asp-for="Password" minlength="5" required>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>          
+                            
+                            <div class="col-12">
+                                <label for="inputPassword" class="form-label">تأكيد كلمة المرور</label>
+                                <input type="password" class="form-control" asp-for="ConfirmPassword" minlength="5" required>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        @* <div class="col-12 col-lg-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    I agree the Terms and Conditions
+                                </label>
+                            </div>
+                        </div> *@
+                        <div class="col-12 col-lg-12">
+                            <div class="d-grid">
+                                    <input type="submit" class="btn btn-primary" value="إنشاء حساب" />
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-12 text-center">
+                                <p class="mb-0">Already have an account? <a asp-controller="Account" asp-action="Login">تسجيل الدخول</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--end wrapper-->
+
+<script src="~/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+

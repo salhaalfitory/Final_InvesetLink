@@ -29,6 +29,11 @@
     <link href="~/css/header-colors.css" rel="stylesheet" />
 
   <title>الهيئة العامة لتشجيع الاستثمار و شؤون الخصخصة</title>
+
+
+  @* ////////////////////////////////////////////// *@
+    @await RenderSectionAsync("jqueryUICSS", required: false)
+    @await RenderSectionAsync("jqueryvalidation", required: false)
 </head>
 
 <body>
@@ -67,8 +72,9 @@
           <div class="menu-title">الطلبات الاستثمارية</div>
            </a>
            </li>
+
              <li>
-              <a asp-controller="Project" asp-action="Index">
+              <a asp-controller="Project" asp-action="ApproveFinal">
                <div class="parent-icon">
                 <ion-icon name="home-outline"></ion-icon>
                 </div>
@@ -97,6 +103,11 @@
               </a>
             </li>
                         <li>
+                            <a asp-controller="Project" asp-action="ApproveFinal">
+                                <ion-icon name="ellipse-outline"></ion-icon>اعتماد الترخيص
+                            </a>
+                        </li>
+                        <li>
                             <a asp-controller="Project" asp-action="RejectedRequests">
                 <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
               </a>
@@ -121,18 +132,37 @@
             <div class="menu-title">إدارة الرخص</div>
           </a>
           <ul>
-          <li>
-                            <a asp-controller="License" asp-action="LicenseRenewal">
+           <li>
+            <a asp-controller="License" asp-action="Index">
+                <ion-icon name="ellipse-outline"></ion-icon> الرخص
+            </a>
+           </li>
+                        
+            @* <li>
+                <a asp-controller="License" asp-action="Expiredlicenses">
+                <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
+              </a>
+            </li> *@
+            @* //تغيير مسمى *@
+            <li>
+                <a asp-controller="License" asp-action="Expiredlicenses">
+                    <ion-icon name="ellipse-outline"></ion-icon>إحالة المشاريع للمتابعة
+                </a>
+            </li>
+
+                        <li>
+                            <a asp-controller="CoordinatorReport" asp-action="Index">
                 <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
               </a>
             </li>
          <li>
-                            <a asp-controller="License" asp-action="RejectedLicenses">
+               <a asp-controller="License" asp-action="RejectedLicenses">
                 <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
               </a>
-                        
-            
+              </li>
+
           </ul>
+
       <li>
       <a asp-controller="Advertisement" asp-action="Index">
         <div class="parent-icon">
@@ -145,7 +175,7 @@
                
 
       @*     //-------------------مدير------------------ *@
-      <li>
+    @*   <li>
                     <a href="javascript:;" class="has-arrow">
          <div class="parent-icon">
            <ion-icon name="gift-outline"></ion-icon>
@@ -169,7 +199,7 @@
       </a>
        </li>
 
-         </ul>
+         </ul> *@
        <li>
       <a asp-controller="Project" asp-action="Index">
        <div class="parent-icon">
@@ -179,7 +209,7 @@
      </a>
 
               </li>
-          <li>
+      @*     <li>
                     <a href="javascript:;" class="has-arrow">
         <div class="parent-icon">
          <ion-icon name="leaf-outline"></ion-icon>
@@ -188,7 +218,7 @@
      </a>
     <ul>
     <li>
-                            <a asp-controller="License" asp-action="LicenseRenewal">
+                            <a asp-controller="License" asp-action="Expiredlicenses">
    <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
   </a>
         </li>
@@ -196,7 +226,7 @@
                             <a asp-controller="License" asp-action="RejectedLicenses">
    <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
  </a>
-    </ul>
+    </ul> *@
   <li>
  <a asp-controller="Advertisement" asp-action="Index">
  <div class="parent-icon">
@@ -214,8 +244,9 @@
                     </a>
 
                 </li>
+
    <li>
-                    <a href="javascript:;" class="has-arrow">
+      <a href="javascript:;" class="has-arrow">
      <div class="parent-icon">
        <ion-icon name="leaf-outline"></ion-icon>
      </div>
@@ -233,39 +264,46 @@
 
     </ul>
     @*     //-------------------موظف متابعه------------------ *@
-    <li>
- <a asp-controller="Project" asp-action="Index">
-   <div class="parent-icon">
-      <ion-icon name="home-outline"></ion-icon>
-       </div>
-   <div class="menu-title">المشاريع الاستثمارية</div>
-    </a>
+        <li>
+        <a asp-controller="Project" asp-action="Index">
+        <div class="parent-icon">
+            <ion-icon name="home-outline"></ion-icon>
+            </div>
+        <div class="menu-title">المشاريع الاستثمارية</div>
+        </a>
 
     </li>
-  <li>
+    <li>
                     <a href="javascript:;" class="has-arrow">
-    <div class="parent-icon">
-      <ion-icon name="leaf-outline"></ion-icon>
-          </div>
-    <div class="menu-title">إدارة التقارير</div>
-          </a>
-      <ul>
-      <li>
-        <a asp-controller="CoordinatorReport" asp-action="Create">
-         <ion-icon name="ellipse-outline"></ion-icon>إصدار تقرير
-      </a>
-   </li>
-   <li>
-     <a asp-controller="CoordinatorReport" asp-action="Update">
-       <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
-     </a>
-      </li>
-      <li>
-                            <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
-     <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
-   </a>
-   </li>
-   </ul>
+        <div class="parent-icon">
+        <ion-icon name="leaf-outline"></ion-icon>
+        </div>
+        <div class="menu-title">إدارة التقارير</div>
+        </a>
+        <ul>
+
+        <li>
+        <a asp-controller="ProjectCoordinator" asp-action="Index">
+        <ion-icon name="ellipse-outline"></ion-icon>المتابعة الميدانية 
+        </a>
+        </li>
+        
+        <li>
+        <a asp-controller="CoordinatorReport" asp-action="Index">
+         <ion-icon name="ellipse-outline"></ion-icon> سجل تقارير
+         </a>
+        </li>
+        @* <li>
+        <a asp-controller="CoordinatorReport" asp-action="Update">
+        <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
+        </a>
+        </li> *@
+        @* <li>
+        <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
+        <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
+        </a>
+        </li> *@
+        </ul>
             </ul>
       <!--end navigation-->
     </aside>
@@ -285,7 +323,7 @@
                         @*     //-------------------المستثمر------------------ *@
                         <li>
                             <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                                <div class="font-22">
+                                <div class="font-16">
                                     <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
                                 </div>
                             </a>
@@ -293,11 +331,30 @@
 
                         <li>
                         <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                            <div class="font-22">
+                                <div class="font-16">
                                 <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
                             </div>
                         </a>
                         </li>
+
+                        @* <div class="col" tabindex="377"> 
+                            <div class="d-flex align-items-center theme-icons shadow-sm p-1 cursor-pointer rounded">
+                                <div class="font-22">
+                                    <i class="fadeIn animated bx bx-pencil"></i>
+                                </div>
+                                <div class="ms-2">تقديم طلب استثماري</div>
+                            </div>
+                        </div> 
+
+                         <div class="col" tabindex="378"> 
+                            <div class="d-flex align-items-center theme-icons shadow-sm p-1 cursor-pointer rounded">
+                                <div class="font-22">
+                                    <i class="fadeIn animated bx bx-paste"></i>
+                                </div>
+                                <div class="ms-2">الإعلانات</div>
+                            </div>
+                        </div> *@
+
                   
             <li class="nav-item dropdown dropdown-user-setting">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
@@ -387,11 +444,13 @@
             </li>
 
           </ul>
-                   
-        </div>
-              
-      </nav>
+
+                </div>
+
+            </nav>
+
     </header>
+    <hr />
     <!--end top header-->
 
 
@@ -439,6 +498,23 @@
   <script src="~/js/main.js"></script>
 
 
+  @* ///////////////////////////////////////// *@
+    @await RenderSectionAsync("jqueryvalidation", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
+
+
+
+<style>
+    /* زيادة المسافة بين أيقونات الشريط العلوي */
+    .top-header .navbar-nav > li {
+        margin-left: 20px !important; /* يمكنك زيادة الرقم 20 لزيادة التباعد */
+    }
+
+    /* (اختياري) إذا كانت العناصر داخل div وليست li في بعض النسخ */
+    .top-header .navbar-nav .nav-item {
+        margin-left: 20px !important;
+    }
+</style>

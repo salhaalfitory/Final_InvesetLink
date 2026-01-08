@@ -1,1 +1,62 @@
-﻿
+﻿@model IEnumerable<InvestLink_BLL.Models.CoordinatorReportVM>
+@{
+    ViewBag.Title = "Index ";
+}
+
+
+@*  لموظف المتابعة و رئيس خدمات المستثمرين*@
+
+<h6 class="mb-0 text-uppercase">المشاريع </h6>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">اسم</th>
+                    <th scope="col"> حالة تقرير</th>
+                    <th scope="col"> الاجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                    <tr>
+                        <th scope="row">@Count</th>
+
+                        <td>@Item.ProjectCoordinator?.Project?.Name</td>
+                        <td>@Item.Status</td>
+                        <td>
+                            <a asp-controller="CoordinatorReport"
+                               asp-action="Details"
+                               asp-route-id="@Item.Id"
+                               class="btn btn-primary">
+                                تفاصيل تقرير
+                            </a>
+                            
+
+                        </td>
+
+                        @*  لرئيس خدمات المستثمرين*@
+
+                        <td>
+                            <a asp-controller="CoordinatorReport"
+                               asp-action="ReCreateLicense"
+                               asp-route-projectCoordinatorId="@Item.ProjectCoordinatorId"
+                               class="btn btn-success">
+                                تجديد رخصه
+                                </a>
+                        </td>
+
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

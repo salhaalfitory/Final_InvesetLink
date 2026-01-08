@@ -1,1 +1,44 @@
-﻿
+﻿@model InvestLink_BLL.Models.AdvertisementVM
+
+<div asp-validation-summary="All"></div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">تعديل إعلان</h6>
+            <hr>
+            <form asp-controller="Advertisement" asp-action="Update" enctype="multipart/form-data" class="row g-3">
+
+                <input type="hidden" asp-for="EmployeeId" />
+                <input type="hidden" asp-for="ImageName" />
+                <div class="col-12">
+                    <label class="form-label">اسم الإعلان</label>
+                    <input type="text" asp-for="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">صور أو ملف</label>
+                    <input type="file" asp-for="Image" class="form-control">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+               
+
+                <div class="col-12">
+                    <label class="form-label">محتوى الإعلان</label>
+                    <textarea class="form-control" asp-for="Description" rows="4" cols="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <div class="d-grid">
+                        <input type="submit" value="حفظ" class="btn btn-success">
+                        <br />
+
+                        <a asp-controller="Advertisement" asp-action="Index" class="btn btn-danger">رجوع</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
