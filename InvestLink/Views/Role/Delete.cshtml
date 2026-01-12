@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityRole;
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <h6 class="mb-0 text-uppercase">حذف صلاحية</h6>
+                    <hr>
+            <form asp-controller="Role" asp-action="Delete" class="row g-3">
+                <input type="hidden" asp-for="Id">
+                        <div class="col-12">
+                           
+                    <input type="text" asp-for="Name" class="form-control" readonly>
+                        </div>
+                        
+                     
+                        <div class="col-12">
+                            <div class="d-grid">
+                        <input type="submit" value="حذف" class="btn btn-primary" />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

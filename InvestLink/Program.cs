@@ -27,6 +27,10 @@ builder.Services.AddScoped<ICoordinatorReport, CoordinatorReportRepo>();
 builder.Services.AddScoped<IAdvertisement, AdvertisementRepo>();
 builder.Services.AddScoped<IProjectCoordinator, ProjectCoordinatorRepo>();
 
+//----------------------------------------
+builder.Services.AddMvc().AddNToastNotifyToastr();
+
+//----------------------------------------
 
 //لو الايميل و بااسس صح حيفتح سيشن مع المتصفح
 
@@ -49,6 +53,9 @@ options.SignIn.RequireConfirmedAccount = false)
 .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider);
 
 //-----------------------------------------------
+
+
+
 
 // Password Configuration
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>

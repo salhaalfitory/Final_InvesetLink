@@ -1,0 +1,26 @@
+﻿@model InvestLink_BLL.Models.RoleVM
+
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-3 rounded">
+                    <h6 class="mb-0 text-uppercase">إنشاء صلاحية</h6>
+                    <hr>
+            <form asp-controller="Role" asp-action="Create" class="row g-3">
+                        <div class="col-12">
+                    <label asp-for="Name" class="form-label">Email ID</label>
+                    <input type="text" asp-for="Name" class="form-control">
+                        </div>
+                        
+                       
+                        <div class="col-12">
+                            <div class="d-grid">
+                             
+                        <input type="submit" value="حفظ" class="btn btn-primary " />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+                            
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

@@ -1,12 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<IdentityUser>
+@model IEnumerable<IdentityRole>
 
 @{
     ViewBag.Title = "Index ";
 }
 
 
-<a asp-controller="Account" asp-action="Regestration" class="btn btn-info waves-effect">
+
+<a asp-controller="Role" asp-action="Create" class="btn btn-info waves-effect">
     <i class="material-icons">create</i>
     <span>Create</span>
 </a>
@@ -19,8 +20,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">اسم</th>
-                    <th scope="col"> البريد الالكتروني</th>
-
+                    <th scope="col">تعديل</th>
+                    <th scope="col">حذف</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,11 +34,11 @@
                     <tr>
                         <th scope="row">@Count</th>
 
-                        <td>@Item.UserName</td>
-                        <td>@Item.Email</td>
+                        <td>@Item.Name</td>
+                       
                         <td>
 
-                            <a asp-controller="User" asp-action="Update" asp-route-Id=@Item.Id class="btn btn-success waves-effect">
+                            <a asp-controller="Role" asp-action="Update" asp-route-Id=@Item.Id class="btn btn-success waves-effect">
                                 <i class="material-icons">update</i>
                                 <span>تعديل</span>
                             </a>
@@ -45,19 +46,13 @@
 
                         <td>
 
-                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                            <a asp-controller="Role" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
                                 <i class="material-icons">delete</i>
                                 <span>حذف</span>
                             </a>
                         </td>
 
-                        @* <td>
-
-                            <a asp-controller="User" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
-                                <i class="material-icons">delete</i>
-                                <span>حذف</span>
-                            </a>
-                        </td> *@
+                       
                     </tr>
                 }
             </tbody>

@@ -5,6 +5,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -46,6 +47,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [Authorize(Roles="Investor")]
         public async Task<IActionResult> Index()
         {
             var data = await project.GetAllAsync();
@@ -115,9 +117,15 @@ namespace InvestLink.Controllers
                                 };
 
                                 await projectinvestor.CreateAsync(Link);
-                            }
-
                         }
+                        // تسجيل المستثمر المقدم للطلب
+                        var Link1 = new ProjectInvestor
+                        {
+                            ProjectId = Project_info_Id,
+                            InvestorId = obj.SubmitedInvestorId
+                        };
+
+                    }
                         return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";

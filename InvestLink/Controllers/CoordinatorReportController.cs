@@ -89,6 +89,7 @@ namespace InvestLink.Controllers
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";
+                    obj.ProjectCoordinatorId = 4;
            
                     obj.CreationData = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);

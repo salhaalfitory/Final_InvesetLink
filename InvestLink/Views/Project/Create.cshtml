@@ -1,9 +1,20 @@
-﻿@model InvestLink_BLL.Models.Investor_ProjectVM
+﻿@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
 
+@model InvestLink_BLL.Models.Investor_ProjectVM
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IInvestor Investor;
 @{
     ViewBag.Title = "Create";
 }
+@{
 
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var InvestorId = await Investor.GetByEmailAsync(email);
+    var investorId = InvestorId.Id;
+}
 <!doctype html>
 <html lang="en" dir="rtl">
 

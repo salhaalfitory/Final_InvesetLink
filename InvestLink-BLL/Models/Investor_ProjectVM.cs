@@ -12,6 +12,6 @@ namespace InvestLink_BLL.Models
     {
         public ProjectVM Project { get; set; }
         public List<InvestorVM> Investors { get; set; } = new List<InvestorVM>();
-        
+        public int SubmitedInvestorId { get; set; }
     }
 }
