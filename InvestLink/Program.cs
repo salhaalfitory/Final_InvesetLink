@@ -61,7 +61,7 @@ options.SignIn.RequireConfirmedAccount = false)
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     // Default Password settings.
-    //Unique
+    //Unique in IdentityUser
     options.User.RequireUniqueEmail = true;
     //-----------------------------------------------
     options.Password.RequireDigit = true;

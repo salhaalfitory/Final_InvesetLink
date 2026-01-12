@@ -1,6 +1,7 @@
 ﻿using InvestLink_BLL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 
 namespace InvestLink.Controllers
@@ -33,6 +34,7 @@ namespace InvestLink.Controllers
             return View(role);
         }
 
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -40,6 +42,7 @@ namespace InvestLink.Controllers
 
             return View();
         }
+
         [HttpPost]
 
         public async Task<IActionResult> Create(RoleVM model)
@@ -53,6 +56,7 @@ namespace InvestLink.Controllers
                         Name = model.Name
 
                     };
+
                     var result = await roleManager.CreateAsync(role);
                     if (result.Succeeded)
                         return RedirectToAction("Index");
@@ -84,7 +88,7 @@ namespace InvestLink.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Update(IdentityRole model)
-        {
+                    {
 
             try
             {
@@ -108,7 +112,7 @@ namespace InvestLink.Controllers
                             return View(model);
                         }
                     }
-                }
+                    }
                 TempData["Message"] = "Validation Error";
                 return View(model);
             }
@@ -145,6 +149,7 @@ namespace InvestLink.Controllers
                             ModelState.AddModelError(string.Empty, item.Description);
                             return View(model);
                         }
+                        return View(model);
                     }
                 }
 
@@ -199,12 +204,12 @@ namespace InvestLink.Controllers
                 else if (!model[i].IsSelected && (await userManager.IsInRoleAsync(user, role.Name)))
                 {
                     result = await userManager.RemoveFromRoleAsync(user, role.Name);
-                }
+        }
                 else
                 {
                     continue;
-                }
-            }
+    }
+}
             return RedirectToAction("Update", new { id = RoleId });
         }
     }

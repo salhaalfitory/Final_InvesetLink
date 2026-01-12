@@ -5,6 +5,8 @@
     ViewBag.Title = "Index ";
 }
 
+<h6 class="mb-0 text-uppercase">الصلاحيات </h6>
+<br />
 
 
 <a asp-controller="Role" asp-action="Create" class="btn btn-info waves-effect">
@@ -34,6 +36,7 @@
                     <tr>
                         <th scope="row">@Count</th>
 
+                        @* <td>@Item.Id</td> *@
                         <td>@Item.Name</td>
                        
                         <td>
@@ -52,7 +55,13 @@
                             </a>
                         </td>
 
-                       
+                        @* <td>
+
+                            <a asp-controller="User" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                <i class="material-icons">delete</i>
+                                <span>حذف</span>
+                            </a>
+                        </td> *@
                     </tr>
                 }
             </tbody>

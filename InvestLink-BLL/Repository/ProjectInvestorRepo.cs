@@ -36,6 +36,12 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
+        public async Task<IEnumerable<ProjectInvestor>> GetAllAsync(int invetorId)
+        {
+            var data = await db.ProjectInvestors.Where(p => p.InvestorId == invetorId).ToListAsync();
+            return data;
+        }
+
         public async Task<ProjectInvestor> GetByIdAsync(int Id)
         {
             var data = await db.ProjectInvestors.Where(a => a.Id == Id).FirstOrDefaultAsync();
