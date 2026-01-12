@@ -62,6 +62,7 @@ namespace InvestLink.Controllers
             else {                
                 foreach (var error in result.Errors)
                 {
+
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(model);
@@ -81,6 +82,9 @@ namespace InvestLink.Controllers
         {
             var user = await userManager.FindByIdAsync(model.Id);
             var result = await userManager.DeleteAsync(user);
+
+            //try {
+
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
@@ -94,7 +98,13 @@ namespace InvestLink.Controllers
 
             }
         }
-
+    
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("", ex.Message);
+        //    }
+        //   return View(model);
+        //}
       
     }
 }

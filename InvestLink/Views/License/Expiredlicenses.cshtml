@@ -20,8 +20,7 @@
                     <th scope="col">#</th>
                     <th scope="col">رقم الترخيص</th>
                     <th scope="col">اسم المشروع</th>
-                    <th scope="col">تاريخ انتهاء</th>
-                  
+                    <th scope="col">تاريخ انتهاء</th>      
                     <th scope="col">حالة رخصة المشروع</th>
                     <th scope="col">تعيين موظف للمتابعه</th>
                 </tr>
@@ -39,6 +38,7 @@
                         <th scope="row">@Count</th>
                         <td>@Item.LicenseNumber</td>
                         <td>@Item.Project?.Name</td>
+                        <td>@Item.CreatedDate</td>
                         <td>@Item.ExpireDate</td>
                         <td>
                             <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">

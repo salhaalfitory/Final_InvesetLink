@@ -15,6 +15,7 @@
                     <th scope="col">#</th>
                     <th scope="col">اسم</th>
                     <th scope="col"> موقع المشروع</th>
+                    <th scope="col">اسم الموظف</th>
                     <th scope="col"> الاجراءات</th>
                 </tr>
             </thead>
@@ -30,10 +31,11 @@
 
                         <td>@Item.Project?.Name</td>
                         <td>@Item.Project?.ProposedSite</td>
+                        <td>@Item.Employee?.Name</td>
                         <td>
                             <a asp-controller="CoordinatorReport"
                                asp-action="Create"
-                               asp-route-projectCoordinatorId="@Item.Id"
+                               asp-route-id="@Item.Id"
                                class="btn btn-primary">
                                 إصدار تقرير
                             </a>

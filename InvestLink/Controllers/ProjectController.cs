@@ -116,8 +116,15 @@ namespace InvestLink.Controllers
 
                                 await projectinvestor.CreateAsync(Link);
                             }
+                        // تسجيل المستثمر المقدم للطلب
+                        var Link1 = new ProjectInvestor
+                        {
+                            ProjectId = Project_info_Id,
+                            InvestorId = obj.SubmitedInvestorId
+                        };
 
-                        }
+                        await projectinvestor.CreateAsync(Link1);
+                    }
                         return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";

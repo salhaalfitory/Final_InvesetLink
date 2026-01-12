@@ -33,6 +33,19 @@ namespace InvestLink_BLL.Repository
                            .ToListAsync();
         }
 
+        public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        {
+            var data = new List<Project>();
+            foreach (var pi in projectInvestors)
+            {
+               data = await db.Projects
+                           .Where(p => p.Id == pi.ProjectId)
+                           .ToListAsync();
+            }
+
+            return data;
+        }
+
         public async Task<Project> GetByIdAsync(int Id)
         {
             var data = await db.Projects.Where(a => a.Id == Id)

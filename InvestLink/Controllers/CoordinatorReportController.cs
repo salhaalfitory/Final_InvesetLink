@@ -55,7 +55,7 @@ namespace InvestLink.Controllers
             var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
             License obj = new License();
             obj.ProjectId = _project.Id;
-            obj.ExpireDate = DateTime.Now.AddMonths(3);
+            obj.ExpireDate = DateTime.Now.AddMinutes(2);
             obj.Type = "مزاولة";
             obj.CreatedDate = DateTime.Now;
             obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
@@ -66,15 +66,12 @@ namespace InvestLink.Controllers
 
         }
         [HttpGet]
-        public IActionResult Create(int projectCoordinatorId)
+        public IActionResult Create(int ProjectCoordinatorId)
         {
-           
-           
-
+ 
             var model = new CoordinatorReportVM();
-
            
-            model.ProjectCoordinatorId = projectCoordinatorId;
+            model.ProjectCoordinatorId = ProjectCoordinatorId;
 
             return View(model);
         }
@@ -89,7 +86,6 @@ namespace InvestLink.Controllers
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";
-           
                     obj.CreationData = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);
 

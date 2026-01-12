@@ -1,18 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<IdentityUser>
+@model IEnumerable<IdentityRole>
 
 @{
     ViewBag.Title = "Index ";
 }
 
-<h6 class="mb-0 text-uppercase">المستخدمين </h6>
+<h6 class="mb-0 text-uppercase">الصلاحيات </h6>
 <br />
 
-<a asp-controller="User" asp-action="Create" class="btn btn-info waves-effect">
+<a asp-controller="Role" asp-action="Create" class="btn btn-info waves-effect">
     <i class="material-icons">create</i>
     <span>Create</span>
 </a>
-
 <hr>
 <div class="card">
     <div class="card-body">
@@ -21,7 +20,10 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">اسم</th>
-                    <th scope="col"> البريد الالكتروني</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th>Details</th>
+                    @* <th scope="col"> البريد الالكتروني</th> *@
 
                 </tr>
             </thead>
@@ -35,21 +37,28 @@
                     <tr>
                         <th scope="row">@Count</th>
 
-                        <td>@Item.UserName</td>
-                        <td>@Item.Email</td>
+                        @* <td>@Item.Id</td> *@
+                        <td>@Item.Name</td>
                         <td>
 
-                            <a asp-controller="User" asp-action="Update" asp-route-Id=@Item.Id class="btn btn-success waves-effect">
-                                <i class="material-icons">update</i>
-                                <span>تعديل</span>
+                            <a asp-controller="Role" asp-action="Update" asp-route-Id=@Item.Id class="btn btn-success waves-effect">
+                                <i class="material-icons">Update</i>
+                                <span>Update</span>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a asp-controller="Role" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                <i class="material-icons">Delete</i>
+                                <span>Delete</span>
                             </a>
                         </td>
 
                         <td>
 
-                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
-                                <i class="material-icons">delete</i>
-                                <span>حذف</span>
+                            <a asp-controller="Role" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                <i class="material-icons">Details</i>
+                                <span>Details</span>
                             </a>
                         </td>
 

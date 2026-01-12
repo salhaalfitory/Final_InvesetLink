@@ -1,8 +1,27 @@
-﻿@model InvestLink_BLL.Models.Investor_ProjectVM
+﻿@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+@model InvestLink_BLL.Models.Investor_ProjectVM
+
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject IInvestor investor;
+
 
 @{
     ViewBag.Title = "Create";
 }
+
+
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var invest = await investor.GetByEmailAsync(email);
+	var investorId = invest.Id;
+}
+
+
+
 
 <!doctype html>
 <html lang="en" dir="rtl">
@@ -81,7 +100,7 @@
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>
                             </div>
-
+                            <input type="hidden" asp-for="SubmitedInvestorId" value="@investorId" />
                             <div class="row g-3">
                                 <div class="col-12"><h6 class="text-primary">أولاً: بيانات مقدم الطلب</h6></div>
 
@@ -169,72 +188,73 @@
                                         <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
                                     </div>
                                 </div> *@ 
-<div class="row">
-    <div class="col-12">
-        <label class="form-label">الموقع المقترح</label>
+                                <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label">الموقع المقترح</label>
         
-        <div id="map" style="height: 400px; width: 100%; border: 2px solid #ddd; margin-bottom: 10px;"></div>
+                                    <div id="map" style="height: 400px; width: 100%; border: 2px solid #ddd; margin-bottom: 10px;"></div>
 
-        <input type="hidden" id="latInput" asp-for="Project.Latitude" />
-        <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
+                                    <input type="hidden" id="latInput" asp-for="Project.Latitude" />
+                                    <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
 
-                                        <input type="text" class="form-control mt-2" asp-for="Project.ProposedSite" placeholder="اسم/وصف الموقع المقترح">
-    </div>
-</div>
+                                                                    <input type="text" class="form-control mt-2" asp-for="Project.ProposedSite" placeholder="اسم/وصف الموقع المقترح">
+                                </div>
+                                </div>
 
-@section Scripts {
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+                            @section Scripts {
+                                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+                                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // 1. تحديد إحداثيات ليبيا (مثلاً) كبداية
-            var lat = 32.8872;
-            var lng = 13.1913;
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // 1. تحديد إحداثيات ليبيا (مثلاً) كبداية
+                                        var lat = 32.8872;
+                                        var lng = 13.1913;
 
-            // إذا كانت هناك قيم محفوظة (في حالة التعديل)، استخدمها
-            var savedLat = document.getElementById('latInput').value;
-            var savedLng = document.getElementById('lngInput').value;
+                                        // إذا كانت هناك قيم محفوظة (في حالة التعديل)، استخدمها
+                                        var savedLat = document.getElementById('latInput').value;
+                                        var savedLng = document.getElementById('lngInput').value;
 
-            // التأكد أن القيم ليست صفر أو فارغة
-            if (savedLat && savedLng && parseFloat(savedLat) !== 0) {
-                lat = parseFloat(savedLat);
-                lng = parseFloat(savedLng);
-            }
+                                        // التأكد أن القيم ليست صفر أو فارغة
+                                        if (savedLat && savedLng && parseFloat(savedLat) !== 0) {
+                                            lat = parseFloat(savedLat);
+                                            lng = parseFloat(savedLng);
+                                        }
 
-            // 2. رسم الخريطة
-            var map = L.map('map').setView([lat, lng], 13);
+                                        // 2. رسم الخريطة
+                                        var map = L.map('map').setView([lat, lng], 13);
 
-            // 3. تحميل الصور (Tiles)
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
+                                        // 3. تحميل الصور (Tiles)
+                                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                            maxZoom: 19,
+                                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                                        }).addTo(map);
 
-            // 4. وضع الدبوس
-            var marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+                                        // 4. وضع الدبوس
+                                        var marker = L.marker([lat, lng], { draggable: true }).addTo(map);
 
-            // عند تحريك الدبوس
-            marker.on('dragend', function (e) {
-                var coord = marker.getLatLng();
-                document.getElementById('latInput').value = coord.lat;
-                document.getElementById('lngInput').value = coord.lng;
-            });
+                                        // عند تحريك الدبوس
+                                        marker.on('dragend', function (e) {
+                                            var coord = marker.getLatLng();
+                                            document.getElementById('latInput').value = coord.lat;
+                                            document.getElementById('lngInput').value = coord.lng;
+                                        });
             
-            // عند الضغط على الخريطة
-             map.on('click', function (e) {
-                marker.setLatLng(e.latlng);
-                document.getElementById('latInput').value = e.latlng.lat;
-                document.getElementById('lngInput').value = e.latlng.lng;
-            });
+                                        // عند الضغط على الخريطة
+                                         map.on('click', function (e) {
+                                            marker.setLatLng(e.latlng);
+                                            document.getElementById('latInput').value = e.latlng.lat;
+                                            document.getElementById('lngInput').value = e.latlng.lng;
+                                        });
             
-            // تحديث الحقول الأولية لضمان عدم إرسال أصفار
-            document.getElementById('latInput').value = lat;
-            document.getElementById('lngInput').value = lng;
-        });
-    </script>
-}
-                                <div class="col-12 col-lg-6">
+                                        // تحديث الحقول الأولية لضمان عدم إرسال أصفار
+                                        document.getElementById('latInput').value = lat;
+                                        document.getElementById('lngInput').value = lng;
+                                    });
+                                </script>
+                            }
+
+                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.AreaWanted" class="form-label">المساحة المطلوبة (م²)</label>
                                     <input type="number" class="form-control" asp-for="Project.AreaWanted">
                                 </div>
