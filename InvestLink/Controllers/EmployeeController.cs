@@ -2,6 +2,7 @@
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -16,18 +17,18 @@ namespace InvestLink.Controllers
         private readonly IEmployee employee;
         private readonly INationality nationality;
         private readonly IMapper mapper;
-
-
+        private readonly UserManager<IdentityUser> userManager;
 
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public EmployeeController(IEmployee employee, INationality nationality, IMapper mapper)
+        public EmployeeController(IEmployee employee, INationality nationality, IMapper mapper, UserManager<IdentityUser> userManager)
         {
             this.employee = employee;
             this.nationality = nationality;
             this.mapper = mapper;
+            this.userManager = userManager;
 
 
         }
@@ -57,6 +58,15 @@ namespace InvestLink.Controllers
             {
                 if (ModelState.IsValid == true)
                 {
+                    //---------------------------------
+                    var user = new IdentityUser
+                    {
+                        UserName = obj.Name,
+                        Email = obj.Email,
+                    };
+                    var result = await userManager.CreateAsync(user);
+                    //---------------------------------
+
                     var data = mapper.Map<Employee>(obj);
 
                     await employee.CreateAsync(data);

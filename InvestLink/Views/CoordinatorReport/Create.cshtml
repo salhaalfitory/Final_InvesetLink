@@ -1,8 +1,24 @@
-﻿@model InvestLink_BLL.Models.CoordinatorReportVM
+﻿@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+@model InvestLink_BLL.Models.CoordinatorReportVM
+
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject ICoordinatorReport coordinatorReport;
+@inject IProjectCoordinator projectcoordinator;
 
 @{
     ViewBag.Title = "Create";
 }
+
+@* 
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    // var email = await signInManager.UserManager.(user);
+    // var _projectcoordinator = await projectcoordinator.GetByIdAsync(email);
+    // var investorId = invest.Id;
+} *@
 
 <div class="card">
     <div class="card-body">
