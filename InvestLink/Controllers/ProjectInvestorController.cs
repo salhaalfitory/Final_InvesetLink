@@ -35,10 +35,10 @@ namespace InvestLink.Controllers
         #region Actions
         public async Task<IActionResult> Index()
         {
-            var data = await projectinvestor.GetAllAsync();
+            //    var data = await projectinvestor.GetAllAsync();
 
-            var result = mapper.Map<IEnumerable<ProjectInvestorVM>>(data);
-            return View(result);
+            //    var result = mapper.Map<IEnumerable<ProjectInvestorVM>>(data);
+            return View();
         }
         [HttpGet]
         public IActionResult Create()

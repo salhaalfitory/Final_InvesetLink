@@ -58,7 +58,7 @@
       <!--navigation-->
       <ul class="metismenu" id="menu">
                 @*     //-------------------المستثمر------------------ *@
-                @if(signInManager.IsSignedIn(User)&&User.IsInRole("Investior"))
+                @if(signInManager.IsSignedIn(User)&&User.IsInRole("Investor"))
                 {
        <li>
           <a asp-controller="Home" asp-action="Index">
@@ -413,56 +413,23 @@
                     </div>
                   </a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="settings-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Setting</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="speedometer-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Dashboard</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="wallet-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Earnings</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="cloud-download-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Downloads</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
+               
+               
+               
+               
+   
                 <li>
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">
                       <div class="">
                         <ion-icon name="log-out-outline"></ion-icon>
                       </div>
-                      <div class="ms-3"><span>Logout</span></div>
+                      <div   class="ms-3"><form asp-controller="Account" asp-action="LogOff" method="post">
+
+                                <input type="submit" value="تسجيل الخروج" class="btn btn-info btn-block" />
+                            </form></div>
+
+                       
                     </div>
                   </a>
                 </li>

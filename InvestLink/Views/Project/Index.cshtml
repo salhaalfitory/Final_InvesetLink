@@ -1,15 +1,36 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<InvestLink_BLL.Models.ProjectVM>
-@inject SignInManager<IdentityUser> signInManager
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<IdentityUser> signInManager
+@inject IProject iproject;
+@inject IProjectInvestor iprojectInvestor
+@inject IInvestor iInvestor
+@inject UserManager<IdentityUser> userManager
 @{
     ViewBag.Title = "Index ";
 }
 
+@{
+    var user = await userManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    IEnumerable<Project> projects;
+    @if (User.IsInRole("Investor"))
+    {
+        var investor = iInvestor.GetByEmailAsync(email);
+        var investorId = investor.Id;
+        var projectInvestors = await iprojectInvestor.GetAllAsync(investorId);
+        projects = await iproject.GetAllAsync(projectInvestors);
 
 
-@* <h6 class="mb-0 text-uppercase">الطلبات </h6> *@
-@* <hr> *@
+    }
+    else
+    {
+        projects = await iproject.GetAllAsync();
+    }
+}
+
 <div class="card">
     <div class="card-body">
         <table class="table mb-0 table-hover">
@@ -26,7 +47,7 @@
                 @{
                     int Count = 0;
                 }
-                @foreach (var Item in Model)
+                @foreach (var Item in projects)
                 {
                     Count++;
                     <tr>

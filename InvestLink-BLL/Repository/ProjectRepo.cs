@@ -25,11 +25,11 @@ namespace InvestLink_BLL.Repository
             return obj.Id;
         }
 
-     
+
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
             return await db.Projects
-                           .Include(p => p.Licenses) 
+                           .Include(p => p.Licenses)
                            .ToListAsync();
         }
         public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
@@ -39,25 +39,28 @@ namespace InvestLink_BLL.Repository
             {
                 data = await db.Projects
                             .Where(p => p.Id == pi.ProjectId)
+                             .Include(p => p.Licenses)
                             .ToListAsync();
             }
 
             return data;
         }
 
+        //public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        //{
+        //    // 1. استخرج أرقام المشاريع فقط في قائمة منفصلة
+        //    var projectIds = projectInvestors.Select(pi => pi.ProjectId).ToList();
 
-        public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
-        {
-            var data = new List<Project>();
-            foreach (var pi in projectInvestors)
-            {
-               data = await db.Projects
-                           .Where(p => p.Id == pi.ProjectId)
-                           .ToListAsync();
-            }
+        //    // 2. اطلب من قاعدة البيانات كل المشاريع التي يوجد رقمها ضمن القائمة أعلاه
+        //    // هذا ينفذ استعلاماً واحداً فقط (WHERE Id IN (...))
+        //    var data = await db.Projects
+        //                       .Where(p => projectIds.Contains(p.Id))
+        //                       .Include(p => p.Licenses) // أضفت هذا لكي تجلب الرخص مثل الدالة الأولى
+        //                       .ToListAsync();
 
-            return data;
-        }
+        //    return data;
+        //}
+
 
         public async Task<Project> GetByIdAsync(int Id)
         {

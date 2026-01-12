@@ -47,16 +47,14 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        [Authorize(Roles="Investor")]
+        //[Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
-            var data = await project.GetAllAsync();
-
-            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
-            return View(result);
+         
+            return View();
         }
 
-       
+        //[Authorize(Roles = "Investor")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {

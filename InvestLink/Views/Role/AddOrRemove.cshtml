@@ -17,7 +17,7 @@
                    
                     <div class="form-check">
 
-                        <input asp-for="@Model[i].IsSelected" type="checkbox" class="form-check-input" value="" id="flexCheckDefault" />
+                        <input asp-for="@Model[i].IsSelected" type="checkbox" class="form-check-input"  id="flexCheckDefault" />
                         <label asp-for="@Model[i].IsSelected" class="form-check-label" for="flexCheckDefault">@Model[i].UserName</label>
                     <br />
                     <br />
@@ -25,12 +25,12 @@
                     <input type="hidden" asp-for="@Model[i].Id" />
                     </div>
                 }
-                       
+                <input type="hidden" Name="RoleId" value="@RoleId" />
                         
                         <div class="col-12">
                             <div class="d-grid">
                               
-                            <input type="hidden" Name="RoleId" value="@RoleId" />
+                         
                      
                             <input type="submit" value="تعديل صلاحية" class="btn btn-primary" />
                             
@@ -38,6 +38,8 @@
                             </div>
                         </div>
                     </form>
+                    <br />
+            <a asp-controller="Role" asp-action="Update" asp-route-Id="@RoleId" class="btn btn-primary">إلغاء</a>
                 </div>
             </div>
         </div>

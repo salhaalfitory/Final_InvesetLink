@@ -9,7 +9,7 @@ namespace InvestLink_BLL.Interfaces
 {
     public interface IProjectInvestor
     {
-        Task<IEnumerable<ProjectInvestor>> GetAllAsync();
+        Task<IEnumerable<ProjectInvestor>> GetAllAsync(int invetorId);
         Task CreateAsync(ProjectInvestor obj);
         Task<ProjectInvestor> GetByIdAsync(int Id);
         Task UpdateAsync(ProjectInvestor obj);
