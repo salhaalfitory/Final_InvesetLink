@@ -1,6 +1,32 @@
-﻿@model IEnumerable<InvestLink_BLL.Models.ProjectVM>
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IProject iproject;
+@inject IProjectInvestor iprojectInvestor;
+@inject IInvestor iinvestor;
+
 @{
-    ViewBag.Title = "Index ";
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+
+    IEnumerable<Project> projects;
+    
+    if (User.IsInRole("Investor"))
+    {
+        var investorId = iinvestor.GetIdByEmail(email);
+        // var investorId = investor.Id;
+
+        var projectInvestors = await iprojectInvestor.GetAllAsync(investorId);
+        projects = await iproject.GetAllAsync(projectInvestors);
+    }
+    else
+    {
+        projects = await iproject.GetAllAsync();
+    }
 }
 
 
@@ -23,7 +49,7 @@
                 @{
                     int Count = 0;
                 }
-                @foreach (var Item in Model)
+                @foreach (var Item in projects)
                 {
                     Count++;
                     <tr>

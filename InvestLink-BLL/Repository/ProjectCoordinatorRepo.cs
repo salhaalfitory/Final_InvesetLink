@@ -38,13 +38,26 @@ namespace InvestLink_BLL.Repository
                    .ToListAsync();
         }
 
+        public async Task<IEnumerable<ProjectCoordinator>> GetAllAsync(int emp)
+        {
+            return await db.ProjectCoordinators
+                  .Where(pc => pc.EmployeeId == emp)
+                  .ToListAsync();
+        }
+
         public async Task<ProjectCoordinator> GetByIdAsync(int Id)
         {
             var data = await db.ProjectCoordinators.Where(a => a.Id == Id).FirstOrDefaultAsync();
             return data;
         }
 
-       
+        public async Task<ProjectCoordinator> GetByIdAsync(int projectId , int employeeId)
+        {
+            var data = await db.ProjectCoordinators.Where(a => a.ProjectId == projectId && a.EmployeeId == employeeId).FirstOrDefaultAsync();
+            return data;
+        }
+
+
 
         public  async Task UpdateAsync(ProjectCoordinator obj)
         {

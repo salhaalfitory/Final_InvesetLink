@@ -25,6 +25,12 @@ namespace InvestLink_BLL.Repository
             return obj.Id;
         }
 
+        public int GetIdByEmailAsync(string email)
+        {
+            var data = db.Investors.Where(a => a.Email == email).FirstOrDefault();
+            return data.Id;
+        }
+
         public async Task DeleteAsync(Investor obj)
         {
             db.Entry(obj).State = EntityState.Deleted;
@@ -41,6 +47,17 @@ namespace InvestLink_BLL.Repository
         {
             var data = await db.Investors.Where(a => a.Email == email).FirstOrDefaultAsync();
             return data;
+        }
+
+        public int GetIdByEmail(string email)
+        {
+            var data = db.Investors.FirstOrDefault(i => i.Email == email);
+            
+            if(data == null)
+            {
+                return 0; 
+            }
+            return data.Id;
         }
 
         public async Task<Investor> GetByIdAsync(int Id)

@@ -84,8 +84,13 @@ namespace InvestLink.Controllers
         {
             try
             {
+                var ProjectCoordinator = await projectcoordinator.GetByIdAsync(obj.projectId , obj.employeeId);
+
                 var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
                 obj.ImageName = ImageName;
+
+                obj.ProjectCoordinatorId = ProjectCoordinator.Id;
+
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";

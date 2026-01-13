@@ -29,8 +29,22 @@ namespace InvestLink_BLL.Repository
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
             return await db.Projects
-                           .Include(p => p.Licenses) 
+                           
                            .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        {
+            List<Project> data = new List<Project>();
+            if(projectInvestors != null)
+            {
+                foreach (ProjectInvestor projectInvestor in projectInvestors)
+                {
+                    data.Add(await db.Projects.FindAsync(projectInvestor.ProjectId));
+                }
+            }
+            
+            return data;
         }
 
         public async Task<Project> GetByIdAsync(int Id)

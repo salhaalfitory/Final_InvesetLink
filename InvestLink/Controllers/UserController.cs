@@ -46,27 +46,51 @@ namespace InvestLink.Controllers
        [HttpPost]
         public async Task<IActionResult> Update(IdentityUser model)
         {
-            var user = await userManager.FindByIdAsync(model.Id);
-
-            user.UserName = model.UserName;
-            user.Email = model.Email;
-            user.NormalizedUserName = model.UserName.ToUpper();
-            user.NormalizedEmail = model.Email.ToUpper();
-            user.SecurityStamp = model.SecurityStamp;
-
-            var result = await userManager.UpdateAsync(user);
-            if (result.Succeeded)
+            try
             {
-                return RedirectToAction("Index");
-            }
-            else {                
-                foreach (var error in result.Errors)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", error.Description);
-                }
-                return View(model);
+                    var user = await userManager.FindByIdAsync(model.Id);
+                    if (user == null)
+                    {
+                        ModelState.AddModelError("", "User Not Found");
+                        return View(model);
+                    }
+                    user.UserName = model.UserName;
+                    user.Email = model.Email;
+                    user.NormalizedUserName = model.UserName.ToUpper();
+                    user.NormalizedEmail = model.Email.ToUpper();
+                    user.SecurityStamp = model.SecurityStamp;
 
+                    var result = await userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        return View(model);
+
+                    }
+                }
+                else
+                {
+                    return View(model);
+                }
             }
+
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
+                
+            
+            
         }
 
         [HttpGet]

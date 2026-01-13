@@ -1,7 +1,25 @@
-﻿@model InvestLink_BLL.Models.CoordinatorReportVM
+﻿@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+@model InvestLink_BLL.Models.CoordinatorReportVM
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject ICoordinatorReport icoordinatorReport;
+
+@inject IEmployee iEmployee;
+@inject IProjectCoordinator iProjectcoordinator;
+
+
 
 @{
     ViewBag.Title = "Create";
+}
+@{
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var employeeId = iEmployee.GetIdByEmail(email);
+    var x = 0;
 }
 
 <div class="card">
@@ -14,6 +32,18 @@
 
             <form asp-controller="CoordinatorReport" asp-action="Create" enctype="multipart/form-data" class="row g-3">
                 <input type="hidden" asp-for="ProjectCoordinatorId" />
+                <input type="hidden" asp-for="employeeId" value="@employeeId" />
+                <h1>@employeeId</h1>
+                <div class="col-12 col-lg-6">
+                    <select class="form-select mb-3" asp-for="projectId" >
+                        @foreach(var pc in await iProjectcoordinator.GetAllAsync(employeeId))
+                        {
+                            <option value="@pc.ProjectId"> @pc.ProjectId </option>
+                        }
+
+                      
+                    </select>
+                </div>
               
                 <div class="col-12">
                     <label asp-for="Description" class="form-label">الوصف</label>

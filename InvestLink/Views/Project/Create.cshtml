@@ -1,7 +1,15 @@
-﻿@model InvestLink_BLL.Models.Investor_ProjectVM
+﻿@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+@model InvestLink_BLL.Models.Investor_ProjectVM
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IInvestor investor;
 
 @{
-    ViewBag.Title = "Create";
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var InvestorId = investor.GetIdByEmail(email);
 }
 
 <!doctype html>
@@ -114,7 +122,7 @@
                                     <label asp-for="Investors[0].Email" class="form-label">البريد الإلكتروني</label>
                                     <input type="email" class="form-control" asp-for="Investors[0].Email">
                                 </div>
-
+                                <input hidden asp-for="SubmitedInvestorId" value="@InvestorId" />
                                 <hr class="mt-4">
 
                                 <div id="investors-container" class="col-12">

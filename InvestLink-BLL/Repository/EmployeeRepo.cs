@@ -42,6 +42,17 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
+        public int GetIdByEmail(string Email)
+        {
+            var data = db.Employees.FirstOrDefault(i => i.Email == Email);
+
+            if (data == null)
+            {
+                return 0;
+            }
+            return data.Id;
+        }
+
         public async Task UpdateAsync(Employee obj)
         {
             db.Entry(obj).State = EntityState.Modified;

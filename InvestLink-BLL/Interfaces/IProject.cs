@@ -12,6 +12,7 @@ namespace InvestLink_BLL.Interfaces
         Task<int> CreateAsync(Project obj);
         Task UpdateAsync(Project obj);
         Task<IEnumerable<Project>> GetAllAsync();
+        Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors);
         Task<Project> GetByIdAsync(int Id);
         Task<IEnumerable<Project>> GetByStateAsync(string state);
 

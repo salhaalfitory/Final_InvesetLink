@@ -79,6 +79,7 @@ namespace InvestLink.Controllers
 
                     if (result.Succeeded)
                     {
+                        await userManager.AddToRoleAsync(user, "Investor");
                         return RedirectToAction("Login");
                     }
                     else

@@ -48,10 +48,8 @@ namespace InvestLink.Controllers
         #region Actions
         public async Task<IActionResult> Index()
         {
-            var data = await project.GetAllAsync();
-
-            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
-            return View(result);
+            
+            return View();
         }
 
        
@@ -116,8 +114,14 @@ namespace InvestLink.Controllers
 
                                 await projectinvestor.CreateAsync(Link);
                             }
+                        var Link1 = new ProjectInvestor
+                        {
+                            ProjectId = Project_info_Id,
+                            InvestorId = obj.SubmitedInvestorId
+                        };
+                        await projectinvestor.CreateAsync(Link1);
 
-                        }
+                    }
                         return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";

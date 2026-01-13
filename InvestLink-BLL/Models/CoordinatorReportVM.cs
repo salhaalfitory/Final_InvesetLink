@@ -20,6 +20,8 @@ namespace InvestLink_BLL.Models
         public string? ImageName { get; set; }// صور
       public IFormFile? Image { get; set; }
         public string? Status { get; set; }// حالة تقرير
+        public int projectId { get; set; }
+        public int employeeId { get; set; }
 
         //-------------------------------------------------
         public int ProjectCoordinatorId { get; set; }
