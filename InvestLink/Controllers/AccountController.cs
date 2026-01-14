@@ -18,7 +18,7 @@ namespace InvestLink.Controllers
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            toastNotification = toastNotification;
+            this.toastNotification = toastNotification;
         }
 
             [HttpGet]
@@ -39,11 +39,13 @@ namespace InvestLink.Controllers
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                        toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Account invalid");
+                        toastNotification.AddSuccessToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        ModelState.AddModelError("", "Account invalid");
                 }
                 return View(model);
             }
@@ -81,6 +83,8 @@ namespace InvestLink.Controllers
 
                     if (result.Succeeded)
                     {
+                        await userManager.AddToRoleAsync(user, "Investor");
+                        toastNotification.AddSuccessToastMessage("تم إنشاء حساب بنجاح.");
                         return RedirectToAction("Login");
                     }
                     else

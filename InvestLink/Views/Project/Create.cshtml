@@ -4,7 +4,7 @@
 @model InvestLink_BLL.Models.Investor_ProjectVM
 
 @inject SignInManager<IdentityUser> signInManager
-@inject IInvestor Investor;
+@inject IInvestor investor;
 @{
     ViewBag.Title = "Create";
 }
@@ -12,8 +12,7 @@
 
     var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
     var email = await signInManager.UserManager.GetEmailAsync(user);
-    var InvestorId = await Investor.GetByEmailAsync(email);
-    var investorId = InvestorId.Id;
+    var InvestorId = investor.GetIdByEmail(email);
 }
 <!doctype html>
 <html lang="en" dir="rtl">
@@ -92,7 +91,7 @@
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>
                             </div>
-                            <input type="hidden" asp-for="SubmitedInvestorId" value="@investorId" />
+                            <input type="hidden" asp-for="SubmitedInvestorId" value="@InvestorId" />
                             <div class="row g-3">
                                 <div class="col-12"><h6 class="text-primary">أولاً: بيانات مقدم الطلب</h6></div>
 
@@ -110,12 +109,20 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة أو جواز السفر</label>
+                                    <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة </label>
                                     <input type="text" class="form-control" asp-for="Investors[0].CaredNumber">
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].CImage" class="form-label">صورة البطاقة أو جواز السفر</label>
+                                    <label asp-for="Investors[0].CImage" class="form-label">صورة البطاقة </label>
                                     <input type="file" class="form-control" asp-for="Investors[0].CImage">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].PassportImage" class="form-label">رقم  جواز السفر</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].PassportImage">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].PImage" class="form-label">صورة  جواز السفر</label>
+                                    <input type="file" class="form-control" asp-for="Investors[0].PImage">
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].PhoneNumber" class="form-label">الهاتف / النقال</label>
@@ -184,10 +191,7 @@
                                 <div class="col-12">
                                     <label class="form-label">الموقع المقترح</label>
         
-                                    <div id="map" style="height: 400px; width: 100%; border: 2px solid #ddd; margin-bottom: 10px;"></div>
-
-                                    <input type="hidden" id="latInput" asp-for="Project.Latitude" />
-                                    <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
+                    
 
                                      <input type="url" class="form-control mt-2" asp-for="Project.ProposedSite" placeholder="اسم/وصف الموقع المقترح">
                                 </div>
@@ -318,7 +322,8 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                        <input type="submit" value="إرسال الطلب" class="btn btn-success px-4" />
+                                      @*   <input type="submit" value="إرسال الطلب" class="btn btn-success px-4" /> *@
+                                        <button type="button" onclick="document.getElementById('applicationForm').submit();" class="btn btn-success px-4">إرسال الطلب</button>
                                     </div>
                                 </div>
                             </div>
@@ -377,14 +382,21 @@
                         </div>
 
                         <div class="col-12 col-lg-6">
-                            <label class="form-label">رقم البطاقة أو جواز السفر</label>
-                            <input type="text" class="form-control field-idnumber">
-                        </div>
-
-                        <div class="col-12 col-lg-6">
-                            <label class="form-label">صورة البطاقة أو جواز السفر</label>
-                            <input type="file" class="form-control field-file">
-                        </div>
+                                    <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة </label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].CaredNumber">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].CImage" class="form-label">صورة البطاقة </label>
+                                    <input type="file" class="form-control" asp-for="Investors[0].CImage">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].PassportImage" class="form-label">رقم  جواز السفر</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].PassportImage">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].PImage" class="form-label">صورة  جواز السفر</label>
+                                    <input type="file" class="form-control" asp-for="Investors[0].PImage">
+                                </div>
 
                         <div class="col-12 col-lg-6">
                             <label class="form-label">الهاتف / النقال</label>

@@ -45,10 +45,9 @@ namespace InvestLink.Controllers
         #region Actions
         public async Task<IActionResult> Index()
         {
-            var data = await license.GetAllAsync();
-            var result = mapper.Map<IEnumerable<LicenseVM>>(data);
+           
 
-            return View(result);
+            return View();
         }
       
 

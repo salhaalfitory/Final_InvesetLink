@@ -5,7 +5,7 @@
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class linmig : Migration
+    public partial class Initimig1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

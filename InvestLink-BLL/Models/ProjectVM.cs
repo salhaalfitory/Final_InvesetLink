@@ -30,8 +30,7 @@ namespace InvestLink_BLL.Models
         [Required]
         public string ProposedSite { get; set; }//  موقع مقترح تحميل
         [Required]
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+       
 
         public string AreaWanted { get; set; }//مساحة مطلوبة
         [Required]

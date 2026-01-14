@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20260113163833_mapmig")]
-    partial class mapmig
+    [Migration("20260114014913_Initimig1")]
+    partial class Initimig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,13 @@ namespace InvestLink_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CaredImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CaredNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationData")
                         .HasColumnType("datetime2");
 
@@ -173,17 +180,7 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Passportnumber")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
-
-                    b.Property<string>("PersonalcardImage")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Personalcardnumber")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()

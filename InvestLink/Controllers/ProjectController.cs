@@ -224,7 +224,7 @@ namespace InvestLink.Controllers
 
             obj.ProjectId = request.Id;
             obj.CreatedDate = DateTime.Now;
-            obj.ExpireDate = DateTime.Now.AddMinutes(2);
+            obj.ExpireDate = DateTime.Now.AddMinutes(10);
             obj.Type = "رخصة استثمارية";
             obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
             await license.CreateAsync(obj);

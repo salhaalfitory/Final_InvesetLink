@@ -61,7 +61,7 @@ namespace InvestLink_BLL.Repository
         //    return data;
         //}
 
-
+       
         public async Task<Project> GetByIdAsync(int Id)
         {
             var data = await db.Projects.Where(a => a.Id == Id)

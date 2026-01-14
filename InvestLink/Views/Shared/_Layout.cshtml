@@ -32,7 +32,37 @@
 
   <title>الهيئة العامة لتشجيع الاستثمار و شؤون الخصخصة</title>
 
+<style>
+    /* 1. تحديد مكان الحاوية في أعلى المنتصف */
+    #toast-container {
+        top: 20px !important; /* مسافة بسيطة من أعلى الشاشة */
+        left: 50% !important;
+        transform: translateX(-50%) !important; /* توسيط أفقي فقط */
+        position: fixed !important;
+        width: auto !important;
+        min-width: 400px !important; /* عرض المربع */
+        right: auto !important;
+        bottom: auto !important;
+        z-index: 999999 !important;
+    }
 
+    /* 2. تنسيق المربع الأخضر والحجم */
+    #toast-container > .toast {
+        padding: 20px 30px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+        opacity: 1 !important;
+    }
+
+    /* 3. تكبير النص الداخلي */
+    .toast-message {
+        font-size: 1.4rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        display: block !important;
+        color: white !important;
+    }
+</style>
   @* ////////////////////////////////////////////// *@
     @await RenderSectionAsync("jqueryUICSS", required: false)
     @await RenderSectionAsync("jqueryvalidation", required: false)
@@ -494,6 +524,10 @@
   @* ///////////////////////////////////////// *@
     @await RenderSectionAsync("jqueryvalidation", required: false)
     @await RenderSectionAsync("Scripts", required: false)
+
+    @await RenderSectionAsync("Scripts", required: false)
+    
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 
 </html>

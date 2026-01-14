@@ -37,7 +37,21 @@
                     <input asp-for="SecondPhoneNumber" class="form-control" placeholder="09xxxxxxxx" />
                     <span asp-validation-for="SecondPhoneNumber" class="text-danger"></span>
                 </div>
+               
+                <div class="col-md-6">
+                    <label asp-for="Password" class="form-label">كلمة المرور</label>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="أدخل كلمة مرور قوية" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
 
+             
+                <div class="col-md-6">
+                    <label asp-for="Role" class="form-label">الصلاحية</label>
+                    <select asp-for="Role" class="form-select" asp-items="@(new SelectList(ViewBag.Roles))">
+                        <option value="">اختر الصلاحية</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
                 <div class="col-12 col-lg-6">
                     <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
                         <option value=""> اختر  الجنسية</option>

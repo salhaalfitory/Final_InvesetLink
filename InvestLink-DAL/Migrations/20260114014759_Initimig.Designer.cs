@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20260113211946_commig")]
-    partial class commig
+    [Migration("20260114014759_Initimig")]
+    partial class Initimig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,13 @@ namespace InvestLink_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CaredImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CaredNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationData")
                         .HasColumnType("datetime2");
 
@@ -173,17 +180,7 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Passportnumber")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
-
-                    b.Property<string>("PersonalcardImage")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Personalcardnumber")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -310,6 +307,9 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("LegalBodyName")
                         .HasColumnType("nvarchar(max)");
 
@@ -323,6 +323,9 @@ namespace InvestLink_DAL.Migrations
                     b.Property<string>("LocalManpower")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()

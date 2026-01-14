@@ -1,1 +1,33 @@
-﻿welcome
+﻿﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IProject iproject;
+@inject IProjectInvestor iprojectInvestor;
+@inject IInvestor iinvestor;
+
+@{
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+
+
+
+    if (User.IsInRole("Investor"))
+    {
+        var investorId = iinvestor.GetIdByEmail(email);
+        // var investorId = investor.Id;
+        if (investorId == 0)
+        {
+            <h1>you have to add your investmint Details</h1>
+            <a href="/Investor/Create">Add Investmint Details</a>
+        }
+        else
+        {
+            <h1>Welcome</h1>
+        }
+    }
+
+}

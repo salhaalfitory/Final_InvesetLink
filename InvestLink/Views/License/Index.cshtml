@@ -1,9 +1,41 @@
-﻿@model IEnumerable<InvestLink_BLL.Models.LicenseVM>
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
 
 @{
     ViewBag.Title = "Index ";
 }
 
+@inject SignInManager<IdentityUser> signInManager
+@inject IProject iproject;
+@inject IProjectInvestor iprojectInvestor
+@inject IInvestor iInvestor
+@inject ILicense iLicense
+@inject UserManager<IdentityUser> userManager
+@{
+    ViewBag.Title = "Index ";
+}
+
+@{
+    var user = await userManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    IEnumerable<License> licenses;
+    @if (User.IsInRole("Investor"))
+    {
+        var investor = await iInvestor.GetByEmailAsync(email);
+        var investorId = investor.Id;
+        var projectInvestor = await iprojectInvestor.GetAllAsync(investorId);
+       var project = await iproject.GetAllAsync(projectInvestor);
+         licenses = await iLicense.GetAllAsync(project);
+
+
+    }
+    else
+    {
+        licenses = await iLicense.GetAllAsync();
+    }
+}
 
 
 <h6 class="mb-0 text-uppercase">الطلبات</h6>
@@ -28,7 +60,7 @@
                 @{
                     int Count = 0;
                 }
-                @foreach (var Item in Model)
+                @foreach (var Item in licenses)
                 {
                     Count++;
                    <tr>

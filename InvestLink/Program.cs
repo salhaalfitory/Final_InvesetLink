@@ -5,6 +5,7 @@ using InvestLink_DAL.DataBase;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,13 @@ builder.Services.AddScoped<IAdvertisement, AdvertisementRepo>();
 builder.Services.AddScoped<IProjectCoordinator, ProjectCoordinatorRepo>();
 
 //----------------------------------------
-builder.Services.AddMvc().AddNToastNotifyToastr();
+builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+{
+    // لجعلها في أعلى المنتصف
+    PositionClass = "toast-top-center",
+    // أو لجعلها في أسفل المنتصف
+    // PositionClass = "toast-bottom-center"
+});
 
 //----------------------------------------
 
@@ -63,13 +70,13 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     // Default Password settings.
     //Unique in IdentityUser
     options.User.RequireUniqueEmail = true;
-    //-----------------------------------------------
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 5;
     options.Password.RequiredUniqueChars = 0;
+    options.SignIn.RequireConfirmedAccount = false;
 }).AddEntityFrameworkStores<MyContext>();
 //-----------------------------------------------
 

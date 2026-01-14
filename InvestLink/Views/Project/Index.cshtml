@@ -13,12 +13,12 @@
 }
 
 @{
-    var user = await userManager.GetUserAsync(signInManager.Context.User);
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
     var email = await signInManager.UserManager.GetEmailAsync(user);
     IEnumerable<Project> projects;
     @if (User.IsInRole("Investor"))
     {
-        var investor = iInvestor.GetByEmailAsync(email);
+        var investor =await iInvestor.GetByEmailAsync(email);
         var investorId = investor.Id;
         var projectInvestors = await iprojectInvestor.GetAllAsync(investorId);
         projects = await iproject.GetAllAsync(projectInvestors);

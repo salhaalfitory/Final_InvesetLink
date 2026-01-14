@@ -31,6 +31,8 @@ namespace InvestLink_BLL.Models
         [MinLength(10)]
         [MaxLength(10)]
         public string? SecondPhoneNumber { get; set; }//رقم تلفون2
+        public string Password { get; set; }
+        public string Role { get; set; }
         public bool IsActive { get; set; } 
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; } = DateTime.Now;//تاريخ تسجيل

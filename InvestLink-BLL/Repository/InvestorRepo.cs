@@ -61,8 +61,17 @@ namespace InvestLink_BLL.Repository
             return await db.Investors.AnyAsync(a => a.Email == email);
 
             
-        }               
-
-
         }
+
+        public int GetIdByEmail(string Email)
+        {
+            var data = db.Investors.FirstOrDefault(i => i.Email == Email);
+
+            if (data == null)
+            {
+                return 0;
+            }
+            return data.Id;
+        }
+    }
     }
