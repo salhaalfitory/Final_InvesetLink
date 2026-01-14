@@ -16,9 +16,10 @@
     <PackageReference Include="NToastNotify" Version="8.0.0" />
   </ItemGroup>
 
- 
+	
 
-  <ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\InvestLink-BLL\InvestLink-BLL.csproj" />
   </ItemGroup>
 

@@ -28,11 +28,14 @@ namespace InvestLink_BLL.Models
         [Required(ErrorMessage = "Position  is Required")]
         public string Position { get; set; }//صفة المستثمر
         [Required(ErrorMessage = "IDNumber  is Required")]
-       
-        public string IDNumber { get; set; }
+        public string CaredNumber { get; set; }
 
-        public string? ImageName { get; set; }
-        public IFormFile Image { get; set; }
+        public string? CaredName { get; set; }
+        public string? PassportName { get; set; }
+
+        public string? PassportImage { get; set; }
+        public IFormFile CImage { get; set; }
+        public IFormFile PImage { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 

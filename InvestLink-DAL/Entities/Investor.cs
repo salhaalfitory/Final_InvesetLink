@@ -34,10 +34,13 @@ namespace InvestLink_DAL.Entities
 
         [Required(ErrorMessage = "IDNumber  is Required")]
 
-        public string IDNumber { get; set; }
+        public string CaredNumber { get; set; }
 
-        public string? ImageName { get; set; }
-    
+        public string? CaredImage { get; set; }
+        public string? Passportnumber { get; set; }
+
+        public string? PassportImage { get; set; }
+
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 

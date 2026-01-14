@@ -88,11 +88,12 @@ namespace InvestLink.Controllers
                         foreach (var item in obj.Investors)
                         {
                            
-                                var ImageName = FileUpLoader.UploaderFile(item.Image, "Doc");
-                                item.ImageName = ImageName;
+                                var CaredName = FileUpLoader.UploaderFile(item.CImage, "Doc");
+                                item.CaredName = CaredName;
+                            var PassportName = FileUpLoader.UploaderFile(item.PImage, "Doc");
+                            item.PassportName = PassportName;
 
-
-                                var submittedInvestor = await investor.GetByEmailAsync(item.Email);
+                            var submittedInvestor = await investor.GetByEmailAsync(item.Email);
 
                                 int investorId;
                                 if (submittedInvestor != null)
