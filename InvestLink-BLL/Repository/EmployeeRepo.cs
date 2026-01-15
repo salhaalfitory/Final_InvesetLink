@@ -35,7 +35,23 @@ namespace InvestLink_BLL.Repository
             var data = await db.Employees.ToListAsync();
             return data;
         }
-
+        public int GetIdByEmail(string Email)
+        {
+            var data = db.Employees.FirstOrDefault(e => e.Email == Email);
+            if (data == null)
+            {
+                return 0; // عدم العثور على الموظف
+            }
+            else
+            {
+                return data.Id;
+            }
+        }
+        public async Task<Employee> GetByEmailAsync(string email)
+        {
+            var data = await db.Employees.Where(a => a.Email == email).FirstOrDefaultAsync();
+            return data;
+        }
         public async Task<Employee> GetByIdAsync(int Id)
         {
             var data = await db.Employees.Where(a => a.Id == Id).FirstOrDefaultAsync();

@@ -4,6 +4,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace InvestLink.Controllers
 {
@@ -17,21 +18,21 @@ namespace InvestLink.Controllers
         private readonly IEmployee employee;
         private readonly ILicense license;
         private readonly IMapper mapper;
-     
+        private readonly IToastNotification toastNotification;
 
 
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public AdvertisementController(IAdvertisement advertisement,IEmployee employee,ILicense license, IMapper mapper)
+        public AdvertisementController(IAdvertisement advertisement,IEmployee employee,ILicense license, IMapper mapper, IToastNotification toastNotification)
         {
 
             this.advertisement = advertisement;
             this.employee = employee;
             this.license = license;
             this.mapper = mapper;
-          
+            this.toastNotification = toastNotification;
 
         }
 
@@ -46,7 +47,15 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
             return View(result);
         }
-        
+
+        public async Task<IActionResult> InvestorIndex()
+        {
+            var data = await advertisement.GetAllAsync();
+
+            var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
+            return View(result);
+        }
+
         [HttpGet]
         public IActionResult Create(int EmployeeId)
         {
@@ -68,6 +77,7 @@ namespace InvestLink.Controllers
                     var data = mapper.Map<Advertisement>(obj);
 
                     await advertisement.CreateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم   إنشاء إعلان بنجاح.");
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
@@ -115,6 +125,7 @@ namespace InvestLink.Controllers
                     }
                     var data = mapper.Map<Advertisement>(obj);
                     await advertisement.UpdateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم   تعديل بيانات  بنجاح.");
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
@@ -140,6 +151,7 @@ namespace InvestLink.Controllers
             {
                 var data = mapper.Map<Advertisement>(obj);
                 await advertisement.DeleteAsync(data);
+                toastNotification.AddSuccessToastMessage("تم   حذف  بنجاح.");
                 return RedirectToAction("Index");
 
             }

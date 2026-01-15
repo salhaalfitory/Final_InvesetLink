@@ -5,6 +5,7 @@ using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
+using NToastNotify;
 using System.ComponentModel;
 using License = InvestLink_DAL.Entities.License;
 
@@ -23,19 +24,19 @@ namespace InvestLink.Controllers
         private readonly ILicense license;
         private readonly IProjectCoordinator projectcoordinator;
         private readonly IEmployee employee;
-
+        private readonly IToastNotification toastNotification;
         #endregion
-        
+
         //-----------------------------------------
         #region Ctor
-        public LicenseController(IProject project, IMapper mapper, ILicense license, IProjectCoordinator projectcoordinator, IEmployee employee)
+        public LicenseController(IProject project, IMapper mapper, ILicense license, IProjectCoordinator projectcoordinator, IEmployee employee, IToastNotification toastNotification)
         {
             this.project = project;
             this.mapper = mapper;
             this.license = license;
             this.projectcoordinator = projectcoordinator;
             this.employee = employee;
-            
+            this.toastNotification = toastNotification;
 
         }
 
@@ -205,7 +206,8 @@ namespace InvestLink.Controllers
 
             if (isAlreadyAssigned)
             {
-                TempData["Error"] = "هذا الموظف معين بالفعل لهذا المشروع مسبقاً ⚠️";
+                toastNotification.AddSuccessToastMessage("هذا الموظف معين بالفعل لهذا المشروع مسبقاً.");
+             
                 return RedirectToAction("Expiredlicenses");
             }
 
@@ -216,8 +218,8 @@ namespace InvestLink.Controllers
             obj.StartDate = DateTime.Now;
 
             await projectcoordinator.CreateAsync(obj);
-
-            TempData["Message"] = "تم تعيين الموظف للمشروع بنجاح ✅";
+            toastNotification.AddSuccessToastMessage("تم تعيين الموظف للمشروع بنجاح.");
+            
             return RedirectToAction("Expiredlicenses");
         }
     }

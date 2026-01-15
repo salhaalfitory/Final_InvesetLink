@@ -1,6 +1,20 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
 @model InvestLink_BLL.Models.CoordinatorReportVM
+
 @inject SignInManager<IdentityUser> signInManager
+
+@inject ICoordinatorReport icoordinatorReport;
+
+@inject IEmployee iEmployee;
+
+@* //----------ProjectId/IEmployeeId----------- *@
+
+@inject IProjectCoordinator iProjectcoordinator;
+
+
+
 @{
     ViewBag.Title = "Create";
 }
@@ -8,7 +22,9 @@
 
     var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
     var email = await signInManager.UserManager.GetEmailAsync(user);
+    var iEmployeeId = iEmployee.GetIdByEmail(email);
 }
+
 <div class="card">
     <div class="card-body">
         <div class="border p-3 rounded">
@@ -18,11 +34,19 @@
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <form asp-controller="CoordinatorReport" asp-action="Create" enctype="multipart/form-data" class="row g-3">
-                <input type="hidden" asp-for="ProjectCoordinatorId" />
-              
+                <input type="hidden" asp-for="ProjectCoordinator.EmployeeId" value="@iEmployeeId" />
+                <div class="col-12 col-lg-6">
+                    <select class="form-select mb-3" asp-for="ProjectCoordinator.ProjectId">
+                        @foreach (var item in await iProjectcoordinator.GetAllAsync())
+                        {
+                            <option value="@item.ProjectId"> @item.ProjectId </option>
+                        }
+                      
+                    </select>
+                </div>
                 <div class="col-12">
                     <label asp-for="Description" class="form-label">الوصف</label>
-                    <textarea asp-for="Description" class="form-control" ></textarea>
+                    <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
@@ -32,8 +56,8 @@
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
 
-                
-                
+
+
 
                 <div class="col-12">
                     <div class="d-flex justify-content-center gap-2 mt-3">
@@ -48,5 +72,3 @@
         </div>
     </div>
 </div>
-
-

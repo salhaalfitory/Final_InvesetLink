@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
+using NToastNotify;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Project = InvestLink_DAL.Entities.Project;
@@ -28,13 +29,13 @@ namespace InvestLink.Controllers
         private readonly INationality nationality;
         private readonly IInvestor investor;
         private readonly IProjectInvestor projectinvestor;
+        private readonly IToastNotification toastNotification;
 
-        
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public ProjectController(IProject project, IMapper mapper, ILicense license, INationality nationality, IInvestor investor, IProjectInvestor projectinvestor)
+        public ProjectController(IProject project, IMapper mapper, ILicense license, INationality nationality, IInvestor investor, IProjectInvestor projectinvestor, IToastNotification toastNotification)
         {
             this.project = project;
             this.mapper = mapper;
@@ -42,6 +43,7 @@ namespace InvestLink.Controllers
             this.nationality = nationality;
             this.investor = investor;
             this.projectinvestor = projectinvestor;
+            this.toastNotification = toastNotification;
         }
         #endregion
         //--------------------------------------------------
@@ -125,10 +127,13 @@ namespace InvestLink.Controllers
                         };
 
                     }
-                        return RedirectToAction("Index");
+                    toastNotification.AddSuccessToastMessage("تم تقديم طلب بنجاح.");
+                    return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";
-                    return View(obj);
+                var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك
+                ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
+                return View(obj);
                 }
             catch (Exception ex)
             {
@@ -168,7 +173,8 @@ namespace InvestLink.Controllers
             request.State = "قيد المراجعة من الإدارة";
             await project.UpdateAsync(request);
 
-            TempData["Message"] = "تم إرسال الطلب إلى الإدارة بنجاح ✅";
+            
+            toastNotification.AddSuccessToastMessage("تم إرسال الطلب إلى الإدارة بنجاح.");
             return RedirectToAction("RequestsReferredtomanagement");
 
         }
@@ -182,8 +188,8 @@ namespace InvestLink.Controllers
 
             request.State = "مرفوض";
             await project.UpdateAsync(request);
-
-            TempData["Message"] = "تم رفض الطلب ❌";
+            toastNotification.AddSuccessToastMessage("تم رفض الطلب .");
+           
             return RedirectToAction("RejectedRequests");
         }
         [HttpGet]
@@ -228,15 +234,16 @@ namespace InvestLink.Controllers
             obj.Type = "رخصة استثمارية";
             obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
             await license.CreateAsync(obj);
-
-           TempData["Message"] = "تم اعتماد الطلب وإصدار الرخصة بنجاح";
+                toastNotification.AddSuccessToastMessage("تم اعتماد الطلب وإصدار الرخصة بنجاح .");
+          
            return RedirectToAction("ApproveFinal");
 
             }
 
             catch (Exception ex)
             {
-                TempData["Message"] = "حدث خطا اثناء الاعتماد";
+                toastNotification.AddSuccessToastMessage("حدث خطا اثناء الاعتماد .");
+                
                 return RedirectToAction("ApproveFinal");
             }
           
@@ -248,8 +255,8 @@ namespace InvestLink.Controllers
 
             request.State = "مرفوض ";
             await project.UpdateAsync(request);
-
-            TempData["Message"] = "تم رفض الطلب نهائياً ";
+            toastNotification.AddSuccessToastMessage("تم رفض الطلب نهائياً  .");
+          
             return RedirectToAction("Details", new { Id });
         }
         [HttpPost]

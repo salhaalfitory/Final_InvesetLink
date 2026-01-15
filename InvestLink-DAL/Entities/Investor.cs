@@ -32,13 +32,19 @@ namespace InvestLink_DAL.Entities
         [Required(ErrorMessage = " Position  is Required")]
         public string Position { get; set; }//صفة المستثمر
 
-        [Required(ErrorMessage = "IDNumber  is Required")]
+        [Required(ErrorMessage = "CaredNumber  is Required")]
 
-        public string CaredNumber { get; set; }
+        //رقم بطاقة شخصية
+        public string? CaredNumber { get; set; }
 
+        //صورة بطاقة شخصية
         public string? CaredImage { get; set; }
+
+        [Required(ErrorMessage = "Passportnumber  is Required")]
+        //رقم جواز سفر
         public string? Passportnumber { get; set; }
 
+        //صورة جواز سفر
         public string? PassportImage { get; set; }
 
         public bool IsActive { get; set; }

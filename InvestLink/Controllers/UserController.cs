@@ -6,6 +6,7 @@ using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace InvestLink.Controllers
 {
@@ -16,15 +17,16 @@ namespace InvestLink.Controllers
         private readonly ILogger<UserController> logger;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly INationality nationality;
-
+        private readonly IToastNotification toastNotification;
         public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<UserController> logger,
-            RoleManager<IdentityRole> roleManager, INationality nationality)
+            RoleManager<IdentityRole> roleManager, INationality nationality, IToastNotification toastNotification)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.roleManager = roleManager;
             this.nationality = nationality;
+            this.toastNotification = toastNotification;
         }
 
         //-----------------------------------------
@@ -40,7 +42,8 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            await PopulateRolesAsync(new EmployeeVM());
+            //await PopulateRolesAsync(new EmployeeVM());
+
             var nat = await nationality.GetAllAsync();
             ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View(new EmployeeVM());
@@ -68,7 +71,8 @@ namespace InvestLink.Controllers
                     }
 
                     logger.LogInformation("User {Email} created successfully by {AdminUser}", model.Email, User.Identity!.Name);
-                    TempData["SuccessMessage"] = "User created successfully.";
+                   
+                    toastNotification.AddSuccessToastMessage("تم إنشاء موظف  بنجاح  .");
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -115,6 +119,7 @@ namespace InvestLink.Controllers
             var result = await userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
+                toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح  .");
                 return RedirectToAction("Index");
             }
             else {                
@@ -145,6 +150,7 @@ namespace InvestLink.Controllers
 
             if (result.Succeeded)
             {
+                toastNotification.AddSuccessToastMessage("تم حذف بنجاح  .");
                 return RedirectToAction("Index");
             }
             else {

@@ -12,6 +12,8 @@ namespace InvestLink_BLL.Interfaces
         Task<IEnumerable<CoordinatorReport>> GetAllAsync();
         Task CreateAsync(CoordinatorReport obj);
         Task<CoordinatorReport> GetByIdAsync(int Id);
+        Task<IEnumerable<CoordinatorReport>> GetAllAsync(int iEmptId);
+        Task<IEnumerable<CoordinatorReport>> GetAllAsync(IEnumerable<CoordinatorReport> iicoordinatorReport);
         Task UpdateAsync(CoordinatorReport obj);
         Task DeleteAsync(CoordinatorReport obj);
     }

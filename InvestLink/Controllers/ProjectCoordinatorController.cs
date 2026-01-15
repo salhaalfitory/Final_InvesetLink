@@ -66,61 +66,8 @@ namespace InvestLink.Controllers
             }
 
         }
-        [HttpGet]
-        public async Task<IActionResult> Update(int Id)
-        {
-            var data = await projectCoordinator.GetByIdAsync(Id);
-            var result = mapper.Map<ProjectCoordinatorVM>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(ProjectCoordinatorVM obj)
-        {
-            try
-            {
-                if (ModelState.IsValid == true)
-                {
-                    var data = mapper.Map<ProjectCoordinator>(obj);
-                    await projectCoordinator.UpdateAsync(data);
-                    return RedirectToAction("Index");
-                }
-                TempData["Meesage"] = "validation Error";
-                return View(obj);
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-                return View(obj);
-            }
-        }
-        [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var data = await projectCoordinator.GetByIdAsync(Id);
-            var result = mapper.Map<ProjectCoordinatorVM>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(ProjectCoordinatorVM obj)
-        {
-            try
-            {
-                var data = mapper.Map<ProjectCoordinator>(obj);
-                await projectCoordinator.DeleteAsync(data);
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-
-                return View(obj);
-            }
-        }
-        public IActionResult Save()
-        {
-            return View();
-        }
+     
+     
         public async Task<IActionResult> Details(int Id)
         {
             var data = await projectCoordinator.GetByIdAsync(Id);

@@ -40,17 +40,7 @@ namespace InvestLink_BLL.Repository
         .ToListAsync();
         }
 
-        //public async Task<CoordinatorReport> GetByIdAsync(int Id)
-        //{
-
-
-        //    return await db.CoordinatorReports
-        //                .Include(x => x.ProjectCoordinator)      // جلب بيانات المنسق
-        //                    .ThenInclude(y => y.Project)         // جلب بيانات المشروع التابع للمنسق
-        //                .Include(x => x.ProjectCoordinator)
-        //                    .ThenInclude(y => y.Employee)        // جلب بيانات الموظف (اختياري)
-        //                .FirstOrDefaultAsync(x => x.Id == Id);
-        //}
+       
         public async Task<CoordinatorReport?> GetByIdAsync(int Id)
         {
             // AsNoTracking مهمة جداً هنا لتفادي مشاكل التحديث لاحقاً
@@ -64,7 +54,30 @@ namespace InvestLink_BLL.Repository
 
             return result;
         }
+        public async Task<IEnumerable<CoordinatorReport>> GetAllAsync(int iEmptId)
+        {
 
+            return await db.CoordinatorReports
+            .Include(x => x.ProjectCoordinator)
+            .ThenInclude(y => y.Project)
+            .Where(a => a.ProjectCoordinator.Employee.Id == iEmptId)
+            .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<CoordinatorReport>> GetAllAsync(IEnumerable<CoordinatorReport> iicoordinatorReport)
+        {
+            var data = new List<CoordinatorReport>();
+
+            if (iicoordinatorReport != null)
+            {
+                foreach (var cr in iicoordinatorReport)
+                {
+                    data.Add(await db.CoordinatorReports.FindAsync(cr.ProjectCoordinatorId));
+                }
+            }
+            return data;
+        }
         public async Task UpdateAsync(CoordinatorReport obj)
         {
             db.Entry(obj).State = EntityState.Modified;

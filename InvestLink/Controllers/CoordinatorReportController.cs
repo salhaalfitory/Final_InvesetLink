@@ -6,6 +6,7 @@ using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using NToastNotify;
 
 namespace InvestLink.Controllers
 {
@@ -19,7 +20,7 @@ namespace InvestLink.Controllers
         private readonly IProject project;
         private readonly IProjectCoordinator projectcoordinator;
         private readonly IMapper mapper;
-      
+        private readonly IToastNotification toastNotification;
 
 
 
@@ -27,13 +28,14 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public CoordinatorReportController(ICoordinatorReport coordinatorReport,ILicense license,IProject project, IProjectCoordinator projectcoordinator, IMapper mapper)
+        public CoordinatorReportController(ICoordinatorReport coordinatorReport,ILicense license,IProject project, IProjectCoordinator projectcoordinator, IMapper mapper, IToastNotification toastNotification)
         {
             this.coordinatorReport = coordinatorReport;
             this.license = license;
             this.project = project;
             this.projectcoordinator = projectcoordinator;
-            this.mapper = mapper;
+            this.mapper = mapper; 
+                   this.toastNotification = toastNotification;
         }
 
         #endregion
@@ -61,7 +63,7 @@ namespace InvestLink.Controllers
             obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
 
             await license.CreateAsync(obj);
-
+            toastNotification.AddSuccessToastMessage("تم  تجديد رخصه بنجاح.");
             return RedirectToAction("Index");
 
         }
@@ -92,6 +94,7 @@ namespace InvestLink.Controllers
                     var data = mapper.Map<CoordinatorReport>(obj);
 
                     await coordinatorReport.CreateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم  إنشاء تقرير بنجاح.");
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
@@ -125,6 +128,7 @@ namespace InvestLink.Controllers
                     obj.Status = "محدث";
                     var data = mapper.Map<CoordinatorReport>(obj);
                     await coordinatorReport.UpdateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم  تعديل بيانات بنجاح.");
                     return RedirectToAction("Index");
                 }
                 TempData["Message"] = "validation Error";
@@ -136,30 +140,8 @@ namespace InvestLink.Controllers
                 return View(obj);
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var data = await coordinatorReport.GetByIdAsync(Id);
-            var result = mapper.Map<CoordinatorReport>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(CoordinatorReportVM obj)
-        {
-            try
-            {
-                var data = mapper.Map<CoordinatorReport>(obj);
-                await coordinatorReport.DeleteAsync(data);
-                return RedirectToAction("Index");
+        
 
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-
-                return View(obj);
-            }
-        }
       
         public async Task<IActionResult> Details(int Id)
         {

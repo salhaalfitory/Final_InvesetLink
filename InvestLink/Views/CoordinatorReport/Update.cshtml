@@ -1,5 +1,29 @@
 ﻿@model InvestLink_BLL.Models.CoordinatorReportVM
 
+
+@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject ICoordinatorReport icoordinatorReport;
+
+@inject IEmployee iEmployee;
+
+@* //----------ProjectId/IEmployeeId----------- *@
+
+@inject IProjectCoordinator iProjectcoordinator;
+
+
+@{
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var iEmployeeId = iEmployee.GetIdByEmail(email);
+}
+
+
 @{
     ViewBag.Title = "Update";
 }
@@ -9,32 +33,22 @@
         <div class="border p-3 rounded">
             <h6 class="mb-0 text-uppercase">تعديل بيانات تقرير </h6>
             <hr>
-           
+
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <form asp-controller="CoordinatorReport" asp-action="Update" enctype="multipart/form-data" class="row g-3">
-                <input type="hidden" asp-for="ProjectCoordinatorId" />
-                <input type="hidden" asp-for="Id" />
-               @*  <input type="hidden" asp-for="ProjectCoordinator.EmployeeId" /> *@ 
-                
 
-           @*      <input type="hidden" asp-for="ProjectCoordinator.EmployeeId" />
-                <input type="hidden" asp-for="ImageName" /> *@
+                <input type="hidden" asp-for="ProjectCoordinatorId" />
+
+                @* //------------------------------------ *@
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ProjectCoordinator.EmployeeId" value="@iEmployeeId" />
+
                 <div class="col-12">
                     <label asp-for="Description" class="form-label">الوصف</label>
                     <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-
-               @*  <div class="col-12">
-                    <label asp-for="ImageName" class="form-label">صورة</label>
-                    <input asp-for="ImageName" class="form-control" type="file" />
-                    <span asp-validation-for="ImageName" class="text-danger"></span>
-                </div> *@
-               
-               @*  <br />
-                <a href="~/Files/Doc/@Model.ImageName" download="download">Download   </a> *@
-
 
 
                 <div class="col-12">
@@ -50,5 +64,3 @@
         </div>
     </div>
 </div>
-
-

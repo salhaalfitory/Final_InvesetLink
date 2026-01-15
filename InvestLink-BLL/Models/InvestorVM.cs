@@ -27,15 +27,14 @@ namespace InvestLink_BLL.Models
         public string? SecondPhoneNumber { get; set; }//رقم تلفون2
         [Required(ErrorMessage = "Position  is Required")]
         public string Position { get; set; }//صفة المستثمر
-        [Required(ErrorMessage = "IDNumber  is Required")]
-        public string CaredNumber { get; set; }
+        public string? CaredNumber { get; set; }
 
         public string? CaredName { get; set; }
         public string? PassportName { get; set; }
 
-        public string? PassportImage { get; set; }
-        public IFormFile CImage { get; set; }
-        public IFormFile PImage { get; set; }
+        public string? PassportNumber { get; set; }
+        public IFormFile? CImage { get; set; }
+        public IFormFile? PImage { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 

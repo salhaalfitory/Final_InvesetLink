@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InvestLink.Controllers
 {
@@ -14,18 +15,19 @@ namespace InvestLink.Controllers
        
         private readonly IMapper mapper;
         private readonly IInvestor investor;
-
+        private readonly INationality nationality;
 
 
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public InvestorController( IMapper mapper, IInvestor investor)
+        public InvestorController( IMapper mapper, IInvestor investor, INationality nationality)
         {
            
             this.mapper = mapper;
             this.investor = investor;
+            this.nationality = nationality;
 
 
         }
@@ -42,15 +44,21 @@ namespace InvestLink.Controllers
             return View(result);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(InvestorVM obj)
-        {
+            {
             try
             {
+                obj.PassportName = "";
+                obj.CaredName = "";
+                obj.CaredNumber = "hi";
+                obj.PassportNumber = "12345678";
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Investor>(obj);
@@ -84,7 +92,7 @@ namespace InvestLink.Controllers
                 {
                     var data = mapper.Map<Investor>(obj);
                     await investor.UpdateAsync(data);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);

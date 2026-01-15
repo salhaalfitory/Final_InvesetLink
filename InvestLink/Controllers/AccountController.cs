@@ -143,6 +143,7 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> LogOff()
         {
             await signInManager.SignOutAsync();
+            toastNotification.AddSuccessToastMessage("تم تسجيل خروج.");
             return RedirectToAction("Login", "Account");
         }
 

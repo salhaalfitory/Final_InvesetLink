@@ -11,6 +11,8 @@ namespace InvestLink_BLL.Interfaces
     {
         Task<IEnumerable<Employee>> GetAllAsync();
         Task CreateAsync(Employee obj);
+        int GetIdByEmail(string Email);
+        Task<Employee> GetByEmailAsync(string email);
         Task<Employee> GetByIdAsync(int Id);
         Task UpdateAsync(Employee obj);
         Task DeleteAsync(Employee obj);

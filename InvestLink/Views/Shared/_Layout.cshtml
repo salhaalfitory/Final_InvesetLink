@@ -1,6 +1,44 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> signInManager;
 
+
+@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+
+@* //--------------------------------- *@
+@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject IEmployee iEmployee;
+@inject IInvestor iinvestor;
+@{
+    ViewBag.Title = "Update";
+}
+
+@{
+    var employeeId = 0;
+    if (User.IsInRole("FollowUpEmployee"))
+    {
+        var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+        var email = await signInManager.UserManager.GetEmailAsync(user);
+        employeeId = iEmployee.GetIdByEmail(email);
+    }
+
+    var investorId = 0;
+    if (User.IsInRole("Investor"))
+    {
+        var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+        var email = await signInManager.UserManager.GetEmailAsync(user);
+        investorId = iinvestor.GetIdByEmail(email);
+    }
+    
+    // var EmployeeId = employeeId.Id;
+}
+
+
+
 <!doctype html>
 <html lang="en" dir="rtl">
 
@@ -87,7 +125,7 @@
 
       <!--navigation-->
       <ul class="metismenu" id="menu">
-                @*     //-------------------المستثمر------------------ *@
+               
                 @if(signInManager.IsSignedIn(User)&&User.IsInRole("Investor"))
                 {
        <li>
@@ -118,8 +156,54 @@
                  </li>
                     
                 }
-         
-             @*     //-------------------رئيس خدمات------------------ *@
+          
+                @if (signInManager.IsSignedIn(User) && User.IsInRole("HeadOfServices")||User.IsInRole("Amdin"))
+                {
+       
+        <li>
+                    <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon">
+              <ion-icon name="gift-outline"></ion-icon>
+            </div>
+                        <div class="menu-title">الطلبات الاستثمارية</div>
+          </a>
+            </li>
+          <ul>
+                        <li>
+                            <a asp-controller="Project" asp-action="NewRequests">
+                <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
+              </a>
+            </li>
+            <li>
+                            <a asp-controller="Project" asp-action="RequestsReferredtomanagement">
+                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المحالة للادارة
+              </a>
+            </li>
+                        <li>
+                            <a asp-controller="Project" asp-action="ApproveFinal">
+                                <ion-icon name="ellipse-outline"></ion-icon>اعتماد الترخيص
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Project" asp-action="RejectedRequests">
+                <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
+              </a>
+            </li>
+
+            </ul>
+                <li>
+                    <a asp-controller="Project" asp-action="Index">
+                        <div class="parent-icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </div>
+                        <div class="menu-title">المشاريع الاستثمارية</div>
+                    </a>
+
+                </li>
+                }
+
+
+              
                
         <li>
                     <a href="javascript:;" class="has-arrow">
@@ -211,32 +295,7 @@
               </li>
                
 
-      @*     //-------------------مدير------------------ *@
-    @*   <li>
-                    <a href="javascript:;" class="has-arrow">
-         <div class="parent-icon">
-           <ion-icon name="gift-outline"></ion-icon>
-              </div>
-              <div class="menu-title">الطلبات الاستثمارية</div>
-               </a>
-                <ul>
-              <li>
-                            <a asp-controller="Project" asp-action="NewRequests">
-              <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
-               </a>
-           </li>
-           <li>
-               <a asp-controller="Project" asp-action="ApproveFinal">
-                     <ion-icon name="ellipse-outline"></ion-icon>الطلبات المعتمده
-                     </a>
-                  </li>
-                  <li>
-              <a asp-controller="Project" asp-action="RejectedRequests">
-         <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
-      </a>
-       </li>
-
-         </ul> *@
+      
        <li>
       <a asp-controller="Project" asp-action="Index">
        <div class="parent-icon">
@@ -246,24 +305,7 @@
      </a>
 
               </li>
-      @*     <li>
-                    <a href="javascript:;" class="has-arrow">
-        <div class="parent-icon">
-         <ion-icon name="leaf-outline"></ion-icon>
-          </div>
-       <div class="menu-title">إدارة الرخص</div>
-     </a>
-    <ul>
-    <li>
-                            <a asp-controller="License" asp-action="Expiredlicenses">
-   <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
-  </a>
-        </li>
-      <li>
-                            <a asp-controller="License" asp-action="RejectedLicenses">
-   <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
- </a>
-    </ul> *@
+      
   <li>
  <a asp-controller="Advertisement" asp-action="Index">
  <div class="parent-icon">
@@ -272,6 +314,9 @@
  <div class="menu-title">إدارة الإعلانات</div>
    </a>
  </li>
+
+  @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
+                {
                 <li>
                     <a asp-controller="Nationality" asp-action="Index">
                         <div class="parent-icon">
@@ -282,6 +327,7 @@
 
                 </li>
 
+       
    <li>
       <a href="javascript:;" class="has-arrow">
      <div class="parent-icon">
@@ -289,6 +335,7 @@
      </div>
  <div class="menu-title">إدارة المستخدمين</div>
       </a>
+       </li>
     <ul>
     <li>
          <a asp-controller="User" asp-action="Index">
@@ -297,15 +344,11 @@
         </li>
         <li>
             <a asp-controller="User" asp-action="Index">
-                <ion-icon name="ellipse-outline"></ion-icon>المستثمرين
+                <ion-icon name="ellipse-outline"></ion-icon>الموظفين
             </a>
         </li>
 
-        <li>
-            <a asp-controller="Role" asp-action="Index">
-                <ion-icon name="ellipse-outline"></ion-icon>الصلاحيات
-            </a>
-        </li>
+       
 
     </ul>
 
@@ -318,49 +361,47 @@
                         <div class="menu-title">إدارة الصلاحيات</div>
                     </a>
 
-                </li>
-    @*     //-------------------موظف متابعه------------------ *@
-        <li>
-        <a asp-controller="Project" asp-action="Index">
-        <div class="parent-icon">
-            <ion-icon name="home-outline"></ion-icon>
-            </div>
-        <div class="menu-title">المشاريع الاستثمارية</div>
-        </a>
+                            </li>
+                        }
+                        @*     //-------------------موظف متابعه------------------ *@
+                          @if (signInManager.IsSignedIn(User) && User.IsInRole("FollowUpEmployee")||User.IsInRole("Amin"))
+                
+                        {
+                            <li>
+                                <a asp-controller="Project" asp-action="Index">
+                                    <div class="parent-icon">
+                                        <ion-icon name="home-outline"></ion-icon>
+                                    </div>
+                                    <div class="menu-title">المشاريع الاستثمارية</div>
+                                </a>
 
-    </li>
-    <li>
-                    <a href="javascript:;" class="has-arrow">
-        <div class="parent-icon">
-        <ion-icon name="leaf-outline"></ion-icon>
-        </div>
-        <div class="menu-title">إدارة التقارير</div>
-        </a>
-        <ul>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="has-arrow">
+                                    <div class="parent-icon">
+                                        <ion-icon name="leaf-outline"></ion-icon>
+                                    </div>
+                                    <div class="menu-title">إدارة التقارير</div>
+                                </a>  </li>
+                            <ul>
 
-        <li>
-        <a asp-controller="ProjectCoordinator" asp-action="Index">
-        <ion-icon name="ellipse-outline"></ion-icon>المتابعة الميدانية 
-        </a>
-        </li>
-        
-        <li>
-        <a asp-controller="CoordinatorReport" asp-action="Index">
-         <ion-icon name="ellipse-outline"></ion-icon> سجل تقارير
-         </a>
-        </li>
-        @* <li>
-        <a asp-controller="CoordinatorReport" asp-action="Update">
-        <ion-icon name="ellipse-outline"></ion-icon>تعديل  تقرير
-        </a>
-        </li> *@
-        @* <li>
-        <a asp-controller="CoordinatorReport" asp-action="ReportRecords">
-        <ion-icon name="ellipse-outline"></ion-icon>سجل تقارير
-        </a>
-        </li> *@
-        </ul>
-            </ul>
+                                <li>
+                                    <a asp-controller="ProjectCoordinator" asp-action="Index">
+                                        <ion-icon name="ellipse-outline"></ion-icon>المتابعة الميدانية 
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-controller="CoordinatorReport" asp-action="Index">
+                                        <ion-icon name="ellipse-outline"></ion-icon> سجل تقارير
+                                    </a>
+                                </li>
+
+
+                                
+                            </ul>}
+                            </ul>
+                        
       <!--end navigation-->
     </aside>
     <!--end sidebar -->
@@ -377,39 +418,27 @@
                     
           <ul class="navbar-nav align-items-center">
                         @*     //-------------------المستثمر------------------ *@
-                        <li>
-                            <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                                <div class="font-16">
-                                    <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
-                                </div>
-                            </a>
-                        </li>
 
-                        <li>
-                        <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
-                                <div class="font-16">
-                                <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
-                            </div>
-                        </a>
-                        </li>
+                          @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
+                        {
+                            <li>
+                                <a asp-controller="Project" asp-action="Create"  class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                    <div class="font-16">
+                                        <i class="fadeIn animated bx bx-edit-alt"> تقديم طلب استثماري</i>
+                                    </div>
+                                </a>
+                            </li>
 
-                        @* <div class="col" tabindex="377"> 
-                            <div class="d-flex align-items-center theme-icons shadow-sm p-1 cursor-pointer rounded">
-                                <div class="font-22">
-                                    <i class="fadeIn animated bx bx-pencil"></i>
-                                </div>
-                                <div class="ms-2">تقديم طلب استثماري</div>
-                            </div>
-                        </div> 
+                            <li>
+                                <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                    <div class="font-16">
+                                        <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
+                                    </div>
+                                </a>
+                            </li>
+                        }
 
-                         <div class="col" tabindex="378"> 
-                            <div class="d-flex align-items-center theme-icons shadow-sm p-1 cursor-pointer rounded">
-                                <div class="font-22">
-                                    <i class="fadeIn animated bx bx-paste"></i>
-                                </div>
-                                <div class="ms-2">الإعلانات</div>
-                            </div>
-                        </div> *@
+                        
 
                   
             <li class="nav-item dropdown dropdown-user-setting">
@@ -433,44 +462,115 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="person-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Profile</span></div>
-                    </div>
-                  </a>
-                </li>
-               
-               
-               
-               
-   
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="log-out-outline"></ion-icon>
-                      </div>
-                      <div   class="ms-3"><form asp-controller="Account" asp-action="LogOff" method="post">
+                <ul class="dropdown-menu dropdown-menu-end">
+    <li>
+        <div class="dropdown-item">
+            <div class="d-flex flex-row align-items-center gap-2">
+                <img src="~/images/avatars/06.png" alt="" class="rounded-circle" width="54" height="54">
+                <div class="">
+                    <h6 class="mb-0 dropdown-user-name">@User.Identity.Name</h6>
+                    <small class="mb-0 dropdown-user-designation text-secondary">إدارة الاستثمار</small>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li><hr class="dropdown-divider"></li>
 
-                                <input type="submit" value="تسجيل الخروج" class="btn btn-info btn-block" />
-                            </form></div>
+    <li>
+        <a class="dropdown-item" asp-controller="Investor" asp-action="Update" method="post" asp-route-Id="@investorId">
+            <div class="d-flex align-items-center">
+                <div class="font-20">
+                    <ion-icon name="person-outline"></ion-icon>
+                </div>
+                <div class="ms-3"><span>الملف الشخصي</span></div>
+            </div>
+        </a>
+    </li>
+
+    <li><hr class="dropdown-divider"></li>
+      <li>
+        <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+            <button type="submit" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                    <div class="font-20 text-danger">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </div>
+                    <div class="ms-3 text-danger"><span>تسجيل الخروج</span></div>
+                </div>
+            </button>
+        </form>
+    </li>
+          </li>
+
+             @*          <li>
+               <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employeeId" class="dropdown-item">
+                    <div class="d-flex align-items-center">
+                    <div class="">
+                        <ion-icon name="Profile"></ion-icon>
+                    </div>
+                    <div class="ms-3"><span>Profile</span></div>
+                      </div>
+                    </a>
+                      </li>  *@
+
+</ul>
+                
+        
+                      <li>
+               <form asp-controller="Employee" asp-action="Update" asp-route-Id="@employeeId" class="dropdown-item">
+                    <div class="d-flex align-items-center">
+                    <div class="">
+                        <ion-icon name="Profile"></ion-icon>
+                    </div>
+                    <div class="ms-3"><span>Profile</span></div>
+                      </div>
+                    </form>
+                      </li>
+                      
+               @*        <li>
+               <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employeeId" class="dropdown-item">
+                    <div class="d-flex align-items-center">
+                    <div class="">
+                        <ion-icon name="Profile"></ion-icon>
+                    </div>
+                    <div class="ms-3"><span>Profile</span></div>
+                      </div>
+                    </a>
+                      </li>  *@
+
+
+    <li>
+        <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+            <button type="submit" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                    <div class="font-20 text-danger">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </div>
+                    <div class="ms-3 text-danger"><span>تسجيل الخروج</span></div>
+                </div>
+            </button>
+        </form>
+           </li>
+
+           
+    <li>
+        <form asp-controller="Investor" asp-action="Update" method="get" asp-route-Id="@investorId" >
+            <button type="submit" class="dropdown-item">
+                <div class="d-flex align-items-center">
+                    <div class="font-20 text-danger">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </div>
+                    <div class="ms-3 text-danger"><span>الملف الشخصي </span></div>
+                </div>
+            </button>
+        </form>
+           </li>
+                      
+               
+                     
 
                        
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-          </ul>
-
-                </div>
-
-            </nav>
+  
 
     </header>
     <hr />
@@ -478,7 +578,7 @@
 
 
         <div class="page-content-wrapper">
-            <div class="page-content">
+            <div class="page-content"> 
                 @RenderBody()
             </div>
         </div>

@@ -1,1 +1,122 @@
 ﻿
+@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+@model InvestLink_BLL.Models.InvestorVM
+
+@* //--------------------------------- *@
+@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IInvestor Investor;
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var User_Id = user?.Id;
+    var User_Email = user?.Email;
+}
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <form asp-controller="Investor" asp-action="Create" method="post" enctype="multipart/form-data" id="applicationForm">
+
+
+                    <h5 class="mb-3">Create Profile</h5>
+
+                    <h5 class="mb-0 mt-4">User Information</h5>
+                    <hr>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label">اسم المستثمر</label>
+                            <input type="text" asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="col-6">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="Email" asp-for="Email" class="form-control" value="@User_Email" readonly>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                        </div>
+
+                        <h5 class="mb-0 mt-4">Contact Information</h5>
+                        <hr>
+
+                        <div class="col-6">
+                            <div class="col-12 col-lg-6">
+                                <label asp-for="PhoneNumber" class="form-label">الهاتف / النقال</label>
+                                <input type="tel" class="form-control" asp-for="PhoneNumber">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="col-12 col-lg-6">
+                                <label asp-for="SecondPhoneNumber" class="form-label"> (الهاتف / النقال (الثاني</label>
+                                <input type="tel" class="form-control" asp-for="SecondPhoneNumber">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col-6">
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Position" class="form-label">الصفة </label>
+                                    <input type="text" class="form-control" asp-for="Position">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="col-6">
+                                    <div class="col-12 col-lg-6">
+                                        <label asp-for=" PassportNumber" class="form-label">صورة بطاقة الشخصية</label>
+                                        <input type="file" class="form-control" asp-for=" PassportNumber">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="col-6">
+                                        <div class="col-12 col-lg-6">
+                                            <label asp-for=" CaredNumber" class="form-label">رقم بطاقة الشخصية</label>
+                                            <input type="text" class="form-control" asp-for=" CaredNumber">
+                                        </div>
+                                    </div>
+
+                            <div class="col-6">
+                                <div class="col-6">
+                                    <div class="col-12 col-lg-6">
+                                        <label asp-for="CImage" class="form-label">صورة بطاقة الشخصية</label>
+                                                <input type="file" class="form-control" asp-for="CImage">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="col-6">
+                                        <div class="col-12 col-lg-6">
+                                            <label asp-for="PImage" class="form-label">صورة جواز سفر </label>
+                                                    <input type="file" class="form-control" asp-for="PImage">
+                                        </div>
+                                    </div>
+
+                            <div class="col-12 col-lg-6">
+                                <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
+                                    <option value=""> اختر  الجنسية</option>
+                                </select>
+                                <span asp-validation-for="NationalityId" class="text-danger"></span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="text-start mt-3">
+                        <button type="submit" class="btn btn-primary px-4">حفظ التغييرات</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
