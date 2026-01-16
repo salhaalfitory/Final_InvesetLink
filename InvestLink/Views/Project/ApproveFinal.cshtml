@@ -3,6 +3,62 @@
     ViewBag.Title = "ApproveFinal";
 }
 
+@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IInvestor iInvestor;
+@inject IProject iProject;
+
+
+@inject IProjectInvestor iProjectInvestor;
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+
+
+    // متغير
+    IEnumerable<Project> projects;
+
+    // obj from identity user
+
+    if (User.IsInRole("Investor"))
+    {
+        var invest = iInvestor.GetIdByEmail(email);
+        var investorId = invest;
+
+        var ProjectInvestors = await iProjectInvestor.GetAllAsync(investorId);
+        projects = await iProject.GetAllAsync(ProjectInvestors);
+    }
+
+    // else if (User.IsInRole("Admin") && User.IsInRole("HeadOfService"))
+    else
+    {
+        projects = await iProject.GetAllAsync();
+
+    }
+
+}
+    @* else if (User.IsInRole("Investor") && User.IsInRole("HeadOfService"))
+
+    {
+        var IEAdvertisement = await iAdvertisement.GetAllAsync();
+    } *@
+
+
+
+
+
+
+
+
 <h6 class="mb-0 text-uppercase">الطلبات</h6>
 <hr>
 <div class="card">

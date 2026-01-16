@@ -1,0 +1,128 @@
+﻿@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+@model InvestLink_BLL.Models.InvestorVM
+
+@* //--------------------------------- *@
+@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject IInvestor investor;
+@{
+    ViewBag.Title = "Profile";
+}
+@{
+    @inject ICoordinatorReport icoordinatorReport;
+    @inject IEmployee iEmployee;
+    @inject IProjectCoordinator iProjectcoordinator;
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var InvestorId = investor.GetIdByEmail(email);
+}
+
+
+
+<!-- start page content wrapper-->
+<div class="page-content-wrapper">
+    <!-- start page content-->
+    <div class="page-content">
+
+
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card radius-10">
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <form asp-controller="Investor" asp-action="Profile" method="post" enctype="multipart/form-data" id="applicationForm">
+                            <input type="text" asp-for="Id" value="@InvestorId" />
+                            <h5 class="mb-3">Edit Profile</h5>                 
+                            <h5 class="mb-0 mt-4">User Information</h5>
+                            <hr>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label class="form-label">اسم المستثمر</label>
+                                    <input type="text" asp-for="Name" class="form-control">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>                               
+                                
+                                <div class="col-6">
+                                    <label class="form-label">رقم المستثمر</label>
+                                    <input type="text" asp-for="IDNumber" class="form-control">
+                                    <span asp-validation-for="IDNumber" class="text-danger"></span>
+                                </div>
+
+                                
+                                <div class="col-6">
+                                    <label class="form-label">البريد الإلكتروني</label>
+                                    <input type="Email" asp-for="Email" class="form-control" value="@email" readonly>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+
+                            <h5 class="mb-0 mt-4">Contact Information</h5>
+                            <hr>
+                         
+                                <div class="col-6">
+                                    <div class="col-12 col-lg-6">
+                                        <label asp-for="PhoneNumber" class="form-label">الهاتف / النقال</label>
+                                        <input type="tel" class="form-control" asp-for="PhoneNumber">
+                                    </div>
+                                </div> 
+                                
+                                <div class="col-6">
+                                    <div class="col-12 col-lg-6">
+                                        <label asp-for="SecondPhoneNumber" class="form-label"> (الهاتف / النقال (الثاني</label>
+                                        <input type="tel" class="form-control" asp-for="SecondPhoneNumber">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="col-6">
+                                        <div class="col-12 col-lg-6">
+                                            <label asp-for="Position" class="form-label">الصفة </label>
+                                            <input type="text" class="form-control" asp-for="Position">
+                                        </div>
+                                    </div>
+
+                                    @* <div class="col-12 col-lg-6">
+                                        <select class="form-select mb-3" asp-for="Nationality" asp-items="(SelectList)ViewBag.NationalityList">
+                                            <option value=""> اختر  الجنسية</option>
+                                        </select>
+                                    </div> *@
+
+                                    <div class="col-12 col-lg-6">
+                                        <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
+                                            <option value=""> اختر  الجنسية</option>
+                                        </select>
+                                        <span asp-validation-for="NationalityId" class="text-danger"></span>
+                                    </div>
+
+                                    @* <div class="col-12 col-lg-6">
+                                        <label asp-for="Image" class="form-label">صورة البطاقة أو جواز السفر</label>
+                                        <input type="file" class="form-control" asp-for="Image">
+                                    </div> *@
+                                </div>
+                            </div>
+                            <div class="text-start mt-3">
+                                <button type="submit" class="btn btn-primary px-4">حفظ التغييرات</button>
+                            </div>
+                    </form>
+                    </div>
+
+                </div>
+            </div>
+        </div><!--end row-->
+
+    </div>
+    <!-- end page content-->
+</div>
+
+
+
+      @*   public string IDNumber { get; set; }
+
+        public string? ImageName { get; set; }
+        public IFormFile Image { get; set; }
+         *@

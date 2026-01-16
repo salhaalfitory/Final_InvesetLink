@@ -46,7 +46,14 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
             return View(result);
         }
-        
+        public async Task<IActionResult> Index1()
+        {
+            var data = await advertisement.GetAllAsync();
+
+            var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
+            return View(result);
+        }
+
         [HttpGet]
         public IActionResult Create(int EmployeeId)
         {

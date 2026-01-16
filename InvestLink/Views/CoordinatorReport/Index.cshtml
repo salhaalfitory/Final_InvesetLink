@@ -1,6 +1,46 @@
-﻿@model IEnumerable<InvestLink_BLL.Models.CoordinatorReportVM>
+﻿@* @model IEnumerable<InvestLink_BLL.Models.CoordinatorReportVM> *@
 @{
     ViewBag.Title = "Index ";
+}
+
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject ICoordinatorReport icoordinatorReport;
+
+@inject IEmployee iEmployee;
+
+
+
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+
+    // متغير
+    IEnumerable<CoordinatorReport> coordinatorReports;
+
+    //obj from identity user
+    if (User.IsInRole("FollowUpEployee"))
+    {
+        var iEmp = await iEmployee.GetByEmailAsync(email);
+        var iEmptId = iEmp.Id;
+
+        //فلترة برقم موظف
+        var iicoordinatorReport = await icoordinatorReport.GetAllAsync(iEmptId);
+
+        //جميع تقارير موظف
+        coordinatorReports = await icoordinatorReport.GetAllAsync(iicoordinatorReport);
+    }
+
+    //رئيس خدمات المستثمرين
+    else
+    {
+		coordinatorReports = await icoordinatorReport.GetAllAsync();
+    }
+
 }
 
 
@@ -23,11 +63,11 @@
                 @{
                     int Count = 0;
                 }
-                @foreach (var Item in Model)
+                @foreach (var Item in coordinatorReports)
                 {
                     Count++;
                     <tr>
-                        <th scope="row">@Count</th>
+                        @* <th scope="row">@Count</th> *@
 
                         <td>@Item.ProjectCoordinator?.Project?.Name</td>
                         <td>@Item.Status</td>

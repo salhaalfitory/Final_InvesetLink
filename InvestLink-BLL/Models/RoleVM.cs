@@ -9,9 +9,8 @@ namespace InvestLink_BLL.Models
 {
     public class RoleVM
     {
-        //public String Id { get; set; }
-
         [Required(ErrorMessage = "Name Role is Required")]
         public string Name { get; set; }
+
     }
 }

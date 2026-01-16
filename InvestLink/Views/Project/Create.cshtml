@@ -1,26 +1,21 @@
 ﻿@using InvestLink_BLL.Interfaces
 @using Microsoft.AspNetCore.Identity
+
 @model InvestLink_BLL.Models.Investor_ProjectVM
 
-
 @inject SignInManager<IdentityUser> signInManager
-
-@inject IInvestor investor;
-
+@inject IInvestor Investor;
 
 @{
     ViewBag.Title = "Create";
 }
 
-
 @{
+
     var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
     var email = await signInManager.UserManager.GetEmailAsync(user);
-    var invest = await investor.GetByEmailAsync(email);
-	var investorId = invest.Id;
+    var InvestorId = Investor.GetIdByEmail(email);
 }
-
-
 
 
 <!doctype html>
@@ -30,6 +25,9 @@
     <link href="~/plugins/bs-stepper/css/bs-stepper-custom.css" rel="stylesheet" />
     <link href="~/plugins/bs-stepper/css/bs-stepper.css" rel="stylesheet" />
     <title>تقديم طلب استثمار</title>
+
+
+
 </head>
 
 <body>
@@ -100,7 +98,7 @@
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>
                             </div>
-                            <input type="hidden" asp-for="SubmitedInvestorId" value="@investorId" />
+                            <input type="hidden" asp-for="SubmitedInvestorId" value="@InvestorId" />
                             <div class="row g-3">
                                 <div class="col-12"><h6 class="text-primary">أولاً: بيانات مقدم الطلب</h6></div>
 
@@ -169,25 +167,6 @@
                                     <label asp-for="Project.TypeOfActivity" class="form-label">نوع النشاط</label>
                                     <input type="text" class="form-control" asp-for="Project.TypeOfActivity">
                                 </div>
-                               @*  <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.ProposedSite" class="form-label">الموقع المقترح</label>
-                                    <input type="text" class="form-control" asp-for="Project.ProposedSite">
-                                </div> *@
-                              @*   <div class="row">
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <label asp-for="Project.ProposedSite" class="form-label">اسم/وصف الموقع المقترح</label>
-                                        <input type="text" class="form-control" asp-for="Project.ProposedSite" placeholder="مثال: أرض المشروع الجديد">
-                                        <span asp-validation-for="Project.ProposedSite" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="col-12 mb-3">
-                                        <label class="form-label">حدد المكان الدقيق على الخريطة</label>
-                                        <div id="map" style="height: 350px; width: 100%; border-radius: 8px; border: 1px solid #ccc;"></div>
-
-                                        <input type="hidden" id="latInput" asp-for="Project.Latitude" />
-                                        <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
-                                    </div>
-                                </div> *@ 
                                 <div class="row">
                                 <div class="col-12">
                                     <label class="form-label">الموقع المقترح</label>
@@ -196,8 +175,8 @@
 
                                     <input type="hidden" id="latInput" asp-for="Project.Latitude" />
                                     <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
-
-                                                                    <input type="text" class="form-control mt-2" asp-for="Project.ProposedSite" placeholder="اسم/وصف الموقع المقترح">
+                                    
+                                    <input type="text" class="form-control mt-2" asp-for="Project.ProposedSite" placeholder="اسم/وصف الموقع المقترح">
                                 </div>
                                 </div>
 
@@ -498,6 +477,13 @@
     <script src="~/plugins/bs-stepper/js/index.spec.js"></script>
     <script src="~/plugins/bs-stepper/js/index.js"></script>
     <script src="~/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+
+    @* @section jqueryvalidation{
+
+
+    } *@
+
+    @* @await RenderSectionAsync("jqueryvalidation", required: false) *@
 
 </body>
 </html>

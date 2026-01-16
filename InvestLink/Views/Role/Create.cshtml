@@ -1,6 +1,6 @@
 ﻿@model InvestLink_BLL.Models.RoleVM
 @using Microsoft.AspNetCore.Identity
-@* @model dentityRole *@
+
 
 @{
     ViewBag.Title = "Create Role";
@@ -9,29 +9,65 @@
 <div class="card">
     <div class="card-body">
         <div class="border p-3 rounded">
-            <h6 class="mb-0 text-uppercase">إضافة موظف جديد</h6>
+            <h6 class="mb-0 text-uppercase">إنشاء صلاحية</h6>
             <hr>
 
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <form asp-controller="Role" asp-action="Create" class="row g-3">
 
-                @* <input type="hidden" asp-for="Id"> *@
+                <div class="col-12">
+                    <label asp-for="Name" class="form-label">اسم صلاحية</label>
+                    <input type="text" asp-for="Name" class="form-control">
+                </div>
 
                 <div class="col-12">
-                    <label asp-for="Name" class="form-label">الاسم</label>
-                    <input asp-for="Name" class="form-control" placeholder="أدخل اسم المستثمر" />
+                    <div class="d-grid">
+
+                        <input type="submit" value="حفظ" class="btn btn-primary " />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@*
+
+@{
+    ViewBag.Title = "Create Role";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+                    <h6 class="mb-0 text-uppercase">إنشاء صلاحية</h6>
+            <hr>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <form asp-controller="Role" asp-action="Create" class="row g-3">
+
+                <input type="hidden" asp-for="Id">
+
+                <div class="col-12">
+                    <label asp-for="Name" class="form-label">Email ID</label>
+                    <input type="text" asp-for="Name" class="form-control">
                     <span asp-validation-for="Name" class="text-danger"></span>
+
                 </div>
 
                
 
                 <div class="col-12">
-                    <div class="d-flex justify-content-center gap-2 mt-3">
-                        <input type="submit" value="حفظ" class="btn btn-success px-4" />
+					<div class="d-grid">
+						
 
-
-                        <a asp-controller="Role" asp-action="Index" class="btn btn-secondary btn-sm px-4">الرجوع </a>
+                        <input type="submit" value="حفظ" class="btn btn-primary " />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
 
                     </div>
                 </div>
@@ -42,8 +78,6 @@
 
 
 
-
-@* 
 
 <div class="row">
     <div class="col-xl-8 mx-auto">
@@ -82,4 +116,4 @@
                 </div>
             </div>
         </div>
- *@
+ *@ 

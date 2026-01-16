@@ -10,6 +10,13 @@
 <div class="card">
     <div class="card-body">
         <table class="table mb-0 table-hover">
+           <div>
+                <a 
+                   asp-action="Create"
+                   class="btn btn-primary">
+                    إصدار تقرير
+                </a>
+            </div>
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -32,19 +39,12 @@
                         <td>@Item.Project?.Name</td>
                         <td>@Item.Project?.ProposedSite</td>
                         <td>@Item.Employee?.Name</td>
-                        <td>
-                            <a asp-controller="CoordinatorReport"
-                               asp-action="Create"
-                               asp-route-id="@Item.Id"
-                               class="btn btn-primary">
-                                إصدار تقرير
-                            </a>
-                        </td>
+                        
 
                         <td>
                             <a asp-controller="CoordinatorReport"
                                asp-action="Update"
-                               asp-route-Id="@Item.Id"
+                               asp-route-CoordinatorReportId="@Item.Id"
                                class="btn btn-success">
                                 تعديل التقرير
                             </a>

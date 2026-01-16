@@ -3,7 +3,50 @@
     ViewBag.Title = "Index ";
 }
 
-@* لموظف المتابعة *@
+@* //------------------------- *@
+
+@{
+    ViewBag.Title = "Index ";
+}
+
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject IEmployee iEmployee;
+@inject IAdvertisement iAdvertisement;
+
+
+
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+
+    // متغير
+    IEnumerable<Advertisement> Advertisements;
+
+    // obj from identity user
+
+    if (User.IsInRole("Admin") && User.IsInRole("HeadOfService"))
+    {
+        var iEmp = await iEmployee.GetByEmailAsync(email);
+        var iEmptId = iEmp.Id;
+
+        var IEAdvertisement = await iAdvertisement.GetAllAsync();
+
+    }
+    else
+    {
+        var IEAdvertisement = await iAdvertisement.GetAllAsync();
+    }
+
+}
+}
+
+
+
 
 @* <h6 class="mb-0 text-uppercase">المشاريع </h6> *@
 <a asp-controller="Advertisement" asp-action="Create" class="btn btn-primary">

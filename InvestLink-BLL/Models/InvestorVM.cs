@@ -11,6 +11,13 @@ namespace InvestLink_BLL.Models
 {
     public class InvestorVM
     {
+        public InvestorVM(){
+            IsActive=true;
+            IsDeleted=false;
+            CreationData=DateTime.Now;
+        }
+
+
         [Key]
         public int Id { get; set; }
         [Required, StringLength(100)]
@@ -32,10 +39,10 @@ namespace InvestLink_BLL.Models
         public string IDNumber { get; set; }
 
         public string? ImageName { get; set; }
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime CreationData { get; set; }//تاريخ  تسجيل 
+        public DateTime? CreationData { get; set; }//تاريخ  تسجيل 
         //------------------------------------
         [Required(ErrorMessage = "الرجاء اختيار الجنسية")]
         public int NationalityId { get; set; }

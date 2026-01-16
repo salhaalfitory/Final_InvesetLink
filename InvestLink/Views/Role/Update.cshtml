@@ -1,0 +1,109 @@
+﻿@* @using Microsoft.AspNetCore.Identity
+@model IdentityRole;
+
+@{
+    ViewBag.Title = "Update";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">تعديل صلاحية</h6>
+            <hr>
+
+            <form asp-controller="Role" asp-action="Update" class="row g-3">
+
+                <input type="hidden" asp-for="Id">
+                <div class="col-12">
+                    <label class="form-label"></label>
+
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input type="text" asp-for="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                </div>
+                
+               
+               
+                <div class="col-12">
+                    <div class="d-grid">
+                        <input type="submit" value="تعديل" class="btn btn-primary m-t-15 waves-effect" />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+                    </div>
+                </div>
+            </form>
+
+            <a asp-controller="Role" asp-action="AddOrRemove" asp-route-RoleId=@Model.Id class="btn bg-green m-t-15 waves-effect">AddOrRemove</a>
+        </div>
+    </div>
+</div> *@
+
+@* @using Microsoft.AspNetCore.Identity
+@model IdentityRole;
+
+@{
+    ViewBag.Title = "Update";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">تعديل صلاحية</h6>
+            <hr>
+            <form asp-controller="Role" asp-action="Update" class="row g-3">
+                <input type="hidden" asp-for="Id">
+                <div class="col-12">
+                    <label class="form-label"></label>
+                    <input type="text" asp-for="Name" class="form-control">
+                </div>
+
+
+
+                <div class="col-12">
+                    <div class="d-grid">
+                        <input type="submit" value="تعديل" class="btn btn-primary m-t-15 waves-effect" />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+                    </div>
+                </div>
+            </form>
+            <a asp-controller="Role" asp-action="AddOrRemove" asp-route-RoleId=@Model.Id class="btn bg-green m-t-15 waves-effect">AddOrRemove</a>
+        </div>
+    </div>
+</div> *@
+
+
+@using Microsoft.AspNetCore.Identity
+@model IdentityRole;
+
+@{
+    ViewBag.Title = "Update";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">تعديل صلاحية</h6>
+            <hr>
+            <form asp-controller="Role" asp-action="Update" class="row g-3">
+                <input type="hidden" asp-for="Id">
+                <div class="col-12">
+                    <label class="form-label"></label>
+                    <input type="text" asp-for="Name" class="form-control">
+                </div>
+                
+               
+               
+                <div class="col-12">
+                    <div class="d-grid">
+                        <input type="submit" value="تعديل" class="btn btn-primary m-t-15 waves-effect" />
+                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
+                    </div>
+                </div>
+            </form>
+            <a asp-controller="Role" asp-action="AddOrRemove" asp-route-RoleId=@Model.Id class="btn bg-green m-t-15 waves-effect">AddOrRemove</a>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,9 @@ namespace InvestLink_BLL.Interfaces
 {
     public interface IEmployee
     {
+        ///---------------------------
+        Task<Employee> GetByEmailAsync(string Email);
+        int GetIdByEmail(string Email);
         Task<IEnumerable<Employee>> GetAllAsync();
         Task CreateAsync(Employee obj);
         Task<Employee> GetByIdAsync(int Id);

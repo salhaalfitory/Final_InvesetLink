@@ -1,5 +1,26 @@
 ﻿@model InvestLink_BLL.Models.AdvertisementVM
 
+@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+
+@* //--------------------------------- *@
+@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IEmployee iEmployee;
+@{
+    ViewBag.Title = "Update";
+}
+
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var iEmployeeId = iEmployee.GetIdByEmail(email);
+
+}
+
+
 <div asp-validation-summary="All"></div>
 
 <div class="card">
@@ -9,8 +30,9 @@
             <hr>
             <form asp-controller="Advertisement" asp-action="Update" enctype="multipart/form-data" class="row g-3">
 
-                <input type="hidden" asp-for="EmployeeId" />
+                <input type="hidden" asp-for="EmployeeId" value="@iEmployeeId" />
                 <input type="hidden" asp-for="ImageName" />
+
                 <div class="col-12">
                     <label class="form-label">اسم الإعلان</label>
                     <input type="text" asp-for="Name" class="form-control">

@@ -2,6 +2,7 @@
 using InvestLink_BLL.Models;
 using InvestLink_DAL.DataBase;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,11 +36,58 @@ namespace InvestLink_BLL.Repository
         {
 
             return await db.CoordinatorReports
-        .Include(x => x.ProjectCoordinator)       // 1. ضروري: إحضار بيانات المنسق المرتبط بالتقرير
+            .Include(x => x.ProjectCoordinator)       // 1. ضروري: إحضار بيانات المنسق المرتبط بالتقرير
             .ThenInclude(y => y.Project)          // 2. ضروري جداً: الدخول لجدول المنسق وإحضار اسم المشروع
-        .ToListAsync();
+            //.Where(a => a.ProjectCoordinator.Employee.Id == iEmptId) // تصفية التقارير بناءً على معرف المشروع
+            .ToListAsync();
+        }
+        public async Task<IEnumerable<CoordinatorReport>> GetAllAsync(int iEmptId)
+        {
+
+            return await db.CoordinatorReports
+            .Include(x => x.ProjectCoordinator)     
+            .ThenInclude(y => y.Project)         
+            .Where(a => a.ProjectCoordinator.Employee.Id == iEmptId) 
+            .ToListAsync();
         }
 
+
+        //public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        public async Task<IEnumerable<CoordinatorReport>> GetAllAsync(IEnumerable<CoordinatorReport> iicoordinatorReport)
+        {
+            var data = new List<CoordinatorReport>();
+
+            if (iicoordinatorReport != null)
+            {
+                foreach (var cr in iicoordinatorReport)
+                {
+                    data.Add(await db.CoordinatorReports.FindAsync(cr.ProjectCoordinatorId));
+                }
+            }
+            return data;
+        }
+
+
+            //return await db.CoordinatorReports
+            //.Include(x => x.ProjectCoordinator)       // 1. ضروري: إحضار بيانات المنسق المرتبط بالتقرير
+            //.ThenInclude(y => y.Project)          // 2. ضروري جداً: الدخول لجدول المنسق وإحضار اسم المشروع
+            ////.Where(cr => cr.ProjectCoordinator.Project.Id ==) // تصفية التقارير بناءً على معرف المشروع
+            //.ToListAsync();
+      
+
+        //public async Task<IEnumerable<CoordinatorReport>> GetAllAsync(IEnumerable<CoordinatorReport> coordinatorReports) { 
+                                      
+        //    List<CoordinatorReport> data = new List<CoordinatorReport>();
+        //    if (coordinatorReports != null)
+        //    {
+        //        foreach (CoordinatorReport coordinatorReport in coordinatorReports)
+        //        {
+
+        //            data.Add(await db.CoordinatorReports.FindAsync(coordinatorReports.ProjectCoordinatorId));
+        //        }
+        //    }
+        //    return data;
+        //}
         //public async Task<CoordinatorReport> GetByIdAsync(int Id)
         //{
 

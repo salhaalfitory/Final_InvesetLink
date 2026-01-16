@@ -30,6 +30,16 @@ namespace InvestLink_BLL.Repository
             await db.SaveChangesAsync();
         }
 
+        //public async Task<IEnumerable<CoordinatorReport>> GetAllAsync(int iEmptId)
+        //{
+
+        //    return await db.Advertisements
+        //    .Include("Employee")
+        //    .Where(a => a.EmployeeId == iEmptId) 
+        //    .ToListAsync();
+        //}
+
+
         public async Task<IEnumerable<Advertisement>> GetAllAsync()
         {
             var data = await db.Advertisements.ToListAsync();

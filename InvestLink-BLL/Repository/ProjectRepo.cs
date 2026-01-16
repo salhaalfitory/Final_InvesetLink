@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InvestLink_BLL.Repository
 {
@@ -25,26 +26,69 @@ namespace InvestLink_BLL.Repository
             return obj.Id;
         }
 
-     
+
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
             return await db.Projects
-                           .Include(p => p.Licenses) 
+                           .Include(p => p.Licenses)
                            .ToListAsync();
         }
 
-        public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+       public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
         {
-            var data = new List<Project>();
-            foreach (var pi in projectInvestors)
+            List<Project> data = new List<Project>();
+            if (projectInvestors != null)
             {
-               data = await db.Projects
-                           .Where(p => p.Id == pi.ProjectId)
-                           .ToListAsync();
+                // 3. الدوران وجلب البيانات
+                foreach (ProjectInvestor projectInvestor in projectInvestors)
+                {
+                    // يبحث عن المشروع بالـ ID ويضيفه للقائمة
+                    // لاحظ استخدام await لأن FindAsync عملية غير متزامنة
+                    data.Add(await db.Projects.FindAsync(projectInvestor.ProjectId));
+                }
             }
-
             return data;
         }
+
+
+        //public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        //{
+        //    var data = new List<Project>();
+
+        //    if(projectInvestors != null)
+        //    {
+        //        foreach (var pr in projectInvestors)
+        //        {
+        //            data = await db.Projects
+        //                .Where(p => p.Id == pr.ProjectId)
+        //                .Include(p => p.Licenses)
+        //                .FirstOrDefaultAsync();    
+        //        }
+        //        return data;
+        //    }
+        //}
+        //var data = new List<Project>();
+        //foreach (var pi in projectInvestors)
+        //{
+        //    data = await db.Projects
+        //                .Where(p => p.Id == pi.ProjectId)
+        //                .ToListAsync();
+        //}
+
+
+
+        //public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        //{
+        //    var data = new List<Project>();
+        //    foreach (var pi in projectInvestors)
+        //    {
+        //       data = await db.Projects
+        //                   .Where(p => p.Id == pi.ProjectId)
+        //                   .ToListAsync();
+        //    }
+
+        //    return data;
+        //}
 
         public async Task<Project> GetByIdAsync(int Id)
         {

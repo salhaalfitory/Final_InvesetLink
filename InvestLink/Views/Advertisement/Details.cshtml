@@ -1,5 +1,6 @@
-﻿@model InvestLink_BLL.Models.AdvertisementVM
-
+﻿@* @model InvestLink_BLL.Models.AdvertisementVM *@
+@model InvestLink_BLL.Models.AdvertisementVM
+@* 
 
 <div class="card">
     <div class="card-body">
@@ -7,7 +8,7 @@
             <h6 class="mb-0 text-uppercase">تفاصيل إلإعلان</h6>
             <hr>
             <form asp-controller="Advertisement" asp-action="Details" enctype="multipart/form-data" class="row g-3">
-                <input type="hidden" value="1" asp-for="EmployeeId" />
+                <input type="hidden" asp-for="EmployeeId" />
 
                 <div class="col-12">
                     <label class="form-label">اسم الإعلان</label>
@@ -25,7 +26,7 @@
 
                 <div class="col-2">
                     <div class="d-grid">
-                        @* <input type="submit" value="حفظ" class="btn btn-success"> *@
+                        @* <input type="submit" value="حفظ" class="btn btn-success"> 
                         <br />
 
                         <a asp-controller="Advertisement" asp-action="Index" class="btn btn-danger">رجوع</a>
@@ -34,5 +35,60 @@
             </form>
         </div>
     </div>
+</div> *@
+
+<div class="card">
+    <div class="card-body">
+        <div class="row align-items-center g-3">
+            <div class="col-12 col-lg-6">
+                <div class="d-lg-flex align-items-start gap-3">
+                    <div class="cart-img text-center text-lg-start">
+                        <img src="~/images/cards/02.png" class="rounded" width="130" alt="">
+                    </div>
+                    <div class="cart-detail text-center text-lg-start">
+
+                        @* <div class="col-12">
+                            <label class="form-label">اسم الإعلان</label>
+                            <input type="text" asp-for="Name" class="form-control" readonly>
+                        </div> *@
+
+                        @* <div class="col-12">
+                            <label class="form-label">صور أو ملف</label>
+                            <input type="file" asp-for="Image" class="form-control" readonly>
+                        </div> *@
+
+                        @* <div class="col-12">
+                            <label class="form-label">محتوى الإعلان</label>
+                            <textarea class="form-control" asp-for="Description" rows="4" cols="4" readonly></textarea>
+                        </div> *@
+
+                        <h6 class="mb-2"><input type="text" asp-for="Name" class="form-control" readonly></h6>
+                        <p class="mb-0">
+<textarea class="form-control" asp-for="Description" rows="4" cols="4" readonly></textarea>
+                        </p>
+                        @* <p class="mb-2">
+                            Color: <span>White & Blue</span>
+                        </p>
+                        <h5 class="mb-0">$19.00</h5> *@
+                    </div>
+                </div>
+            </div>
+
+            @* <div class="col-12 col-lg-3">
+                <div class="cart-action text-center">
+                    <input type="number" class="form-control" value="2" min="1">
+                </div>
+            </div> *@
+            @* <div class="col-12 col-lg-3">
+                <div class="text-center">
+                     <div class="d-flex gap-2 justify-content-center justify-content-lg-end">
+                        <a href="javascript:;" class="btn btn-primary btn-ecomm"><i class='bx bx-x-circle'></i>Remove</a>
+                        <a href="javascript:;" class="btn btn-outline-primary btn-ecomm"><i class='bx bx-heart mx-0'></i></a>
+                    </div> 
+                </div>
+            </div> *@
+        </div>
+    </div>
 </div>
+
 

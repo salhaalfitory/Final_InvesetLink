@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InvestLink.Controllers
 {
@@ -10,23 +13,24 @@ namespace InvestLink.Controllers
     {
         #region Fields
 
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-       
         private readonly IMapper mapper;
         private readonly IInvestor investor;
-
-
-
+        private readonly INationality nationality;
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public InvestorController( IMapper mapper, IInvestor investor)
+        public InvestorController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMapper mapper, IInvestor investor, INationality nationality)
         {
            
             this.mapper = mapper;
             this.investor = investor;
-
+            this.nationality = nationality;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
 
         }
 
@@ -34,29 +38,27 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        public async Task<IActionResult> Index()
-        {
-            var data = await investor.GetAllAsync();
 
-            var result = mapper.Map<IEnumerable<InvestorVM>>(data);
-            return View(result);
-        }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int Id)
         {
-            return View();
+            var data = await investor.GetByIdAsync(Id);
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
+            var result = mapper.Map<InvestorVM>(data);
+            return View(result);
         }
         [HttpPost]
         public async Task<IActionResult> Create(InvestorVM obj)
         {
             try
-            {
+            {            
+
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Investor>(obj);
-
                     await investor.CreateAsync(data);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);
@@ -68,15 +70,19 @@ namespace InvestLink.Controllers
             }
 
         }
+
         [HttpGet]
-        public async Task<IActionResult> Update(int Id)
+        public async Task<IActionResult> Profile(int Id)
         {
             var data = await investor.GetByIdAsync(Id);
+
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             var result = mapper.Map<InvestorVM>(data);
             return View(result);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(InvestorVM obj)
+        public async Task<IActionResult> Profile(InvestorVM obj)
         {
             try
             {
@@ -84,7 +90,7 @@ namespace InvestLink.Controllers
                 {
                     var data = mapper.Map<Investor>(obj);
                     await investor.UpdateAsync(data);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);
@@ -95,44 +101,10 @@ namespace InvestLink.Controllers
                 return View(obj);
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var data = await investor.GetByIdAsync(Id);
-            var result = mapper.Map<InvestorVM>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(InvestorVM obj)
-        {
-            try
-            {
-                var data = mapper.Map<Investor>(obj);
-                await investor.DeleteAsync(data);
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-
-                return View(obj);
-            }
-        }
-        public IActionResult Save()
-        {
-            return View();
-        }
-        public async Task<IActionResult> Details(int Id)
-        {
-            var data = await investor.GetByIdAsync(Id);
-            var result = mapper.Map<InvestorVM>(data);
-
-            return View(result);
-        }
-
     }
+        //----------------------------------------
 }
+
 
 #endregion
 

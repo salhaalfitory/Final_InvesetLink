@@ -5,6 +5,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -46,12 +47,13 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [Authorize(Roles="Investor")]
         public async Task<IActionResult> Index()
         {
-            var data = await project.GetAllAsync();
+            //var data = await project.GetAllAsync();
 
-            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
-            return View(result);
+            //var result = mapper.Map<IEnumerable<ProjectVM>>(data);
+            return View();
         }
 
        
@@ -92,13 +94,13 @@ namespace InvestLink.Controllers
                                 item.ImageName = ImageName;
 
 
-                                var submittedInvestor = await investor.GetByEmailAsync(item.Email);
+                            var submittedInvestor = investor.GetIdByEmail(item.Email);
 
-                                int investorId;
+                            int investorId;
                                 if (submittedInvestor != null)
                                 {
                                     //existing investor
-                                    investorId = submittedInvestor.Id;
+                                    investorId = submittedInvestor;
 
                                 }
                                 else
@@ -115,7 +117,7 @@ namespace InvestLink.Controllers
                                 };
 
                                 await projectinvestor.CreateAsync(Link);
-                            }
+                        }
                         // تسجيل المستثمر المقدم للطلب
                         var Link1 = new ProjectInvestor
                         {
@@ -123,7 +125,6 @@ namespace InvestLink.Controllers
                             InvestorId = obj.SubmitedInvestorId
                         };
 
-                        await projectinvestor.CreateAsync(Link1);
                     }
                         return RedirectToAction("Index");
                     }

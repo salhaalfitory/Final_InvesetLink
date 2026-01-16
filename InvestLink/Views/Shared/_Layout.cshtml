@@ -1,4 +1,50 @@
-﻿
+﻿@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@* //--------------------------------- *@
+
+@* //--------------------------------- *@
+@using InvestLink_BLL.Interfaces
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+
+@inject IInvestor investor;
+@inject IEmployee employee;
+
+@{
+    ViewBag.Title = "Layout";
+}
+@{
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    @* //--------------------------------- *@
+
+
+    var InvestorId = investor.GetIdByEmail(email);
+
+}
+
+
+
+
+@* 
+@{
+    ViewBag.Title = "Profile";
+}
+@{
+    @inject ICoordinatorReport icoordinatorReport;
+    @inject IEmployee iEmployee;
+    @inject IProjectCoordinator iProjectcoordinator;
+
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    var InvestorId = investor.GetByEmail(email);
+    var investorId = InvestorId.Id;
+} *@
+
 <!doctype html>
 <html lang="en" dir="rtl">
 
@@ -34,6 +80,8 @@
   @* ////////////////////////////////////////////// *@
     @await RenderSectionAsync("jqueryUICSS", required: false)
     @await RenderSectionAsync("jqueryvalidation", required: false)
+
+
 </head>
 
 <body>
@@ -56,7 +104,9 @@
       <!--navigation-->
       <ul class="metismenu" id="menu">
                 @*     //-------------------المستثمر------------------ *@
-        <li>
+                @if(signInManager.IsSignedIn(User)&&User.IsInRole("Investior"))
+                {
+       <li>
           <a asp-controller="Home" asp-action="Index">
             <div class="parent-icon">
               <ion-icon name="home-outline"></ion-icon>
@@ -82,6 +132,9 @@
                    </a>
           
                  </li>
+                    
+                }
+         
              @*     //-------------------رئيس خدمات------------------ *@
                
         <li>
@@ -271,6 +324,17 @@
         </li>
 
     </ul>
+
+
+     <li>
+                    <a asp-controller="Role" asp-action="Index">
+                        <div class="parent-icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </div>
+                        <div class="menu-title">إدارة الصلاحيات</div>
+                    </a>
+
+                </li>
     @*     //-------------------موظف متابعه------------------ *@
         <li>
         <a asp-controller="Project" asp-action="Index">
@@ -386,58 +450,17 @@
                   <hr class="dropdown-divider">
                 </li>
                 <li>
-                  <a class="dropdown-item" href="javascript:;">
+                                    <a asp-controller="Investor" asp-action="Profile" asp-route-Id=@InvestorId class="dropdown-item">
                     <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="person-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Profile</span></div>
+                    <div class="">
+                        <ion-icon name="Profile"></ion-icon>
                     </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="settings-outline"></ion-icon>
+                    <div class="ms-3"><span>Profile</span></div>
                       </div>
-                      <div class="ms-3"><span>Setting</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="speedometer-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Dashboard</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="wallet-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Earnings</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <ion-icon name="cloud-download-outline"></ion-icon>
-                      </div>
-                      <div class="ms-3"><span>Downloads</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
+                    </a>
+                      </li>
+
+
                 <li>
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">

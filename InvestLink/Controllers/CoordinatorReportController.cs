@@ -46,6 +46,7 @@ namespace InvestLink.Controllers
 
             var result = mapper.Map<IEnumerable<CoordinatorReportVM>>(data);
             return View(result);
+
         }
         
         public async Task<IActionResult> ReCreateLicense(int projectCoordinatorId)
@@ -66,14 +67,10 @@ namespace InvestLink.Controllers
 
         }
         [HttpGet]
-        public IActionResult Create(int ProjectCoordinatorId)
+        public IActionResult Create()
         {
- 
-            var model = new CoordinatorReportVM();
-           
-            model.ProjectCoordinatorId = ProjectCoordinatorId;
 
-            return View(model);
+            return View();
         }
 
         [HttpPost]
@@ -81,11 +78,15 @@ namespace InvestLink.Controllers
         {
             try
             {
+                var cr = await projectcoordinator.GetByIdAsync(obj.ProjectId, obj.EmployeeId);
+                obj.ProjectCoordinatorId = cr.Id;
+
                 var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
                 obj.ImageName = ImageName;
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";
+           
                     obj.CreationData = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);
 

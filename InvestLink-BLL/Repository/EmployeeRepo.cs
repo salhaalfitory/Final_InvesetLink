@@ -18,7 +18,16 @@ namespace InvestLink_BLL.Repository
         {
             this.db = db;
         }
-        public async  Task CreateAsync(Employee obj)
+
+        ///---------------------------
+        public async Task<Employee> GetByEmailAsync(string email)
+        {
+            var data = await db.Employees.Where(a => a.Email == email).FirstOrDefaultAsync();
+            return data;
+        }
+
+
+        public async Task CreateAsync(Employee obj)
         {
             await db.Employees.AddAsync(obj);
             await db.SaveChangesAsync();
@@ -42,10 +51,25 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
+
+
         public async Task UpdateAsync(Employee obj)
         {
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
+        }
+
+        public int GetIdByEmail(string Email)
+        {
+            var data = db.Employees.FirstOrDefault(e => e.Email == Email);
+            if (data == null)
+            {
+                return 0; // أو أي قيمة تشير إلى عدم العثور على الموظف
+            }
+            else
+            {
+                return data.Id;
+            }
         }
     }
 }
