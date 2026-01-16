@@ -7,6 +7,9 @@
 @inject IProjectInvestor iprojectInvestor;
 @inject IInvestor iinvestor;
 
+@* @{
+    Layout = null;
+} *@
 @{
 
     var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);

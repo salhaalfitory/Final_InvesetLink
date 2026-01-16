@@ -44,8 +44,12 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-       
 
+        public async Task<ProjectCoordinator> GetByIdAsync(int ProjectId, int EmployeeId)
+        {
+            var data = await db.ProjectCoordinators.Where(a => a.ProjectId == ProjectId && a.EmployeeId == EmployeeId).FirstOrDefaultAsync();
+            return data;
+        }
         public  async Task UpdateAsync(ProjectCoordinator obj)
         {
             db.Entry(obj).State = EntityState.Modified;

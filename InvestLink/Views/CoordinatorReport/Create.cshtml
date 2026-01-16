@@ -34,12 +34,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <form asp-controller="CoordinatorReport" asp-action="Create" enctype="multipart/form-data" class="row g-3">
-                <input type="hidden" asp-for="ProjectCoordinator.EmployeeId" value="@iEmployeeId" />
+                <input type="hidden" asp-for="EmployeeId" value="@iEmployeeId" />
+                  <input type="hidden" asp-for="ProjectCoordinatorId"  />
+               
                 <div class="col-12 col-lg-6">
-                    <select class="form-select mb-3" asp-for="ProjectCoordinator.ProjectId">
+                    <select class="form-select mb-3" asp-for="ProjectId">
                         @foreach (var item in await iProjectcoordinator.GetAllAsync())
                         {
                             <option value="@item.ProjectId"> @item.ProjectId </option>
+                            
+                            
                         }
                       
                     </select>

@@ -46,6 +46,7 @@ namespace InvestLink.Controllers
 
             var result = mapper.Map<IEnumerable<AdvertisementVM>>(data);
             return View(result);
+
         }
 
         public async Task<IActionResult> InvestorIndex()

@@ -3,13 +3,18 @@
     ViewBag.Title = "Index ";
 }
 
-<a asp-controller="Nationality" asp-action="Create" class="btn btn-info waves-effect">
-    <i class="fadeIn animated bx bx-pencil"></i>
-    
-</a>
-<br />
+
+
 <h6 class="mb-0 text-uppercase">الجنسيات</h6>
 <hr>
+
+
+<a asp-controller="Nationality" asp-action="Create" class="btn btn-info waves-effect">
+    <i class="fadeIn animated bx bx-pencil"></i>
+
+</a>
+<br />
+<br />
 <div class="card">
     <div class="card-body">
         <table class="table mb-0 table-hover">
@@ -29,7 +34,11 @@
                   {
                             Count++;
                             <tr>
-                                <th scope="row">@Count</th>
+                        <th scope="row">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
+                                @Count
+                            </div>
+                        </th>
 
                                 <td>@Item.Name</td>
                         <td>

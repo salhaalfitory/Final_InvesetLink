@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using InvestLink_BLL.Interfaces
 @inject SignInManager<IdentityUser> signInManager;
 
 
@@ -6,8 +7,8 @@
 @using InvestLink_DAL.Entities
 
 @* //--------------------------------- *@
-@using InvestLink_BLL.Interfaces
-@using Microsoft.AspNetCore.Identity
+
+
 
 @inject SignInManager<IdentityUser> signInManager
 
@@ -132,9 +133,7 @@
     <!--start sidebar -->
     <aside class="sidebar-wrapper" data-simplebar="true">
       <div class="sidebar-header">
-        <div>
-        <img src="~/images/logo-icon-2.png" class="logo-icon" alt="logo icon">
-        </div>
+        
         <div>
           <h4 class="logo-text">InvestLink</h4>
         </div>
@@ -170,11 +169,11 @@
                             <div class="menu-title">المشاريع الاستثمارية</div>
                         </a>
                     </li>
-                    
+
                 }
-          
+
                 @* Head of Services / Admin Menu *@
-               
+
                 @if (signInManager.IsSignedIn(User) && (User.IsInRole("HeadOfServices") || User.IsInRole("Admin")))
                 {
                     <li>
@@ -253,6 +252,9 @@
                             <div class="menu-title">إدارة الإعلانات</div>
                         </a>
                     </li>
+                }
+                @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin")))
+                {
                     <li>
                         <a asp-controller="Nationality" asp-action="Index">
                             <div class="parent-icon">
@@ -295,14 +297,7 @@
   
                 @if (signInManager.IsSignedIn(User) && (User.IsInRole("FollowUpEmployee") || User.IsInRole("Admin")))
                 {
-                    <li>
-                        <a asp-controller="Project" asp-action="Index">
-                            <div class="parent-icon">
-                                <ion-icon name="briefcase-outline"></ion-icon>
-                            </div>
-                            <div class="menu-title">المشاريع الاستثمارية</div>
-                        </a>
-                    </li>
+                   
                     <li>
                         <a href="javascript:;" class="has-arrow">
                             <div class="parent-icon">
@@ -352,9 +347,9 @@
                                     </div>
                                 </a>
                             </li>
-
+                       
                             <li>
-                                <a asp-controller="Advertisement" asp-action="InvestorIndex" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                <a asp-controller="Advertisement" asp-action="Details" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
                                     <div class="font-16">
                                         <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
                                     </div>

@@ -15,8 +15,7 @@
                     <th scope="col">#</th>
                     <th scope="col">رقم الترخيص</th>
                     <th scope="col">اسم المشروع</th>
-                    <th scope="col">تاريخ انتهاء</th>      
-                    <th scope="col">حالة رخصة المشروع</th>
+                    <th scope="col">حالة رخصه</th>
                     <th scope="col">تعيين موظف للمتابعه</th>
                 </tr>
             </thead>
@@ -33,8 +32,7 @@
                         <th scope="row">@Count</th>
                         <td>@Item.LicenseNumber</td>
                         <td>@Item.Project?.Name</td>
-                        <td>@Item.CreatedDate</td>
-                        <td>@Item.ExpireDate</td>
+                       
                         <td>
                             <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
                                 منتهية
@@ -43,7 +41,8 @@
 
                         <td>
 
-                            <form asp-controller="License" asp-action="SendReportRequest" method="post" class="form-inline">
+
+                            <form asp-controller="License" asp-action="SendReportRequest" method="post" class="form-inline" autocomplete="off">
 
                                 <input type="hidden" name="licenseId" value="@Item.Id" />
 
@@ -53,9 +52,10 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-sm waves-effect">
+                                <button type="submit" class="btn btn-primary btn-sm waves-effect" onclick="this.style.display='none';">
                                     <i class="material-icons">send</i>
                                 </button>
+                                <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>
                             </form>
                         </td>
                 </tr>

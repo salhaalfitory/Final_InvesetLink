@@ -9,7 +9,7 @@
 @inject SignInManager<IdentityUser> signInManager
 @inject IEmployee iEmployee;
 @{
-    ViewBag.Title = "Update";
+    ViewBag.Title = "Create";
 }
 
 @{
@@ -19,7 +19,6 @@
 
 }
 
-<div asp-validation-summary="All"></div>
 
 <div class="card">
     <div class="card-body">
@@ -47,13 +46,11 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                
-                <div class="col-2">
-                    <div class="d-grid">
-                        <input type="submit" value="حفظ" class="btn btn-success">
-                        <br />
-     
-                        <a asp-controller="Advertisement" asp-action="Index" class="btn btn-danger">رجوع</a>
-                    </div>
+                <div class="col-md-6">
+
+                        <input type="submit" value="حفظ" class="btn btn-success waves-effect" />
+                        <a asp-controller="Advertisement" asp-action="Index" class="btn btn-outline-secondary px-4">رجوع</a>
+                  
                 </div>
             </form>
         </div>

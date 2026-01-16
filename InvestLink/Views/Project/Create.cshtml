@@ -28,7 +28,7 @@
     <h6 class="text-uppercase">نموذج طلب الاستثمار (P.I.B)</h6>
     <hr>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+   
 
     <div id="stepper1" class="bs-stepper" dir="rtl">
         <div class="card">
@@ -98,10 +98,12 @@
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].Name" class="form-label">أسم مقدم الطلب</label>
                                     <input type="text" class="form-control" asp-for="Investors[0].Name" placeholder="الاسم الثلاثي">
+                                    <span asp-validation-for="Investors[0].Name" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].Position" class="form-label">الصفة</label>
                                     <input type="text" class="form-control" asp-for="Investors[0].Position" placeholder="مثال: مدير عام، وكيل...">
+                                    <span asp-validation-for="Investors[0].Position" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <select class="form-select mb-3" asp-for="Investors[0].NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
@@ -111,26 +113,32 @@
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة </label>
                                     <input type="text" class="form-control" asp-for="Investors[0].CaredNumber">
+                                    <span asp-validation-for="Investors[0].CaredNumber" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].CImage" class="form-label">صورة البطاقة </label>
                                     <input type="file" class="form-control" asp-for="Investors[0].CImage">
+                                    <span asp-validation-for="Investors[0].CImage" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].PassportNumber" class="form-label">رقم  جواز السفر</label>
                                     <input type="text" class="form-control" asp-for="Investors[0].PassportNumber">
+                                    <span asp-validation-for="Investors[0].PassportNumber" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].PImage" class="form-label">صورة  جواز السفر</label>
                                     <input type="file" class="form-control" asp-for="Investors[0].PImage">
+                                    <span asp-validation-for="Investors[0].PImage" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].PhoneNumber" class="form-label">الهاتف / النقال</label>
                                     <input type="text" class="form-control" asp-for="Investors[0].PhoneNumber">
+                                    <span asp-validation-for="Investors[0].PhoneNumber" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].Email" class="form-label">البريد الإلكتروني</label>
                                     <input type="email" class="form-control" asp-for="Investors[0].Email">
+                                    <span asp-validation-for="Investors[0].Email" class="text-danger"></span>
                                 </div>
 
                                 <hr class="mt-4">
@@ -139,7 +147,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                    <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                 </div>
                             </div>
                         </div>
@@ -152,48 +160,33 @@
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.Name" class="form-label">أسم المشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.Name">
+                                    <span asp-validation-for="Project.Name" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LegalBodyFile" class="form-label">الشكل القانوني للمشروع (ملف)</label>
                                     <input class="form-control" type="file" asp-for="Project.LegalBodyFile">
+                                    <span asp-validation-for="Project.LegalBodyFile" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.Area" class="form-label">مجال الاستثمار</label>
                                     <input type="text" class="form-control" asp-for="Project.Area">
+                                    <span asp-validation-for="Project.Area" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.TypeOfActivity" class="form-label">نوع النشاط</label>
                                     <input type="text" class="form-control" asp-for="Project.TypeOfActivity">
+                                    <span asp-validation-for="Project.TypeOfActivity" class="text-danger"></span>
                                 </div>
-                               @*  <div class="col-12 col-lg-6">
-                                    <label asp-for="Project.ProposedSite" class="form-label">الموقع المقترح</label>
-                                    <input type="text" class="form-control" asp-for="Project.ProposedSite">
-                                </div> *@
-                              @*   <div class="row">
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <label asp-for="Project.ProposedSite" class="form-label">اسم/وصف الموقع المقترح</label>
-                                        <input type="text" class="form-control" asp-for="Project.ProposedSite" placeholder="مثال: أرض المشروع الجديد">
-                                        <span asp-validation-for="Project.ProposedSite" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="col-12 mb-3">
-                                        <label class="form-label">حدد المكان الدقيق على الخريطة</label>
-                                        <div id="map" style="height: 350px; width: 100%; border-radius: 8px; border: 1px solid #ccc;"></div>
-
-                                        <input type="hidden" id="latInput" asp-for="Project.Latitude" />
-                                        <input type="hidden" id="lngInput" asp-for="Project.Longitude" />
-                                    </div>
-                                </div> *@ 
+                              
                                 <div class="row">
                                 <div class="col-12">
-                                    <label class="form-label">الموقع المقترح</label>
+                                        <label asp-for="Project.ProposedSite" class="form-label">الموقع المقترح</label>
         
-                    
-
                                      <input type="url" class="form-control mt-2" asp-for="Project.ProposedSite" placeholder="اسم/وصف الموقع المقترح">
+                                        <span asp-validation-for="Investors[0].Email" class="text-danger"></span>
                                 </div>
                                 </div>
 
@@ -201,22 +194,27 @@
                                  <div class="col-12 col-lg-6">
                                     <label asp-for="Project.AreaWanted" class="form-label">المساحة المطلوبة (م²)</label>
                                     <input type="number" class="form-control" asp-for="Project.AreaWanted">
+                                    <span asp-validation-for="Project.AreaWanted" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <label asp-for="Project.TypeOfBenefitFromSite" class="form-label">نوع الانتفاع بموقع</label>
                                     <input type="text" class="form-control" asp-for="Project.TypeOfBenefitFromSite">
+                                    <span asp-validation-for="Project.TypeOfBenefitFromSite" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.projectTimeLine" class="form-label">مدة تنفيذ المشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.projectTimeLine">
+                                    <span asp-validation-for="Project.projectTimeLine" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.ConstructionPeriod" class="form-label">العمر الافتراضي للمشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.ConstructionPeriod">
+                                    <span asp-validation-for="Project.ConstructionPeriod" class="text-danger"></span>
                                 </div>
                                 <div class="col-12">
                                     <label asp-for="Project.AboutTheProject" class="form-label">نبذه عن المشروع</label>
                                     <textarea type="text" class="form-control" asp-for="Project.AboutTheProject"></textarea>
+                                    <span asp-validation-for="Project.AboutTheProject" class="text-danger"></span>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
@@ -236,42 +234,50 @@
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LocalManpower" class="form-label">رأس المال وطني</label>
                                     <input type="number" class="form-control" asp-for="Project.LocalManpower">
+                                    <span asp-validation-for="Project.LocalManpower" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.ForeignManpower" class="form-label">رأس المال أجنبي</label>
                                     <input type="number" class="form-control" asp-for="Project.ForeignManpower">
+                                    <span asp-validation-for="Project.ForeignManpower" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LocalLoans" class="form-label">قروض محلية</label>
                                     <input type="number" class="form-control" asp-for="Project.LocalLoans">
+                                    <span asp-validation-for="Project.LocalLoans" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.ForeignLoans" class="form-label">قروض أجنبية</label>
                                     <input type="number" class="form-control" asp-for="Project.ForeignLoans">
+                                    <span asp-validation-for="Project.ForeignLoans" class="text-danger"></span>
                                 </div>
 
                                 <h6 class="text-primary mt-3"> ثانياً: التكاليف الاستثمارية للمشروع "حجم الاستثمار المتوقع "</h6>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.CostLandBuild" class="form-label">الأراضي والمباني والإنشاءات</label>
                                     <input type="number" class="form-control" asp-for="Project.CostLandBuild">
+                                    <span asp-validation-for="Project.CostLandBuild" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.CostMachine" class="form-label">الآلات والمعدات ووسائل النقل</label>
                                     <input type="number" class="form-control" asp-for="Project.CostMachine">
+                                    <span asp-validation-for="Project.CostMachine" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.CostSetup" class="form-label">مصروفات التأسيس والأثاث</label>
                                     <input type="number" class="form-control" asp-for="Project.CostSetup">
+                                    <span asp-validation-for="Project.CostSetup" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.TotalCost" class="form-label">إجمالي التكاليف الاستثمارية</label>
                                     <input type="number" class="form-control" asp-for="Project.TotalCost">
+                                    <span asp-validation-for="Project.TotalCost" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                        <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -285,43 +291,51 @@
                                 <div class="col-12">
                                     <label asp-for="Project.Technology" class="form-label">التقنية المستخدمة</label>
                                     <textarea class="form-control" asp-for="Project.Technology" rows="2" placeholder="شرح مختصر للتقنية المستخدمة..."></textarea>
+                                    <span asp-validation-for="Project.Technology" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.RawMaterialLocal" class="form-label">نسبة المواد الخام المحلية (%)</label>
                                     <input type="number" class="form-control" asp-for="Project.RawMaterialLocal">
+                                    <span asp-validation-for="Project.RawMaterialLocal" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.RawMaterialForeign" class="form-label">نسبة المواد الخام الأجنبية (%)</label>
                                     <input type="number" class="form-control" asp-for="Project.RawMaterialForeign">
+                                    <span asp-validation-for="Project.RawMaterialForeign" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LocalManpower" class="form-label">العمالة الوطنية (عدد)</label>
                                     <input type="number" class="form-control" asp-for="Project.LocalManpower">
+                                    <span asp-validation-for="Project.LocalManpower" class="text-danger"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.ForeignManpower" class="form-label">العمالة الأجنبية (عدد)</label>
                                     <input type="number" class="form-control" asp-for="Project.ForeignManpower">
+                                    <span asp-validation-for="Project.ForeignManpower" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12">
                                     <label asp-for="Project.EnvironmentalImpact" class="form-label">الأثر البيئي وطرق معالجته</label>
                                     <input type="text" class="form-control" asp-for="Project.EnvironmentalImpact">
+                                    <span asp-validation-for="Project.EnvironmentalImpact" class="text-danger"></span>
                                 </div>
                                 <div class="col-12">
                                     <label asp-for="Project.TrainingPrograms" class="form-label">البرامج التدريبية للعمالة الوطنية بالمشروع</label>
                                     <input type="text" class="form-control" asp-for="Project.TrainingPrograms">
+                                    <span asp-validation-for="Project.TrainingPrograms" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12">
                                     <label asp-for="Project.ExperienceOfInvestor" class="form-label">خبرة المستثمر في النشاط</label>
                                     <textarea class="form-control" asp-for="Project.ExperienceOfInvestor" rows="2"></textarea>
+                                    <span asp-validation-for="Project.ExperienceOfInvestor" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
-                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
+                                        <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
                                       @*   <input type="submit" value="إرسال الطلب" class="btn btn-success px-4" /> *@
                                         <button type="button" onclick="document.getElementById('applicationForm').submit();" class="btn btn-success px-4">إرسال الطلب</button>
                                     </div>
@@ -365,14 +379,15 @@
 
                     <div class="row g-3">
                         <div class="col-12 col-lg-6">
-                            <label class="form-label">أسم المستثمر</label>
-                            <input type="text" class="form-control field-name" placeholder="الاسم الثلاثي" required>
-                        </div>
-
-                        <div class="col-12 col-lg-6">
-                            <label class="form-label">الصفة</label>
-                            <input type="text" class="form-control field-position" placeholder="مثال: شريك، عضو مجلس إدارة...">
-                        </div>
+                                    <label asp-for="Investors[0].Name" class="form-label">أسم مقدم الطلب</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].Name" placeholder="الاسم الثلاثي">
+                                    <span asp-validation-for="Investors[0].Name" class="text-danger"></span>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <label asp-for="Investors[0].Position" class="form-label">الصفة</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].Position" placeholder="مثال: مدير عام، وكيل...">
+                                    <span asp-validation-for="Investors[0].Position" class="text-danger"></span>
+                                </div>
 
                         <div class="col-12 col-lg-6">
                              <label class="form-label">الجنسية</label>
@@ -380,33 +395,36 @@
                                  ${nationalityOptions}
                              </select>
                         </div>
-
-                        <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة </label>
-                                    <input type="text" class="form-control" asp-for="Investors[0].CaredNumber">
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].CImage" class="form-label">صورة البطاقة </label>
-                                    <input type="file" class="form-control" asp-for="Investors[0].CImage">
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].PassportImage" class="form-label">رقم  جواز السفر</label>
-                                    <input type="text" class="form-control" asp-for="Investors[0].PassportImage">
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].PImage" class="form-label">صورة  جواز السفر</label>
-                                    <input type="file" class="form-control" asp-for="Investors[0].PImage">
-                                </div>
-
-                        <div class="col-12 col-lg-6">
-                            <label class="form-label">الهاتف / النقال</label>
-                            <input type="text" class="form-control field-phone">
-                        </div>
-
-                        <div class="col-12 col-lg-6">
-                            <label class="form-label">البريد الإلكتروني</label>
-                            <input type="email" class="form-control field-email">
-                        </div>
+        <div class="col-12 col-lg-6">
+                                          <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة </label>
+                                          <input type="text" class="form-control" asp-for="Investors[0].CaredNumber">
+                                          <span asp-validation-for="Investors[0].CaredNumber" class="text-danger"></span>
+                                      </div>
+                                      <div class="col-12 col-lg-6">
+                                          <label asp-for="Investors[0].CImage" class="form-label">صورة البطاقة </label>
+                                          <input type="file" class="form-control" asp-for="Investors[0].CImage">
+                                          <span asp-validation-for="Investors[0].CImage" class="text-danger"></span>
+                                      </div>
+                                      <div class="col-12 col-lg-6">
+                                          <label asp-for="Investors[0].PassportNumber" class="form-label">رقم  جواز السفر</label>
+                                          <input type="text" class="form-control" asp-for="Investors[0].PassportNumber">
+                                          <span asp-validation-for="Investors[0].PassportNumber" class="text-danger"></span>
+                                      </div>
+                                      <div class="col-12 col-lg-6">
+                                          <label asp-for="Investors[0].PImage" class="form-label">صورة  جواز السفر</label>
+                                          <input type="file" class="form-control" asp-for="Investors[0].PImage">
+                                          <span asp-validation-for="Investors[0].PImage" class="text-danger"></span>
+                                      </div>
+                                      <div class="col-12 col-lg-6">
+                                          <label asp-for="Investors[0].PhoneNumber" class="form-label">الهاتف / النقال</label>
+                                          <input type="text" class="form-control" asp-for="Investors[0].PhoneNumber">
+                                          <span asp-validation-for="Investors[0].PhoneNumber" class="text-danger"></span>
+                                      </div>
+                                      <div class="col-12 col-lg-6">
+                                          <label asp-for="Investors[0].Email" class="form-label">البريد الإلكتروني</label>
+                                          <input type="email" class="form-control" asp-for="Investors[0].Email">
+                                          <span asp-validation-for="Investors[0].Email" class="text-danger"></span>
+                                      </div>
                     </div>
                 </div>
             `;

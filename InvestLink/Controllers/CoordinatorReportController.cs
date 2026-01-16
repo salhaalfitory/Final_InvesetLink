@@ -69,13 +69,12 @@ namespace InvestLink.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create(int ProjectCoordinatorId)
         {
-            var pro = await project.GetAllAsync();
-            ViewBag.projectList = new SelectList(pro, "Id", "Name");
-            //var model = new CoordinatorReportVM();int ProjectCoordinatorId
+            
+            var model = new CoordinatorReportVM();/* int ProjectCoordinatorId;*/
 
-            //model.ProjectCoordinatorId = ProjectCoordinatorId;
+            model.ProjectCoordinatorId = ProjectCoordinatorId;
 
             return View();
         }
@@ -85,18 +84,20 @@ namespace InvestLink.Controllers
         {
             try
             {
+
+                var cr = await projectcoordinator.GetByIdAsync(obj.ProjectId, obj.EmployeeId);
+                obj.ProjectCoordinatorId = cr.Id;
+
                 var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
                 obj.ImageName = ImageName;
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";
-                    //obj.ProjectCoordinatorId = 4;
-           
+
                     obj.CreationData = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);
 
                     await coordinatorReport.CreateAsync(data);
-                    toastNotification.AddSuccessToastMessage("تم  إنشاء تقرير بنجاح.");
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
@@ -108,6 +109,7 @@ namespace InvestLink.Controllers
                 TempData["Message"] = ex.Message;
                 return View(obj);
             }
+
 
         }
         [HttpGet]

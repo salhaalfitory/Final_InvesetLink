@@ -47,12 +47,11 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">الاسم</th>
-                    <th scope="col">تاريخ تقديم الطلب</th>
+                    <th scope="col">رقم ترخيص</th>
+                    <th scope="col">تاريخ  إنشاء</th>
                     <th scope="col">تاريخ إنتهاء  </th>
-
-                    <th scope="col">تفاصيل</th>
-                    @* <th scope="col">رخصة المشروع</th>
-                    <th scope="col">ملف رخصة المشروع</th> *@
+                    <th scope="col">حالة رخصة</th>
+                   
                 </tr>
             </thead>
 
@@ -64,8 +63,12 @@
                 {
                     Count++;
                    <tr>
-                        <th scope="row">@Count</th>
-                        @* <td>@Item.LicenseNumber</td> *@
+                        <th scope="row">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
+                                @Count
+                            </div>
+                        </th>
+                        <td>@Item.LicenseNumber</td>
                         <td>@Item.Project?.Name</td>
                         <td>@Item.CreatedDate</td>
                         <td>@Item.ExpireDate</td>
@@ -76,6 +79,7 @@
                         @if (Item.ExpireDate > DateTime.Now)
                         {
                         <td>
+
                             <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
                                 سارية
                             </span>
@@ -89,11 +93,14 @@
                                 </span>
                             </td>
 
+                              
+                           
+
                         }
                      
 
                     </tr>
-                    @* </tr> *@
+                 
                 }
             </tbody>
         </table>
@@ -101,60 +108,3 @@
 </div>
 
 
-
-@* 
-
-<h6 class="mb-0 text-uppercase">الطلبات </h6>
-<hr>
-<div class="card">
-    <div class="card-body">
-        <table class="table mb-0 table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">رقم رخصة</th>
-                    <th scope="col">اسم المشروع</th>
-                    <th scope="col">تاريخ إنتهاء</th>
-                    <th scope="col">حالة</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int Count = 0;
-                }
-                @foreach (var Item in Model)
-                {
-                    Count++;
-                    <tr>
-                        <th scope="row">@Count</th>
-                        <td>@Item.LicenseNumber</td>
-                        <td>@Item.Project?.Name</td>
-                        <td>@Item.ExpireDate</td>
-                        <td>
-                            @if (Item.ExpireDate > DateTime.Now)
-                            {
-
-
-                            <td>
-                                <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
-                                    سارية
-                                </span>
-                            </td>
-                            }
-                            else
-                            {
-                    <td>
-                        <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
-                            منتهية
-                        </span>
-                    </td>
-
-                            }
-                        </td>
-                       
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div> *@
