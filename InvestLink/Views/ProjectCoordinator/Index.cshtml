@@ -1,15 +1,25 @@
-﻿@model IEnumerable<InvestLink_BLL.Models.ProjectCoordinatorVM>
+﻿
+
+
+
+
+@model IEnumerable<InvestLink_BLL.Models.ProjectCoordinatorVM>
 @{
     ViewBag.Title = "Index ";
 }
 
 @* لموظف المتابعة *@
 
-@* <h6 class="mb-0 text-uppercase">المشاريع </h6> *@
+
 <hr>
 <div class="card">
     <div class="card-body">
         <table class="table mb-0 table-hover">
+
+            <a asp-controller="CoordinatorReport" asp-action="Create" class="btn btn-info waves-effect">
+                   <i class="fadeIn animated bx bx-pencil"></i>
+                </a>
+         
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -32,27 +42,16 @@
                         <td>@Item.Project?.Name</td>
                         <td>@Item.Project?.ProposedSite</td>
                         <td>@Item.Employee?.Name</td>
-                        <td>
-                            <a asp-controller="CoordinatorReport"
-                               asp-action="Create"
-                               asp-route-id="@Item.Id"
-                               class="btn btn-primary">
-                                إصدار تقرير
-                            </a>
-                        </td>
+
 
                         <td>
                             <a asp-controller="CoordinatorReport"
                                asp-action="Update"
                                asp-route-CoordinatorReportId="@Item.Id"
                                class="btn btn-success">
-                                تعديل التقرير
+                                <i class="fadeIn animated bx bx-refresh"></i>
                             </a>
-                          @*   <a asp-controller="CoordinatorReport" asp-action="Update" asp-route-ProjectCoordinatorId="@Item.Id" class="d-inline">
-
-                                   تعديل التقرير
-                              
-                            </a> *@
+                           
                         </td>
 
 
@@ -61,4 +60,4 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>    

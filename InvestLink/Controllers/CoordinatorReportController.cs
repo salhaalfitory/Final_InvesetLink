@@ -5,6 +5,7 @@ using InvestLink_BLL.Models;
 using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using NToastNotify;
 
@@ -68,14 +69,15 @@ namespace InvestLink.Controllers
 
         }
         [HttpGet]
-        public IActionResult Create(int ProjectCoordinatorId)
+        public async Task<IActionResult> Create()
         {
- 
-            var model = new CoordinatorReportVM();
-           
-            model.ProjectCoordinatorId = ProjectCoordinatorId;
+            var pro = await project.GetAllAsync();
+            ViewBag.projectList = new SelectList(pro, "Id", "Name");
+            //var model = new CoordinatorReportVM();int ProjectCoordinatorId
 
-            return View(model);
+            //model.ProjectCoordinatorId = ProjectCoordinatorId;
+
+            return View();
         }
 
         [HttpPost]
@@ -88,7 +90,7 @@ namespace InvestLink.Controllers
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";
-                    obj.ProjectCoordinatorId = 4;
+                    //obj.ProjectCoordinatorId = 4;
            
                     obj.CreationData = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);

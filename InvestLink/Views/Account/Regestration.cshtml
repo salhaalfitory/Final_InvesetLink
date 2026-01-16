@@ -1,98 +1,236 @@
 ﻿@model InvestLink_BLL.Models.RegestrationVM
 
 @{
-    ViewBag.Title = "Regestration";
+    ViewBag.Title = "Registration";
     Layout = null;
 }
 
-
 <!doctype html>
-<html lang="ar" dir="rtl" class="light-theme">
+<html lang="ar" dir="rtl">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- loader-->
-    <link href="~/css/pace.min.css" rel="stylesheet" />
-    <script src="~/js/pace.min.js"></script>
-
-    <!--plugins-->
-    <link href="~/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
 
     <!-- CSS Files -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/bootstrap-extended.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Enhancements -->
+    <link href="~/css/custom-enhancements.css" rel="stylesheet">
 
-    <title>Fobia - Bootstrap5 Admin Template</title>
+    <title>إنشاء حساب جديد - InvestLink</title>
+
+    <style>
+        body {
+            /* استخدام اللون الأزرق الداكن المطابق للصورة */
+            background-color: #1a3c6d;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+        }
+
+        .login-container {
+            width: 100%;
+            /* تكبير العرض ليكون التصميم عرضياً */
+            max-width: 700px;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-header {
+            /* اللون الكحلي الملكي من الصورة */
+            background-color: #1a3c6d;
+            padding: 2rem;
+            text-align: right; /* محاذاة لليمين كما في الصورة */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+        }
+
+        .login-logo-circle {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .login-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .login-body {
+            padding: 3rem; /* زيادة المسافة الداخلية لتعزيز العرض */
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1a3c6d;
+            margin-bottom: 0.5rem;
+            text-align: right;
+        }
+
+        .form-control {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            box-sizing: border-box;
+            text-align: right;
+            background-color: #f8fafc;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-login {
+            background-color: #1a3c6d;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            width: 100%;
+            cursor: pointer;
+            /* تم إزالة الأنيميشن والحركة تماماً */
+            transition: none;
+        }
+
+            /* إلغاء تأثير الـ Hover */
+            .btn-login:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+        .login-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+            .login-links a {
+                color: #1a3c6d;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+        /* إلغاء أي تأثير عند مرور الماوس للزرين */
+        .btn-login:hover, .btn-register:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background-color: #1a3c6d !important;
+            filter: none !important;
+        }
+
+        /* تنسيق الأيقونات داخل الأزرار */
+        .btn-register ion-icon, .btn-login ion-icon {
+            font-size: 1.4rem;
+        }
+
+        .btn-login, .btn-register {
+            background-color: #1a3c6d; /* اللون الكحلي المطابق للصورة */
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem; /* مسافة بين الأيقونة والنص */
+            /* إزالة الأنيميشن تماماً */
+            transition: none !important;
+        }
+    </style>
+  
 </head>
 
 <body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xl-5 col-lg-6 col-md-7 mx-auto mt-5">
-            <div class="card radius-10">
-                <div class="card-body p-4">
-                    <div class="text-center">
-                        <h4>Sign Up</h4>
-                        <p>Creat New account</p>
-                    </div>
-                        <form asp-controller="Account" asp-action="Regestration" method="post">
-                            <div class="col-12">
-                             <label for="inputName" class="form-label">الاسم </label>
-                               <input type="text" class="form-control" asp-for="UserName" required>
-                                <span asp-validation-for="UserName" class="text-danger"></span>
-
-                        </div>
-                        <div class="col-12">
-                              <label for="inputEmail" class="form-label">البريد الإلكتروني</label>
-                                <input type="email" class="form-control" asp-for="Email" required>
-                              <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="col-12">
-                                <label for="inputPassword" class="form-label">كلمة المرور</label>
-                                <input type="password" class="form-control" asp-for="Password" minlength="5" required>
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>          
-                            
-                            <div class="col-12">
-                                <label for="inputPassword" class="form-label">تأكيد كلمة المرور</label>
-                                <input type="password" class="form-control" asp-for="ConfirmPassword" minlength="5" required>
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
-                        @* <div class="col-12 col-lg-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    I agree the Terms and Conditions
-                                </label>
-                            </div>
-                        </div> *@
-                        <div class="col-12 col-lg-12">
-                            <div class="d-grid">
-                                    <input type="submit" class="btn btn-primary" value="إنشاء حساب" />
-
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-12 text-center">
-                                <p class="mb-0">Already have an account? <a asp-controller="Account" asp-action="Login">تسجيل الدخول</a></p>
-                        </div>
-                    </form>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <ion-icon name="person-add-outline"></ion-icon>
                 </div>
+                <h1 class="login-title">إنشاء حساب جديد</h1>
+                <p class="mb-0 text-white-50">انضم إلى منصة InvestLink</p>
+            </div>
+
+            <div class="login-body">
+                <form asp-controller="Account" asp-action="Regestration" method="post">
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">الاسم الكامل</label>
+                        <input type="text" class="form-control" asp-for="UserName" placeholder="الاسم الكامل" required>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" asp-for="Email" placeholder="example@email.com" required>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">كلمة المرور</label>
+                        <input type="password" class="form-control" asp-for="Password" placeholder="••••••••" minlength="5" required>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="inputConfirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                        <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="••••••••" minlength="5" required>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn-register">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            إنشاء الحساب
+                        </button>
+                    </div>
+
+                    <div class="login-links">
+                        <p class="mb-0">لديك حساب بالفعل؟ <a asp-controller="Account" asp-action="Login">تسجيل الدخول</a></p>
+                    </div>
+                </form>
             </div>
         </div>
+        
+        <p class="text-center mt-4" style="color: white; opacity: 0.9;">
+            © 2026 InvestLink. جميع الحقوق محفوظة.
+        </p>
     </div>
-</div>
 
-<!--end wrapper-->
-
-<script src="~/js/bootstrap.bundle.min.js"></script>
-
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
-

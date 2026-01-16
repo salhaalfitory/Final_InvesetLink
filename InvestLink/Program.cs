@@ -70,10 +70,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     // Default Password settings.
     //Unique in IdentityUser
     options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 5;
     options.Password.RequiredUniqueChars = 0;
     options.SignIn.RequireConfirmedAccount = false;

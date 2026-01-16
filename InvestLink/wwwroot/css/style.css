@@ -1,4 +1,4 @@
-﻿
+
 
 /*
 Template Name: Fobia Admin
@@ -38,7 +38,7 @@ body {
 }
 
 a {
-    color: #923eb9;
+    color: #1e3c72;
     text-decoration: none;
 }
 
@@ -59,8 +59,8 @@ ion-icon {
 .wrapper .page-content-wrapper {
 
     margin-right: 260px;
-    margin-top: 50px;
-    padding-bottom: 2px;
+    margin-top: 65px;
+    padding-bottom: 20px;
     transition: .3s all;
 
 }
@@ -124,22 +124,20 @@ ion-icon {
     width: 30px;
 }
 
-.sidebar-wrapper .sidebar-header  .logo-text {
-    font-size: 22px;
-    margin-right: 10px;
-    margin-bottom: 0;
-    letter-spacing: 1px;
-    color: #923eb9;
-}
+    .sidebar-wrapper .sidebar-header .logo-text {
+        font-size: 22px;
+        margin-right: 10px;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+        color: #1e3c72;
+    }
 
 .toggle-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-/*    //تغيير
-*/
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     font-size: 22px;
     cursor: pointer;
@@ -236,7 +234,6 @@ ion-icon {
     border: 1px solid #f4ebf8;
 }
 
-/*/تغيير*/
 .sidebar-wrapper .metismenu ul ul a {
 	padding: 8px 30px 8px 15px
 }
@@ -245,14 +242,14 @@ ion-icon {
 	padding: 8px 45px 8px 15px
 }
 
-.sidebar-wrapper .metismenu .mm-active>a,
-.sidebar-wrapper .metismenu a:active,
-.sidebar-wrapper .metismenu a:focus,
-.sidebar-wrapper .metismenu a:hover {
-	color: #923eb9;
-    text-decoration: none;
-    background-color: rgb(146 62 185 / 10%);
-}
+    .sidebar-wrapper .metismenu .mm-active > a,
+    .sidebar-wrapper .metismenu a:active,
+    .sidebar-wrapper .metismenu a:focus,
+    .sidebar-wrapper .metismenu a:hover {
+        color: #1e3c72;
+        text-decoration: none;
+        background-color: rgba(30, 60, 114, 0.2);
+    }
 
 .menu-label {
 	padding: 20px 5px 5px 15px;
@@ -846,7 +843,7 @@ ion-icon {
     border-radius: 50%;
     bottom: 20px;
     left: 12px;
-    background-color: #923eb9;
+    background-color: #1e3c72;
     z-index: 5;
 }
 
@@ -1108,7 +1105,7 @@ ion-icon {
     align-items: center;
     font-size: 20px;
     color: #ffffff;
-    background-color: #923eb9;
+    background-color: #1e3c72;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     cursor: pointer;
@@ -1232,8 +1229,9 @@ ul.categories-list li {
 	text-decoration: none !important;
 }
 .steps-light .step-item.active .step-count, .steps-light .step-item.active .step-progress {
-	color: #ffffff;
-    background-color: #923eb9;
+    color: #ffffff;
+    background-color: rgba(30, 60, 114, 0.8);
+    
 }
 .step-item:first-child .step-progress {
 	border-radius: .125rem;

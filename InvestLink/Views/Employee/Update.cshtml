@@ -65,27 +65,7 @@
                                 <h5 class="mb-0 mt-4">Contact Information</h5>
                                 <hr>
 
-                                <div class="col-6">
-                                    <div class="col-12 col-lg-6">
-                                        <label asp-for="PhoneNumber" class="form-label">الهاتف / النقال</label>
-                                        <input type="tel" class="form-control" asp-for="PhoneNumber">
-                                    </div>
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="col-12 col-lg-6">
-                                        <label asp-for="SecondPhoneNumber" class="form-label"> (الهاتف / النقال (الثاني</label>
-                                        <input type="tel" class="form-control" asp-for="SecondPhoneNumber">
-                                    </div>
-                                </div>
-
-
-                                    <div class="col-12 col-lg-6">
-                                        <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
-                                            <option value=""> اختر  الجنسية</option>
-                                        </select>
-                                        <span asp-validation-for="NationalityId" class="text-danger"></span>
-                                    </div>
+                                
 
 
                             </div>

@@ -3,46 +3,65 @@
     ViewBag.Title = "RequestsReferredtomanagement ";
 }
 
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-left: 1rem; box-shadow: 0 4px 15px rgba(250, 112, 154, 0.3);">
+                    <ion-icon name="send-outline" style="font-size: 2rem; color: white;"></ion-icon>
+                </div>
+                <div>
+                    <h2 class="gradient-text mb-1" style="font-weight: 700; font-size: 2rem;">الطلبات المحالة للإدارة</h2>
+                    <p class="text-secondary mb-0">عرض جميع الطلبات المحالة للإدارة</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-<h6 class="mb-0 text-uppercase">الطلبات </h6>
-<hr>
-<div class="card">
-    <div class="card-body">
-        <table class="table mb-0 table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">اسم</th>
-                    <th scope="col">تاريخ إنشاء</th>
-                    <th scope="col">تفاصيل</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int Count = 0;
-                }
-                @foreach (var Item in Model)
-                {
-                    Count++;
-                    <tr>
-                        <th scope="row">@Count</th>
-
-                        <td>@Item.Name</td>
-                        <td>@Item.CreationData</td>
-                        <td>
-                            <div class="col">
-                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> تفاصيل
-                                </a>
-                            </div>
-                        </td>
-
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <!-- Referred Requests Table Card -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">اسم المشروع</th>
+                            <th scope="col">تاريخ الإنشاء</th>
+                            <th scope="col">التفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int Count = 0;
+                        }
+                        @foreach (var Item in Model)
+                        {
+                            Count++;
+                            <tr>
+                                <th scope="row">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fa709a;">
+                                        @Count
+                                    </div>
+                                </th>
+                                <td style="font-weight: 600; color: #2d3748;">@Item.Name</td>
+                                <td style="color: #718096;">@Item.CreationData</td>
+                                <td>
+                                    <a asp-controller="Project" asp-action="Details" asp-route-Id="@Item.Id" 
+                                       class="btn btn-sm" 
+                                       style="background: linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #fa709a; font-weight: 600; transition: all 0.3s ease;"
+                                       onmouseover="this.style.background='linear-gradient(135deg, #fa709a 0%, #fee140 100%)'; this.style.color='white';"
+                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%)'; this.style.color='#fa709a';">
+                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                        عرض التفاصيل
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

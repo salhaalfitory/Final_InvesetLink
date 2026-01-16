@@ -18,6 +18,5 @@ namespace InvestLink_DAL.Entities
 
         //-----------------------------------------------
         public virtual List<Investor>? Investors { get; set; }
-        public virtual List<Employee>? Employees { get; set; }
     }
 }

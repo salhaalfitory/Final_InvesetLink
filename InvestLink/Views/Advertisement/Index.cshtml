@@ -5,9 +5,9 @@
 
 @* لموظف المتابعة *@
 
-@* <h6 class="mb-0 text-uppercase">المشاريع </h6> *@
+
 <a asp-controller="Advertisement" asp-action="Create" class="btn btn-primary">
-    إضافة الإعلان
+    <i class="fadeIn animated bx bx-pencil"></i>
 </a>
 <br />
 <br />
@@ -20,6 +20,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">اسم</th>
+                    <th scope="col"> الوصف</th>
                     <th scope="col"> الاجراءات</th>
                 </tr>
             </thead>
@@ -35,25 +36,21 @@
 
                         <td>@Item.Name</td>
                         <td>@Item.Description</td>
-                        @* <td>
-                            <a asp-controller="Advertisement" asp-action="Create" class="btn btn-primary">
-                                إصدار تقرير
-                            </a>
-                        </td> *@
+                        
 
                         <td>
-                            <a asp-controller="Advertisement" asp-action="Update" asp-route-Id=@Item.Id  class="btn btn-success">
-                                تعديل الإعلان
+                            <a asp-controller="Advertisement" asp-action="Update" asp-route-Id=@Item.Id  class="btn btn-success waves-effect">
+                               <i class="fadeIn animated bx bx-refresh"></i>
                             </a>
                         </td>
                         <td>
-                            <a asp-controller="Advertisement" asp-action="Details" asp-route-Id=@Item.Id  class="btn btn-success">
-                                تفاصيل الإعلان
+                            <a asp-controller="Advertisement" asp-action="Details" asp-route-Id=@Item.Id  class="btn btn-secondary">
+                                <i class="fadeIn animated bx bx-file-blank"></i>
                             </a>
                         </td>
                         <td>
-                            <a asp-controller="Advertisement" asp-action="Delete" asp-route-Id=@Item.Id  class="btn btn-success">
-                                حذف الإعلان
+                            <a asp-controller="Advertisement" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                <i class="fadeIn animated bx bx-trash-alt"></i>
                             </a>
                         </td>
 

@@ -31,51 +31,85 @@
     }
 }
 
-<div class="card">
-    <div class="card-body">
-        <table class="table mb-0 table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">اسم المشروع</th>
-                    <th scope="col">تاريخ الإنشاء</th>
-                    <th scope="col">حالة الطلب </th>
-                    <th scope="col">التفاصيل</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int Count = 0;
-                }
-                @foreach (var Item in projects)
-                {
-                    Count++;
-                    <tr>
-                        <th scope="row">@Count</th>
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="gradient-text mb-2" style="font-weight: 700; font-size: 2rem;">المشاريع الاستثمارية</h2>
+                    <p class="text-secondary mb-0">عرض وإدارة جميع المشاريع الاستثمارية</p>
+                </div>
+              
+            </div>
+        </div>
+    </div>
 
-                        <td>@Item.Name</td>
-                        <td>@Item.CreationData</td>
-                        <td>@Item.State</td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id 
-                                    class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                   title="" data-bs-original-title="View detail" aria-label="Views">
-                                    <ion-icon name="eye-outline"></ion-icon>
-                                </a>
-                            </div>
-                        </td>
-                        @* <div class="col">
-
-                                   <a asp-controller="Project" asp-action="Details" asp-route-Id=@Item.Id class="btn btn-secondary px-5">
-                                    <ion-icon name="document-text-sharp"></ion-icon> التفاصيل
-                                </a> *@
-
-                        
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <!-- Projects Table Card -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">اسم المشروع</th>
+                            <th scope="col">تاريخ الإنشاء</th>
+                            <th scope="col">حالة الطلب</th>
+                            <th scope="col">التفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int Count = 0;
+                        }
+                        @foreach (var Item in projects)
+                        {
+                            Count++;
+                            <tr>
+                                <th scope="row">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #667eea;">
+                                        @Count
+                                    </div>
+                                </th>
+                                <td style="font-weight: 600; color: #2d3748;">@Item.Name</td>
+                                <td style="color: #718096;">@Item.CreationData</td>
+                                <td>
+                                    @{
+                                        var badgeClass = "badge-primary";
+                                        var badgeStyle = "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);";
+                                        
+                                        if (Item.State == "مقبول" || Item.State == "موافق عليه")
+                                        {
+                                            badgeStyle = "background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);";
+                                        }
+                                        else if (Item.State == "مرفوض")
+                                        {
+                                            badgeStyle = "background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);";
+                                        }
+                                        else if (Item.State == "قيد المراجعة")
+                                        {
+                                            badgeStyle = "background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);";
+                                        }
+                                    }
+                                    <span class="badge" style="@badgeStyle padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600;">@Item.State</span>
+                                </td>
+                                <td>
+                                    <a asp-controller="Project" asp-action="Details" asp-route-Id="@Item.Id" 
+                                       class="btn btn-sm" 
+                                       style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #667eea; font-weight: 600; transition: all 0.3s ease;"
+                                       onmouseover="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.style.color='white';"
+                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'; this.style.color='#667eea';">
+                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                        عرض التفاصيل
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

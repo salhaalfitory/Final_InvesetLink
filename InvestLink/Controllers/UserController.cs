@@ -14,19 +14,21 @@ namespace InvestLink.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
-        private readonly ILogger<UserController> logger;
+        
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly INationality nationality;
         private readonly IToastNotification toastNotification;
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<UserController> logger,
-            RoleManager<IdentityRole> roleManager, INationality nationality, IToastNotification toastNotification)
+        private readonly IEmployee employee;
+
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, 
+            RoleManager<IdentityRole> roleManager, INationality nationality, IToastNotification toastNotification, IEmployee employee)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.logger = logger;
             this.roleManager = roleManager;
             this.nationality = nationality;
             this.toastNotification = toastNotification;
+            this.employee = employee;
         }
 
         //-----------------------------------------
@@ -42,10 +44,9 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            //await PopulateRolesAsync(new EmployeeVM());
+           
 
-            var nat = await nationality.GetAllAsync();
-            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
+            
             return View(new EmployeeVM());
         }
         [HttpPost]
@@ -69,8 +70,15 @@ namespace InvestLink.Controllers
                     {
                         await userManager.AddToRoleAsync(user, model.Role);
                     }
-
-                    logger.LogInformation("User {Email} created successfully by {AdminUser}", model.Email, User.Identity!.Name);
+                    Employee newEmployee = new Employee
+                    {
+                        Name = model.Name,
+                        Email = model.Email,
+                        IsActive = model.IsActive,
+                        IsDeleted = model.IsDeleted,
+                        CreationData = model.CreationData
+                    };
+                    await employee.CreateAsync(newEmployee);
                    
                     toastNotification.AddSuccessToastMessage("تم إنشاء موظف  بنجاح  .");
                     return RedirectToAction(nameof(Index));

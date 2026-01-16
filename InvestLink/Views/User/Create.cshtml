@@ -2,8 +2,10 @@
 @using InvestLink_BLL.Models
 @using Microsoft.AspNetCore.Identity
 @model EmployeeVM
+@inject RoleManager<IdentityRole> roleManager
 
 @{
+    var roles = roleManager.Roles;
     ViewBag.Title = "Create ";
 }
 
@@ -20,7 +22,7 @@
                 <input type="hidden" asp-for="Id">
                 <div class="col-12">
                 <label asp-for="Name" class="form-label">الاسم</label>
-                <input asp-for="Name" class="form-control" placeholder="أدخل اسم المستثمر" />
+                <input asp-for="Name" class="form-control" placeholder=" ادخال اسم الموظف" />
                 <span asp-validation-for="Name" class="text-danger"></span>
                </div>
 
@@ -30,17 +32,7 @@
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-        <div class="col-md-6">
-            <label asp-for="PhoneNumber" class="form-label">رقم الهاتف الأساسي</label>
-            <input asp-for="PhoneNumber" class="form-control" placeholder="09xxxxxxxx" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-6">
-            <label asp-for="SecondPhoneNumber" class="form-label">رقم الهاتف الثانوي (اختياري)</label>
-            <input asp-for="SecondPhoneNumber" class="form-control" placeholder="09xxxxxxxx" />
-            <span asp-validation-for="SecondPhoneNumber" class="text-danger"></span>
-        </div>
+        <
 
         <div class="col-md-6">
             <label asp-for="Password" class="form-label">كلمة المرور</label>
@@ -51,17 +43,17 @@
 
         <div class="col-md-6">
             <label asp-for="Role" class="form-label">الصلاحية</label>
-                    <select asp-for="Role" class="form-select" asp-items="ViewBag.Roles">
-                <option value="">اختر الصلاحية</option>
+                    <select asp-for="Role" class="form-select" >
+                        <option value="">اختر الصلاحية</option>
+                        @foreach (var role in roles)
+                        {
+                            <option value="@role">@role.Name</option>
+                        }
+                        
             </select>
             <span asp-validation-for="Role" class="text-danger"></span>
         </div>
-        <div class="col-12 col-lg-6">
-            <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
-                <option value=""> اختر  الجنسية</option>
-            </select>
-            <span asp-validation-for="NationalityId" class="text-danger"></span>
-        </div>
+        
 
 
 

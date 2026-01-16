@@ -3,7 +3,11 @@
     ViewBag.Title = "Index ";
 }
 
-
+<a asp-controller="Nationality" asp-action="Create" class="btn btn-info waves-effect">
+    <i class="fadeIn animated bx bx-pencil"></i>
+    
+</a>
+<br />
 <h6 class="mb-0 text-uppercase">الجنسيات</h6>
 <hr>
 <div class="card">
@@ -13,7 +17,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">اسم</th>
-                   
+                    <th scope="col">تعديل</th>
+                    <th scope="col">حذف</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +32,21 @@
                                 <th scope="row">@Count</th>
 
                                 <td>@Item.Name</td>
+                        <td>
+
+                            <a asp-controller="Nationality" asp-action="Update" asp-route-Id=@Item.Id class="btn btn-success waves-effect">
+                                <i class="fadeIn animated bx bx-refresh"></i>
+
+                            </a>
+                        </td>
+
+                        <td>
+
+                            <a asp-controller="Nationality" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                <i class="fadeIn animated bx bx-trash-alt"></i>
                                
+                            </a>
+                        </td>
                             </tr>
                         }
             </tbody>

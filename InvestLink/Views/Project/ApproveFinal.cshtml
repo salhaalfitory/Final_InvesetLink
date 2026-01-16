@@ -1,93 +1,145 @@
-﻿@model IEnumerable<InvestLink_BLL.Models.ProjectVM>
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject IProject iproject;
+@inject IProjectInvestor iprojectInvestor
+@inject IInvestor iInvestor
+@inject UserManager<IdentityUser> userManager
+
+
 @{
     ViewBag.Title = "ApproveFinal";
 }
 
-<h6 class="mb-0 text-uppercase">الطلبات</h6>
-<hr>
-<div class="card">
-    <div class="card-body">
-        <table class="table mb-0 table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">الاسم</th>
-                    <th scope="col">تاريخ تقديم الطلب</th>
-                    <th scope="col">تفاصيل</th>
-                    <th scope="col">رخصة المشروع</th>
-                    <th scope="col">ملف رخصة المشروع</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int Count = 0;
-                }
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    IEnumerable<Project> projects;
+    @if (User.IsInRole("Investor"))
+    {
+        var investor = await iInvestor.GetByEmailAsync(email);
+        var investorId = investor.Id;
+        var projectInvestors = await iprojectInvestor.GetAllAsync(investorId);
+        projects = await iproject.GetAllAsync(projectInvestors);
 
-                @* بداية الـ Loop - يجب أن تكون مرة واحدة فقط *@
-                @foreach (var Item in Model)
-                {
-                    Count++;
-                    <tr>
-                        <th scope="row">@Count</th>
 
-                        <td>@Item.Name</td>
-                        <td>@Item.CreationData</td>
+    }
+    else
+    {
+        projects = await iproject.GetAllAsync();
+    }
+}
 
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a asp-controller="Project" asp-action="Details" asp-route-Id="@Item.Id"
-                                   class="text-primary" data-bs-toggle="tooltip" title="عرض التفاصيل">
-                                    <ion-icon name="eye-outline"></ion-icon>
-                                </a>
-                            </div>
-                        </td>
 
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
-                                   class="text-primary" data-bs-toggle="tooltip" title="عرض الرخصة">
-                                    <ion-icon name="document-text-sharp"></ion-icon>
-                                </a>
-                            </div>
-                        </td>
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+               
+                <div>
+                    <h2 class="gradient-text mb-1" style="font-weight: 700; font-size: 2rem;">اعتماد الترخيص</h2>
+                    <p class="text-secondary mb-0">عرض وإدارة الطلبات المعتمدة ورفع رخص المشاريع</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                        <td>
-                            @* نتحقق هنا باستخدام LicenseName لأنه النص المحفوظ في قاعدة البيانات *@
-                            @if (!string.IsNullOrEmpty(Item.LicenseName))
-                            {
-                                // إذا كان الملف مرفوعاً سابقاً
-                               @*  <div class="text-success">
-                                    <ion-icon name="checkmark-done-circle" style="font-size: 1.5rem; vertical-align: middle;"></ion-icon>
-                                    <span class="fw-bold">تم رفع الرخصة</span>
-                                </div> *@
-                                <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id" class="btn btn-sm btn-success" target="_blank">
-                                    <ion-icon name="eye-outline" style="vertical-align: middle;"></ion-icon> عرض
-                                </a>
-                            }
-                            else
-                            {
-                                // إذا لم يتم الرفع بعد
-                                <form asp-controller="Project" asp-action="UploadLicense" method="post" enctype="multipart/form-data">
+    <!-- Approved Projects Table Card -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">اسم المشروع</th>
+                            <th scope="col">تاريخ تقديم الطلب</th>
+                            <th scope="col">التفاصيل</th>
+                            <th scope="col">رخصة المشروع</th>
+                             @if (!User.IsInRole("Investor"))
+                                    {
+                            <th scope="col">ملف رخصة المشروع</th>
+                                    }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int Count = 0;
+                        }
 
-                                    <input type="hidden" name="projectId" value="@Item.Id" />
-
-                                    <div class="input-group">
-                                        <input type="file" name="licenseFile" class="form-control form-control-sm" required />
-
-                                        <button type="submit" class="btn btn-sm btn-success">
-                                            <ion-icon name="cloud-upload-outline"></ion-icon> رفع
-                                        </button>
+                        @foreach (var Item in projects)
+                        {
+                            Count++;
+                            <tr>
+                                <th scope="row">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #11998e;">
+                                        @Count
                                     </div>
+                                </th>
+                                <td style="font-weight: 600; color: #2d3748;">@Item.Name</td>
+                                <td style="color: #718096;">@Item.CreationData</td>
 
-                                
-                                </form>
-                            }
-                        </td>
-                    </tr>
-                }
-                @* نهاية الـ Loop *@
+                                <td>
+                                    <a asp-controller="Project" asp-action="Details" asp-route-Id="@Item.Id"
+                                       class="btn btn-sm" 
+                                       style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #667eea; font-weight: 600; transition: all 0.3s ease;"
+                                       onmouseover="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.style.color='white';"
+                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'; this.style.color='#667eea';">
+                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                        عرض التفاصيل
+                                    </a>
+                                </td>
 
-            </tbody>
-        </table>
+                                <td>
+                                    <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                       class="btn btn-sm" 
+                                       style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
+                                       onmouseover="this.style.background='linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'; this.style.color='white';"
+                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%)'; this.style.color='#11998e';">
+                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                        عرض التفاصيل
+                                    </a>
+                                </td>
+                             
+                                <td>
+                                    @if (!User.IsInRole("Investor"))
+                                    {
+
+                                        @if (!string.IsNullOrEmpty(Item.LicenseName))
+                                        {
+                                            <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id" 
+                                            class="btn btn-sm" 
+                                            style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);" 
+                                            target="_blank">
+                                                <ion-icon name="checkmark-circle-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                                <i class="fadeIn animated bx bx-file-blank"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <form asp-controller="Project" asp-action="UploadLicense" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="projectId" value="@Item.Id" />
+                                                <div class="input-group" style="max-width: 350px;">
+                                                    <input type="file" name="licenseFile" class="form-control form-control-sm" required style="border-radius: 10px 0 0 10px;" />
+                                                    <button type="submit" class="btn btn-sm" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; color: white; font-weight: 600; border-radius: 0 10px 10px 0; padding: 0.5rem 1rem;">
+                                                        <ion-icon name="cloud-upload-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                                        <i class="lni lni-inbox"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

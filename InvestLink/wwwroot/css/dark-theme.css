@@ -1,5 +1,4 @@
 
-@import url('dark-theme.css');
 html.dark-theme body{
     --bs-body-color: #969696;
     color: #969696;
