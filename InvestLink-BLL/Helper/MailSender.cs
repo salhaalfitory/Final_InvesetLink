@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InvestLink_BLL.Helper
 {
-   public class MailSender
+    public class MailSender
     {
         public static void SendMail(MailVM model)
         {
@@ -17,10 +17,10 @@ namespace InvestLink_BLL.Helper
             var client = new SmtpClient("smtp.gmail.com", 587)
             {
                 EnableSsl = true,
-                Credentials = new NetworkCredential("itstd.5476@uob.edu.ly", "reham1970")
+                Credentials = new NetworkCredential("rehamalwezri@gmail.com", "rgtiilsxivgvklst")
             };
 
-            client.Send("itstd.5476@uob.edu.ly", model.Email, model.Title, model.Message);
+            client.Send("rehamalwezri@gmail.com", model.Email, model.Title, model.Message);
         }
     }
 }

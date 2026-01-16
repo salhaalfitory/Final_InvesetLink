@@ -41,13 +41,25 @@ namespace InvestLink_BLL.Repository
         {
             var data = await db.Licenses
                .Include("Project") 
-               .Where(p => p.ExpireDate > DateTime.Now)
+             
                .ToListAsync();
 
             return data;
 
         }
+        public async Task<IEnumerable<License>> GetAllAsync(IEnumerable<Project> projects)
+        {
+            var data = new List<License>();
+            foreach (var pi in projects)
+            {
+                data = await db.Licenses
+                            .Where(p => p.ProjectId == pi.Id)
+                        
+                            .ToListAsync();
+            }
 
+            return data;
+        }
         public async Task<License> GetByIdAsync(int Id)
         {
             var data = await db.Licenses

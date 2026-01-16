@@ -4,6 +4,7 @@ using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace InvestLink.Controllers
 {
@@ -14,7 +15,7 @@ namespace InvestLink.Controllers
 
         private readonly INationality nationality;
         private readonly IMapper mapper;
-      
+        private readonly IToastNotification toastNotification;
 
 
 
@@ -22,11 +23,12 @@ namespace InvestLink.Controllers
 
         //-----------------------------------------
         #region Ctor
-        public NationalityController(INationality nationality, IMapper mapper)
+        public NationalityController(INationality nationality, IMapper mapper, IToastNotification toastNotification)
         {
             this.nationality = nationality;
-            this.mapper = mapper;
-           
+            this.mapper = mapper; 
+            this.toastNotification = toastNotification;
+
 
 
         }
@@ -59,9 +61,10 @@ namespace InvestLink.Controllers
                     var data = mapper.Map<Nationality>(obj);
 
                     await nationality.CreateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم إنشاء جنسية بنجاح.");
                     return RedirectToAction("Index");
                 }
-                TempData["Meesage"] = "validation Error";
+                toastNotification.AddSuccessToastMessage("فشل إنشاء جنسية، يرجى التحقق من البيانات.");
                 return View(obj);
             }
             catch (Exception ex)
@@ -87,9 +90,10 @@ namespace InvestLink.Controllers
                 {
                     var data = mapper.Map<Nationality>(obj);
                     await nationality.UpdateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح.");
                     return RedirectToAction("Index");
                 }
-                TempData["Meesage"] = "validation Error";
+                toastNotification.AddSuccessToastMessage("فشل تعديل بيانات، يرجى التحقق من البيانات.");
                 return View(obj);
             }
             catch (Exception ex)
@@ -112,6 +116,7 @@ namespace InvestLink.Controllers
             {
                 var data = mapper.Map<Nationality>(obj);
                 await nationality.DeleteAsync(data);
+                toastNotification.AddSuccessToastMessage("تم حذف بنجاح.");
                 return RedirectToAction("Index");
 
             }
@@ -122,17 +127,8 @@ namespace InvestLink.Controllers
                 return View(obj);
             }
         }
-        public IActionResult Save()
-        {
-            return View();
-        }
-        public async Task<IActionResult> Details(int Id)
-        {
-            var data = await nationality.GetByIdAsync(Id);
-            var result = mapper.Map<NationalityVM>(data);
-
-            return View(result);
-        }
+      
+       
 
     }
 }

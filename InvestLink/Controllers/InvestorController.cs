@@ -42,18 +42,17 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int Id)
         {
-            var data = await investor.GetByIdAsync(Id);
-            var nat = await nationality.GetAllAsync();
-            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
-            var result = mapper.Map<InvestorVM>(data);
-            return View(result);
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(InvestorVM obj)
-        {
+            {
             try
-            {            
-
+            {
+                obj.PassportName = "";
+                obj.CaredName = "";
+                obj.CaredNumber = "hi";
+                obj.PassportNumber = "12345678";
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Investor>(obj);

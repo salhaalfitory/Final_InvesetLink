@@ -98,17 +98,17 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].IDNumber" class="form-label">رقم البطاقة أو جواز السفر</label>
-                                    <input type="text" class="form-control" asp-for="Investors[0].IDNumber" readonly >
+                                    <label asp-for="Investors[0].CaredNumber" class="form-label">رقم البطاقة أو جواز السفر</label>
+                                    <input type="text" class="form-control" asp-for="Investors[0].CaredNumber" readonly>
                                 </div>
                            
                                 <div class="col-12 col-lg-6">
                                     <label class="form-label">صورة الوثيقة</label>
 
-                                    @if (!string.IsNullOrEmpty(Model.Investors[0].ImageName))
+                                    @if (!string.IsNullOrEmpty(Model.Investors[0].CaredName))
                                     {
                                         <div class="mt-2">
-                                            <a href="@Url.Content("~/Files/Doc/" + Model.Investors[0].ImageName)" target="_blank" class="form-control">
+                                            <a href="@Url.Content("~/Files/Doc/" + Model.Investors[0].CaredName)" target="_blank" class="form-control">
                                                 <i class='bx bx-show'></i> عرض الملف
                                             </a>
                                         </div>
@@ -161,7 +161,7 @@
 
                                                         <div class="col-12 col-lg-6">
                                                             <label class="form-label">رقم البطاقة أو جواز السفر</label>
-                                                            <input type="text" class="form-control" asp-for="Investors[i].IDNumber" readonly>
+                                                            <input type="text" class="form-control" asp-for="Investors[i].CaredNumber" readonly>
                                                         </div>
 
                                                         <div class="col-12 col-lg-6">
@@ -178,10 +178,10 @@
                                                         <div class="col-12 col-lg-6">
                                                             <label class="form-label">صورة الوثيقة</label>
 
-                                                            @if (!string.IsNullOrEmpty(Model.Investors[0].ImageName))
+                                                            @if (!string.IsNullOrEmpty(Model.Investors[0].CaredName))
                                                             {
                                                                 <div class="mt-2">
-                                                                    <a href="@Url.Content("~/Files/Doc/" + Model.Investors[i].ImageName)" target="_blank" class="form-control">
+                                                                    <a href="@Url.Content("~/Files/Doc/" + Model.Investors[i].CaredName)" target="_blank" class="form-control">
                                                                         <i class='bx bx-show'></i> عرض الملف
                                                                     </a>
                                                                 </div>

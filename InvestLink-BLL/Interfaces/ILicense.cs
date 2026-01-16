@@ -17,6 +17,7 @@ namespace InvestLink_BLL.Interfaces
         Task DeleteAsync(License obj);
         Task<License?> GetByProjectIdAsync(int Id);
         //Task<IEnumerable<License>> GetByStateAsync(string state);
+        Task<IEnumerable<License>> GetAllAsync(IEnumerable<Project> projects);
         Task<IEnumerable<License>> GetExpiredLicensesAsync();
 
     }

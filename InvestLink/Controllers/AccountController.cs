@@ -1,11 +1,8 @@
 ﻿using InvestLink_BLL.Helper;
-using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
-using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace InvestLink.Controllers
@@ -17,14 +14,11 @@ namespace InvestLink.Controllers
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly IToastNotification toastNotification;
 
-        private readonly IInvestor investor;
-
-        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, IToastNotification toastNotification, IInvestor investor)
+        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, IToastNotification toastNotification)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            toastNotification = toastNotification;
-            this.investor = investor;
+            this.toastNotification = toastNotification;
         }
 
             [HttpGet]
@@ -45,11 +39,13 @@ namespace InvestLink.Controllers
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                        toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Account invalid");
+                        toastNotification.AddSuccessToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        ModelState.AddModelError("", "Account invalid");
                 }
                 return View(model);
             }
@@ -83,21 +79,12 @@ namespace InvestLink.Controllers
                         UserName = model.UserName,
                         Email = model.Email,
                     };
-
-                    //var user1 = new Investor
-                    //{
-                    //    Name = model.UserName,
-                    //    Email = model.Email,
-                    //};
                     var result = await userManager.CreateAsync(user, model.Password);
-
-                    //await investor.CreateAsync(data);
-
-                    //var resu = await investor.CreateAsync(user1);
-
 
                     if (result.Succeeded)
                     {
+                        await userManager.AddToRoleAsync(user, "Investor");
+                        toastNotification.AddSuccessToastMessage("تم إنشاء حساب بنجاح.");
                         return RedirectToAction("Login");
                     }
                     else
@@ -156,6 +143,7 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> LogOff()
         {
             await signInManager.SignOutAsync();
+            toastNotification.AddSuccessToastMessage("تم تسجيل خروج.");
             return RedirectToAction("Login", "Account");
         }
 

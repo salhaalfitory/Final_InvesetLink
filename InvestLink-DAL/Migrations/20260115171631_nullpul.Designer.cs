@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20260106202755_identityMigration")]
-    partial class identityMigration
+    [Migration("20260115171631_nullpul")]
+    partial class nullpul
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,8 +69,7 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
@@ -149,18 +148,18 @@ namespace InvestLink_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CaredImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CaredNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationData")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IDNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -176,6 +175,13 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<int>("NationalityId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PassportImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Passportnumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -217,9 +223,6 @@ namespace InvestLink_DAL.Migrations
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("State")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -305,9 +308,6 @@ namespace InvestLink_DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
                     b.Property<string>("LegalBodyName")
                         .HasColumnType("nvarchar(max)");
 
@@ -321,9 +321,6 @@ namespace InvestLink_DAL.Migrations
                     b.Property<string>("LocalManpower")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()

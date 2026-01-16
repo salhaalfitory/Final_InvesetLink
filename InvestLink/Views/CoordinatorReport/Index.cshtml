@@ -28,17 +28,13 @@
         var iEmp = await iEmployee.GetByEmailAsync(email);
         var iEmptId = iEmp.Id;
 
-        //فلترة برقم موظف
         var iicoordinatorReport = await icoordinatorReport.GetAllAsync(iEmptId);
 
-        //جميع تقارير موظف
         coordinatorReports = await icoordinatorReport.GetAllAsync(iicoordinatorReport);
     }
-
-    //رئيس خدمات المستثمرين
     else
     {
-		coordinatorReports = await icoordinatorReport.GetAllAsync();
+    coordinatorReports = await icoordinatorReport.GetAllAsync();
     }
 
 }

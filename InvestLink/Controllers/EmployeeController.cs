@@ -86,6 +86,8 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> Update(int Id)
         {
             var data = await employee.GetByIdAsync(Id);
+            var nat = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             var result = mapper.Map<EmployeeVM>(data);
             return View(result);
         }
@@ -109,39 +111,9 @@ namespace InvestLink.Controllers
                 return View(obj);
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var data = await employee.GetByIdAsync(Id);
-            var result = mapper.Map<EmployeeVM>(data);
-            return View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(EmployeeVM obj)
-        {
-            try
-            {
-                var data = mapper.Map<Employee>(obj);
-                await employee.DeleteAsync(data);
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-
-                return View(obj);
-            }
-        }
+  
        
-        public async Task<IActionResult> Details(int Id)
-        {
-            var data = await employee.GetByIdAsync(Id);
-            var result = mapper.Map<EmployeeVM>(data);
-
-            return View(result);
-        }
-
+      
     }
 }
 

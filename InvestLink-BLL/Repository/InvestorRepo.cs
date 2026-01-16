@@ -37,15 +37,9 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public Investor GetByEmail(string email)
+        public async Task<Investor> GetByEmailAsync(string email)
         {
-            var data = db.Investors.Where(a => a.Email == email).FirstOrDefault();
-            return data;
-        }
-
-        public Investor GetByEmailAsync(string email)
-        {
-            var data = db.Investors.Where(a => a.Email == email).FirstOrDefault();
+            var data = await db.Investors.Where(a => a.Email == email).FirstOrDefaultAsync();
             return data;
         }
 
@@ -55,16 +49,6 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        public int GetIdByEmail(string email)
-        {
-            var data = db.Investors.FirstOrDefault(i => i.Email == email);
-
-            if (data == null)
-            {
-                return 0;
-            }
-            return data.Id;
-        }
         public async Task UpdateAsync(Investor obj)
         {
             db.Entry(obj).State = EntityState.Modified;
@@ -74,8 +58,20 @@ namespace InvestLink_BLL.Repository
         //اضافه داله للايميل
         public async Task<bool> IsEmailExist(string email)
         {
-            return await db.Investors.AnyAsync(a => a.Email == email);         
-        }   
-        
-     }
-}
+            return await db.Investors.AnyAsync(a => a.Email == email);
+
+            
+        }
+
+        public int GetIdByEmail(string Email)
+        {
+            var data = db.Investors.FirstOrDefault(i => i.Email == Email);
+
+            if (data == null)
+            {
+                return 0;
+            }
+            return data.Id;
+        }
+    }
+    }

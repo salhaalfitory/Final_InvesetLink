@@ -9,41 +9,6 @@
 <div class="card">
     <div class="card-body">
         <div class="border p-3 rounded">
-            <h6 class="mb-0 text-uppercase">إنشاء صلاحية</h6>
-            <hr>
-
-            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
-            <form asp-controller="Role" asp-action="Create" class="row g-3">
-
-                <div class="col-12">
-                    <label asp-for="Name" class="form-label">اسم صلاحية</label>
-                    <input type="text" asp-for="Name" class="form-control">
-                </div>
-
-                <div class="col-12">
-                    <div class="d-grid">
-
-                        <input type="submit" value="حفظ" class="btn btn-primary " />
-                        <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
-
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-@*
-
-@{
-    ViewBag.Title = "Create Role";
-}
-
-<div class="card">
-    <div class="card-body">
-        <div class="border p-3 rounded">
                     <h6 class="mb-0 text-uppercase">إنشاء صلاحية</h6>
             <hr>
 
@@ -51,20 +16,17 @@
 
             <form asp-controller="Role" asp-action="Create" class="row g-3">
 
-                <input type="hidden" asp-for="Id">
+            
 
                 <div class="col-12">
-                    <label asp-for="Name" class="form-label">Email ID</label>
+                    <label asp-for="Name" class="form-label">اسم صلاحية</label>
                     <input type="text" asp-for="Name" class="form-control">
-                    <span asp-validation-for="Name" class="text-danger"></span>
-
                 </div>
 
                
 
                 <div class="col-12">
-					<div class="d-grid">
-						
+                            <div class="d-grid">
 
                         <input type="submit" value="حفظ" class="btn btn-primary " />
                         <a asp-controller="Role" asp-action="Index" class="btn bg-green m-t-15 waves-effect">رجوع</a>
@@ -79,41 +41,3 @@
 
 
 
-<div class="row">
-    <div class="col-xl-8 mx-auto">
-
-        <div class="card">
-            <div class="card-body">
-                <div class="border p-3 rounded">
-                    <h6 class="mb-0 text-uppercase">Basic Form</h6>
-                    <hr>
-                    <form class="row g-3">
-                        <div class="col-12">
-                            <label class="form-label">Email ID</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Password</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck1">
-                                <label class="form-check-label" for="gridCheck1">
-                                    Check me out
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-6 text-end">
-                            <a href="javascript:;">Forgot Password?</a>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
- *@ 

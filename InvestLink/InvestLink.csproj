@@ -16,13 +16,10 @@
     <PackageReference Include="NToastNotify" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Partials\" />
-    <Folder Include="wwwroot\Files\Doc\" />
-    <Folder Include="wwwroot\Files\Images\" />
-  </ItemGroup>
+	
 
-  <ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\InvestLink-BLL\InvestLink-BLL.csproj" />
   </ItemGroup>
 
