@@ -3,6 +3,7 @@ using InvestLink_BLL.Helper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
@@ -40,6 +41,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
             var data = await advertisement.GetAllAsync();
@@ -167,6 +169,7 @@ namespace InvestLink.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Investor")]
         public async Task<IActionResult> Details(int Id)
         {
             var data = await advertisement.GetByIdAsync(Id);

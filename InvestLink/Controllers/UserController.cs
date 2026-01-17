@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,7 +33,7 @@ namespace InvestLink.Controllers
         }
 
         //-----------------------------------------
-  
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var data = userManager.Users;
@@ -45,8 +46,6 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> Create()
         {
            
-
-            
             return View(new EmployeeVM());
         }
         [HttpPost]
@@ -107,39 +106,40 @@ namespace InvestLink.Controllers
             ViewBag.Roles = roles;
         }
 
-       // [HttpGet]
-       // public async Task<IActionResult> Update(string Id)
-       // {
-       //     var user = await userManager.FindByIdAsync(Id);
-       //     return View(user);
-       // }
-       //[HttpPost]
-       // public async Task<IActionResult> Update(IdentityUser model)
-       // {
-       //     var user = await userManager.FindByIdAsync(model.Id);
+        [HttpGet]
+        public async Task<IActionResult> Update(string Id)
+        {
+            var user = await userManager.FindByIdAsync(Id);
+            return View(user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(IdentityUser model)
+        {
+            var user = await userManager.FindByIdAsync(model.Id);
 
-       //     user.UserName = model.UserName;
-       //     user.Email = model.Email;
-       //     user.NormalizedUserName = model.UserName.ToUpper();
-       //     user.NormalizedEmail = model.Email.ToUpper();
-       //     user.SecurityStamp = model.SecurityStamp;
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.NormalizedUserName = model.UserName.ToUpper();
+            user.NormalizedEmail = model.Email.ToUpper();
+            user.SecurityStamp = model.SecurityStamp;
 
-       //     var result = await userManager.UpdateAsync(user);
-       //     if (result.Succeeded)
-       //     {
-       //         toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح  .");
-       //         return RedirectToAction("Index");
-       //     }
-       //     else {                
-       //         foreach (var error in result.Errors)
-       //         {
+            var result = await userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح  .");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
 
-       //             ModelState.AddModelError("", error.Description);
-       //         }
-       //         return View(model);
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(model);
 
-       //     }
-       // }
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> Delete(string Id)
@@ -151,13 +151,16 @@ namespace InvestLink.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(IdentityUser model)
         {
+
+           
             var user = await userManager.FindByIdAsync(model.Id);
             var result = await userManager.DeleteAsync(user);
 
-
+          
             if (result.Succeeded)
             {
-                //await employee.DeleteAsync(model.Id);
+                //result = await employee.DeleteAsync(user.Id);
+
                 toastNotification.AddSuccessToastMessage("تم حذف بنجاح  .");
                 return RedirectToAction("Index");
             }

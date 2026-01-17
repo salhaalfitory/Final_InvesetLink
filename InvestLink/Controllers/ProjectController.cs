@@ -49,14 +49,14 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        //[Authorize(Roles = "Investor,Admin,HeadOfServices")]
+        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
          
             return View();
         }
 
-        //[Authorize(Roles = "Investor")]
+        [Authorize(Roles = "Investor")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -157,6 +157,8 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
+
+        [Authorize(Roles = "Admin,HeadOfServices")]
         [HttpGet]
         public async Task<IActionResult> NewRequests()
         {

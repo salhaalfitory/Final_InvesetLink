@@ -2,6 +2,7 @@
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NToastNotify;
@@ -37,6 +38,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var data = await nationality.GetAllAsync();

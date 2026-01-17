@@ -52,7 +52,9 @@
                     <th scope="col">#</th>
                     <th scope="col">اسم</th>
                     <th scope="col"> حالة تقرير</th>
+    
                     <th scope="col"> الاجراءات</th>
+    
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +65,9 @@
                 {
                     Count++;
                     <tr>
-                        @* <th scope="row">@Count</th> *@
+                        <th scope="row"> <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
+                                        @Count
+                                    </div></th>
 
                         <td>@Item.ProjectCoordinator?.Project?.Name</td>
                         <td>@Item.Status</td>
@@ -71,8 +75,12 @@
                             <a asp-controller="CoordinatorReport"
                                asp-action="Details"
                                asp-route-id="@Item.Id"
-                               class="btn btn-primary">
-                             <i class="fadeIn animated bx bx-file-blank"></i>
+                                  class="btn btn-sm" 
+                                       style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #667eea; font-weight: 600; transition: all 0.3s ease;"
+                                       onmouseover="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.style.color='white';"
+                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'; this.style.color='#667eea';">
+                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                        عرض التفاصيل
                             </a>
                             
 
@@ -81,12 +89,14 @@
                         @*  لرئيس خدمات المستثمرين*@
 
                         <td>
+                              @if (User.IsInRole("HeadOfServices"))
+    {
                             <a asp-controller="CoordinatorReport"
                                asp-action="ReCreateLicense"
                                asp-route-projectCoordinatorId="@Item.Id"
-                               class="btn btn-success">
-                                    <i class="fadeIn animated bx bx-refresh"></i>
-                                </a>
+                               class="btn btn-info waves-effect">
+                                    <i class="fadeIn animated bx bx-pencil"></i>
+                                </a>}
                         </td>
 
                        

@@ -1,4 +1,5 @@
 ﻿using InvestLink_BLL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -28,6 +29,7 @@ namespace InvestLink.Controllers
 
         #endregion
         #region Actions
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var role = roleManager.Roles;

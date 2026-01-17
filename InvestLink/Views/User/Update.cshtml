@@ -1,0 +1,46 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@model IdentityUser
+
+@{
+    ViewBag.Title = "Update ";
+}
+<h6 class="mb-0 text-uppercase">تعديل بيانات موظف</h6>
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            
+            <hr>
+
+
+            <form asp-controller="User" asp-action="Update" class="row g-3">
+
+                <input type="hidden" asp-for="Id">
+                <input type="hidden" asp-for="SecurityStamp">
+
+
+                <div class="col-12">
+                    <label asp-for="UserName" class="form-label">الاسم</label>
+                    <input asp-for="UserName" class="form-control" placeholder="أدخل اسم الموظف" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
+                    <input asp-for="Email" class="form-control" type="email" placeholder="example@mail.com"  readonly/>
+                </div>
+
+
+                <div class="col-6">
+                    <input type="submit" value="حفظ" class="btn btn-success waves-effect" />
+                    <a asp-controller="User" asp-action="Index" class="btn btn-outline-secondary px-4">رجوع</a>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

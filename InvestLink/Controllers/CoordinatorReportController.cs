@@ -4,6 +4,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -43,6 +44,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [Authorize(Roles = "FollowUpEployee,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
             var data = await coordinatorReport.GetAllAsync();
@@ -50,7 +52,7 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<CoordinatorReportVM>>(data);
             return View(result);
         }
-        
+        [Authorize(Roles = "HeadOfServices")]
         public async Task<IActionResult> ReCreateLicense(int projectCoordinatorId)
         {
             var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
@@ -68,15 +70,14 @@ namespace InvestLink.Controllers
             return RedirectToAction("Index");
 
         }
+        [Authorize(Roles = "FollowUpEployee")]
         [HttpGet]
-        public IActionResult Create(int ProjectCoordinatorId)
+        public async Task<IActionResult> Create(int ProjectCoordinatorId)
         {
-            
-            var model = new CoordinatorReportVM();/* int ProjectCoordinatorId;*/
 
+            var model = new CoordinatorReportVM();
             model.ProjectCoordinatorId = ProjectCoordinatorId;
-
-            return View();
+            return View(model); 
         }
 
         [HttpPost]
@@ -87,13 +88,15 @@ namespace InvestLink.Controllers
 
                 var cr = await projectcoordinator.GetByIdAsync(obj.ProjectId, obj.EmployeeId);
                 obj.ProjectCoordinatorId = cr.Id;
+                obj.EmployeeId = cr.EmployeeId;
+                obj.ProjectId = cr.ProjectId;
 
                 var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
                 obj.ImageName = ImageName;
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "صادر";
-
+                   
                     obj.CreationData = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);
 
@@ -112,11 +115,12 @@ namespace InvestLink.Controllers
 
 
         }
+        [Authorize(Roles = "FollowUpEployee")]
         [HttpGet]
-        public async Task<IActionResult> Update(int Id)
+        public async Task<IActionResult> Update(int ProjectCoordinatorId)
         {
            
-            var data = await coordinatorReport.GetByIdAsync(Id);
+            var data = await coordinatorReport.GetByIdAsync(ProjectCoordinatorId);
             var result = mapper.Map<CoordinatorReportVM>(data);
             return View(result);
         }
@@ -125,8 +129,14 @@ namespace InvestLink.Controllers
         {
             try
             {
-                var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
-                obj.ImageName = ImageName;
+
+                //var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                //obj.ImageName = ImageName;
+                if (obj.Image != null)
+                {
+                    obj.ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                }
+               
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "محدث";
