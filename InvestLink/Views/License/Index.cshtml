@@ -38,7 +38,7 @@
 }
 
 
-<h6 class="mb-0 text-uppercase">الطلبات</h6>
+<h6 class="mb-0 text-uppercase">رخص المشاريع</h6>
 <hr>
 <div class="card">
     <div class="card-body">
@@ -50,57 +50,46 @@
                     <th scope="col">رقم ترخيص</th>
                     <th scope="col">تاريخ  إنشاء</th>
                     <th scope="col">تاريخ إنتهاء  </th>
-                    <th scope="col">حالة رخصة</th>
+                    <th class="text-center">حالة الرخصة</th>
                    
                 </tr>
             </thead>
-
-              <tbody>
+            <tbody>
                 @{
                     int Count = 0;
                 }
                 @foreach (var Item in licenses)
                 {
                     Count++;
-                   <tr>
+                    <tr>
                         <th scope="row">
                             <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
                                 @Count
                             </div>
                         </th>
-                        <td>@Item.LicenseNumber</td>
                         <td>@Item.Project?.Name</td>
+                        <td>@Item.LicenseNumber</td>
                         <td>@Item.CreatedDate</td>
-                        <td>@Item.ExpireDate</td>
-                        
-                        <td>
-
-
+                        <td>@Item.ExpireDate</td>  
                         @if (Item.ExpireDate > DateTime.Now)
                         {
-                        <td>
-
-                            <span class="badge bg-light-success text-success w-25 py-2 d-flex justify-content-center align-items-center" style="height: auto;">
-                                سارية
-                            </span>
-                        </td>
+                            <td class="align-middle text-center">
+                                <span class="badge bg-success text-white py-2 px-3 rounded-3 shadow-sm"
+                                      style="min-width: 100px; font-size: 0.9rem; font-weight: normal;">
+                                    سارية
+                                </span>
+                            </td>
                         }
-                        else
+                                        else
                         {
-                            <td>
-                                <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
+                            <td class="align-middle text-center">
+                                <span class="badge bg-danger text-white py-2 px-3 rounded-3 shadow-sm"
+                                      style="min-width: 100px; font-size: 0.9rem; font-weight: normal;">
                                     منتهية
                                 </span>
                             </td>
-
-                              
-                           
-
                         }
-                     
-
                     </tr>
-                 
                 }
             </tbody>
         </table>

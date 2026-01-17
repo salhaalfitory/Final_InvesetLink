@@ -45,7 +45,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        [Authorize(Roles = "Admin,HeadOfServices")]
+        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
            

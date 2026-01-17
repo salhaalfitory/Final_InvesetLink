@@ -44,7 +44,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        [Authorize(Roles = "FollowUpEployee,Admin,HeadOfServices")]
+        //[Authorize(Roles = "FollowUpEployee,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
             var data = await coordinatorReport.GetAllAsync();
@@ -70,7 +70,7 @@ namespace InvestLink.Controllers
             return RedirectToAction("Index");
 
         }
-        [Authorize(Roles = "FollowUpEployee")]
+        //[Authorize(Roles = "FollowUpEployee")]
         [HttpGet]
         public async Task<IActionResult> Create(int ProjectCoordinatorId)
         {
@@ -115,7 +115,7 @@ namespace InvestLink.Controllers
 
 
         }
-        [Authorize(Roles = "FollowUpEployee")]
+        //[Authorize(Roles = "FollowUpEployee")]
         [HttpGet]
         public async Task<IActionResult> Update(int ProjectCoordinatorId)
         {

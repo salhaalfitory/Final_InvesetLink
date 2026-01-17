@@ -1530,3 +1530,60 @@ ul.categories-list li {
         height: auto;
     }
 }
+/*  €ÌÌ— «·≈ÿ«— Ê«·Ÿ· ⁄‰œ «·÷€ÿ (Focus) */
+.form-control:focus {
+    border-color: #007bff; /* ·Ê‰ «·≈ÿ«— √“—ﬁ */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Ÿ· √“—ﬁ Œ›Ì› */
+    outline: 0;
+}
+
+/* ≈–« ﬂ‰   ﬁ’œ «·‹ Hover (»„Ã—œ „—Ê— «·„«Ê”) */
+.form-control:hover {
+    border-color: #007bff;
+}
+
+/*///////*//**/
+/*  €ÌÌ— ·Ê‰ «·œ«∆—… «·‰‘ÿ… (—ﬁ„ 2 ›Ì «·’Ê—…) */
+/* «·œ—Ã… «·√”«”Ì… «·„” ÊÕ«… „‰ «·’Ê—…: #163364 */
+
+/* 1.  Œ’Ì’ ‘—Ìÿ «·ŒÿÊ«  (Stepper) */
+.bs-stepper .step.active .bs-stepper-circle {
+    background-color: #163364 !important; /* «··Ê‰ «·ﬂÕ·Ì „‰ «·‘⁄«— */
+    color: white !important;
+}
+
+.bs-stepper .step.active .steper-title {
+    color: #163364 !important;
+    font-weight: bold;
+}
+
+.active + .bs-stepper-line,
+.step.completed + .bs-stepper-line {
+    background-color: #163364 !important;
+}
+
+/* 2.  Œ’Ì’ «·√“—«— Ê √ÀÌ— «·ÂÊ›— */
+.btn-info.waves-effect {
+    background-color: #1d4486 !important; /* œ—Ã… √“—ﬁ „ Ê”ÿ… */
+    border-color: #1d4486 !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+    /* «·ÂÊ›— »‰›” ·Ê‰ «·ÂÌœ— «·œ«ﬂ‰ ›Ì «·’Ê—… */
+    .btn-info.waves-effect:hover,
+    .bs-stepper .step-trigger:hover .bs-stepper-circle {
+        background-color: #163364 !important; /* «··Ê‰ «·ﬂÕ·Ì «·œ«ﬂ‰ (InvestLink Color) */
+        border-color: #10264a !important;
+    }
+
+/* 3.  ÊÕÌœ √·Ê«‰ «·⁄‰«ÊÌ‰ «·›—⁄Ì… */
+.text-purple {
+    color: #163364 !important;
+}
+
+/* 4.  √ÀÌ— «·÷€ÿ */
+.btn-info.waves-effect:active {
+    background-color: #10264a !important;
+    transform: translateY(1px);
+}
