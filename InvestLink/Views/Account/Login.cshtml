@@ -30,11 +30,13 @@
     <!-- Custom Enhancements -->
     <link href="~/css/custom-enhancements.css" rel="stylesheet">
 
+    <link href="~/css/toastr.css" rel="stylesheet" />
+
     <title>تسجيل الدخول - InvestLink</title>
     <style>
         body {
             /* استخدام اللون الأزرق الداكن المطابق للصورة */
-            background-color: #1a3c6d;
+            background-color: whu;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -146,6 +148,58 @@
                 text-decoration: none;
                 font-size: 0.9rem;
             }
+
+            /* ///////////////////// */
+
+
+        .login-container {
+            width: 100%;
+            /* التعديل هنا: جعل العرض أصغر */
+            max-width: 450px;
+            padding: 1rem;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-header {
+            background-color: #1a3c6d;
+            padding: 1.5rem; /* تقليل بسيط هنا أيضاً */
+            text-align: right;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+        }
+
+        /* ... بقية الكود ... */
+
+        .login-body {
+            /* التعديل هنا: تقليل الحواشي الداخلية */
+            padding: 2rem;
+        }
+
+        /* تغيير لون الإطار عند الضغط (Focus) */
+        .form-control:focus {
+            border-color: #1a3c6d !important;
+            /* تغيير الظل (اللمعة) إلى أزرق شفاف بدلاً من البنفسجي */
+            box-shadow: 0 0 0 0.25rem rgba(26, 60, 109, 0.25) !important;
+        }
+
+        /* (اختياري) تغيير لون الإطار عند مرور الماوس فقط */
+        .form-control:hover {
+            border-color: #1a3c6d;
+        }
+
+
+
     </style>
  
 </head>
@@ -164,6 +218,8 @@
             <div class="login-body">
                 <h4 class="text-center mb-3" style="font-weight: 700; color: #2d3748;">تسجيل الدخول</h4>
                 <p class="text-center text-secondary mb-4">مرحباً بعودتك! يرجى تسجيل الدخول إلى حسابك</p>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger text-center mb-3 fw-bold"></div>
 
                 <form asp-controller="Account" asp-action="Login" method="post">
                     <div class="mb-3">
@@ -200,6 +256,24 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script src="~/js/jquery.min.js"></script>
+
+
+
+    <script src="~/js/toastr.js"></script>
+
+
+
+    @await Component.InvokeAsync("NToastNotify")
+
+
 </body>
 
 </html>

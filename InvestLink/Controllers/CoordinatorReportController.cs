@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using NToastNotify;
+using Project = InvestLink_DAL.Entities.Project;
 
 namespace InvestLink.Controllers
 {
@@ -50,7 +51,7 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<CoordinatorReportVM>>(data);
             return View(result);
         }
-        
+
         public async Task<IActionResult> ReCreateLicense(int projectCoordinatorId)
         {
             var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
@@ -68,13 +69,40 @@ namespace InvestLink.Controllers
             return RedirectToAction("Index");
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> RejectedLicenses()
+        {
+
+            var data = await project.GetByStateAsync("سحب الترخيص");
+            var result = mapper.Map<IEnumerable<ProjectVM>>(data);
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectedLicenses(int projectCoordinatorId)
+        {
+
+            var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
+
+            var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
+
+            var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
+
+            _project.State = "سحب الترخيص"; // أو يمكنك تسميتها "رفض التجديد"
+            await project.UpdateAsync(_project);
+            toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
+            return RedirectToAction("Index");
+
+        }
+
         [HttpGet]
         public IActionResult Create(int ProjectCoordinatorId)
         {
             
-            var model = new CoordinatorReportVM();/* int ProjectCoordinatorId;*/
+            //var model = new CoordinatorReportVM();/* int ProjectCoordinatorId;*/
 
-            model.ProjectCoordinatorId = ProjectCoordinatorId;
+            //model.ProjectCoordinatorId = ProjectCoordinatorId;
 
             return View();
         }
@@ -86,6 +114,8 @@ namespace InvestLink.Controllers
             {
 
                 var cr = await projectcoordinator.GetByIdAsync(obj.ProjectId, obj.EmployeeId);
+                obj.EmployeeId= cr.EmployeeId;
+                obj.ProjectId = cr.ProjectId;
                 obj.ProjectCoordinatorId = cr.Id;
 
                 var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");

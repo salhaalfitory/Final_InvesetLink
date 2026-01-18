@@ -47,10 +47,12 @@
                                 <input type="hidden" name="licenseId" value="@Item.Id" />
 
                                 <div class="form-group" style="display:inline-block; margin-bottom:0;">
-                                    <select name="EmployeeId" class="form-control input-sm" asp-items="ViewBag.EmployeesList" required>
+                                    <select name="EmployeeId" class="form-control input-sm" asp-items=" ViewBag.EmployeesList" required>
                                         <option value="">اختر موظف..</option>
                                     </select>
                                 </div>
+
+
 
                                 <button type="submit" class="btn btn-primary btn-sm waves-effect" onclick="this.style.display='none';">
                                     <i class="material-icons">send</i>

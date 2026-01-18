@@ -35,9 +35,9 @@ namespace InvestLink_BLL.Repository
         {
 
             return await db.CoordinatorReports
-        .Include(x => x.ProjectCoordinator)       // 1. ضروري: إحضار بيانات المنسق المرتبط بالتقرير
+            .Include(x => x.ProjectCoordinator)       // 1. ضروري: إحضار بيانات المنسق المرتبط بالتقرير
             .ThenInclude(y => y.Project)          // 2. ضروري جداً: الدخول لجدول المنسق وإحضار اسم المشروع
-        .ToListAsync();
+            .ToListAsync();
         }
 
        

@@ -28,7 +28,7 @@
     <style>
         body {
             /* استخدام اللون الأزرق الداكن المطابق للصورة */
-            background-color: #1a3c6d;
+            background-color: white;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -170,6 +170,49 @@
             /* إزالة الأنيميشن تماماً */
             transition: none !important;
         }
+
+
+        /* /////////////////////// */
+
+
+
+        .login-container {
+            width: 100%;
+            /* التعديل هنا: جعل العرض أصغر */
+            max-width: 550px;
+            padding: 1rem;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-header {
+            background-color: #1a3c6d;
+            padding: 1.5rem; /* تقليل بسيط هنا أيضاً */
+            text-align: right;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+        }
+
+        /* ... بقية الكود ... */
+
+        .login-body {
+            /* التعديل هنا: تقليل الحواشي الداخلية */
+            padding: 2rem;
+        }
+
+
+
+
     </style>
   
 </head>

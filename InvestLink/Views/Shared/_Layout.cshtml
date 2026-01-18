@@ -135,24 +135,26 @@
       <div class="sidebar-header">
         
         <div>
-          <h4 class="logo-text">InvestLink</h4>
+          <h4 class="logo-text" style="color: #1a3c6d; font-weight: 700;">InvestLink</h4>
+          @* <h4 class="logo-text">InvestLink</h4> *@
         </div>
       </div>
+
 
       <!--navigation-->
       <ul class="metismenu" id="menu">
                
                 @* Investor Menu *@
-                @if(signInManager.IsSignedIn(User)&&User.IsInRole("Investor"))
+                @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
                 {
-                    <li>
+                    @* <li>
                         <a asp-controller="Home" asp-action="Index">
                             <div class="parent-icon">
                                 <ion-icon name="home-outline"></ion-icon>
                             </div>
                             <div class="menu-title">الرئيسية</div>
                         </a>
-                    </li>
+                    </li> *@
                     <li>
                         <a asp-controller="Project" asp-action="Index">
                             <div class="parent-icon">
@@ -238,7 +240,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="License" asp-action="RejectedLicenses">
+
+                                <a asp-controller="CoordinatorReport" asp-action="RejectedLicenses">
                                     <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
                                 </a>
                             </li>
@@ -462,6 +465,21 @@
     @await RenderSectionAsync("Scripts", required: false)
     
     @await Component.InvokeAsync("NToastNotify")
+
+
+
+
+    <style>
+        /* زيادة المسافة بين أيقونات الشريط العلوي */
+        .top-header .navbar-nav > li {
+            margin-left: 20px !important; /* يمكنك زيادة الرقم 20 لزيادة التباعد */
+        }
+
+        /* (اختياري) إذا كانت العناصر داخل div وليست li في بعض النسخ */
+        .top-header .navbar-nav .nav-item {
+            margin-left: 20px !important;
+        }
+    </style>
 </body>
 
 </html>

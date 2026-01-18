@@ -35,7 +35,7 @@
 
             <form asp-controller="CoordinatorReport" asp-action="Create" enctype="multipart/form-data" class="row g-3">
                 <input type="hidden" asp-for="EmployeeId" value="@iEmployeeId" />
-                  <input type="hidden" asp-for="ProjectCoordinatorId"  />
+                  @* <input type="hidden" asp-for="ProjectCoordinatorId"  /> *@
                
                 <div class="col-12 col-lg-6">
                     <select class="form-select mb-3" asp-for="ProjectId">

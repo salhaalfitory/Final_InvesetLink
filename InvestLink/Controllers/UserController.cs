@@ -44,10 +44,8 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-           
-
-            
-            return View(new EmployeeVM());
+       
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

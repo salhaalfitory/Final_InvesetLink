@@ -15,7 +15,12 @@ namespace InvestLink_BLL.Interfaces
         Task<IEnumerable<Project>> GetAllAsync();
         Task<Project> GetByIdAsync(int Id);
 
+
         Task<IEnumerable<Project>> GetByStateAsync(string state);
+
+        Task<Project> GetBydAsync(int Id);
+
+        Task<Project> GetByIdForEditAsync(int Id);
 
 
     }
