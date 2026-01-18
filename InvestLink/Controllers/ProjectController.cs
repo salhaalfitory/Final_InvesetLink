@@ -55,37 +55,12 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        //[Authorize(Roles = "Investor,Admin,HeadOfServices")]
+        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
 
             return View();
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> RejectedLicenses()
-        //{
-
-        //    var data = await project.GetByStateAsync("سحب الترخيص");
-        //    var result = mapper.Map<IEnumerable<ProjectVM>>(data);
-        //    return View(result);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> RejectedLicenses(int Id){
-
-        //    //var request = await project.GetByIdAsync(Id);
-        //    //request.State = "سحب الترخيص";
-        //    //await project.UpdateAsync(request);
-
-        //    //toastNotification.AddSuccessToastMessage("سحب الترخيص");
-        //    //return RedirectToAction("RequestsReferredtomanagement");
-
-        //}        
-
-    
-
-
 
         //[Authorize(Roles = "Investor")]
         [HttpGet]
@@ -189,6 +164,8 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
+
+        [Authorize(Roles = "Admin,HeadOfServices")]
         [HttpGet]
         public async Task<IActionResult> NewRequests()
         {

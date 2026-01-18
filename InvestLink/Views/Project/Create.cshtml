@@ -86,14 +86,14 @@
                             <h5 class="mb-1">بيانات مقدم الطلب والمستثمر</h5>
 
                             <div class="col-12 d-flex justify-content-between align-items-center">
-                                <h6 class="mb-2 text-primary">ثانياً: بيانات المستثمرين</h6>
-                                <button type="button" class="btn btn-sm btn-success" onclick="addBootstrapInvestor()">
+                                <h6 class="mb-2 text-purple">ثانياً: بيانات المستثمرين</h6>
+                                <button type="button" class="btn btn-info waves-effect" onclick="addBootstrapInvestor()">
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>
                             </div>
                             <input type="hidden" asp-for="SubmitedInvestorId" value="@InvestorId" />
                             <div class="row g-3">
-                                <div class="col-12"><h6 class="text-primary">أولاً: بيانات مقدم الطلب</h6></div>
+                                <div class="col-12"><h6 class="text-purple">أولاً: بيانات مقدم الطلب</h6></div>
 
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Investors[0].Name" class="form-label">أسم مقدم الطلب</label>
@@ -147,7 +147,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                    <button type="button" class="btn btn-info waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                        <button type="button" class="btn btn-primary px-4" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                        <button type="button" class="btn btn-info waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@
                             <p class="mb-4">تفاصيل رأس المال وتوزيع التكاليف</p>
 
                             <div class="row g-3">
-                                <h6 class="text-primary">أولاً: مصادر التمويل</h6>
+                                <h6 class="text-purple">أولاً: مصادر التمويل</h6>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.LocalManpower" class="form-label">رأس المال وطني</label>
                                     <input type="number" class="form-control" asp-for="Project.LocalManpower">
@@ -252,7 +252,7 @@
                                     <span asp-validation-for="Project.ForeignLoans" class="text-danger"></span>
                                 </div>
 
-                                <h6 class="text-primary mt-3"> ثانياً: التكاليف الاستثمارية للمشروع "حجم الاستثمار المتوقع "</h6>
+                                <h6 class="text-purple mt-3"> ثانياً: التكاليف الاستثمارية للمشروع "حجم الاستثمار المتوقع "</h6>
                                 <div class="col-12 col-lg-6">
                                     <label asp-for="Project.CostLandBuild" class="form-label">الأراضي والمباني والإنشاءات</label>
                                     <input type="number" class="form-control" asp-for="Project.CostLandBuild">
@@ -277,7 +277,7 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                        <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                        <button type="button" class="btn btn-info waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -336,8 +336,8 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                      @*   <input type="submit" value="إرسال الطلب" class="btn btn-success px-4" /> *@
-                                        <button type="button" onclick="document.getElementById('applicationForm').submit();" class="btn btn-success px-4">إرسال الطلب</button>
+                                      
+                                        <button type="button" onclick="document.getElementById('applicationForm').submit();" class="btn btn-info waves-effect">إرسال الطلب</button>
                                     </div>
                                 </div>
                             </div>
@@ -371,7 +371,7 @@
             cardDiv.innerHTML = `
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="card-title m-0 text-primary fw-bold"> بيانات الشريك / المستثمر الإضافي</h6>
+                        <h6 class="card-title m-0 text-purple fw-bold"> بيانات الشريك / المستثمر الإضافي</h6>
                         <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeInvestor(this)">
                             <i class='bx bx-trash'></i> حذف
                         </button>
@@ -468,6 +468,53 @@
     <script src="~/plugins/bs-stepper/js/index.spec.js"></script>
     <script src="~/plugins/bs-stepper/js/index.js"></script>
     <script src="~/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <style>
+        /* تعريف الألوان الأساسية */
+        :root {
+            --main-blue: #163364; /* اللون الأزرق من الشعار */
+            --light-blue: #214d93;
+        }
 
+        /* توحيد لون العناوين */
+        .text-purple, .steper-title {
+            color: var(--main-blue) !important;
+        }
+
+        /* ستايل الأزرار */
+        .btn-info {
+            background-color: var(--main-blue) !important;
+            border-color: var(--main-blue) !important;
+            color: white !important;
+        }
+
+        .btn-info:hover {
+            background-color: var(--light-blue) !important;
+        }
+
+        /* ستايل شريط الخطوات (BS-Stepper) */
+        .bs-stepper .step.active .bs-stepper-circle {
+            background-color: var(--main-blue) !important;
+        }
+
+        .bs-stepper .step.active .steper-title {
+            color: var(--main-blue) !important;
+            font-weight: bold;
+        }
+
+        .bs-stepper-line {
+            background-color: #e0e0e0;
+        }
+
+        /* تخصيص الحدود والحواف لتشبه الصورة */
+        .card {
+            border-radius: 10px;
+            border-top: 5px solid var(--main-blue);
+        }
+
+        hr {
+            border-top: 2px solid var(--main-blue);
+            opacity: 0.2;
+        }
+    </style>
 </body>
 </html>

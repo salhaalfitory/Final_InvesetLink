@@ -2,6 +2,7 @@
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -36,13 +37,8 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        public async Task<IActionResult> Index()
-        {
-            var data = await investor.GetAllAsync();
 
-            var result = mapper.Map<IEnumerable<InvestorVM>>(data);
-            return View(result);
-        }
+        [Authorize(Roles = "Investor")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -55,16 +51,13 @@ namespace InvestLink.Controllers
             {
             try
             {
-                obj.PassportName = "";
-                obj.CaredName = "";
-                obj.CaredNumber = "hi";
-                obj.PassportNumber = "12345678";
+                
                 if (ModelState.IsValid == true)
                 {
                     var data = mapper.Map<Investor>(obj);
 
                     await investor.CreateAsync(data);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);
@@ -81,6 +74,8 @@ namespace InvestLink.Controllers
         {
             var data = await investor.GetByIdAsync(Id);
             var result = mapper.Map<InvestorVM>(data);
+            var nationalities = await nationality.GetAllAsync();
+            ViewBag.NationalityList = new SelectList(nationalities, "Id", "Name", result.NationalityId);
             return View(result);
         }
         [HttpPost]

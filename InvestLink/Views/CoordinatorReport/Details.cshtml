@@ -24,7 +24,7 @@
                 <div class="col-12 col-lg-6">
                     <label class="form-label">صورة </label>
 
-                    @if (!string.IsNullOrEmpty(Model.ImageName))
+                    @if (Model != null && !string.IsNullOrEmpty(Model.ImageName))
                     {
                         <div class="mt-2">
                             <a href="@Url.Content("~/Files/Doc/" + Model.ImageName)" target="_blank" class="form-control">

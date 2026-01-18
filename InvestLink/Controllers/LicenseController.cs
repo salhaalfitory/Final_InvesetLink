@@ -2,6 +2,7 @@
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -44,6 +45,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
            
@@ -79,68 +81,8 @@ namespace InvestLink.Controllers
             }
 
         }
-        //[HttpGet]
-        //public async Task<IActionResult> Update(int Id)
-        //{
-        //    // 1. جلب البيانات
-        //    var data = await license.GetByIdAsync(Id);
-
-        //    // 2. التحقق: إذا كانت البيانات غير موجودة (null)
-        //    if (data == null)
-        //    {
-        //        // إما أن تظهر صفحة "غير موجود"
-        //        // return NotFound(); 
-
-        //        // أو تعيد المستخدم للصفحة الرئيسية مع رسالة خطأ (أفضل للمستخدم)
-        //        TempData["Message"] = "عفواً، هذا السجل غير موجود.";
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    // 3. التحويل والإرسال في حال وجود بيانات
-        //    var result = mapper.Map<LicenseVM>(data);
-        //    return View(result);
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> Delete(int Id)
-        //{
-        //    var data = await license.GetByIdAsync(Id);
-
-        //    // نفس التحقق هنا ضروري جداً لتجنب الخطأ في صفحة الحذف
-        //    if (data == null)
-        //    {
-        //        TempData["Message"] = "عفواً، هذا السجل غير موجود.";
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    var result = mapper.Map<LicenseVM>(data);
-        //    return View(result);
-        //}
-        //[HttpGet]
-        //public async Task<IActionResult> Delete(int Id)
-        //{
-        //    var data = await license.GetByIdAsync(Id);
-        //    var result = mapper.Map<LicenseVM>(data);
-        //    return View(result);
-        //}
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(LicenseVM obj)
-        {
-            try
-            {
-                var data = mapper.Map<License>(obj);
-                await license.DeleteAsync(data);
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-
-                return View(obj);
-            }
-        }
+        
+     
 
 
         public async Task<IActionResult> Details(int Id)
@@ -157,7 +99,7 @@ namespace InvestLink.Controllers
         }
 
 
-
+        [Authorize(Roles = "HeadOfServices")]
         public async Task<IActionResult> Expiredlicenses()
         {
 
@@ -171,25 +113,7 @@ namespace InvestLink.Controllers
             return View(result);
         }
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> SendReportRequest(int LicenseId, int EmployeeId)
-        //{
-
-        //    // 2. البحث عن الرخصة لجلب رقم المشروع (لأن الجدول يطلب ProjectId)
-        //    // نستخدم الـ Repo الخاص بالرخص لجلبها
-        //    var licenseData = await license.GetByIdAsync(LicenseId);
-        //    InvestLink_DAL.Entities.ProjectCoordinator obj = new InvestLink_DAL.Entities.ProjectCoordinator();
-        //    obj.ProjectId = licenseData.ProjectId;
-        //    obj.EmployeeId = EmployeeId;
-        //    obj.StartDate = DateTime.Now;
-
-        //    await projectcoordinator.CreateAsync(obj);
-
-        //    TempData["Message"] = "تم تعيين الموظف للمشروع بنجاح ✅";
-        //    return RedirectToAction("Expiredlicenses");
-
-        //}
+        [Authorize(Roles = "HeadOfServices")]
         [HttpPost]
         public async Task<IActionResult> SendReportRequest(int licenseId, int employeeId)
         {

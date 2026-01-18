@@ -199,7 +199,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                    <button type="button" class="btn btn-info waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +271,7 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                            <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                            <button type="button" class="btn btn-info waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-center gap-3">
                                         <button type="button" class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>السابق</button>
-                                        <button type="button" class="btn btn-success waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
+                                        <button type="button" class="btn btn-info waves-effect" onclick="stepper1.next()">التالي <i class='bx bx-left-arrow-alt ms-2'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -379,35 +379,38 @@
                         </div>
                     </form>
                     <div class="col d-flex justify-content-end gap-2 mt-4">
+  @if (User.IsInRole("HeadOfServices"))
+                        {
+                            <form asp-controller="Project" asp-action="SendToAdmin" method="post" asp-route-Id="@Model.Project.Id" class="d-inline">
 
-                        <form asp-controller="Project" asp-action="SendToAdmin" method="post" asp-route-Id="@Model.Project.Id" class="d-inline">
-                          
-                            <button type="submit" class="btn btn-success px-4">
-                                <i class="fa fa-paper-plane"></i> إرسال للإدارة
-                            </button>
-                        </form>
+                                <button type="submit" class="btn btn-success px-4">
+                                    <i class="fa fa-paper-plane"></i> إرسال للإدارة
+                                </button>
+                            </form>
 
-                        <form asp-controller="Project" asp-action="Reject" asp-route-Id="@Model.Project.Id" class="d-inline ms-2">
-                           
-                            <button type="submit" class="btn btn-danger px-4">
-                                <i class="fa fa-times"></i> رفض الطلب
-                            </button>
-                        </form>
+                            <form asp-controller="Project" asp-action="Reject" asp-route-Id="@Model.Project.Id" class="d-inline ms-2">
 
-                        <form asp-controller="Project" asp-action="ApproveFinal" asp-route-Id="@Model.Project.Id" class="d-inline">
-                        
-                            <button type="submit" class="btn btn-success px-4">
-                                <i class="fa fa-paper-plane"></i> اعتماد نهائي
-                            </button>
-                        </form>
+                                <button type="submit" class="btn btn-danger px-4">
+                                    <i class="fa fa-times"></i> رفض الطلب
+                                </button>
+                            </form>
+                        }
+                         @if (User.IsInRole("Admin"))
+                        {
+                            <form asp-controller="Project" asp-action="ApproveFinal" asp-route-Id="@Model.Project.Id" class="d-inline">
 
-                        <form asp-controller="Project" asp-action="Reject" asp-route-Id="@Model.Project.Id" class="d-inline">
-                      
-                            <button type="submit" class="btn btn-danger px-4">
-                                <i class="fa fa-times"></i> رفض نهائي
-                            </button>
-                        </form>
+                                <button type="submit" class="btn btn-success px-4">
+                                    <i class="fa fa-paper-plane"></i> اعتماد نهائي
+                                </button>
+                            </form>
 
+                            <form asp-controller="Project" asp-action="Reject" asp-route-Id="@Model.Project.Id" class="d-inline">
+
+                                <button type="submit" class="btn btn-danger px-4">
+                                    <i class="fa fa-times"></i> رفض نهائي
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
            
@@ -426,6 +429,61 @@
     <script src="~/plugins/bs-stepper/js/index.spec.js"></script>
     <script src="~/plugins/bs-stepper/js/index.js"></script>
     <script src="~/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+  <style>
+    :root {
+        /* اللون الكحلي الأساسي من شعار InvestLink */
+        --invest-dark: #163364; 
+        /* لون أفتح قليلاً للأزرار في الحالة العادية */
+        --invest-button: #1d4486;
+    }
 
+    /* 1. توحيد جميع العناوين والنصوص التي كانت أرجوانية */
+    .text-purple, 
+    h6.text-purple, 
+    h5.mb-1, 
+    .steper-title {
+        color: var(--invest-dark) !important;
+    }
+
+    /* 2. تخصيص شريط الخطوات (Stepper) */
+    .bs-stepper .step.active .bs-stepper-circle {
+        background-color: var(--invest-dark) !important;
+    }
+
+    .active + .bs-stepper-line,
+    .step.completed + .bs-stepper-line {
+        background-color: var(--invest-dark) !important;
+    }
+
+    /* 3. تخصيص الأزرار (تغيير شامل) */
+    .btn-info {
+        background-color: var(--invest-button) !important;
+        border-color: var(--invest-button) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    /* الهوفر: لون هوفر مطابق تماماً للون الهيدر الداكن في الصورة */
+    .btn-info:hover, 
+    .btn-info.waves-effect:hover {
+        background-color: var(--invest-dark) !important;
+        border-color: var(--invest-dark) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    }
+
+    /* 4. تخصيص الكارت والخطوط الفاصلة */
+    .card {
+        border-top: 5px solid var(--invest-dark) !important;
+    }
+
+    hr {
+        border-top: 2px solid var(--invest-dark) !important;
+        opacity: 0.15;
+    }
+
+    /* تأكيد تغيير لون الأرقام داخل الدوائر النشطة */
+    .bs-stepper .step.active .bs-stepper-circle {
+        color: #fff !important;
+    }
+</style>
 </body>
 </html>

@@ -5,7 +5,7 @@
 
 
 
-<h6 class="mb-0 text-uppercase">الطلبات</h6>
+<h6 class="mb-0 text-uppercase"></h6>
 <hr>
 <div class="card">
     <div class="card-body">
@@ -32,9 +32,10 @@
                         <th scope="row">@Count</th>
                         <td>@Item.LicenseNumber</td>
                         <td>@Item.Project?.Name</td>
-                       
-                        <td>
-                            <span class="badge bg-light-danger text-danger py-2 d-flex justify-content-center align-items-center" style="width: 35%; height: auto;">
+
+                        <td class="align-middle text-center">
+                            <span class="badge bg-danger text-white py-2 px-3 rounded-3 shadow-sm"
+                                  style="min-width: 100px; font-size: 0.9rem; font-weight: normal;">
                                 منتهية
                             </span>
                         </td>
