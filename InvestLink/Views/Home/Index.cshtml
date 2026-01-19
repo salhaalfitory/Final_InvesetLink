@@ -1,4 +1,4 @@
-﻿﻿@using InvestLink_BLL.Interfaces
+﻿@using InvestLink_BLL.Interfaces
 @using InvestLink_DAL.Entities
 @using Microsoft.AspNetCore.Identity
 
@@ -7,114 +7,129 @@
 @inject IProjectInvestor iprojectInvestor;
 @inject IInvestor iinvestor;
 
-@* @{
-    Layout = null;
-} *@
 @{
-
-    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
-
-    var email = await signInManager.UserManager.GetEmailAsync(user);
-
-
-
-    if (User.IsInRole("Investor"))
-    {
-        var investorId = iinvestor.GetIdByEmail(email);
-        // var investorId = investor.Id;
-        if (investorId == 0)
-        {
-            <!-- Welcome Screen for New Investor -->
-            <div class="container-fluid">
-                <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
-                    <div class="col-lg-8 col-md-10">
-                        <div class="card glass-card shadow-premium" style="border-radius: 24px;">
-                            <div class="card-body text-center p-5">
-                                <div class="mb-4">
-                                    <div style="width: 120px; height: 120px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);">
-                                        <ion-icon name="person-add-outline" style="font-size: 4rem; color: white;"></ion-icon>
-                                    </div>
-                                </div>
-                                <h1 class="gradient-text mb-3" style="font-size: 2.5rem; font-weight: 700;">مرحباً بك في InvestLink</h1>
-                                <p class="text-secondary mb-4" style="font-size: 1.2rem;">لبدء رحلتك الاستثمارية، يرجى إضافة بياناتك الاستثمارية</p>
-                                <a href="/Investor/Create" class="btn btn-primary btn-lg px-5 py-3" style="font-size: 1.1rem; border-radius: 16px;">
-                                    <ion-icon name="add-circle-outline" style="font-size: 1.5rem; vertical-align: middle; margin-left: 0.5rem;"></ion-icon>
-                                    إضافة البيانات الاستثمارية
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <!-- Welcome Dashboard for Existing Investor -->
-            <div class="container-fluid">
-                <!-- Welcome Header -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="card" style="background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 20px; overflow: hidden;">
-                            <div class="card-body p-5 text-white">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <h1 class="mb-3" style="font-size: 2.5rem; font-weight: 700;">مرحباً بعودتك! 👋</h1>
-                                        <p class="mb-0" style="font-size: 1.2rem; opacity: 0.9;">نحن سعداء برؤيتك مجدداً في منصة InvestLink الاستثمارية</p>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        <div style="width: 150px; height: 150px; margin: 0 auto; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                                            <ion-icon name="trending-up-outline" style="font-size: 5rem; color: white;"></ion-icon>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-              
-
-                <!-- Information Cards -->
-                <div class="row">
-                    <div class="col-12">
-                        <h3 class="mb-4" style="font-weight: 700; color: #2d3748;">معلومات مهمة</h3>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card" style="border-radius: 20px;">
-                            <div class="card-body p-4">
-                                <div class="d-flex align-items-start">
-                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, rgba(250, 112, 154, 0.2) 0%, rgba(254, 225, 64, 0.2) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                        <ion-icon name="information-circle-outline" style="font-size: 2rem; color: #fa709a;"></ion-icon>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 style="font-weight: 700; color: #2d3748;">نظام الطلبات الاستثمارية</h5>
-                                        <p class="text-secondary mb-0">يمكنك تقديم طلبات استثمارية جديدة ومتابعة حالة طلباتك الحالية من خلال المنصة. سيتم مراجعة طلبك من قبل فريق الهيئة.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card" style="border-radius: 20px;">
-                            <div class="card-body p-4">
-                                <div class="d-flex align-items-start">
-                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                        <ion-icon name="shield-checkmark-outline" style="font-size: 2rem; color: #667eea;"></ion-icon>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 style="font-weight: 700; color: #2d3748;">الأمان والخصوصية</h5>
-                                        <p class="text-secondary mb-0">جميع بياناتك محمية ومشفرة. نحن نلتزم بأعلى معايير الأمان لحماية معلوماتك الاستثمارية.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-      
-
-    }
-
+    Layout = null;
+    ViewData["Title"] = "مرحباً بك";
 }
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InvestLink - مرحباً بك</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+
+    <style>
+        :root {
+            --primary-color: #1a3c6d; /* نفس اللون الكحلي المستخدم سابقاً */
+            --bg-color: #fcfcfc;
+            --text-gray: #718096;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .welcome-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            width: 100%;
+            max-width: 500px; /* عرض مناسب للبطاقة الترحيبية */
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            background-color: #f1f5f9; /* خلفية رمادية زرقاء فاتحة للأيقونة */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+
+        .welcome-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-text {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            padding: 0 1rem;
+        }
+
+        .btn-start {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none; /* إزالة الخط تحت الرابط */
+            transition: all 0.2s ease;
+        }
+
+            .btn-start:hover {
+                background-color: #15325b;
+                color: white;
+                transform: translateY(-1px);
+            }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="d-flex justify-content-center">
+
+            <div class="welcome-card">
+                <div class="icon-container">
+                    <ion-icon name="person-add-outline"></ion-icon>
+                </div>
+
+                <h2 class="welcome-title">مرحباً بك في InvestLink</h2>
+                <p class="welcome-text">
+                    لبدء رحلتك الاستثمارية والاستفادة من خدماتنا، يرجى استكمال ملفك الاستثماري.
+                </p>
+
+                <a asp-controller="Investor" asp-action="Create" class="btn-start">
+                    <ion-icon name="add-circle-outline" style="font-size: 1.2rem;"></ion-icon>
+                    إضافة البيانات الاستثمارية
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

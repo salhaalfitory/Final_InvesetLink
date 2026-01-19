@@ -135,7 +135,7 @@ namespace InvestLink.Controllers
 
                     }
                     toastNotification.AddSuccessToastMessage("تم تقديم طلب بنجاح.");
-                    return RedirectToAction("Project","Index");
+                    return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";
                 var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك

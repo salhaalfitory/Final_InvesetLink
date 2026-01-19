@@ -74,11 +74,6 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int ProjectCoordinatorId)
         {
-            
-            var model = new CoordinatorReportVM();/* int ProjectCoordinatorId;*/
-
-            model.ProjectCoordinatorId = ProjectCoordinatorId;
-
             return View();
         }
 

@@ -1,1 +1,36 @@
 ﻿
+@model InvestLink_BLL.Models.AdvertisementVM
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">حذف إعلان</h6>
+            <hr>
+            <form asp-controller="Advertisement" asp-action="Delete" enctype="multipart/form-data" class="row g-3">
+
+                <input type="hidden" value="1" asp-for="EmployeeId" />
+                <div class="col-12">
+                    <label class="form-label">اسم الإعلان</label>
+                    <input type="text" asp-for="Name" class="form-control" readonly>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">صور أو ملف</label>
+                    <input type="file" asp-for="Image" class="form-control" readonly>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">محتوى الإعلان</label>
+                    <textarea class="form-control" asp-for="Description" rows="4" cols="4" readonly></textarea>
+                </div>
+
+                <div class="col-md-6">
+
+                    <input type="submit" value="حذف" class="btn btn-success waves-effect" />
+                    <a asp-controller="Advertisement" asp-action="Index" class="btn btn-outline-secondary px-4">رجوع</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

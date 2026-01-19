@@ -29,13 +29,6 @@ namespace InvestLink_BLL.Repository
             db.Entry(obj).State = EntityState.Deleted;
             await db.SaveChangesAsync();
         }
-
-        //public async Task<IEnumerable<ProjectInvestor>> GetAllAsync()
-        //{
-        //    var data = await db.ProjectInvestors.ToListAsync();
-        //    return data;
-        //}
-
         public async Task<IEnumerable<ProjectInvestor>> GetAllAsync(int invetorId)
         {
             var data = await db.ProjectInvestors.Where(p => p.InvestorId == invetorId).ToListAsync();

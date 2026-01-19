@@ -1,4 +1,7 @@
-﻿@using InvestLink_BLL.Interfaces
+﻿
+
+
+@using InvestLink_BLL.Interfaces
 @using InvestLink_DAL.Entities
 @using Microsoft.AspNetCore.Identity
 
@@ -35,17 +38,7 @@
 
 <div class="container-fluid">
     <!-- Page Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-center">
-               
-                <div>
-                    <h2 class="gradient-text mb-1" style="font-weight: 700; font-size: 2rem;">@* اعتماد الترخيص *@</h2>
-                    <p class="text-secondary mb-0">@* عرض وإدارة الطلبات المعتمدة ورفع رخص المشاريع *@</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Approved Projects Table Card -->
     <div class="card">
@@ -57,9 +50,13 @@
                             <th scope="col">#</th>
                             <th scope="col">اسم المشروع</th>
                             <th scope="col">تاريخ تقديم الطلب</th>
+
                             <th scope="col">  تفاصيل المشروع </th>
+                            @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                                    {
                             <th scope="col">رخصة المشروع</th>
-                             @if (!User.IsInRole("Investor"))
+                                    }
+                            @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
                                     {
                             <th scope="col">ملف رخصة المشروع</th>
                                     }
@@ -93,51 +90,90 @@
                                     </a>
                                 </td>
 
-                                <td>
-                                    <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
-                                       class="btn btn-sm" 
-                                       style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
-                                       onmouseover="this.style.background='linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'; this.style.color='white';"
-                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%)'; this.style.color='#11998e';">
-                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
-                                        عرض التفاصيل
-                                    </a>
+
+<td>
+                                     @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                                    {
+                                        <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                        class="btn btn-sm" 
+                                        style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
+                                        onmouseover="this.style.background='linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'; this.style.color='white';"
+                                        onmouseout="this.style.background='linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%)'; this.style.color='#11998e';">
+                                            <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                            عرض التفاصيل
+                                        </a>
+                                    }
                                 </td>
                              
                                 <td>
-                                    @if (!User.IsInRole("Investor"))
+                             
+                                    @* الحالة الأولى: هل يوجد ملف رخصة؟ *@
+                                    @if (!string.IsNullOrEmpty(Item.LicenseName))
                                     {
+                                        @* إذا وجد الملف، اظهر زر العرض *@
+                                        <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                           class="btn btn-sm"
+                                           style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);"
+                                           target="_blank">
+                                            <ion-icon name="checkmark-circle-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                            <i class="fadeIn animated bx bx-file-blank"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        @* الحالة الثانية: لا يوجد ملف. الآن نتحقق من الصلاحية *@
 
-                                        @if (!string.IsNullOrEmpty(Item.LicenseName))
+@* @if (User.IsInRole("Investor") || User.IsInRole("Admin"))
                                         {
-                                            <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id" 
-                                            class="btn btn-sm" 
-                                            style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);" 
-                                            target="_blank">
-                                                <ion-icon name="checkmark-circle-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
-                                                <i class="fadeIn animated bx bx-file-blank"></i>
-                                            </a>
+                                            @* إذا كان أدمن أو مستثمر ولا يوجد ملف -> اظهر رسالة تنبيه *@
+                                @*             <span class="badge bg-danger" style="padding: 0.5rem 1rem; border-radius: 10px;">
+                                                <i class="bx bx-error-circle" style="vertical-align: middle;"></i> لم يتم الرفع
+                                            </span>
                                         }
                                         else
                                         {
-                                            <form asp-controller="Project" asp-action="UploadLicense" method="post" enctype="multipart/form-data">
+                                            @* إذا كان المستخدم العادي ولا يوجد ملف -> اظهر فورم الرفع *@
+                                            @* <form asp-controller="Project" asp-action="UploadLicense" method="post" enctype="multipart/form-data">
                                                 <input type="hidden" name="projectId" value="@Item.Id" />
                                                 <div class="input-group" style="max-width: 350px;">
                                                     <input type="file" name="licenseFile" class="form-control form-control-sm" required style="border-radius: 10px 0 0 10px;" />
                                                     <button type="submit" class="btn btn-sm" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; color: white; font-weight: 600; border-radius: 0 10px 10px 0; padding: 0.5rem 1rem;">
                                                         <ion-icon name="cloud-upload-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
-                                                        
                                                     </button>
                                                 </div>
-                                            </form>
-                                        }
+                                            </form> *@
 
+                                    <td>
+                                        @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                                        {
+                                            @* التعديل هنا: نتأكد أولاً أن هناك رخصة موجودة *@
+                                            @if (!string.IsNullOrEmpty(Item.LicenseName))
+                                            {
+                                                <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                                   class="btn btn-sm"
+                                                   style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
+                                                   onmouseover="this.style.background='linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'; this.style.color='white';"
+                                                   onmouseout="this.style.background='linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%)'; this.style.color='#11998e';">
+                                                    <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                                    عرض التفاصيل
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                @* اختياري: يمكنك ترك هذا فارغاً أو وضع نص يوضح عدم وجود رخصة *@
+                                                <span class="text-muted" style="font-size: 0.8rem;">--</span>
+                                            }
+                                        }
+                                    </td>
+                                        }
                                     }
-                                </td>
+
+                                    
+                             
                             </tr>
                         }
 
-                    </tbody>
+</tbody>
                 </table>
             </div>
         </div>

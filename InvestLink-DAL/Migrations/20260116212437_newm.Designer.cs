@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestLink_DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20260114092117_intmig")]
-    partial class intmig
+    [Migration("20260116212437_newm")]
+    partial class newm
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,21 +121,7 @@ namespace InvestLink_DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("NationalityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("SecondPhoneNumber")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("NationalityId");
 
                     b.ToTable("Employee");
                 });
@@ -180,6 +166,7 @@ namespace InvestLink_DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Passportnumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -643,17 +630,6 @@ namespace InvestLink_DAL.Migrations
                     b.Navigation("ProjectCoordinator");
                 });
 
-            modelBuilder.Entity("InvestLink_DAL.Entities.Employee", b =>
-                {
-                    b.HasOne("InvestLink_DAL.Entities.Nationality", "Nationality")
-                        .WithMany("Employees")
-                        .HasForeignKey("NationalityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Nationality");
-                });
-
             modelBuilder.Entity("InvestLink_DAL.Entities.Investor", b =>
                 {
                     b.HasOne("InvestLink_DAL.Entities.Nationality", "Nationality")
@@ -775,8 +751,6 @@ namespace InvestLink_DAL.Migrations
 
             modelBuilder.Entity("InvestLink_DAL.Entities.Nationality", b =>
                 {
-                    b.Navigation("Employees");
-
                     b.Navigation("Investors");
                 });
 

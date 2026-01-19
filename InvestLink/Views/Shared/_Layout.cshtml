@@ -9,9 +9,6 @@
 @* //--------------------------------- *@
 
 
-
-@inject SignInManager<IdentityUser> signInManager
-
 @inject IEmployee iEmployee;
 @inject IInvestor iinvestor;
 @{
@@ -156,15 +153,15 @@
                             </div>
                             <div class="menu-title">الرئيسية</div>
                         </a>
-                    </li> *@
+                    </li>
+
+
                     <li>
                         <a asp-controller="Project" asp-action="Index">
-                            <div class="parent-icon">
-                                <ion-icon name="folder-outline"></ion-icon>
-                            </div>
-                            <div class="menu-title">الطلبات الاستثمارية</div>
+                            <ion-icon name="ellipse-outline"></ion-icon>الطلبات الاستثمارية
                         </a>
                     </li>
+
                     <li>
                         <a asp-controller="Project" asp-action="ApproveFinal">
                             <div class="parent-icon">

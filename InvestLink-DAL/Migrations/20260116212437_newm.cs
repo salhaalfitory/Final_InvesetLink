@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InvestLink_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class Initimig : Migration
+    public partial class newm : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,6 +51,23 @@ namespace InvestLink_DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreationData = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Nationality",
                 columns: table => new
                 {
@@ -74,8 +91,6 @@ namespace InvestLink_DAL.Migrations
                     LegalBodyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Area = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfActivity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
                     ProposedSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AreaWanted = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfBenefitFromSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -211,27 +226,23 @@ namespace InvestLink_DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee",
+                name: "Advertisement",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    SecondPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreationData = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NationalityId = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employee", x => x.Id);
+                    table.PrimaryKey("PK_Advertisement", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Nationality_NationalityId",
-                        column: x => x.NationalityId,
-                        principalTable: "Nationality",
+                        name: "FK_Advertisement_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -249,7 +260,7 @@ namespace InvestLink_DAL.Migrations
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CaredNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CaredImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Passportnumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Passportnumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PassportImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -286,28 +297,6 @@ namespace InvestLink_DAL.Migrations
                         name: "FK_License_Project_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Project",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Advertisement",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Advertisement", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Advertisement_Employee_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -435,11 +424,6 @@ namespace InvestLink_DAL.Migrations
                 name: "IX_CoordinatorReport_ProjectCoordinatorId",
                 table: "CoordinatorReport",
                 column: "ProjectCoordinatorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employee_NationalityId",
-                table: "Employee",
-                column: "NationalityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Investor_NationalityId",
