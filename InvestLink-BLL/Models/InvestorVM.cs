@@ -35,13 +35,17 @@ namespace InvestLink_BLL.Models
         public string? SecondPhoneNumber { get; set; }//رقم تلفون2
         [Required(ErrorMessage = "Position  is Required")]
         public string Position { get; set; }//صفة المستثمر
+        [Required(ErrorMessage = "CaredNumber  is Required")]
         public string? CaredNumber { get; set; }
-
+       
         public string? CaredName { get; set; }
+      
         public string? PassportName { get; set; }
-
+        [Required(ErrorMessage = "PassportNumber is Required")]
         public string? PassportNumber { get; set; }
+        [Required(ErrorMessage = " CImage  is Required")]
         public IFormFile? CImage { get; set; }
+        [Required(ErrorMessage = "PImage  is Required")]
         public IFormFile? PImage { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }

@@ -14,70 +14,72 @@ namespace InvestLink_BLL.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name  is Required")]
         public string Name { get; set; }//اسم 
       
         public string? State { get; set; } // الحقل المسؤول عن تصنيف الطلب
 
-       
+      
         public string? LegalBodyName { get; set; }//شكل قانوني تحميل
+
+        [Required(ErrorMessage = "LegalBodyFile  is Required")]
         public IFormFile LegalBodyFile { get; set; }//شكل قانوني
 
-        [Required]
+        [Required(ErrorMessage = "Area  is Required")]
         public string Area { get; set; }//مجال
-        [Required]
+        [Required(ErrorMessage = "TypeOfActivity  is Required")]
         public string TypeOfActivity { get; set; }//نوع نشاط
-        [Required]
+        [Required(ErrorMessage = "ProposedSite   is Required")]
         public string ProposedSite { get; set; }//  موقع مقترح تحميل
-        [Required]
-       
+        [Required(ErrorMessage = "AreaWanted   is Required")]
+
 
         public string AreaWanted { get; set; }//مساحة مطلوبة
-        [Required]
+        [Required(ErrorMessage = "TypeOfBenefitFromSite  is Required")]
         public string TypeOfBenefitFromSite { get; set; }//نوع انتفاع بموقع
-        [Required]
+        [Required(ErrorMessage = "projectTimeLine is Required")]
         public string projectTimeLine { get; set; }//مدة تنفيذ مشروع
-        [Required]
+        [Required(ErrorMessage = "ConstructionPeriod  is Required")]
         public string ConstructionPeriod { get; set; }// العمر الافتراضي
-        [Required]
-  
+        [Required(ErrorMessage = "LocalLoans  is Required")]
+
         public string LocalLoans { get; set; }//قروض محلية
-        [Required]
+        [Required(ErrorMessage = "ForeignLoans  is Required")]
         public string ForeignLoans { get; set; }//قروض اجنبية
 
-        [Required]
+        [Required(ErrorMessage = "CostLandBuild   is Required")]
         public string CostLandBuild { get; set; }//الأراضي والمباني والإنشاءات
-        [Required]
+        [Required(ErrorMessage = "CostMachine  is Required")]
         public string CostMachine { get; set; }//الآلات والمعدات ووسائل النقل
-        [Required]
+        [Required(ErrorMessage = "CostSetup  is Required")]
         public string CostSetup { get; set; }//مصروفات التأسيس والأثاث
-        [Required]
+        [Required(ErrorMessage = "TotalCost  is Required")]
         public string TotalCost { get; set; }//إجمالي التكاليف الاستثمارية
-        [Required]
+        [Required(ErrorMessage = "Technology  is Required")]
         public string Technology { get; set; }//التقنية المستخدمة
-        [Required]
+        [Required(ErrorMessage = "RawMaterialLocal  is Required")]
         public string RawMaterialLocal { get; set; }//نسبة المواد الخام المحلية
-        [Required]
+        [Required(ErrorMessage = "RawMaterialForeign   is Required")]
 
         public string RawMaterialForeign { get; set; }//نسبة المواد الخام الأجنبية
 
 
 
 
-        [Required]
+        [Required(ErrorMessage = "AboutTheProject  is Required")]
         public string AboutTheProject { get; set; }//نبذه عن مشروع
 
-        [Required]
+        [Required(ErrorMessage = "EnvironmentalImpact  is Required")]
 
         public string? EnvironmentalImpact { get; set; }//اثر البيئي
 
-        [Required]
+        [Required(ErrorMessage = "LocalManpower  is Required")]
         public string LocalManpower { get; set; }//العمالة المحلية 
-        [Required]
+        [Required(ErrorMessage = "ForeignManpower  is Required")]
         public string ForeignManpower { get; set; }//العمالة الاجنبية
-        [Required]
+        [Required(ErrorMessage = "TrainingPrograms is Required")]
         public string TrainingPrograms { get; set; }//البرامج التدريبة للعمالة
-        [Required]
+        [Required(ErrorMessage = "ExperienceOfInvestor  is Required")]
         public string ExperienceOfInvestor { get; set; }//خبرة المستثمر
 
 
