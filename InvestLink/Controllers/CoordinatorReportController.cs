@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using NToastNotify;
+using Project = InvestLink_DAL.Entities.Project;
 
 namespace InvestLink.Controllers
 {
@@ -52,7 +53,7 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<CoordinatorReportVM>>(data);
             return View(result);
         }
-        [Authorize(Roles = "HeadOfServices")]
+        
         public async Task<IActionResult> ReCreateLicense(int projectCoordinatorId)
         {
             var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
@@ -70,14 +71,15 @@ namespace InvestLink.Controllers
             return RedirectToAction("Index");
 
         }
-        //[Authorize(Roles = "FollowUpEployee")]
         [HttpGet]
         public async Task<IActionResult> Create(int ProjectCoordinatorId)
         {
+            
+            var model = new CoordinatorReportVM();/* int ProjectCoordinatorId;*/
 
-            var model = new CoordinatorReportVM();
             model.ProjectCoordinatorId = ProjectCoordinatorId;
-            return View(model); 
+
+            return View();
         }
 
         [HttpPost]
@@ -87,6 +89,8 @@ namespace InvestLink.Controllers
             {
 
                 var cr = await projectcoordinator.GetByIdAsync(obj.ProjectId, obj.EmployeeId);
+                obj.EmployeeId= cr.EmployeeId;
+                obj.ProjectId = cr.ProjectId;
                 obj.ProjectCoordinatorId = cr.Id;
                 obj.EmployeeId = cr.EmployeeId;
                 obj.ProjectId = cr.ProjectId;

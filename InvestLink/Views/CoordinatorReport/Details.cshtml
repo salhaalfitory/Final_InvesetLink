@@ -37,7 +37,16 @@
                         <input type="text" class="form-control text-muted" value="لا يوجد ملف مرفق" readonly>
                     }
                 </div>
+         
 
+                <td>
+                    <a asp-controller="CoordinatorReport"
+                       asp-action="RejectedLicenses"
+                       asp-route-projectCoordinatorId="@Model.Id"
+                       class="btn btn-success">
+                        <i class="fadeIn animated bx bx-refresh"></i>
+                    </a>
+                </td>
 
                 <div class="col-12">
                     <div class="d-flex justify-content-center gap-2 mt-3">

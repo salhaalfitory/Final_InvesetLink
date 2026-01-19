@@ -30,123 +30,11 @@
     <!-- Custom Enhancements -->
     <link href="~/css/custom-enhancements.css" rel="stylesheet">
 
+    <link href="~/css/toastr.css" rel="stylesheet" />
+
+    <link href="~/css/Account.css" rel="stylesheet">
+
     <title>تسجيل الدخول - InvestLink</title>
-    <style>
-        body {
-            /* استخدام اللون الأزرق الداكن المطابق للصورة */
-            background-color: #1a3c6d;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-        }
-
-        .login-container {
-            width: 100%;
-            /* تكبير العرض ليكون التصميم عرضياً */
-            max-width: 700px;
-            padding: 2rem;
-        }
-
-        .login-card {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-header {
-            /* اللون الكحلي الملكي من الصورة */
-            background-color: #1a3c6d;
-            padding: 2rem;
-            text-align: right; /* محاذاة لليمين كما في الصورة */
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-direction: row-reverse;
-        }
-
-        .login-logo-circle {
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .login-subtitle {
-            opacity: 0.9;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .login-body {
-            padding: 3rem; /* زيادة المسافة الداخلية لتعزيز العرض */
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: #1a3c6d;
-            margin-bottom: 0.5rem;
-            text-align: right;
-        }
-
-        .form-control {
-            width: 100%;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0.8rem 1rem;
-            box-sizing: border-box;
-            text-align: right;
-            background-color: #f8fafc;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-login {
-            background-color: #1a3c6d;
-            border: none;
-            border-radius: 8px;
-            padding: 1rem;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: white;
-            width: 100%;
-            cursor: pointer;
-            /* تم إزالة الأنيميشن والحركة تماماً */
-            transition: none;
-        }
-
-            /* إلغاء تأثير الـ Hover */
-            .btn-login:hover {
-                transform: none;
-                box-shadow: none;
-            }
-
-        .login-links {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-            .login-links a {
-                color: #1a3c6d;
-                text-decoration: none;
-                font-size: 0.9rem;
-            }
-    </style>
  
 </head>
 
@@ -164,6 +52,8 @@
             <div class="login-body">
                 <h4 class="text-center mb-3" style="font-weight: 700; color: #2d3748;">تسجيل الدخول</h4>
                 <p class="text-center text-secondary mb-4">مرحباً بعودتك! يرجى تسجيل الدخول إلى حسابك</p>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger text-center mb-3 fw-bold"></div>
 
                 <form asp-controller="Account" asp-action="Login" method="post">
                     <div class="mb-3">
@@ -200,6 +90,26 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script src="~/js/jquery.min.js"></script>
+
+
+
+    <script src="~/js/toastr.js"></script>
+
+
+
+    @await Component.InvokeAsync("NToastNotify")
+
+    @await Component.InvokeAsync("NToastNotify")
+
+
 </body>
 
 </html> *@

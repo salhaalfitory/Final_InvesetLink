@@ -30,12 +30,16 @@ namespace InvestLink.Controllers
         private readonly IInvestor investor;
         private readonly IProjectInvestor projectinvestor;
         private readonly IToastNotification toastNotification;
+        private readonly ICoordinatorReport coordinatorReport;
+        private readonly IProjectCoordinator projectcoordinator;
+
+
 
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public ProjectController(IProject project, IMapper mapper, ILicense license, INationality nationality, IInvestor investor, IProjectInvestor projectinvestor, IToastNotification toastNotification)
+        public ProjectController(IProject project, IMapper mapper, ILicense license, INationality nationality, IInvestor investor, IProjectInvestor projectinvestor, IToastNotification toastNotification, ICoordinatorReport coordinatorReport, IProjectCoordinator projectcoordinator)
         {
             this.project = project;
             this.mapper = mapper;
@@ -44,6 +48,8 @@ namespace InvestLink.Controllers
             this.investor = investor;
             this.projectinvestor = projectinvestor;
             this.toastNotification = toastNotification;
+            this.coordinatorReport = coordinatorReport;
+            this.projectcoordinator = projectcoordinator;
         }
         #endregion
         //--------------------------------------------------
@@ -52,11 +58,11 @@ namespace InvestLink.Controllers
         [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
-         
+
             return View();
         }
 
-        [Authorize(Roles = "Investor")]
+        //[Authorize(Roles = "Investor")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -70,8 +76,8 @@ namespace InvestLink.Controllers
         {
             try
             {
-                    var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
-                    obj.Project.LegalBodyName = LegalBodyName;
+                var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
+                obj.Project.LegalBodyName = LegalBodyName;
 
 
                 if (ModelState.IsValid == true)
@@ -90,8 +96,8 @@ namespace InvestLink.Controllers
                         foreach (var item in obj.Investors)
                         {
                            
-                                var CaredName = FileUpLoader.UploaderFile(item.CImage, "Doc");
-                                item.CaredName = CaredName;
+                            var CaredName = FileUpLoader.UploaderFile(item.CImage, "Doc");
+                            item.CaredName = CaredName;
                             var PassportName = FileUpLoader.UploaderFile(item.PImage, "Doc");
                             item.PassportName = PassportName;
 
@@ -119,6 +125,7 @@ namespace InvestLink.Controllers
 
                                 await projectinvestor.CreateAsync(Link);
                         }
+
                         // تسجيل المستثمر المقدم للطلب
                         var Link1 = new ProjectInvestor
                         {
@@ -128,7 +135,7 @@ namespace InvestLink.Controllers
 
                     }
                     toastNotification.AddSuccessToastMessage("تم تقديم طلب بنجاح.");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Project","Index");
                     }
                     TempData["Message"] = "validation Error";
                 var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك
@@ -292,7 +299,25 @@ namespace InvestLink.Controllers
             return RedirectToAction("ApproveFinal");
         }
 
-      
+
+
+
+        public async Task<IActionResult> RejectedLicenses(int projectCoordinatorId)
+        {
+
+            var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
+
+            var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
+
+            var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
+
+            _project.State = "سحب الترخيص"; // أو يمكنك تسميتها "رفض التجديد"
+            await project.UpdateAsync(_project);
+            toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
+            return RedirectToAction("Index");
+
+
+        }
     }
 }
 

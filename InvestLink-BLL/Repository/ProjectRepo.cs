@@ -39,7 +39,7 @@ namespace InvestLink_BLL.Repository
             {
                 data = await db.Projects
                             .Where(p => p.Id == pi.ProjectId)
-                             .Include(p => p.Licenses)
+                            .Include(p => p.Licenses)
                             .ToListAsync();
             }
 
@@ -61,19 +61,28 @@ namespace InvestLink_BLL.Repository
         //    return data;
         //}
 
-       
+
         public async Task<Project> GetByIdAsync(int Id)
         {
             var data = await db.Projects.Where(a => a.Id == Id)
                .Include(a => a.ProjectInvestors)       // 1. جدول الربط
                .ThenInclude(pi => pi.Investor)     // 2. المستثمر
                .ThenInclude(i => i.Nationality)
-
                 .FirstOrDefaultAsync();
             return data;
         }
 
-        
+        public async Task<Project> GetBydAsync(int Id)
+        {
+            var data = await db.Projects.Where(a => a.Id == Id)
+               //.Include(a => a.ProjectInvestors)       // 1. جدول الربط
+               //.ThenInclude(pi => pi.Investor)     // 2. المستثمر
+               //.ThenInclude(i => i.Nationality)
+                .FirstOrDefaultAsync();
+            return data;
+        }
+
+
         public async Task<IEnumerable<Project>> GetByStateAsync(string state)
         {
             var data = await db.Projects
@@ -83,8 +92,16 @@ namespace InvestLink_BLL.Repository
         }
 
 
+        //  الدالة تجلب بياناتProjects   
+        public async Task<Project> GetByIdForEditAsync(int Id) // 
+        {
+            var data = await db.Projects
+                       .Where(a => a.Id == Id)
+                       .FirstOrDefaultAsync();
+            return data;
+        }
 
-       
+
 
         public async Task UpdateAsync(Project obj)
         {

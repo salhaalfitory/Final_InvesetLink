@@ -11,6 +11,14 @@ namespace InvestLink_BLL.Models
 {
     public class InvestorVM
     {
+
+        public InvestorVM()
+        {
+        CreationData = DateTime.Now;
+        IsActive = true;
+        IsDeleted = false;
+        }
+
         [Key]
         public int Id { get; set; }
         [Required, StringLength(100)]

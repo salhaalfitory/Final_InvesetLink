@@ -137,17 +137,19 @@
       <div class="sidebar-header">
         
         <div>
-          <h4 class="logo-text">InvestLink</h4>
+          <h4 class="logo-text" style="color: #1a3c6d; font-weight: 700;">InvestLink</h4>
+          @* <h4 class="logo-text">InvestLink</h4> *@
         </div>
       </div>
+
 
       <!--navigation-->
       <ul class="metismenu" id="menu">
                
                 @* Investor Menu *@
-                @if(signInManager.IsSignedIn(User)&&User.IsInRole("Investor"))
+                @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
                 {
-                   @*  <li>
+                    <li>
                         <a asp-controller="Home" asp-action="Index">
                             <div class="parent-icon">
                                 <ion-icon name="home-outline"></ion-icon>
@@ -248,7 +250,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="License" asp-action="RejectedLicenses">
+
+                                <a asp-controller="CoordinatorReport" asp-action="RejectedLicenses">
                                     <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
                                 </a>
                             </li>

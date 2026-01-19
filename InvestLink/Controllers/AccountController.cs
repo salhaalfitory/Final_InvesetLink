@@ -47,16 +47,15 @@ namespace InvestLink.Controllers
                     {
                         toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
                         return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
-                        ModelState.AddModelError("", "Account invalid");
-                    }
-                    return View(model);
                 }
                 else
                 {
+                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        ModelState.AddModelError("", "Account invalid");
+                }
+                return View(model);
+            }
+                else { 
                     //ModelState.AddModelError("", "Account invalid");
                     toastNotification.AddErrorToastMessage("المستخدم غير مسجل");
                     return View(model);
@@ -119,8 +118,7 @@ namespace InvestLink.Controllers
                 ModelState.AddModelError("", ex.Message);
                 toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
 
-             
-}
+            }
             toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
             return View(model);
         }

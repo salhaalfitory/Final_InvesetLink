@@ -13,9 +13,7 @@
 @inject IInvestor iInvestor
 @inject ILicense iLicense
 @inject UserManager<IdentityUser> userManager
-@{
-    ViewBag.Title = "Index ";
-}
+
 
 @{
     var user = await userManager.GetUserAsync(signInManager.Context.User);
@@ -26,8 +24,8 @@
         var investor = await iInvestor.GetByEmailAsync(email);
         var investorId = investor.Id;
         var projectInvestor = await iprojectInvestor.GetAllAsync(investorId);
-       var project = await iproject.GetAllAsync(projectInvestor);
-         licenses = await iLicense.GetAllAsync(project);
+        var project = await iproject.GetAllAsync(projectInvestor);
+        licenses = await iLicense.GetAllAsync(project);
 
 
     }
