@@ -1,4 +1,5 @@
-﻿@using InvestLink_BLL.Interfaces
+﻿Reham, [19/01/2026 05:38 م]
+@using InvestLink_BLL.Interfaces
 @using InvestLink_DAL.Entities
 @using Microsoft.AspNetCore.Identity
 
@@ -9,7 +10,9 @@
 
 @{
     Layout = null;
-    ViewData["Title"] = "مرحباً بك";
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+    ViewData["Title"] = "InvestLink";
 }
 
 <!DOCTYPE html>
@@ -17,114 +20,97 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>InvestLink - مرحباً بك</title>
+    <title>@ViewData["Title"]</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-
-    <style>
-        :root {
-            --primary-color: #1a3c6d; /* نفس اللون الكحلي المستخدم سابقاً */
-            --bg-color: #fcfcfc;
-            --text-gray: #718096;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            font-family: 'Cairo', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-
-        .welcome-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            width: 100%;
-            max-width: 500px; /* عرض مناسب للبطاقة الترحيبية */
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid #f0f0f0;
-        }
-
-        .icon-container {
-            width: 80px;
-            height: 80px;
-            background-color: #f1f5f9; /* خلفية رمادية زرقاء فاتحة للأيقونة */
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem auto;
-            color: var(--primary-color);
-            font-size: 2.5rem;
-        }
-
-        .welcome-title {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .welcome-text {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            padding: 0 1rem;
-        }
-
-        .btn-start {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0.8rem 1.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            text-decoration: none; /* إزالة الخط تحت الرابط */
-            transition: all 0.2s ease;
-        }
-
-            .btn-start:hover {
-                background-color: #15325b;
-                color: white;
-                transform: translateY(-1px);
-            }
-
-    </style>
+    <link href="~/css/home.css" rel="stylesheet" />
 </head>
 <body>
 
     <div class="container">
-        <div class="d-flex justify-content-center">
+        @if (User.IsInRole("Investor"))
+        {
+            var investorId = iinvestor.GetIdByEmail(email);
 
-            <div class="welcome-card">
-                <div class="icon-container">
-                    <ion-icon name="person-add-outline"></ion-icon>
+            if (investorId == 0)
+            {
+                <div class="d-flex justify-content-center">
+                    <div class="welcome-card">
+                        <div class="icon-container">
+                            <ion-icon name="person-add-outline"></ion-icon>
+                        </div>
+
+                        <h2 class="welcome-title">مرحباً بك في InvestLink</h2>
+                        <p class="welcome-text">
+                            لبدء رحلتك الاستثمارية والاستفادة من خدماتنا، يرجى استكمال ملفك الاستثماري.
+                        </p>
+
+                        <a asp-controller="Investor" asp-action="Create" class="btn-start">
+                            <ion-icon name="add-circle-outline" style="font-size: 1.2rem;"></ion-icon>
+                            إضافة البيانات الاستثمارية
+                        </a>
+                    </div>
                 </div>
+            }
+            else
+            {
 
-                <h2 class="welcome-title">مرحباً بك في InvestLink</h2>
-                <p class="welcome-text">
-                    لبدء رحلتك الاستثمارية والاستفادة من خدماتنا، يرجى استكمال ملفك الاستثماري.
-                </p>
 
-                <a asp-controller="Investor" asp-action="Create" class="btn-start">
-                    <ion-icon name="add-circle-outline" style="font-size: 1.2rem;"></ion-icon>
-                    إضافة البيانات الاستثمارية
-                </a>
-            </div>
+                @* <div class="d-flex justify-content-center">
+                    <div class="welcome-card dashboard-card">
 
-        </div>
+                        <div class="row align-items-center mb-4">
+                            <div class="col-12">
+                                <div class="icon-container mb-3">
+                                    <ion-icon name="trending-up-outline"></ion-icon>
+                                </div>
+                                <h2 class="welcome-title mb-2">مرحباً بعودتك!</h2>
+                                <p class="text-secondary">لوحة التحكم الخاصة بك جاهزة</p>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 text-end">
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <ion-icon name="document-text-outline" class="text-primary fs-4 ms-2"></ion-icon>
+                                        <div class="info-title">نظام الطلبات</div>
+                                    </div>
+                                    <p class="text-muted small mb-0">تابع حالة طلباتك الاستثمارية الحالية أو قدم طلبات جديدة بسهولة.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <ion-icon name="shield-checkmark-outline" class="text-primary fs-4 ms-2"></ion-icon>
+                                        <div class="info-title">الأمان والخصوصية</div>
+                                    </div>
+                                    <p class="text-muted small mb-0">بياناتك محمية ومشفرة وفق أعلى معايير الأمان العالمية.</p>
+                                </div>
+                            </div>
+                        </div>
+
+Reham, [19/01/2026 05:38 م]
+</div>
+                </div> *@
+            }
+        }
+        else
+        {
+            <a href="Views/Project/Index" class="btn-start" style="background-color: #718096;">عودة للرئيسية</a>
+
+            @* <div class="d-flex justify-content-center">
+                <div class="welcome-card">
+                    <div class="icon-container" style="color: #dc3545; background-color: #fff5f5;">
+                        <ion-icon name="warning-outline"></ion-icon>
+                    </div>
+                    <h2 class="welcome-title">تنبيه</h2>
+                    <p class="welcome-text">هذه الصفحة مخصصة للمستثمرين فقط.</p>
+                    <a href="/" class="btn-start" style="background-color: #718096;">عودة للرئيسية</a>
+                </div>
+            </div> *@
+        }
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
