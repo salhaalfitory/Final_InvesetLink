@@ -1,8 +1,13 @@
-﻿using InvestLink_BLL.Helper;
+﻿using Azure.Core;
+using InvestLink_BLL.Helper;
 using InvestLink_BLL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using System.Security.Policy;
+
+
+
 
 
 namespace InvestLink.Controllers
@@ -14,14 +19,14 @@ namespace InvestLink.Controllers
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly IToastNotification toastNotification;
 
-        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, IToastNotification toastNotification)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IToastNotification toastNotification)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.toastNotification = toastNotification;
         }
 
-            [HttpGet]
+        [HttpGet]
 
         public IActionResult Login()
         {
@@ -31,27 +36,31 @@ namespace InvestLink.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
         {
-            try { 
-            var user = await userManager.FindByEmailAsync(model.Email);
-
-            if (user != null)
+            try
             {
-                var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
                 {
+                    var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
                         toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
                         return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        ModelState.AddModelError("", "Account invalid");
+                    }
+                    return View(model);
                 }
                 else
                 {
-                        toastNotification.AddSuccessToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
-                        ModelState.AddModelError("", "Account invalid");
+                    //ModelState.AddModelError("", "Account invalid");
+                    toastNotification.AddErrorToastMessage("المستخدم غير مسجل");
+                    return View(model);
                 }
-                return View(model);
-            }
-                ModelState.AddModelError("", "Account invalid");
-                return View(model);
-
             }
             catch (Exception ex)
             {
@@ -91,17 +100,28 @@ namespace InvestLink.Controllers
                     {
                         foreach (var item in result.Errors)
                         {
+                            //toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
                             ModelState.AddModelError("", item.Description);
+                            //toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+
                         }
-                        return View(model);
+                        toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+                        //return View(model);
                     }
+                    toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+                    return View(model);
                 }
             }
 
             catch (Exception ex)
             {
+
                 ModelState.AddModelError("", ex.Message);
-            }
+                toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+
+             
+}
+            toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
             return View(model);
         }
 
