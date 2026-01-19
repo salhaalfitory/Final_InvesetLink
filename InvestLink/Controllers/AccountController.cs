@@ -44,14 +44,16 @@ namespace InvestLink.Controllers
                 }
                 else
                 {
-                        toastNotification.AddSuccessToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
                         ModelState.AddModelError("", "Account invalid");
                 }
                 return View(model);
             }
-                ModelState.AddModelError("", "Account invalid");
-                return View(model);
-
+                else { 
+                    //ModelState.AddModelError("", "Account invalid");
+                    toastNotification.AddErrorToastMessage("المستخدم غير مسجل");
+                    return View(model);
+                }
             }
             catch (Exception ex)
             {
@@ -91,17 +93,27 @@ namespace InvestLink.Controllers
                     {
                         foreach (var item in result.Errors)
                         {
+                            //toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
                             ModelState.AddModelError("", item.Description);
+                            //toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+
                         }
-                        return View(model);
+                        toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+                        //return View(model);
                     }
+                    toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+                    return View(model);
                 }
             }
 
             catch (Exception ex)
             {
+
                 ModelState.AddModelError("", ex.Message);
+                toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
+
             }
+            toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
             return View(model);
         }
 
