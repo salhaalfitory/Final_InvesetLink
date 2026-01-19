@@ -26,7 +26,7 @@ namespace InvestLink_BLL.Models
         [Compare("Password", ErrorMessage = "Password not match")]
         public string ConfirmPassword { get; set; }
         //---------------------------------------------
-        //public bool IsAgree { get; set; }
+    
 
     }
 }

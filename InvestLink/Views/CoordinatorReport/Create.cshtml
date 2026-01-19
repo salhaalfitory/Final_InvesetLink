@@ -42,7 +42,7 @@
                     <select class="form-select mb-3" asp-for="ProjectId">
                         @foreach (var item in await iProjectcoordinator.GetAllAsync())
                         {
-                            <option value="@item.ProjectId"> @item.ProjectId </option>
+                            <option value="@item.ProjectId"> @item.Project.Name </option>
                             
 
                         }
@@ -65,7 +65,7 @@
 
 
                 <div class="col-md-6">
-                    <input type="submit" value="حفظ" class="btn btn-success waves-effect" />
+                    <input type="submit" value="حفظ" class="btn btn-info waves-effect" />
 
 
                     <a asp-action="Index" class="btn btn-outline-secondary px-4">الرجوع </a>
