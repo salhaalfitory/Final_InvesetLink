@@ -1,1 +1,499 @@
-﻿
+﻿﻿@using Microsoft.AspNetCore.Identity
+@using InvestLink_BLL.Interfaces
+@inject SignInManager<IdentityUser> signInManager;
+
+
+@using InvestLink_BLL.Models
+@using InvestLink_DAL.Entities
+
+@* //--------------------------------- *@
+
+
+@inject IEmployee iEmployee;
+@inject IInvestor iinvestor;
+@{
+    ViewBag.Title = "Update";
+}
+
+@{
+    var employeeId = 0;
+    if (User.IsInRole("FollowUpEmployee"))
+    {
+        var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+        var email = await signInManager.UserManager.GetEmailAsync(user);
+        employeeId = iEmployee.GetIdByEmail(email);
+    }
+    else
+    {
+        if (User.IsInRole("Admin"))
+        {
+            var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            var email = await signInManager.UserManager.GetEmailAsync(user);
+            employeeId = iEmployee.GetIdByEmail(email);
+        }
+        var employeId = 0;
+        if (User.IsInRole("FollowUpEmployee"))
+        {
+            var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            var email = await signInManager.UserManager.GetEmailAsync(user);
+            employeeId = iEmployee.GetIdByEmail(email);
+        }
+    }
+
+    var investorId = 0;
+    if (User.IsInRole("Investor"))
+    {
+        var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+        var email = await signInManager.UserManager.GetEmailAsync(user);
+        investorId = iinvestor.GetIdByEmail(email);
+    }
+
+    // var EmployeeId = employeeId.Id;
+}
+
+
+
+<!doctype html>
+<html lang="en" dir="rtl">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- loader-->
+    <link href="~/css/pace.min.css" rel="stylesheet" />
+    <script src="~/js/pace.min.js"></script>
+
+    <!--plugins-->
+    <link href="~/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="~/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+
+    <!-- CSS Files -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!--Theme Styles-->
+    <link href="~/css/dark-theme.css" rel="stylesheet" />
+    <link href="~/css/semi-dark.css" rel="stylesheet" />
+    <link href="~/css/header-colors.css" rel="stylesheet" />
+
+    <!-- Custom Premium Enhancements -->
+    <link href="~/css/custom-enhancements.css" rel="stylesheet" />
+
+    <title>الهيئة العامة لتشجيع الاستثمار و شؤون الخصخصة</title>
+
+
+    <style>
+        /* تصميم اشعار*/
+        #toast-container {
+            top: 20px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            position: fixed !important;
+            width: auto !important;
+            min-width: 300px !important;
+            z-index: 999999 !important;
+        }
+
+            /* 2. تصميم مربع */
+            #toast-container > .toast-success {
+                background-image: none !important;
+                background-color: #28a745 !important;
+                padding: 15px 25px !important;
+                border-radius: 12px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+                opacity: 1 !important;
+                border: 1px solid rgba(255,255,255,0.2);
+            }
+
+        /* 3. حذف(Success) */
+        .toast-title {
+            display: none !important;
+        }
+
+        /* 4. تصميم رسالة */
+        .toast-message {
+            font-size: 1.2rem !important;
+            font-weight: 500 !important;
+            text-align: center !important;
+            display: block !important;
+            color: #ffffff !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* حذف مسافات زائدة  */
+        #toast-container > .toast {
+            background-position: none !important;
+        }
+
+        }
+    </style>
+    @* ////////////////////////////////////////////// *@
+    @await RenderSectionAsync("jqueryUICSS", required: false)
+    @await RenderSectionAsync("jqueryvalidation", required: false)
+</head>
+
+<body>
+
+
+    <!--start wrapper-->
+    <div class="wrapper">
+
+        <!--start sidebar -->
+        <aside class="sidebar-wrapper" data-simplebar="true">
+            <div class="sidebar-header">
+
+                <div>
+                    <h4 class="logo-text" style="color: #1a3c6d; font-weight: 700;">InvestLink</h4>
+                    @* <h4 class="logo-text">InvestLink</h4> *@
+                </div>
+            </div>
+
+
+            <!--navigation-->
+            <ul class="metismenu" id="menu">
+
+                @* Investor Menu *@
+                @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
+                {
+                    @* <li>
+                        <a asp-controller="Home" asp-action="Index">
+                            <div class="parent-icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">الرئيسية</div>
+                        </a>
+                    </li> *@
+
+
+                    <li>
+                        <a asp-controller="Project" asp-action="Index">
+                            <ion-icon name="ellipse-outline"></ion-icon>الطلبات الاستثمارية
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Project" asp-action="ApproveFinal">
+                            <div class="parent-icon">
+                                <ion-icon name="briefcase-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">المشاريع الاستثمارية</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="License" asp-action="Index">
+                            <div class="parent-icon">
+                                <ion-icon name="briefcase-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">  رخص  المشاريع</div>
+                        </a>
+                    </li>
+
+                }
+
+                @* Head of Services / Admin Menu *@
+
+                @if (signInManager.IsSignedIn(User) && (User.IsInRole("HeadOfServices") || User.IsInRole("Admin")))
+                {
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon">
+                                <ion-icon name="gift-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">الطلبات الاستثمارية</div>
+                        </a>
+                        <ul>
+                            <li>
+                                <a asp-controller="Project" asp-action="NewRequests">
+                                    <ion-icon name="ellipse-outline"></ion-icon>الطلبات الجديدة
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Project" asp-action="RequestsReferredtomanagement">
+                                    <ion-icon name="ellipse-outline"></ion-icon>الطلبات المحالة للادارة
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Project" asp-action="ApproveFinal">
+                                    <ion-icon name="ellipse-outline"></ion-icon>اعتماد الترخيص
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Project" asp-action="RejectedRequests">
+                                    <ion-icon name="ellipse-outline"></ion-icon>الطلبات المرفوضة
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Project" asp-action="Index">
+                            <div class="parent-icon">
+                                <ion-icon name="briefcase-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">المشاريع الاستثمارية</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon">
+                                <ion-icon name="leaf-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">إدارة الرخص</div>
+                        </a>
+                        <ul>
+                            <li>
+                                <a asp-controller="License" asp-action="Index">
+                                    <ion-icon name="ellipse-outline"></ion-icon> الرخص
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="License" asp-action="Expiredlicenses">
+                                    <ion-icon name="ellipse-outline"></ion-icon>إحالة المشاريع للمتابعة
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="CoordinatorReport" asp-action="Index">
+                                    <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
+                                </a>
+                            </li>
+                            <li>
+
+                                <a asp-controller="CoordinatorReport" asp-action="RejectedLicenses">
+                                    <ion-icon name="ellipse-outline"></ion-icon>المشاريع المرفوض إصدار رخصها
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Advertisement" asp-action="Index">
+                            <div class="parent-icon">
+                                <ion-icon name="megaphone-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">إدارة الإعلانات</div>
+                        </a>
+                    </li>
+                }
+                @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin")))
+                {
+                    <li>
+                        <a asp-controller="Nationality" asp-action="Index">
+                            <div class="parent-icon">
+                                <ion-icon name="flag-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">إدارة الجنسيات</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon">
+                                <ion-icon name="people-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">إدارة المستخدمين</div>
+                        </a>
+                        <ul>
+                            <li>
+                                <a asp-controller="User" asp-action="Index">
+                                    <ion-icon name="ellipse-outline"></ion-icon>المستثمرين
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="User" asp-action="Index">
+                                    <ion-icon name="ellipse-outline"></ion-icon>الموظفين
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Role" asp-action="Index">
+                            <div class="parent-icon">
+                                <ion-icon name="key-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">إدارة الصلاحيات</div>
+                        </a>
+                    </li>
+                }
+
+                @* Follow Up Employee Menu *@
+
+                @if (signInManager.IsSignedIn(User) && (User.IsInRole("FollowUpEmployee") || User.IsInRole("Admin")))
+                {
+
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon">
+                                <ion-icon name="document-text-outline"></ion-icon>
+                            </div>
+                            <div class="menu-title">إدارة التقارير</div>
+                        </a>
+                        <ul>
+                            <li>
+                                <a asp-controller="ProjectCoordinator" asp-action="Index">
+                                    <ion-icon name="ellipse-outline"></ion-icon>المتابعة الميدانية
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="CoordinatorReport" asp-action="Index">
+                                    <ion-icon name="ellipse-outline"></ion-icon> سجل تقارير
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+
+            </ul>
+            <!--end navigation-->
+        </aside>
+        <!--end sidebar -->
+        <!--start top header-->
+        <header class="top-header">
+            <nav class="navbar navbar-expand gap-3">
+                <div class="toggle-icon">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+
+                <div class="top-navbar-right ms-auto">
+
+                    <ul class="navbar-nav align-items-center">
+                        @*     //-------------------المستثمر------------------ *@
+
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
+                        {
+                            <li>
+                                <a asp-controller="Project" asp-action="Create" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                    <div class="font-16">
+                                        <i class="fadeIn animated bx bx-pencil"> تقديم طلب استثماري</i>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Advertisement" asp-action="Details" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                    <div class="font-16">
+                                        <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+
+
+
+
+                        <li class="nav-item dropdown dropdown-user-setting">
+                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
+                                <i class="fadeIn animated bx bx-menu-alt-left"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <div class="dropdown-item">
+                                        <div class="d-flex flex-row align-items-center gap-2">
+
+                                            <div class="">
+                                                <h6 class="mb-0 dropdown-user-name">@User.Identity.Name</h6>
+                                                <small class="mb-0 dropdown-user-designation text-secondary">إدارة الاستثمار</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                @*   <li><hr class="dropdown-divider"></li> *@
+                                @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Investor" asp-action="Update" method="post" asp-route-Id="@investorId">
+                                            <div class="d-flex align-items-center">
+                                                <div class="font-20">
+                                                    <ion-icon name="person-outline"></ion-icon>
+                                                </div>
+                                                <div class="ms-3"><span>الملف الشخصي</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                                @*   <li><hr class="dropdown-divider"></li> *@
+                                <li>
+                                    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+                                        <button type="submit" class="dropdown-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="font-20 text-danger">
+                                                    <ion-icon name="log-out-outline"></ion-icon>
+                                                </div>
+                                                <div class="ms-3 text-danger"><span>تسجيل الخروج</span></div>
+                                            </div>
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        @*   <hr /> *@
+        <!--end top header-->
+
+
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
+        <!--start footer-->
+        <footer class="footer">
+            <div class="footer-text">
+            </div>
+        </footer>
+        <!--end footer-->
+        <!--Start Back To Top Button-->
+        <a href="javaScript:;" class="back-to-top">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+        </a>
+        <!--End Back To Top Button-->
+        <!--start overlay-->
+        <div class="overlay nav-toggle-icon"></div>
+        <!--end overlay-->
+
+    </div>
+    <!--end wrapper-->
+    <!-- JS Files-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="~/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <!--plugins-->
+    <script src="~/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="~/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+    <script src="~/plugins/easyPieChart/jquery.easypiechart.js"></script>
+    <script src="~/plugins/chartjs/chart.min.js"></script>
+    <script src="~/js/index.js"></script>
+    <!-- Main JS-->
+    <script src="~/js/main.js"></script>
+
+
+    @* ///////////////////////////////////////// *@
+    @await RenderSectionAsync("jqueryvalidation", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @await Component.InvokeAsync("NToastNotify")
+
+    <style>
+        /* زيادة المسافة بين أيقونات الشريط العلوي */
+        .top-header .navbar-nav > li {
+            margin-left: 20px !important; /* يمكنك زيادة الرقم 20 لزيادة التباعد */
+        }
+
+        /* (اختياري) إذا كانت العناصر داخل div وليست li في بعض النسخ */
+        .top-header .navbar-nav .nav-item {
+            margin-left: 20px !important;
+        }
+    </style>
+
+</body>
+
+</html>
