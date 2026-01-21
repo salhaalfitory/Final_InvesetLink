@@ -84,7 +84,32 @@
 
                         </td>
 
-                   
+                     @if (User.IsInRole("HeadOfServices"))
+            {
+                 <td>
+               
+
+                <a asp-controller="CoordinatorReport"
+                   asp-action="ReCreateLicense"
+                   asp-route-projectCoordinatorId="@Item.ProjectCoordinatorId"
+                   class="btn btn-info waves-effect">
+                    <i class="fadeIn animated bx bx-pencil"></i>
+                </a>
+           </td>
+               <td>
+
+                    <a asp-controller="CoordinatorReport"
+                       asp-action="RejectedLicenses"
+                       asp-route-projectCoordinatorId="@Item.ProjectCoordinatorId"
+                       class="btn btn-danger px-4">
+                        <i class="fadeIn animated bx bx-refresh"></i>
+                    </a>
+                       </td>
+              
+           
+           
+               
+            }
 
                        
 
