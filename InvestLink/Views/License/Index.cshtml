@@ -24,7 +24,7 @@
         var investor = await iInvestor.GetByEmailAsync(email);
         var investorId = investor.Id;
         var projectInvestor = await iprojectInvestor.GetAllAsync(investorId);
-        var project = await iproject.GetAllAsync(projectInvestor);
+        var project = await iproject.GetAllAsyncByFiltter(projectInvestor, "معتمد");
         licenses = await iLicense.GetAllAsync(project);
 
 

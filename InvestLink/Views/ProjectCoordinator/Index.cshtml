@@ -26,9 +26,9 @@
         var iEmp = await iEmployee.GetByEmailAsync(email);
         var iEmptId = iEmp.Id;
 
-        var iicoordinatorReport = await icoordinatorReport.GetAllAsync(iEmptId);
+        
 
-        coordinatorReports = await icoordinatorReport.GetAllAsync(iicoordinatorReport);
+        coordinatorReports = await icoordinatorReport.GetAllAsync(iEmptId);
     }
     else
     {

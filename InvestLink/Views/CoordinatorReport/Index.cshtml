@@ -8,9 +8,7 @@
 @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<IdentityUser> signInManager
-
 @inject ICoordinatorReport icoordinatorReport;
-
 @inject IEmployee iEmployee;
 
 
@@ -21,6 +19,7 @@
 
     // متغير
     IEnumerable<CoordinatorReport> coordinatorReports;
+  
 
     //obj from identity user
     if (User.IsInRole("FollowUpEmployee"))
@@ -28,9 +27,8 @@
         var iEmp = await iEmployee.GetByEmailAsync(email);
         var iEmptId = iEmp.Id;
 
-        var iicoordinatorReport = await icoordinatorReport.GetAllAsync(iEmptId);
 
-        coordinatorReports = await icoordinatorReport.GetAllAsync(iicoordinatorReport);
+        coordinatorReports = await icoordinatorReport.GetAllAsync(iEmptId);
     }
     else
     {
@@ -86,18 +84,9 @@
 
                         </td>
 
-                        @*  لرئيس خدمات المستثمرين*@
+                   
 
-                        <td>
-                              @if (User.IsInRole("HeadOfServices"))
-                              {
-                            <a asp-controller="CoordinatorReport"
-                               asp-action="ReCreateLicense"
-                               asp-route-projectCoordinatorId="@Item.Id"
-                               class="btn btn-info waves-effect">
-                                    <i class="fadeIn animated bx bx-pencil"></i>
-                                </a>}
-                        </td>
+                       
 
                        
                     </tr>

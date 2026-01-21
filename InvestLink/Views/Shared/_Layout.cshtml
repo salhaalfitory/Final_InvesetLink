@@ -59,6 +59,10 @@
 
     <style>
         /* تصميم اشعار*/
+        body{
+            font-family: 'Cairo', sans-serif;
+        }
+
         #toast-container {
             top: 20px !important;
             left: 50% !important;
@@ -100,13 +104,24 @@
         #toast-container > .toast {
             background-position: none !important;
         }
+        .top-header .navbar-nav > li {
+        margin-left: 20px !important; /* يمكنك زيادة الرقم 20 لزيادة التباعد */
+        }
+
+    /* (اختياري) إذا كانت العناصر داخل div وليست li في بعض النسخ */
+        .top-header .navbar-nav .nav-item {
+            margin-left: 20px !important;
+        }
+        header {
+            font-family: 'Cairo', sans-serif;
+        }
     </style>
     
     @await RenderSectionAsync("jqueryUICSS", required: false)
 </head>
 
 <body>
-
+    
     <div class="wrapper">
        
 
@@ -123,14 +138,14 @@
                     @* Investor Menu *@
                     @if (signInManager.IsSignedIn(User) && User.IsInRole("Investor"))
                     {
-                        @* <li>
+                        <li>
                             <a asp-controller="Home" asp-action="Index">
                                 <div class="parent-icon">
                                     <ion-icon name="home-outline"></ion-icon>
                                 </div>
                                 <div class="menu-title">الرئيسية</div>
                             </a>
-                        </li> *@
+                        </li>
                         <li>
                             <a asp-controller="Project" asp-action="Index">
                                 <div class="parent-icon">
@@ -216,19 +231,23 @@
                                         <ion-icon name="ellipse-outline"></ion-icon> الرخص
                                     </a>
                                 </li>
-                              @*    @if (signInManager.IsSignedIn(User) && (User.IsInRole("HeadOfServices"){ *@
+                        
                                 <li>
                                     <a asp-controller="License" asp-action="Expiredlicenses">
                                         <ion-icon name="ellipse-outline"></ion-icon>إحالة المشاريع للمتابعة
                                     </a>
                                 </li>
-                               @*   } *@
+                            
                                 <li>
                                     <a asp-controller="CoordinatorReport" asp-action="Index">
                                         <ion-icon name="ellipse-outline"></ion-icon>تجديد الرخص
                                     </a>
                                 </li>
-                               
+                              <li>
+                                    <a asp-controller="CoordinatorReport" asp-action="RejectedLicenses">
+                                        <ion-icon name="ellipse-outline"></ion-icon>مشاريع مرفوض تجديد رخصها
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -334,7 +353,7 @@
                             </li>
 
                             <li>
-                                <a asp-controller="Advertisement" asp-action="Details" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
+                                <a asp-controller="Advertisement" asp-action="Index" class="d-flex align-items-center theme-icons shadow-sm p-2 cursor-pointer rounded text-decoration-none text-reset">
                                     <div class="font-16">
                                         <i class="fadeIn animated bx bx-bell"> الإعلانات</i>
                                     </div>
@@ -419,6 +438,7 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     @await Component.InvokeAsync("NToastNotify")
+    
 </body>
 
 </html>

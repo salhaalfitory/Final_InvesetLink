@@ -169,7 +169,7 @@ namespace InvestLink.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Investor")]
+       
         public async Task<IActionResult> Details(int Id)
         {
             var data = await advertisement.GetByIdAsync(Id);

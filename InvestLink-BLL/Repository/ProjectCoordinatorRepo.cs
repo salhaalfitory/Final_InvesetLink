@@ -30,11 +30,11 @@ namespace InvestLink_BLL.Repository
             await db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ProjectCoordinator>> GetAllAsync()
+        public async Task<IEnumerable<ProjectCoordinator>> GetAllAsync(int employeeId)
         {
             return await db.ProjectCoordinators
+                   .Where(x => x.EmployeeId == employeeId)
                    .Include(x => x.Project)   // <--- ضروري عشان تجيب اسم المشروع
-                   .Include(x => x.Employee)  // <--- ضروري عشان تجيب اسم الموظف
                    .ToListAsync();
         }
 
@@ -50,6 +50,17 @@ namespace InvestLink_BLL.Repository
             var data = await db.ProjectCoordinators.Where(a => a.ProjectId == ProjectId && a.EmployeeId == EmployeeId).FirstOrDefaultAsync();
             return data;
         }
+
+        public async Task<ProjectCoordinator> GetByProjectIdAsync(int ProjectId)
+        {
+            var data = await db.ProjectCoordinators
+                .Where(a => a.ProjectId == ProjectId)
+                .Include(x => x.Employee)
+                .OrderBy(x => x.Id)
+                .LastOrDefaultAsync();
+            return data;
+        }
+
         public  async Task UpdateAsync(ProjectCoordinator obj)
         {
             db.Entry(obj).State = EntityState.Modified;

@@ -19,7 +19,6 @@ namespace InvestLink_BLL.Models
         public DateTime CreationData { get; set; } = DateTime.Now;// تاريخ إنشاء تقرير
         public string? ImageName { get; set; }// صور
 
-        [Required(ErrorMessage = " Image")]
         public IFormFile? Image { get; set; }
         public string? Status { get; set; }// حالة تقرير
         public int ProjectId { get; set; }

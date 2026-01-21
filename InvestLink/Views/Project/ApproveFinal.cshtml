@@ -22,7 +22,7 @@
         var investor = await iInvestor.GetByEmailAsync(email);
         var investorId = investor.Id;
         var projectInvestors = await iprojectInvestor.GetAllAsync(investorId);
-        projects = await iproject.GetAllAsync(projectInvestors);
+        projects = await iproject.GetAllAsyncByFiltter(projectInvestors, "معتمد");
 
 
     }
@@ -49,17 +49,11 @@
                             <th scope="col">تاريخ تقديم الطلب</th>
                             <th scope="col">تفاصيل المشروع</th>
 
-                            @* التحقق من الصلاحية لعرض عمود تفاصيل الرخصة *@
-                            @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
-                            {
+                           
                                 <th scope="col">رخصة المشروع</th>
-                            }
+                            
 
-                            @* التحقق من الصلاحية لعرض عمود ملف الرخصة *@
-                            @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
-                            {
-                                <th scope="col">ملف رخصة المشروع</th>
-                            }
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -95,12 +89,9 @@
                                     </a>
                                 </td>
 
-                                @* 5. رخصة المشروع (زر العرض) *@
-                                @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
-                                {
+                               
                                     <td>
-                                        @if (!string.IsNullOrEmpty(Item.LicenseName))
-                                        {
+                                        
                                             <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
                                                class="btn btn-sm"
                                                style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
@@ -109,34 +100,11 @@
                                                 <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
                                                 عرض التفاصيل
                                             </a>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">--</span>
-                                        }
+                                       
                                     </td>
-                                }
+                               
 
-                                @* 6. ملف الرخصة (الزر الأخضر) *@
-                                @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
-                                {
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(Item.LicenseName))
-                                        {
-                                            <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
-                                               class="btn btn-sm"
-                                               style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);"
-                                               target="_blank">
-                                                <ion-icon name="checkmark-circle-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
-                                                <i class="fadeIn animated bx bx-file-blank"></i>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">--</span>
-                                        }
-                                    </td>
-                                }
+                               
 
                             </tr>
                         }

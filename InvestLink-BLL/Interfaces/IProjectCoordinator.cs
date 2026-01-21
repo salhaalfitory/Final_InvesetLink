@@ -10,9 +10,10 @@ namespace InvestLink_BLL.Interfaces
 {
     public interface IProjectCoordinator
     {
-        Task<IEnumerable<ProjectCoordinator>> GetAllAsync();
+        Task<IEnumerable<ProjectCoordinator>> GetAllAsync(int employeeId);
         Task CreateAsync(ProjectCoordinator obj);
         Task<ProjectCoordinator> GetByIdAsync(int ProjectId, int EmployeeId);
+        Task<ProjectCoordinator> GetByProjectIdAsync(int ProjectId);
         Task<ProjectCoordinator> GetByIdAsync( int Id);
         Task UpdateAsync(ProjectCoordinator obj);
         Task DeleteAsync(ProjectCoordinator obj);

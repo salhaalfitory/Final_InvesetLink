@@ -21,7 +21,7 @@
         var investor =await iInvestor.GetByEmailAsync(email);
         var investorId = investor.Id;
         var projectInvestors = await iprojectInvestor.GetAllAsync(investorId);
-        projects = await iproject.GetAllAsync(projectInvestors);
+        projects = await iproject.GetAllAsyncByFiltter(projectInvestors , "تم استلام");
 
 
     }

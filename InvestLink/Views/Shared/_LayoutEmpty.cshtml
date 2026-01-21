@@ -1,0 +1,116 @@
+﻿
+
+
+<!doctype html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/css/pace.min.css" rel="stylesheet" />
+    <script src="~/js/pace.min.js"></script>
+
+    <link href="~/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="~/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="~/css/dark-theme.css" rel="stylesheet" />
+    <link href="~/css/semi-dark.css" rel="stylesheet" />
+    <link href="~/css/header-colors.css" rel="stylesheet" />
+
+    <link href="~/css/custom-enhancements.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title - الهيئة العامة لتشجيع الاستثمار وشؤون الخصخصة</title>
+
+    <style>
+        /* تصميم اشعار*/
+        #toast-container {
+            top: 20px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            position: fixed !important;
+            width: auto !important;
+            min-width: 300px !important;
+            z-index: 999999 !important;
+        }
+
+        /* 2. تصميم مربع */
+        #toast-container > .toast-success {
+            background-image: none !important;
+            background-color: #28a745 !important;
+            padding: 15px 25px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+            opacity: 1 !important;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* 3. حذف(Success) */
+        .toast-title {
+            display: none !important;
+        }
+
+        /* 4. تصميم رسالة */
+        .toast-message {
+            font-size: 1.2rem !important;
+            font-weight: 500 !important;
+            text-align: center !important;
+            display: block !important;
+            color: #ffffff !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* حذف مسافات زائدة  */
+        #toast-container > .toast {
+            background-position: none !important;
+        }
+    </style>
+    
+    @await RenderSectionAsync("jqueryUICSS", required: false)
+</head>
+
+<body>
+    
+    <div class="wrapper">
+       
+
+             
+          
+     
+        
+                @RenderBody()
+           
+
+        
+        <a href="javaScript:;" class="back-to-top">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+        </a>
+        <div class="overlay nav-toggle-icon"></div>
+        </div>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="~/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="~/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="~/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+    <script src="~/plugins/easyPieChart/jquery.easypiechart.js"></script>
+    <script src="~/plugins/chartjs/chart.min.js"></script>
+    <script src="~/js/index.js"></script>
+    <script src="~/js/main.js"></script>
+
+    @await RenderSectionAsync("jqueryvalidation", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @await Component.InvokeAsync("NToastNotify")
+</body>
+
+</html>

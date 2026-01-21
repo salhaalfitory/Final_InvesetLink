@@ -97,6 +97,18 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
+        public async Task<IActionResult> UploadedLicense(int Id)
+        {
+            var data = await project.GetByIdAsync(Id);
+            if (data == null)
+            {
+                TempData["Message"] = "الرخصة غير موجودة";
+                return RedirectToAction("Index");
+            }
+            data.LicenseName = @"\wwwroot\Files\Doc\" +data.LicenseName;
+            var result = mapper.Map<ProjectVM>(data);
+            return View(result);
+        }
 
 
         [Authorize(Roles = "HeadOfServices")]
@@ -115,37 +127,31 @@ namespace InvestLink.Controllers
 
         [Authorize(Roles = "HeadOfServices")]
         [HttpPost]
-        public async Task<IActionResult> SendReportRequest(int licenseId, int employeeId)
+        public async Task<IActionResult> SendReportRequest(int ProjectId, int employeeId)
         {
-            // 1. جلب بيانات الرخصة للحصول على ProjectId
-            var licenseData = await license.GetByIdAsync(licenseId);
-            if (licenseData == null) return NotFound();
-
-            var projectId = licenseData.ProjectId;
-
-            // 2. التحقق: هل الموظف معين مسبقاً لهذا المشروع؟
-            // ملاحظة: افترضنا أن لديك ميثود في الـ Repo للبحث (مثلاً GetAll أو Find)
-            var allCoordinators = await projectcoordinator.GetAllAsync(); // أو ميثود تبحث بالشرط مباشرة
-            bool isAlreadyAssigned = allCoordinators.Any(pc => pc.EmployeeId == employeeId && pc.ProjectId == projectId);
-
-            if (isAlreadyAssigned)
+            var pc = await projectcoordinator.GetByIdAsync(ProjectId, employeeId);
+            var lastPc = await projectcoordinator.GetByProjectIdAsync(ProjectId);
+            if (pc == lastPc && pc != null)
             {
-                toastNotification.AddSuccessToastMessage("هذا الموظف معين بالفعل لهذا المشروع مسبقاً.");
-             
+                toastNotification.AddErrorToastMessage("الموظف معين بالفعل لهذا المشروع.");
                 return RedirectToAction("Expiredlicenses");
             }
-
-            // 3. إذا لم يكن موجوداً، نقوم بالإضافة
+            else if (pc != null)
+            {
+                await projectcoordinator.DeleteAsync(pc);
+            }
             InvestLink_DAL.Entities.ProjectCoordinator obj = new InvestLink_DAL.Entities.ProjectCoordinator();
-            obj.ProjectId = projectId;
+            obj.ProjectId = ProjectId;
             obj.EmployeeId = employeeId;
             obj.StartDate = DateTime.Now;
+            obj.EndDate = DateTime.Now.AddMonths(3);
 
             await projectcoordinator.CreateAsync(obj);
             toastNotification.AddSuccessToastMessage("تم تعيين الموظف للمشروع بنجاح.");
             
             return RedirectToAction("Expiredlicenses");
         }
+
     }
 }
 

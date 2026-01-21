@@ -66,13 +66,7 @@ namespace InvestLink.Controllers
         }
 
 
-        public async Task<IActionResult> Details(int Id)
-        {
-            var data = await projectCoordinator.GetByIdAsync(Id);
-            var result = mapper.Map<ProjectCoordinatorVM>(data);
-
-            return View(result);
-        }
+        
 
     }
 }

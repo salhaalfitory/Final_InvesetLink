@@ -32,13 +32,13 @@ namespace InvestLink_BLL.Repository
                            .Include(p => p.Licenses)
                            .ToListAsync();
         }
-        public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
+        public async Task<IEnumerable<Project>> GetAllAsyncByFiltter(IEnumerable<ProjectInvestor> projectInvestors, string status)
         {
             var data = new List<Project>();
             foreach (var pi in projectInvestors)
             {
                 data = await db.Projects
-                            .Where(p => p.Id == pi.ProjectId)
+                            .Where(p => p.Id == pi.ProjectId && p.State == status)
                             .Include(p => p.Licenses)
                             .ToListAsync();
             }

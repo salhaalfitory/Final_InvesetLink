@@ -55,7 +55,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        //[Authorize(Roles = "Investor,Admin,HeadOfServices")]
+        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
 
@@ -132,6 +132,7 @@ namespace InvestLink.Controllers
                             ProjectId = Project_info_Id,
                             InvestorId = obj.SubmitedInvestorId
                         };
+                        await projectinvestor.CreateAsync(Link1);
 
                     }
                     toastNotification.AddSuccessToastMessage("تم تقديم طلب بنجاح.");
@@ -335,7 +336,9 @@ namespace InvestLink.Controllers
 
         //}
     }
+    
 }
+
 
 #endregion
 

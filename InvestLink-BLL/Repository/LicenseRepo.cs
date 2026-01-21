@@ -64,7 +64,7 @@ namespace InvestLink_BLL.Repository
         {
             var data = await db.Licenses
                         .Include(x => x.Project)  
-                        .Where(a => a.Id == Id)
+                        .Where(a => a.ProjectId == Id)
                         .OrderBy(x => x.Id) // يجب الترتيب أولاً
                         .LastOrDefaultAsync();
             return data;

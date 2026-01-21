@@ -1,1 +1,80 @@
-﻿
+﻿@model InvestLink_BLL.Models.AdvertisementVM
+
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="border p-3 rounded">
+            <h6 class="mb-0 text-uppercase">تفاصيل تقرير </h6>
+            <hr>
+
+          
+
+            <form asp-controller="Advertisement" asp-action="Details" enctype="multipart/form-data" class="row g-3">
+
+                <input type="hidden" asp-for="Id" />
+
+                <input type="hidden" asp-for="EmployeeId" />
+                <input type="hidden" asp-for="ImageName" />
+                <div class="col-12">
+                    <label asp-for="Name" class="form-label">الوصف</label>
+                    <textarea asp-for="Name" class="form-control" readonly></textarea>
+                    
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">محتوى الإعلان</label>
+                    <textarea class="form-control" asp-for="Description" rows="4" cols="4" readonly></textarea>
+                    
+                </div>
+
+                <div class="col-12 col-lg-12">
+                    <label class="form-label">صورة </label>
+
+                    @if (Model != null && !string.IsNullOrEmpty(Model.ImageName))
+                    {
+                        <div class="mt-2">
+                            <a href="@Url.Content("~/Files/Doc/" + Model.ImageName)" target="_blank" class="form-control">
+                                <i class='bx bx-show'></i> عرض الملف
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="text" class="form-control text-muted" value="لا يوجد ملف مرفق" readonly>
+                    }
+                </div>
+         
+
+            
+                 
+                
+
+               
+                <div class="col-6">
+                    <div class="d-flex justify-content-start gap-2 mt-3">
+                       
+                        <a asp-action="Index" class="btn btn-secondary btn-sm px-4">الرجوع </a>
+
+                    </div>
+                </div>
+            </form>
+            
+           
+           
+               
+           
+           
+        </div>
+    </div>
+</div>
+
+

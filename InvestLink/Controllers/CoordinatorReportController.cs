@@ -139,8 +139,12 @@ namespace InvestLink.Controllers
         {
             try
             {
-                var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
-                obj.ImageName = ImageName;
+                if (obj.Image != null)
+                {
+                    var ImageName = FileUpLoader.UploaderFile(obj.Image, "Doc");
+                    obj.ImageName = ImageName;
+                }
+                    
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "محدث";

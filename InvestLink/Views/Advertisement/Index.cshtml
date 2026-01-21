@@ -6,9 +6,11 @@
 
 <h6 class="mb-0 text-uppercase"></h6>
 <hr>
-<a asp-controller="Advertisement" asp-action="Create" class="btn btn-info waves-effect">
+@if (!User.IsInRole("Investor"))
+{
+    <a asp-controller="Advertisement" asp-action="Create" class="btn btn-info waves-effect">
     <i class="fadeIn animated bx bx-pencil"></i>
-</a>
+</a>}
 <br />
 <br />
 
@@ -32,16 +34,22 @@
                 {
                     Count++;
                     <tr>
-                        <th scope="row">@Count</th>
-
+                        <th scope="row">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
+                                @Count
+                            </div>
+                        </th>
                         <td>@Item.Name</td>
                         <td>@Item.Description</td>
                         
 
                         <td>
-                            <a asp-controller="Advertisement" asp-action="Update" asp-route-Id=@Item.Id  class="btn btn-success waves-effect">
-                               <i class="fadeIn animated bx bx-refresh"></i>
-                            </a>
+                            @if (!User.IsInRole("Investor"))
+                            {
+                                <a asp-controller="Advertisement" asp-action="Update" asp-route-Id=@Item.Id  class="btn btn-success waves-effect">
+                                    <i class="fadeIn animated bx bx-refresh"></i>
+                                </a>
+                            }
                         </td>
                         <td>
                             <a asp-controller="Advertisement" asp-action="Details" asp-route-Id=@Item.Id  class="btn btn-secondary">
@@ -49,9 +57,12 @@
                             </a>
                         </td>
                         <td>
-                            <a asp-controller="Advertisement" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
-                                <i class="fadeIn animated bx bx-trash-alt"></i>
-                            </a>
+                             @if (!User.IsInRole("Investor") )
+                            {
+                                <a asp-controller="Advertisement" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                    <i class="fadeIn animated bx bx-trash-alt"></i>
+                                </a>
+                            }
                         </td>
 
 
