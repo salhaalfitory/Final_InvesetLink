@@ -2,6 +2,7 @@
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
+using InvestLink_DAL.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -38,7 +39,15 @@ namespace InvestLink.Controllers
 
         #region Actions
 
-        [Authorize(Roles = "Investor")]
+        //[Authorize(Roles = "Investor")]
+        public async Task<IActionResult> Index()
+        {
+            var data = await investor.GetAllAsync();
+
+            var result = mapper.Map<IEnumerable<InvestorVM>>(data);
+            return View(result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -57,7 +66,7 @@ namespace InvestLink.Controllers
                     var data = mapper.Map<Investor>(obj);
 
                     await investor.CreateAsync(data);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Project");
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);
@@ -87,7 +96,7 @@ namespace InvestLink.Controllers
                 {
                     var data = mapper.Map<Investor>(obj);
                     await investor.UpdateAsync(data);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
                 return View(obj);

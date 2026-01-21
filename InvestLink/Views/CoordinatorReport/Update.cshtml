@@ -1,6 +1,5 @@
 ﻿@model InvestLink_BLL.Models.CoordinatorReportVM
 
-
 @using InvestLink_BLL.Interfaces
 @using InvestLink_DAL.Entities
 @using Microsoft.AspNetCore.Identity
@@ -34,30 +33,14 @@
             <h6 class="mb-0 text-uppercase">تعديل بيانات تقرير </h6>
             <hr>
 
-          
+      
 
-            <form asp-controller="CoordinatorReport" asp-action="Update" method="post" enctype="multipart/form-data" class="row g-3">
+            <form asp-controller="CoordinatorReport" asp-action="Update" enctype="multipart/form-data" class="row g-3">
 
-               
-
-                @* //------------------------------------ *@
                 <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="ImageName" /> @* ضروري جداً للحفاظ على الصورة القديمة *@
-                <input type="hidden" asp-for="EmployeeId" value="@iEmployeeId" />
                 <input type="hidden" asp-for="ProjectCoordinatorId" />
-                <input type="hidden" asp-for="ProjectId" />
-
-                <div class="col-12 col-lg-6">
-                    <select class="form-select mb-3" asp-for="ProjectId">
-                        @foreach (var item in await iProjectcoordinator.GetAllAsync())
-                        {
-                            <option value="@item.ProjectId"> @item.ProjectId </option>
-
-
-                        }
-
-                    </select>
-                </div>
+                <input type="hidden" asp-for="ImageName" />
+                
 
 
                 <div class="col-12">
@@ -65,20 +48,22 @@
                     <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
+
                 <div class="col-12">
                     <label asp-for="Image" class="form-label">صورة</label>
                     <input asp-for="Image" class="form-control" type="file" />
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
 
-                <div class="col-md-6">
 
-                    <input type="submit" value="حفظ" class="btn btn-success waves-effect" />
+                <div class="col-12">
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        <input type="submit" value="حفظ" class="btn btn-success px-4" />
 
 
-                    <a asp-action="Index" class="btn btn-outline-secondary px-4">الرجوع </a>
+                        <a asp-action="Index" class="btn btn-secondary btn-sm px-4">الرجوع </a>
 
-                   
+                    </div>
                 </div>
             </form>
         </div>

@@ -1,0 +1,47 @@
+﻿@using InvestLink_BLL.Models
+@model VerifyEmailVM
+
+@{
+    ViewData["Title"] = "VerifyEmail";
+
+    Layout = null;
+}
+<link href="~/css/custom-enhancements.css" rel="stylesheet">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>تفعيل الحساب</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-center text-muted">
+                        تم إرسال رمز تحقق إلى بريدك الإلكتروني: <strong>@Model.Email</strong>
+                        <br />
+                        يرجى إدخال الرمز أدناه.
+                    </p>
+
+                    <form asp-action="VerifyEmail" method="post">
+                        <input type="hidden" asp-for="Email" />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Code" class="control-label fw-bold"></label>
+                            <input asp-for="Code" class="form-control text-center" placeholder="أدخل الرمز المكون من 6 أرقام" style="font-size: 1.2rem; letter-spacing: 2px;" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn-login">تأكيد الحساب</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <small>لم يصلك الرمز؟ <a href="#">إعادة الإرسال</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+}

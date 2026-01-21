@@ -13,7 +13,7 @@ namespace InvestLink_BLL.Helper
     {
         public static void SendMail(MailVM model)
         {
-            // إعدادات البريد (يجب وضع إيميل وباسورد حقيقيين ليعمل)
+
             var client = new SmtpClient("smtp.gmail.com", 587)
             {
                 EnableSsl = true,

@@ -132,7 +132,6 @@
         <hr>
 
         <form asp-controller="Investor" asp-action="Create" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="All" class="text-danger small mb-3"></div>
 
             <div class="row g-3">
                 <div class="col-md-6">
@@ -144,16 +143,22 @@
                 <div class="col-md-6">
                     <label class="form-label">البريد الإلكتروني</label>
                     <input type="email" asp-for="Email" class="form-control" value="@User_Email" readonly>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">الهاتف / النقال</label>
                     <input type="tel" asp-for="PhoneNumber" class="form-control">
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">الهاتف / النقال "الثاني"</label>
                     <input type="tel" asp-for="SecondPhoneNumber" class="form-control">
+                    <span asp-validation-for="SecondPhoneNumber" class="text-danger small"></span>
+
                 </div>
 
                 @* <div class="col-md-6">
@@ -178,21 +183,29 @@
                 <div class="col-md-6">
                     <label class="form-label">رقم جواز سفر</label>
                     <input type="text" asp-for="PassportNumber" class="form-control">
+                    <span asp-validation-for="PassportNumber" class="text-danger small"></span>
+
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">صورة جواز سفر</label>
                     <input type="file" asp-for="PImage" class="form-control">
+                    <span asp-validation-for="PImage" class="text-danger small"></span>
+
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">رقم البطاقة شخصية</label>
                     <input type="text" asp-for="CaredNumber" class="form-control">
+                    <span asp-validation-for="CaredNumber" class="text-danger small"></span>
+
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">صورة البطاقة الشخصية</label>
                     <input type="file" asp-for="CImage" class="form-control">
+                    <span asp-validation-for="CImage" class="text-danger small"></span>
+
                 </div>
 
                 <div class="col-md-6">

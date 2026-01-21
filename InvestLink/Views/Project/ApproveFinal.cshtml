@@ -35,17 +35,7 @@
 
 <div class="container-fluid">
     <!-- Page Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-center">
-               
-                <div>
-                    <h2 class="gradient-text mb-1" style="font-weight: 700; font-size: 2rem;">@* اعتماد الترخيص *@</h2>
-                    <p class="text-secondary mb-0">@* عرض وإدارة الطلبات المعتمدة ورفع رخص المشاريع *@</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Approved Projects Table Card -->
     <div class="card">
@@ -57,34 +47,46 @@
                             <th scope="col">#</th>
                             <th scope="col">اسم المشروع</th>
                             <th scope="col">تاريخ تقديم الطلب</th>
-                            <th scope="col">  تفاصيل المشروع </th>
-                            <th scope="col">رخصة المشروع</th>
-                             @if (!User.IsInRole("Investor"))
-                                    {
-                            <th scope="col">ملف رخصة المشروع</th>
-                                    }
+                            <th scope="col">تفاصيل المشروع</th>
+
+                            @* التحقق من الصلاحية لعرض عمود تفاصيل الرخصة *@
+                            @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                            {
+                                <th scope="col">رخصة المشروع</th>
+                            }
+
+                            @* التحقق من الصلاحية لعرض عمود ملف الرخصة *@
+                            @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                            {
+                                <th scope="col">ملف رخصة المشروع</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
                         @{
                             int Count = 0;
                         }
-
                         @foreach (var Item in projects)
                         {
                             Count++;
                             <tr>
+                                @* 1. التعداد *@
                                 <th scope="row">
                                     <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
                                         @Count
                                     </div>
                                 </th>
+
+                                @* 2. اسم المشروع *@
                                 <td style="font-weight: 600; color: #2d3748;">@Item.Name</td>
+
+                                @* 3. التاريخ *@
                                 <td style="color: #718096;">@Item.CreationData</td>
 
+                                @* 4. تفاصيل المشروع *@
                                 <td>
                                     <a asp-controller="Project" asp-action="Details" asp-route-Id="@Item.Id"
-                                       class="btn btn-sm" 
+                                       class="btn btn-sm"
                                        style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #667eea; font-weight: 600; transition: all 0.3s ease;"
                                        onmouseover="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.style.color='white';"
                                        onmouseout="this.style.background='linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'; this.style.color='#667eea';">
@@ -93,53 +95,53 @@
                                     </a>
                                 </td>
 
-                                <td>
-                                    <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
-                                       class="btn btn-sm" 
-                                       style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
-                                       onmouseover="this.style.background='linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'; this.style.color='white';"
-                                       onmouseout="this.style.background='linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%)'; this.style.color='#11998e';">
-                                        <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
-                                        عرض التفاصيل
-                                    </a>
-                                </td>
-                             
-                                <td>
-                                    @if (!User.IsInRole("Investor"))
-                                    {
-
+                                @* 5. رخصة المشروع (زر العرض) *@
+                                @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                                {
+                                    <td>
                                         @if (!string.IsNullOrEmpty(Item.LicenseName))
                                         {
-                                            <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id" 
-                                            class="btn btn-sm" 
-                                            style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);" 
-                                            target="_blank">
+                                            <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                               class="btn btn-sm"
+                                               style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: #11998e; font-weight: 600; transition: all 0.3s ease;"
+                                               onmouseover="this.style.background='linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'; this.style.color='white';"
+                                               onmouseout="this.style.background='linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%)'; this.style.color='#11998e';">
+                                                <ion-icon name="eye-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
+                                                عرض التفاصيل
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">--</span>
+                                        }
+                                    </td>
+                                }
+
+                                @* 6. ملف الرخصة (الزر الأخضر) *@
+                                @if (!User.IsInRole("Investor") && !User.IsInRole("Admin"))
+                                {
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(Item.LicenseName))
+                                        {
+                                            <a asp-controller="License" asp-action="Details" asp-route-Id="@Item.Id"
+                                               class="btn btn-sm"
+                                               style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; border-radius: 10px; padding: 0.5rem 1rem; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);"
+                                               target="_blank">
                                                 <ion-icon name="checkmark-circle-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
                                                 <i class="fadeIn animated bx bx-file-blank"></i>
                                             </a>
                                         }
                                         else
                                         {
-                                            <form asp-controller="Project" asp-action="UploadLicense" method="post" enctype="multipart/form-data">
-                                                <input type="hidden" name="projectId" value="@Item.Id" />
-                                                <div class="input-group" style="max-width: 350px;">
-                                                    <input type="file" name="licenseFile" class="form-control form-control-sm" required style="border-radius: 10px 0 0 10px;" />
-                                                    <button type="submit" class="btn btn-sm" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border: none; color: white; font-weight: 600; border-radius: 0 10px 10px 0; padding: 0.5rem 1rem;">
-                                                        <ion-icon name="cloud-upload-outline" style="vertical-align: middle; margin-left: 0.25rem;"></ion-icon>
-                                                        
-                                                    </button>
-                                                </div>
-                                            </form>
+                                            <span class="text-muted">--</span>
                                         }
+                                    </td>
+                                }
 
-                                    }
-                                </td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>

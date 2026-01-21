@@ -1,8 +1,43 @@
-﻿@model IEnumerable<InvestLink_BLL.Models.ProjectCoordinatorVM>
+﻿@using InvestLink_BLL.Interfaces
+@using InvestLink_DAL.Entities
+@using Microsoft.AspNetCore.Identity
 
 @{
     ViewBag.Title = "Index ";
 }
+@inject SignInManager<IdentityUser> signInManager
+
+@inject ICoordinatorReport icoordinatorReport;
+
+@inject IEmployee iEmployee;
+
+
+
+@{
+    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+    var email = await signInManager.UserManager.GetEmailAsync(user);
+
+    // متغير
+    IEnumerable<CoordinatorReport> coordinatorReports;
+
+    //obj from identity user
+    if (User.IsInRole("FollowUpEmployee"))
+    {
+        var iEmp = await iEmployee.GetByEmailAsync(email);
+        var iEmptId = iEmp.Id;
+
+        var iicoordinatorReport = await icoordinatorReport.GetAllAsync(iEmptId);
+
+        coordinatorReports = await icoordinatorReport.GetAllAsync(iicoordinatorReport);
+    }
+    else
+    {
+        coordinatorReports = await icoordinatorReport.GetAllAsync();
+    }
+
+}
+
+
 
 @* لموظف المتابعة *@
 <hr>
@@ -30,7 +65,7 @@
                 @{
                     int Count = 0;
                 }
-                @foreach (var Item in Model)
+                @foreach (var Item in coordinatorReports)
                 {
                     Count++;
                     <tr>
@@ -40,14 +75,14 @@
                             </div>
                         </th>
 
-                        <td>@Item.Project?.Name</td>
-                        <td>@Item.Project?.ProposedSite</td>
+                        <td>@Item.ProjectCoordinator.Project?.Name</td>
+                        <td>@Item.ProjectCoordinator.Project?.ProposedSite</td>
                       
 
                         <td>
                             <a asp-controller="CoordinatorReport"
                                asp-action="Update"
-                               asp-route-CoordinatorReportId="@Item.Id"
+                               asp-route-Id="@Item.Id"
                                class="btn btn-success">
                                 <i class="fadeIn animated bx bx-refresh"></i>
                             </a>

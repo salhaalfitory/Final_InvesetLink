@@ -55,7 +55,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
-        [Authorize(Roles = "Investor,Admin,HeadOfServices")]
+        //[Authorize(Roles = "Investor,Admin,HeadOfServices")]
         public async Task<IActionResult> Index()
         {
 
@@ -135,7 +135,7 @@ namespace InvestLink.Controllers
 
                     }
                     toastNotification.AddSuccessToastMessage("تم تقديم طلب بنجاح.");
-                    return RedirectToAction("Project","Index");
+                    return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";
                 var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك
@@ -318,6 +318,22 @@ namespace InvestLink.Controllers
 
 
         }
+        //public async Task<IActionResult> RejectedLicenses(int projectCoordinatorId)
+        //{
+
+        //    var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
+
+        //    var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
+
+        //    var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
+
+        //    _project.State = "سحب الترخيص"; // أو يمكنك تسميتها "رفض التجديد"
+        //    await project.UpdateAsync(_project);
+        //    toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
+        //    return RedirectToAction("Index");
+
+
+        //}
     }
 }
 

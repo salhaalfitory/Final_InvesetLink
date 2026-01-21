@@ -1,0 +1,110 @@
+:root {
+    --primary-color: #1a3c6d;
+    --bg-color: #fcfcfc;
+    --text-gray: #718096;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* تنسيق البطاقة الأساسي (نفس كود صالحة) */
+.welcome-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+    margin: auto;
+}
+
+/* تنسيق خاص للوحة التحكم (للمستثمر الحالي) ليكون أعرض قليلاً */
+.dashboard-card {
+    max-width: 900px;
+    padding: 2rem;
+}
+
+.icon-container {
+    width: 80px;
+    height: 80px;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+}
+
+.welcome-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-text {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+}
+
+.btn-start {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+    .btn-start:hover {
+        background-color: #15325b;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+/* تنسيق إضافي لبطاقات المعلومات الداخلية */
+.info-box {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: right;
+    border: 1px solid #e2e8f0;
+    height: 100%;
+    transition: all 0.2s;
+}
+
+    .info-box:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+
+.info-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+

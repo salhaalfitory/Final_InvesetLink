@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<InvestLink_BLL.Models.InvestorVM>
+
+@{
+    ViewBag.Title = "Index ";
+}
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <table class="table mb-0 table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">اسم</th>
+                    <th scope="col"> البريد الالكتروني</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int Count = 0;
+                }
+                @foreach (var Item in Model)
+                {
+                    Count++;
+                    <tr>
+                        <th scope="row">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4facfe;">
+                                @Count
+                            </div>
+                        </th>
+
+                        <td>@Item.Name</td>
+                        <td>@Item.Email</td>
+                       
+
+                        <td>
+
+                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                                <i class="fadeIn animated bx bx-trash-alt"></i>
+                            </a>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

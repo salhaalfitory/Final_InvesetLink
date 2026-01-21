@@ -34,10 +34,8 @@ namespace InvestLink.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var data = await projectCoordinator.GetAllAsync();
-
-            var result = mapper.Map<IEnumerable<ProjectCoordinatorVM>>(data);
-            return View(result);
+       
+            return View();
         }
         [HttpGet]
         public IActionResult Create()
