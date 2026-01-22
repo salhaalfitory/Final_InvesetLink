@@ -93,10 +93,10 @@
                             </div>
                             <input type="hidden" asp-for="SubmitedInvestorId" value="@InvestorId" />
                             <div class="row g-3">
-                                <div class="col-12"><h6 class="text-purple">أولاً: بيانات مقدم الطلب</h6></div>
+                                <div class="col-12"><h6 class="text-purple">أولاً: بيانات المستثمرين المشاركين</h6></div>
 
                                 <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].Name" class="form-label">أسم مقدم الطلب</label>
+                                    <label asp-for="Investors[0].Name" class="form-label">أسم المستثمر </label>
                                     <input type="text" class="form-control" asp-for="Investors[0].Name" placeholder="الاسم الثلاثي">
                                     <span asp-validation-for="Investors[0].Name" class="text-danger"></span>
                                 </div>
