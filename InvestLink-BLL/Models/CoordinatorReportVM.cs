@@ -18,6 +18,8 @@ namespace InvestLink_BLL.Models
         public string Description { get; set; }// وصف تقرير
         public DateTime CreationData { get; set; } = DateTime.Now;// تاريخ إنشاء تقرير
         public string? ImageName { get; set; }// صور
+        public bool IsUpdated { get; set; }
+        public DateTime UpdatedDate { get; set; }// تاريخ بداية
 
         public IFormFile? Image { get; set; }
         public string? Status { get; set; }// حالة تقرير

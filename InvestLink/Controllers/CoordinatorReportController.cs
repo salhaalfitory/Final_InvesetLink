@@ -161,6 +161,8 @@ namespace InvestLink.Controllers
                 if (ModelState.IsValid == true)
                 {
                     obj.Status = "محدث";
+                    obj.IsUpdated= true;
+                    obj.UpdatedDate = DateTime.Now;
                     var data = mapper.Map<CoordinatorReport>(obj);
                     await coordinatorReport.UpdateAsync(data);
                     toastNotification.AddSuccessToastMessage("تم  تعديل بيانات بنجاح.");

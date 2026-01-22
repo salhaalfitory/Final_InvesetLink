@@ -272,42 +272,7 @@ namespace InvestLink.Controllers
             return RedirectToAction("Details", new { Id });
         }
 
-
-
-
-
-        public async Task<IActionResult> RejectedLicenses(int projectCoordinatorId)
-        {
-
-            var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
-
-            var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
-
-            var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
-
-            _project.State = "سحب الترخيص"; // أو يمكنك تسميتها "رفض التجديد"
-            await project.UpdateAsync(_project);
-            toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
-            return RedirectToAction("Index");
-
-
-        }
-        //public async Task<IActionResult> RejectedLicenses(int projectCoordinatorId)
-        //{
-
-        //    var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
-
-        //    var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
-
-        //    var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
-
-        //    _project.State = "سحب الترخيص"; // أو يمكنك تسميتها "رفض التجديد"
-        //    await project.UpdateAsync(_project);
-        //    toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
-        //    return RedirectToAction("Index");
-
-
-        //}
+      
     }
     
 }
