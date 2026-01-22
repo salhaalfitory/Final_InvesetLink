@@ -61,7 +61,7 @@ namespace InvestLink.Controllers
                 return View(model);
             }
                 else { 
-                    //ModelState.AddModelError("", "Account invalid");
+                   
                     toastNotification.AddErrorToastMessage("المستخدم غير مسجل");
                     return View(model);
                 }
