@@ -83,8 +83,7 @@ namespace InvestLink_BLL.Models
         public string ExperienceOfInvestor { get; set; }//خبرة المستثمر
 
 
-        public string? LicenseName { get; set; }//مسار 
-        public IFormFile? LicenseFile { get; set; }//ملف رخصه 
+      
         public DateTime CreationData { get; set; } = DateTime.Now;
 
 

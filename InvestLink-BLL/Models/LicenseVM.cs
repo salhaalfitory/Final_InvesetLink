@@ -19,7 +19,8 @@ namespace InvestLink_BLL.Models
         public DateTime ExpireDate { get; set; }//تاريخ إنتهاء 
         public string LicenseNumber { get; set; }//رقم ترخيص 
         public string Type { get; set; }//نوع رخصة 
-  
+   
+
         //-------------------------------------------------
         public int ProjectId { get; set; }
         public Project? Project { get; set; }

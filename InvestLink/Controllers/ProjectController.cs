@@ -217,6 +217,7 @@ namespace InvestLink.Controllers
             return View(result);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin,HeadOfServices")]
         public async Task<IActionResult> ApproveFinal()
         {
 
@@ -269,36 +270,7 @@ namespace InvestLink.Controllers
           
             return RedirectToAction("Details", new { Id });
         }
-        [HttpPost]
-        public async Task<IActionResult> UploadLicense(int projectId, IFormFile licenseFile)
-        {
-            // 1. التحقق من وجود الملف
-            if (licenseFile != null)
-            {
-                // 2. رفع الملف والحصول على الاسم
-                // ملاحظة: تأكد أن المجلد "Doc" موجود، سأضع لك ملاحظة بالأسفل بخصوص هذا
-                var fileName = FileUpLoader.UploaderFile(licenseFile, "Doc");
 
-                // 3. جلب المشروع باستخدام "الريبو" (_projectRepo)
-                // خطأك السابق كان: var project = await project.GetByIdAsync
-                // التصحيح:
-                var request = await project.GetByIdAsync(projectId);
-
-                if (project != null)
-                {
-                    // 4. تحديث الاسم في الكائن الراجع
-                    request.LicenseName = fileName;
-
-                    // 5. حفظ التعديلات باستخدام "الريبو"
-                    // خطأك السابق كان: await project.UpdateAsync(project)
-                    // التصحيح:
-                    await project.UpdateAsync(request);
-                }
-            }
-
-            // العودة للصفحة
-            return RedirectToAction("ApproveFinal");
-        }
 
 
 

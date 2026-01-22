@@ -1,42 +1,13 @@
-﻿
+﻿@model IEnumerable<InvestLink_BLL.Models.ProjectVM>;
+
 @{
     ViewBag.Title = "Index ";
 }
 
-﻿@using InvestLink_BLL.Interfaces
-@using InvestLink_DAL.Entities
-@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<IdentityUser> signInManager
-
-@inject ICoordinatorReport icoordinatorReport;
-
-@inject IEmployee iEmployee;
 
 
 
-@{
-    var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
-    var email = await signInManager.UserManager.GetEmailAsync(user);
 
-    // متغير
-    IEnumerable<CoordinatorReport> coordinatorReports;
-
-    //obj from identity user
-    if (User.IsInRole("HeadOfService"))
-    {
-        var iEmp = await iEmployee.GetByEmailAsync(email);
-        var iEmptId = iEmp.Id;
-
-        coordinatorReports = await icoordinatorReport.GetAllAsync();
-        // var pr = coordinatorReports.ProjectId;
-    }
-    else
-    {
-    coordinatorReports = await icoordinatorReport.GetAllAsync();
-    }
-
-}
 
 
 
@@ -73,7 +44,7 @@
     @{
         int Count = 0;
     }
-    @foreach (var Item in coordinatorReports)
+    @foreach (var Item in Model)
     {
         Count++;
         <tr>
@@ -83,7 +54,7 @@
                 </div>
             </th>
 
-            <td style="font-weight: 600; color: #2d3748;">عقار</td>
+        <td style="font-weight: 600; color: #2d3748;">@Item.Name</td>
 
             <td style="color: #718096;">@Item.CreationData</td>
 
@@ -107,7 +78,7 @@
 
                 <a asp-controller="CoordinatorReport"
                    asp-action="ReCreateLicense"
-                   asp-route-projectCoordinatorId="@Item.ProjectCoordinatorId"
+                   asp-route-projectId="@Item.Id"
                    class="btn btn-success btn-sm ms-2">
                     <i class="fadeIn animated bx bx-refresh"></i> إعادة
                 </a>

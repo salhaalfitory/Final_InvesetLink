@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<InvestLink_BLL.Models.EmployeeVM>
+@using Microsoft.AspNetCore.Identity
 
+@inject UserManager<IdentityUser> userManager;
 @{
     ViewBag.Title = "Index ";
 }
@@ -47,8 +49,10 @@
                         </td>
 
                         <td>
-
-                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
+                            @{
+                                var userId = userManager.FindByEmailAsync(Item.Email).Result;
+                            }
+                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@userId class="btn btn-danger waves-effect">
                                 <i class="fadeIn animated bx bx-trash-alt"></i>
                             </a>
                         </td>

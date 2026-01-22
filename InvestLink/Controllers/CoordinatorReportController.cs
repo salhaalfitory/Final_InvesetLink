@@ -51,13 +51,16 @@ namespace InvestLink.Controllers
             return View(result);
         }
 
-        public async Task<IActionResult> ReCreateLicense(int projectCoordinatorId)
+        public async Task<IActionResult> ReCreateLicense(int projectId)
         {
-            var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
-            var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
-            var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
+
+            var _project = await project.GetByIdAsync(projectId);
+
+            _project.State = "معتمد";
+            await project.UpdateAsync(_project);
+
             License obj = new License();
-            obj.ProjectId = _project.Id;
+            obj.ProjectId = projectId;
             obj.ExpireDate = DateTime.Now.AddMinutes(2);
             obj.Type = "مزاولة";
             obj.CreatedDate = DateTime.Now;
@@ -68,21 +71,31 @@ namespace InvestLink.Controllers
             return RedirectToAction("Index");
 
         }
-        public async Task<IActionResult> RejectedLicenses(int projectCoordinatorId)
+        public async Task<IActionResult> RejectLicenses(int projectId)
         {
 
-            var _coordinatorReport = await coordinatorReport.GetByIdAsync(projectCoordinatorId);
+            
 
-            var _projectCortiotor = await projectcoordinator.GetByIdAsync(projectCoordinatorId);
+            var _project = await project.GetByIdAsync(projectId);
 
-            var _project = await project.GetByIdAsync(_projectCortiotor.ProjectId);
-
-            _project.State = "سحب الترخيص"; // أو يمكنك تسميتها "رفض التجديد"
+            _project.State = "سحب الترخيص";
             await project.UpdateAsync(_project);
             toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
             return RedirectToAction("Index");
 
             
+        }
+        public async Task<IActionResult> RejectedLicenses()
+        {
+
+
+
+            var _project = await project.GetByStateAsync("سحب الترخيص");
+            var data = mapper.Map<IEnumerable<ProjectVM>>(_project);
+
+            return View(data);
+
+
         }
         [HttpGet]
         public IActionResult Create()

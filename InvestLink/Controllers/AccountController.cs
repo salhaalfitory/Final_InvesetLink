@@ -79,73 +79,7 @@ namespace InvestLink.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Regestration(RegestrationVM model)
-        //{
-        //    try
-        //    {
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            var user = new IdentityUser
-        //            {
-        //                UserName = model.UserName,
-        //                Email = model.Email,
-        //            };
-        //            var result = await userManager.CreateAsync(user, model.Password);
-
-        //            if (result.Succeeded)
-        //            {
-        //                await userManager.AddToRoleAsync(user, "Investor");
-        //                //toastNotification.AddSuccessToastMessage("تم إنشاء حساب بنجاح.");
-        //                //return RedirectToAction("Login");
-        //                Random generator = new Random();
-        //                string otp = generator.Next(0, 1000000).ToString("D6");
-        //                string expiryTime = DateTime.Now.AddMinutes(15).ToString(); // صلاحية 15 دقيقة
-
-        //                // 2. حفظ الرمز ووقت الانتهاء كـ Claims (بدون تعديل الداتابيز)
-        //                // تأكد من إضافة using System.Security.Claims; فوق
-        //                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("OTP_Code", otp));
-        //                await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("OTP_Expiry", expiryTime));
-
-        //                // 3. إرسال الإيميل (استدعِ دالة الإرسال الخاصة بك هنا)
-        //                // مثال: await _emailService.SendEmailAsync(user.Email, "كود التفعيل", $"رمزك هو: {otp}");
-        //                // (تأكد أن كود الإرسال يعمل هنا)
-
-        //                // 4. رسالة نجاح وتوجيه لصفحة التحقق
-        //                toastNotification.AddSuccessToastMessage("تم إنشاء الحساب. يرجى تفعيله.");
-
-        //                // نمرر الإيميل للصفحة التالية عشان يعرف السيستم مين بيفعل
-        //                return RedirectToAction("VerifyEmail", new { email = user.Email });
-        //            }
-
-        //            else
-        //            {
-        //                foreach (var item in result.Errors)
-        //                {
-
-        //                    ModelState.AddModelError("", item.Description);
-
-
-        //                }
-        //                toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
-
-        //            }
-        //            toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
-        //            return View(model);
-        //        }
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-
-        //        ModelState.AddModelError("", ex.Message);
-        //        toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
-
-        //    }
-        //    toastNotification.AddErrorToastMessage("فشل إنشاء حساب ، يرجى التحقق من البيانات.");
-        //    return View(model);
-        //}
+      
         [HttpPost]
         public async Task<IActionResult> Regestration(RegestrationVM model)
         {
@@ -217,7 +151,7 @@ namespace InvestLink.Controllers
                 return View(model);
             }
         }
-        // 🔴 تأكدي أن هذا القوس موجود! هذا قوس نهاية الدالة
+    
 
         [HttpGet]
         public IActionResult ForgetPassword()
@@ -241,7 +175,7 @@ namespace InvestLink.Controllers
                         toastNotification.AddSuccessToastMessage("تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.");
                         return RedirectToAction("ConfirmForgetPassword");
                     }
-                    toastNotification.AddErrorToastMessage("البريد الإلكتروني غير موجود.");
+                    toastNotification.AddErrorToastMessage(" اذا كان البريد مسجلاً لدينا، فقد تم إرسال رابط التعيين إليه.");
                     return View(model);
                 }
                 toastNotification.AddErrorToastMessage("صيغة البريد الإلكتروني غير صحيحة.");

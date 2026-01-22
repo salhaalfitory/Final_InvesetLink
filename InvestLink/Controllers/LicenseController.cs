@@ -97,18 +97,7 @@ namespace InvestLink.Controllers
 
             return View(result);
         }
-        public async Task<IActionResult> UploadedLicense(int Id)
-        {
-            var data = await project.GetByIdAsync(Id);
-            if (data == null)
-            {
-                TempData["Message"] = "الرخصة غير موجودة";
-                return RedirectToAction("Index");
-            }
-            data.LicenseName = @"\wwwroot\Files\Doc\" +data.LicenseName;
-            var result = mapper.Map<ProjectVM>(data);
-            return View(result);
-        }
+       
 
 
         [Authorize(Roles = "HeadOfServices")]
