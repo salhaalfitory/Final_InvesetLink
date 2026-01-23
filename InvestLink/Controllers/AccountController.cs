@@ -44,6 +44,7 @@ namespace InvestLink.Controllers
 
                 if (user != null && user.EmailConfirmed)
                 {
+                    //تحقق من صحة البيانات
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
