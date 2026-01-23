@@ -17,7 +17,6 @@
     var user = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
     var email = await signInManager.UserManager.GetEmailAsync(user);
     var employeeId = iEmployee.GetIdByEmail(email);
-    // var EmployeeId = employeeId.Id;
 }
 
 
@@ -60,8 +59,6 @@
                                     <span asp-validation-for="Email" class="text-danger"></span>
 
                                 </div>
-
-                                صالحة, [15/01/26 04:05 م]
                                 <h5 class="mb-0 mt-4">Contact Information</h5>
                                 <hr>
 

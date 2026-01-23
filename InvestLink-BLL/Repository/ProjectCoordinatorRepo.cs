@@ -34,7 +34,7 @@ namespace InvestLink_BLL.Repository
         {
             return await db.ProjectCoordinators
                    .Where(x => x.EmployeeId == employeeId)
-                   .Include(x => x.Project)   // <--- ضروري عشان تجيب اسم المشروع
+                   .Include(x => x.Project)  
                    .ToListAsync();
         }
 
@@ -56,6 +56,7 @@ namespace InvestLink_BLL.Repository
             var data = await db.ProjectCoordinators
                 .Where(a => a.ProjectId == ProjectId)
                 .Include(x => x.Employee)
+                //ترتيب تصاعدياً
                 .OrderBy(x => x.Id)
                 .LastOrDefaultAsync();
             return data;

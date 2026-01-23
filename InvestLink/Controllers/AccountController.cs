@@ -42,25 +42,24 @@ namespace InvestLink.Controllers
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
 
-                if (user != null)
+                if (user != null && user.EmailConfirmed)
                 {
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
                         toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
 
-                    
-
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        ModelState.AddModelError("", "Account invalid");
+                    }
+                    return View(model);
                 }
                 else
                 {
-                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
-                        ModelState.AddModelError("", "Account invalid");
-                }
-                return View(model);
-            }
-                else { 
                     //ModelState.AddModelError("", "Account invalid");
                     toastNotification.AddErrorToastMessage("المستخدم غير مسجل");
                     return View(model);
@@ -71,6 +70,7 @@ namespace InvestLink.Controllers
                 return View(model);
             }
         }
+
 
 
         [HttpGet]
@@ -257,7 +257,6 @@ namespace InvestLink.Controllers
                 return RedirectToAction("Regestration");
             }
 
-            // --- هذا الجزء المفقود أو الخطأ عندك ---
             // يجب تجهيز الموديل وإرساله للصفحة
             var model = new VerifyEmailVM
             {

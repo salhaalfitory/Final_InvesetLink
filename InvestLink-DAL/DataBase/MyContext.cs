@@ -78,7 +78,6 @@ namespace InvestLink_DAL.DataBase
             .OnDelete(DeleteBehavior.ClientSetNull);
 
 
-
         }
     }
 }

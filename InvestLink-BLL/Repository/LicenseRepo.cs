@@ -40,8 +40,7 @@ namespace InvestLink_BLL.Repository
         public async Task<IEnumerable<License>> GetAllAsync()
         {
             var data = await db.Licenses
-               .Include("Project") 
-             
+               .Include("Project")         
                .ToListAsync();
 
             return data;
@@ -53,8 +52,7 @@ namespace InvestLink_BLL.Repository
             foreach (var pi in projects)
             {
                 data = await db.Licenses
-                            .Where(p => p.ProjectId == pi.Id)
-                        
+                            .Where(p => p.ProjectId == pi.Id)                
                             .ToListAsync();
             }
 
@@ -65,7 +63,7 @@ namespace InvestLink_BLL.Repository
             var data = await db.Licenses
                         .Include(x => x.Project)  
                         .Where(a => a.ProjectId == Id)
-                        .OrderBy(x => x.Id) // يجب الترتيب أولاً
+                        .OrderBy(x => x.Id) // الترتيب أولاً
                         .LastOrDefaultAsync();
             return data;
         }
@@ -73,7 +71,6 @@ namespace InvestLink_BLL.Repository
         {
             return await db.Licenses
                             .Include("Project")
-                           //.Include(x => x.Project)
                            .OrderBy(l => l.Id)
                            .LastOrDefaultAsync(x => x.ProjectId == Id);
         }

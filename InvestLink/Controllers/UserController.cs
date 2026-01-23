@@ -48,7 +48,7 @@ namespace InvestLink.Controllers
            
 
             
-            return View(new EmployeeVM());
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

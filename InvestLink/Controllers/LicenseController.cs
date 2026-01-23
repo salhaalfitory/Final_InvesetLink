@@ -82,8 +82,6 @@ namespace InvestLink.Controllers
 
         }
         
-     
-
 
         public async Task<IActionResult> Details(int Id)
         {
@@ -110,7 +108,7 @@ namespace InvestLink.Controllers
             var employeesData = await employee.GetAllAsync();
 
             ViewBag.EmployeesList = new SelectList(employeesData, "Id", "Name");
-            // 3. إرسال البيانات للصفحة
+
             return View(result);
         }
 
