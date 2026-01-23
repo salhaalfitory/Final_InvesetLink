@@ -21,7 +21,6 @@
     IEnumerable<CoordinatorReport> coordinatorReports;
   
 
-    //obj from identity user
     if (User.IsInRole("FollowUpEmployee"))
     {
         var iEmp = await iEmployee.GetByEmailAsync(email);
@@ -101,7 +100,7 @@
         asp-action="ReCreateLicense"
         asp-route-projectId="@projectId"
         class="btn btn-info waves-effect">
-         <i class="fadeIn animated bx bx-pencil">kj</i>
+         <i class="fadeIn animated bx bx-pencil"></i>
      </a>
 </td>
     <td>
@@ -111,7 +110,7 @@
             asp-route-projectId="@projectId"
             
             class="btn btn-danger px-4">
-             <i class="fadeIn animated bx bx-trash-alt"></i>
+             <ion-icon name="lock-closed-outline"></ion-icon>
          </a>
             </td> 
                     }

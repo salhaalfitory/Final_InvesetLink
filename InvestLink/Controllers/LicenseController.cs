@@ -3,6 +3,7 @@ using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -26,11 +27,12 @@ namespace InvestLink.Controllers
         private readonly IProjectCoordinator projectcoordinator;
         private readonly IEmployee employee;
         private readonly IToastNotification toastNotification;
+        private readonly UserManager<IdentityUser> userManager;
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public LicenseController(IProject project, IMapper mapper, ILicense license, IProjectCoordinator projectcoordinator, IEmployee employee, IToastNotification toastNotification)
+        public LicenseController(IProject project, IMapper mapper, ILicense license, IProjectCoordinator projectcoordinator, IEmployee employee, IToastNotification toastNotification, UserManager<IdentityUser> userManager)
         {
             this.project = project;
             this.mapper = mapper;
@@ -38,6 +40,7 @@ namespace InvestLink.Controllers
             this.projectcoordinator = projectcoordinator;
             this.employee = employee;
             this.toastNotification = toastNotification;
+            this.userManager = userManager;
 
         }
 
@@ -109,9 +112,10 @@ namespace InvestLink.Controllers
             var expiredData = await license.GetExpiredLicensesAsync();
 
             var result = mapper.Map<IEnumerable<LicenseVM>>(expiredData);
-            var employeesData = await employee.GetAllAsync();
+          
+            var coordinators = await userManager.GetUsersInRoleAsync("FollowUpEmployee");
 
-            ViewBag.EmployeesList = new SelectList(employeesData, "Id", "Name");
+            ViewBag.EmployeesList = new SelectList(coordinators, "Id", "UserName");
            
             return View(result);
         }

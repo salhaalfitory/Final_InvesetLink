@@ -33,12 +33,24 @@
                     <input type="text" asp-for="Name" class="form-control">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="col-12">
-                    <label class="form-label">صور أو ملف</label>
-                    <input type="file" asp-for="Image" class="form-control">
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>
                
+                @if (Model != null && !string.IsNullOrEmpty(Model.ImageName))
+                {
+                    <div class="mt-2">
+                        <a href="@Url.Content("~/Files/Doc/" + Model.ImageName)" target="_blank" class="form-control">
+                            <i class='bx bx-show'></i> عرض الملف
+                        </a>
+                        <input hidden type="text" asp-for="ImageName" class="form-control text-muted" value="@Model.ImageName">
+                    </div>
+                }
+                else
+                {
+                    <div class="col-12">
+                        <label asp-for="Image" class="form-label">صورة</label>
+                        <input asp-for="Image" class="form-control" type="file" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                }
 
                 <div class="col-12">
                     <label class="form-label">محتوى الإعلان</label>

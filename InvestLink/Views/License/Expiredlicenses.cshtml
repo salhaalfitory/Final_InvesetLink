@@ -22,7 +22,7 @@
                     <th scope="col">رقم الترخيص</th>
                     <th scope="col">اسم المشروع</th>
                     <th scope="col">حالة رخصه</th>
-                    <th scope="col">تعيين موظف للمتابعه</th>
+                    <th class="text-center align-middle" scope="col">تعيين موظف للمتابعه</th>
                 </tr>
             </thead>
 
@@ -50,11 +50,12 @@
 
 
                         }
-                      
+                        <td class="align-middle text-center">
 
                             @if (coordinators == null)
                             {
-                                  <td>
+                          
+                          
                                 <form asp-controller="License" asp-action="SendReportRequest" method="post" class="form-inline" autocomplete="off">
 
                                     <input type="hidden" name="ProjectId" value="@Item.ProjectId" />
@@ -68,15 +69,17 @@
                                     <button type="submit" class="btn btn-info waves-effect" onclick="this.style.display='none';">
                                         <i class="material-icons">اضافة موظف</i>
                                     </button>
-                                    <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>   
-                                </form>
-                         </td>    }
-                             
-                            else
-                            {
-                                  <td>
-                                  
-                                <span class="badge bg-danger text-white py-2 px-3 rounded-3 shadow-sm"
+                                    <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>
+                                    </form>
+                              
+                            }
+                       
+                        else
+                        {
+
+                         
+                                <div class="d-flex flex-column align-items-center">
+                                <span class="badge border border- waves-effect text-dark mb-2 px-3 py-2 fw-normal"
                                       style="min-width: 100px; font-size: 0.9rem; font-weight: normal;">
                                     موظف المتابعة : @coordinators.Employee.Name
                                 </span>
@@ -95,8 +98,11 @@
                                         <i class="material-icons">تغيير الموظف</i>
                                     </button>
                                     <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>
-                                </form>
-                         </td>   }
+                                    </form>
+                                </div>
+                          }
+                          
+                         </td>   
 
                         
                 </tr>
