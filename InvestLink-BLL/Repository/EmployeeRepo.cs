@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace InvestLink_BLL.Repository
 {
     public class EmployeeRepo : IEmployee
@@ -62,6 +63,27 @@ namespace InvestLink_BLL.Repository
         {
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeesByEmailsAsync(List<string> emails)
+        {
+            var foundEmployees = new List<Employee>();
+
+         
+            if (emails == null) return foundEmployees;
+
+            // بحث على كل إيميل 
+            foreach (var email in emails)
+            {
+                // البحث عن موظف واحد في كل مرة
+                var emp = await db.Employees.FirstOrDefaultAsync(e => e.Email == email);
+                if (emp != null)
+                {
+                    foundEmployees.Add(emp);
+                }
+            }
+
+            return foundEmployees;
         }
     }
 }

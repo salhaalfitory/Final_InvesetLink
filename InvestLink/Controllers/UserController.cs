@@ -83,7 +83,7 @@ namespace InvestLink.Controllers
                     await employee.CreateAsync(newEmployee);
                    
                     toastNotification.AddSuccessToastMessage("تم إنشاء موظف  بنجاح  .");
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index","Employee");
                 }
 
                 foreach (var error in result.Errors)

@@ -32,7 +32,7 @@
             <div class="col-lg-8 mx-auto">
                 <div class="card radius-10">
                     <div class="card-body">
-                        <div asp-validation-summary="All" class="text-danger"></div>
+               
                         <form asp-controller="Investor" asp-action="Update" method="post" enctype="multipart/form-data" id="applicationForm">
 
                             <input type="hidden" asp-for="Id" value="@InvestorId" />
@@ -88,24 +88,28 @@
 
                                 </div>
 
-                                
-                        @if (Model != null && !string.IsNullOrEmpty(Model.PassportName))
-                        {
+                        <div class="col-12">
+                            <label asp-for="PImage" class="form-label">صورة المرفق</label>
+
+                            @if (Model != null && !string.IsNullOrEmpty(Model.PassportName))
+                            {
+                                <div class="mb-3 p-2 border rounded bg-light">
+                                    <p class="text-muted small mb-1">الملف الحالي:</p>
+
+                                    <a href="@Url.Content("~/Files/Doc/" + Model.PassportName)" target="_blank" class="btn btn-sm btn-info text-white">
+                                        <i class='bx bx-show'></i> عرض الملف الحالي
+                                    </a>
+
+                                    <input type="hidden" asp-for="PassportName" value="@Model.PassportName" />
+                                </div>
+                            }
+
                             <div class="mt-2">
-                                <a href="@Url.Content("~/Files/Doc/" + Model.PassportName)" target="_blank" class="form-control">
-                                    <i class='bx bx-show'></i>عرض صورة جواز سفر
-                                </a>
-                                <input hidden type="text" asp-for="PassportName" class="form-control text-muted" value="@Model.PassportName">
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-12">
-                                <label asp-for="PImage" class="form-label">صورة جواز سفر</label>
                                 <input asp-for="PImage" class="form-control" type="file" />
+                                <span class="text-muted small">اترك هذا الحقل فارغاً إذا كنت لا تريد تغيير الصورة.</span>
                                 <span asp-validation-for="PImage" class="text-danger"></span>
                             </div>
-                        }
+                        </div>
 
                                 <div class="col-6">
 
@@ -113,27 +117,32 @@
                                     <input type="text" class="form-control" asp-for="CaredNumber">
 
                                 </div>
-                              
-                        @if (Model != null && !string.IsNullOrEmpty(Model.CaredName))
-                        {
+               
+                        <div class="col-12">
+                            <label asp-for="PImage" class="form-label">صورة المرفق</label>
+
+                            @if (Model != null && !string.IsNullOrEmpty(Model.CaredName))
+                            {
+                                <div class="mb-3 p-2 border rounded bg-light">
+                                    <p class="text-muted small mb-1">الملف الحالي:</p>
+
+                                    <a href="@Url.Content("~/Files/Doc/" + Model.CaredName)" target="_blank" class="btn btn-sm btn-info text-white">
+                                        <i class='bx bx-show'></i> عرض الملف الحالي
+                                    </a>
+
+                                    <input type="hidden" asp-for="CaredName" value="@Model.CaredName" />
+                                </div>
+                            }
+
                             <div class="mt-2">
-                                <a href="@Url.Content("~/Files/Doc/" + Model.CaredName)" target="_blank" class="form-control">
-                                    <i class='bx bx-show'></i>عرض صورة بطاقة الشخصية
-                                </a>
-                                <input hidden type="text" asp-for="CaredName" class="form-control text-muted" value="@Model.CaredName">
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-12">
-                                <label asp-for="CImage" class="form-label">صورة بطاقة الشخصية</label>
                                 <input asp-for="CImage" class="form-control" type="file" />
+                                <span class="text-muted small">اترك هذا الحقل فارغاً إذا كنت لا تريد تغيير الصورة.</span>
                                 <span asp-validation-for="CImage" class="text-danger"></span>
                             </div>
-                        }
+                        </div>
 
                                 <div class="col-6">
-
+                            <label asp-for="NationalityId" class="form-label">الجنسية</label>
                                     <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
                                         <option value=""> اختر  الجنسية</option>
                                     </select>

@@ -87,7 +87,7 @@
                             <h5 class="mb-1">بيانات المستثمرين</h5>
 
                             <div class="col-12 d-flex justify-content-between align-items-center">
-                                <h6 class="mb-2 text-purple">ثانياً: بيانات  باقي المستثمرين</h6>
+                                <h6 class="mb-2 text-purple"></h6>
                                 <button type="button" class="btn btn-info waves-effect" onclick="addBootstrapInvestor()">
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>
@@ -101,10 +101,16 @@
                                     <input type="text" class="form-control" asp-for="Investors[0].Name" placeholder="الاسم الثلاثي">
                                     <span asp-validation-for="Investors[0].Name" class="text-danger"></span>
                                 </div>
-                                <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].Position" class="form-label">الصفة</label>
-                                    <input type="text" class="form-control" asp-for="Investors[0].Position" placeholder="مثال: مدير عام، وكيل...">
-                                    <span asp-validation-for="Investors[0].Position" class="text-danger"></span>
+                            
+
+                                <div class="col-md-6">
+                                    <label asp-for="Investors[0].Position" class="form-label">صفة المستثمر</label>
+                                    <select class="form-select" asp-for="Investors[0].Position">
+                                        <option value="">-- اختر الصفة --</option>
+                                        <option value="مستثمر محلي">مستثمر محلي</option>
+                                        <option value="مستثمر أجنبي">مستثمر أجنبي</option>
+                                    </select>
+                                    <span asp-validation-for="Investors[0].Position" class="text-danger small"></span>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <select class="form-select mb-3" asp-for="Investors[0].NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
@@ -384,10 +390,14 @@
                                     <input type="text" class="form-control" asp-for="Investors[0].Name" placeholder="الاسم الثلاثي">
                                     <span asp-validation-for="Investors[0].Name" class="text-danger"></span>
                                 </div>
-                                <div class="col-12 col-lg-6">
-                                    <label asp-for="Investors[0].Position" class="form-label">الصفة</label>
-                                    <input type="text" class="form-control" asp-for="Investors[0].Position" placeholder="مثال: مدير عام، وكيل...">
-                                    <span asp-validation-for="Investors[0].Position" class="text-danger"></span>
+                               <div class="col-md-6">
+                                    <label asp-for="Investors[0].Position" class="form-label">صفة المستثمر</label>
+                                    <select class="form-select" asp-for="Investors[0].Position">
+                                        <option value="">-- اختر الصفة --</option>
+                                        <option value="مستثمر محلي">مستثمر محلي</option>
+                                        <option value="مستثمر أجنبي">مستثمر أجنبي</option>
+                                    </select>
+                                    <span asp-validation-for="Investors[0].Position" class="text-danger small"></span>
                                 </div>
 
                         <div class="col-12 col-lg-6">
