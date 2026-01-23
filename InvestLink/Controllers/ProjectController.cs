@@ -76,12 +76,12 @@ namespace InvestLink.Controllers
         {
             try
             {
-                var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
-                obj.Project.LegalBodyName = LegalBodyName;
-
-
+                
+                
                 if (ModelState.IsValid == true)
                 {
+                    var LegalBodyName = FileUpLoader.UploaderFile(obj.Project.LegalBodyFile, "Doc");
+                    obj.Project.LegalBodyName = LegalBodyName;
 
                     obj.Project.State = "تم استلام";
 
@@ -91,7 +91,7 @@ namespace InvestLink.Controllers
                     var Project_info_Id = await project.CreateAsync(Project_info);
 
 
-                    if (obj.Investors != null && obj.Investors.Any())
+                    if (obj.Investors != null )
                     {
                         foreach (var item in obj.Investors)
                         {
@@ -139,12 +139,14 @@ namespace InvestLink.Controllers
                     return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";
+                toastNotification.AddErrorToastMessage("يرجى تحقق من بيانات.");
                 var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك
                 ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
                 return View(obj);
                 }
             catch (Exception ex)
             {
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 TempData["Message"] = ex.Message;
                 return View(obj);
             }

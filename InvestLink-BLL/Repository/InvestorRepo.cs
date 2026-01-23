@@ -55,11 +55,7 @@ namespace InvestLink_BLL.Repository
             await db.SaveChangesAsync();
         }
 
-        //اضافه داله للايميل
-        public async Task<bool> IsEmailExist(string email)
-        {
-            return await db.Investors.AnyAsync(a => a.Email == email);          
-        }
+        
 
         public int GetIdByEmail(string Email)
         {

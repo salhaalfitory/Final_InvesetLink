@@ -31,10 +31,9 @@ builder.Services.AddScoped<IProjectCoordinator, ProjectCoordinatorRepo>();
 //----------------------------------------
 builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
 {
-    // لجعلها في أعلى المنتصف
+    // نخلليها ف نص
     PositionClass = "toast-top-center",
-    // أو لجعلها في أسفل المنتصف
-    // PositionClass = "toast-bottom-center"
+  
 });
 
 //----------------------------------------

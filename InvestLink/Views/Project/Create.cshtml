@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    <p>@TempData["Message"]</p>
 
     <h6 class="text-uppercase">نموذج طلب الاستثمار (P.I.B)</h6>
     <hr>
@@ -40,7 +41,7 @@
                             <div class="bs-stepper-circle">1</div>
                             <div class="">
                                 <h5 class="mb-0 steper-title">بيانات المستثمر</h5>
-                                <p class="mb-0 steper-sub-title">مقدم الطلب والمستثمرين</p>
+                                <p class="mb-0 steper-sub-title">المستثمرين</p>
                             </div>
                         </div>
                     </div>
@@ -83,10 +84,10 @@
                     <form asp-controller="Project" asp-action="Create" enctype="multipart/form-data" id="applicationForm">
 
                         <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
-                            <h5 class="mb-1">بيانات مقدم الطلب والمستثمر</h5>
+                            <h5 class="mb-1">بيانات المستثمرين</h5>
 
                             <div class="col-12 d-flex justify-content-between align-items-center">
-                                <h6 class="mb-2 text-purple">ثانياً: بيانات المستثمرين</h6>
+                                <h6 class="mb-2 text-purple">ثانياً: بيانات  باقي المستثمرين</h6>
                                 <button type="button" class="btn btn-info waves-effect" onclick="addBootstrapInvestor()">
                                     <i class='bx bx-plus me-1'></i> إضافة مستثمر
                                 </button>

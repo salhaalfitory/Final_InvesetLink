@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using System.Data;
 
 
@@ -12,17 +13,18 @@ namespace InvestLink.Controllers
         #region Fields
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<IdentityUser> userManager;
-
+        private readonly IToastNotification toastNotification;
 
         #endregion
 
 
         #region Ctor
 
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, IToastNotification toastNotification)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.toastNotification = toastNotification;
         }
 
 
@@ -61,21 +63,29 @@ namespace InvestLink.Controllers
 
                     var result = await roleManager.CreateAsync(role);
                     if (result.Succeeded)
+                    {
+                        toastNotification.AddSuccessToastMessage("تم إنشاء بنجاح.");
                         return RedirectToAction("Index");
+                       
+                    }
+                        
                     else
                     {
                         foreach (var item in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, item.Description);
+                            toastNotification.AddSuccessToastMessage("يرجى تحقق من بيانات.");
                             return View(model);
                         }
                     }
                 }
                 TempData["Message"] = "Validation Error";
+                toastNotification.AddSuccessToastMessage("يرجى تحقق من بيانات.");
                 return View(model);
             }
             catch (Exception ex)
             {
+                toastNotification.AddSuccessToastMessage("حدث خطا غير متوقع.");
                 return View(model);
             }
 
@@ -105,21 +115,28 @@ namespace InvestLink.Controllers
 
                     var result = await roleManager.UpdateAsync(role);
                     if (result.Succeeded)
+                    {
+
+                        toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح.");
                         return RedirectToAction("Index");
+                    }
                     else
                     {
                         foreach (var item in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, item.Description);
+                            toastNotification.AddSuccessToastMessage("يرجى تحقق من بيانات.");
                             return View(model);
                         }
                     }
                     }
                 TempData["Message"] = "Validation Error";
+                toastNotification.AddSuccessToastMessage("يرجى تحقق من بيانات.");
                 return View(model);
             }
             catch (Exception ex)
             {
+                toastNotification.AddSuccessToastMessage("حدث خطا غير متوقع.");
                 return View(model);
             }
         }
@@ -143,12 +160,17 @@ namespace InvestLink.Controllers
 
                     var result = await roleManager.DeleteAsync(role);
                     if (result.Succeeded)
+                    {
+
+                        toastNotification.AddSuccessToastMessage("تم حذف بنجاح.");
                         return RedirectToAction("Index");
+                    }
                     else
                     {
                         foreach (var item in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, item.Description);
+                            toastNotification.AddSuccessToastMessage("يرجى تحقق من بيانات.");
                             return View(model);
                         }
                         return View(model);
@@ -156,10 +178,12 @@ namespace InvestLink.Controllers
                 }
 
                 TempData["Message"] = "Validation Error";
+                toastNotification.AddSuccessToastMessage("يرجى تحقق من بيانات.");
                 return View(model);
             }
             catch (Exception ex)
             {
+                toastNotification.AddSuccessToastMessage("حدث خطا غير متوقع.");
                 return View(model);
             }
         }
@@ -188,6 +212,7 @@ namespace InvestLink.Controllers
                     UserInRole.IsSelected = false;
                 model.Add(UserInRole);
             }
+            toastNotification.AddSuccessToastMessage("تم تغيير صلاحيه بنجاح.");
             return View(model);
         }
         [HttpPost]
@@ -212,6 +237,7 @@ namespace InvestLink.Controllers
                     continue;
     }
 }
+            toastNotification.AddSuccessToastMessage("تم تغيير صلاحيه بنجاح.");
             return RedirectToAction("Update", new { id = RoleId });
         }
     }

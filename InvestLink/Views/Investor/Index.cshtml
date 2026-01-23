@@ -1,6 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<InvestLink_BLL.Models.InvestorVM>
 
+
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<IdentityUser> userManager;
+
+
 @{
     ViewBag.Title = "Index ";
 }
@@ -37,11 +43,17 @@
                         <td>@Item.Email</td>
                        
 
+                    
                         <td>
-
-                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@Item.Id class="btn btn-danger waves-effect">
-                                <i class="fadeIn animated bx bx-trash-alt"></i>
-                            </a>
+                            @{
+                                var user = userManager.FindByEmailAsync(Item.Email).Result;
+                            }
+                            @if (user != null)
+                            {
+                                <a asp-controller="User" asp-action="Block" asp-route-Id="@user.Id" class="btn btn-warning waves-effect" title="حظر المستخدم">
+                                    <i class="fadeIn animated bx bx-block"></i>
+                                </a>
+                            }
                         </td>
 
 

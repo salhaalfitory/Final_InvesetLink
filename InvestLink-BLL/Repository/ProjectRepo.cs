@@ -46,20 +46,7 @@ namespace InvestLink_BLL.Repository
             return data;
         }
 
-        //public async Task<IEnumerable<Project>> GetAllAsync(IEnumerable<ProjectInvestor> projectInvestors)
-        //{
-        //    // 1. استخرج أرقام المشاريع فقط في قائمة منفصلة
-        //    var projectIds = projectInvestors.Select(pi => pi.ProjectId).ToList();
-
-        //    // 2. اطلب من قاعدة البيانات كل المشاريع التي يوجد رقمها ضمن القائمة أعلاه
-        //    // هذا ينفذ استعلاماً واحداً فقط (WHERE Id IN (...))
-        //    var data = await db.Projects
-        //                       .Where(p => projectIds.Contains(p.Id))
-        //                       .Include(p => p.Licenses) // أضفت هذا لكي تجلب الرخص مثل الدالة الأولى
-        //                       .ToListAsync();
-
-        //    return data;
-        //}
+        
 
 
         public async Task<Project> GetByIdAsync(int Id)
@@ -75,9 +62,7 @@ namespace InvestLink_BLL.Repository
         public async Task<Project> GetBydAsync(int Id)
         {
             var data = await db.Projects.Where(a => a.Id == Id)
-               //.Include(a => a.ProjectInvestors)       // 1. جدول الربط
-               //.ThenInclude(pi => pi.Investor)     // 2. المستثمر
-               //.ThenInclude(i => i.Nationality)
+               
                 .FirstOrDefaultAsync();
             return data;
         }
@@ -92,8 +77,8 @@ namespace InvestLink_BLL.Repository
         }
 
 
-        //  الدالة تجلب بياناتProjects   
-        public async Task<Project> GetByIdForEditAsync(int Id) 
+        //  الدالة تجيب ف بياناتProjects   
+        public async Task<Project> GetByIdForEditAsync(int Id) // 
         {
             var data = await db.Projects
                        .Where(a => a.Id == Id)

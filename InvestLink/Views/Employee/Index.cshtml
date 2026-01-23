@@ -2,10 +2,14 @@
 @model IEnumerable<InvestLink_BLL.Models.EmployeeVM>
 @using Microsoft.AspNetCore.Identity
 
+
+
+
 @inject UserManager<IdentityUser> userManager;
 @{
     ViewBag.Title = "Index ";
 }
+
 
 
 <a asp-controller="User" asp-action="Create" class="btn btn-info waves-effect">
@@ -41,20 +45,26 @@
 
                         <td>@Item.Name</td>
                         <td>@Item.Email</td>
+                        @{
+                            var user = userManager.FindByEmailAsync(Item.Email).Result;
+                        }
                         <td>
 
-                            <a asp-controller="User" asp-action="Update" asp-route-Id=@Item.Id class="btn btn-success waves-effect">
-                                <i class="fadeIn animated bx bx-refresh"></i>
-                            </a>
+                            @if (user != null)
+                            {
+                                <a asp-controller="User" asp-action="Update" asp-route-Id="@user.Id" class="btn btn-success waves-effect">
+                                    <i class="fadeIn animated bx bx-refresh"></i>
+                            </a>}
                         </td>
 
                         <td>
-                            @{
-                                var userId = userManager.FindByEmailAsync(Item.Email).Result;
-                            }
-                            <a asp-controller="User" asp-action="Delete" asp-route-Id=@userId class="btn btn-danger waves-effect">
+                            @if (user != null)
+            {
+
+                            <a asp-controller="User" asp-action="Delete" asp-route-Id="@user.Id" class="btn btn-danger waves-effect">
                                 <i class="fadeIn animated bx bx-trash-alt"></i>
                             </a>
+            }       
                         </td>
 
 

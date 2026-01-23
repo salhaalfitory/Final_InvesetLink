@@ -44,9 +44,9 @@ namespace InvestLink_BLL.Models
         [Required(ErrorMessage = "PassportNumber is Required")]
         public string? PassportNumber { get; set; }
         [Required(ErrorMessage = " CImage  is Required")]
-        public IFormFile? CImage { get; set; }
+        public IFormFile CImage { get; set; }
         [Required(ErrorMessage = "PImage  is Required")]
-        public IFormFile? PImage { get; set; }
+        public IFormFile PImage { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationData { get; set; }//تاريخ  تسجيل 

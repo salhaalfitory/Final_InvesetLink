@@ -49,28 +49,30 @@ namespace InvestLink.Controllers
                     {
                         toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
 
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
-                        ModelState.AddModelError("", "Account invalid");
-                    }
-                    return View(model);
+                    
+
+                        return RedirectToAction("Index","Home");
                 }
                 else
                 {
-                    //ModelState.AddModelError("", "Account invalid");
+                        toastNotification.AddErrorToastMessage("فشل تسجيل الدخول، يرجى التحقق من البيانات.");
+                        ModelState.AddModelError("", "Account invalid");
+                }
+                return View(model);
+            }
+                else { 
+                   
                     toastNotification.AddErrorToastMessage("المستخدم غير مسجل");
                     return View(model);
                 }
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(model);
             }
         }
-
 
 
         [HttpGet]
@@ -108,9 +110,7 @@ namespace InvestLink.Controllers
                         await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("OTP_Code", otp));
                         await userManager.AddClaimAsync(user, new System.Security.Claims.Claim("OTP_Expiry", expiryTime));
 
-                        // -----------------------------------------------------------
-                        // كود إرسال الإيميل
-                        // -----------------------------------------------------------
+                    
                         try
                         {
                             var mailInfo = new MailVM
@@ -124,10 +124,10 @@ namespace InvestLink.Controllers
                         }
                         catch (Exception ex)
                         {
-                            // طباعة الخطأ فقط دون إيقاف البرنامج
+                         
                             System.Diagnostics.Debug.WriteLine("فشل الإرسال: " + ex.Message);
                         }
-                        // -----------------------------------------------------------
+                        
 
                         toastNotification.AddSuccessToastMessage("تم إنشاء الحساب، تفقد بريدك.");
                         return RedirectToAction("VerifyEmail", new { email = user.Email });
@@ -141,7 +141,7 @@ namespace InvestLink.Controllers
                         toastNotification.AddErrorToastMessage("فشل إنشاء حساب.");
                     }
                 }
-                // إذا كان الموديل غير صالح
+            
                 return View(model);
             }
             catch (Exception ex)
@@ -196,14 +196,14 @@ namespace InvestLink.Controllers
         [HttpGet]
         public IActionResult ResetPassword(string email, string token)
         {
-            // التحقق من  الرابط
+          
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(token))
             {
                
                 return RedirectToAction("Login");
             }
 
-            // نرسل بيانات الى فيو ليتم ارسالها
+       
             var model = new ResetPasswordVM
             {
                 Email = email,
@@ -251,19 +251,19 @@ namespace InvestLink.Controllers
         [HttpGet]
         public IActionResult VerifyEmail(string email)
         {
-            // إذا كان الإيميل فارغاً، نرجعه للتسجيل
+            
             if (string.IsNullOrEmpty(email))
             {
                 return RedirectToAction("Regestration");
             }
 
-            // يجب تجهيز الموديل وإرساله للصفحة
+         
             var model = new VerifyEmailVM
             {
                 Email = email
             };
 
-            // لاحظ أننا نمرر كلمة model داخل القوسين
+          
             return View(model);
         }
         [HttpPost]
@@ -272,27 +272,27 @@ namespace InvestLink.Controllers
             var user = await userManager.FindByEmailAsync(email);
             if (user == null) return RedirectToAction("Register");
 
-            // 1. جلب كل الـ Claims الخاصة بالمستخدم
+            // نجيب Claims لمستخدم
             var claims = await userManager.GetClaimsAsync(user);
 
-            // 2. استخراج الرمز ووقت الانتهاء
+            //   الرمز ووقت الانتهاء
             var storedToken = claims.FirstOrDefault(c => c.Type == "OTP_Code")?.Value;
             var expiryString = claims.FirstOrDefault(c => c.Type == "OTP_Expiry")?.Value;
 
-            // 3. التحقق
+            //  التحقق
             if (storedToken != null && expiryString != null)
             {
                 DateTime expiryDate = DateTime.Parse(expiryString);
 
                 if (storedToken == code && expiryDate > DateTime.Now)
                 {
-                    // الرمز صحيح والوقت ساري
+                    // الرمز صح والوقت
 
-                    // تفعيل الإيميل (هذه خاصية موجودة أصلاً في IdentityUser)
+                    // تفعيل الإيميل  
                     user.EmailConfirmed = true;
                     await userManager.UpdateAsync(user);
 
-                    // (اختياري) تنظيف الـ Claims القديمة لأننا لم نعد نحتاجها
+                   
                     await userManager.RemoveClaimAsync(user, claims.FirstOrDefault(c => c.Type == "OTP_Code"));
                     await userManager.RemoveClaimAsync(user, claims.FirstOrDefault(c => c.Type == "OTP_Expiry"));
 

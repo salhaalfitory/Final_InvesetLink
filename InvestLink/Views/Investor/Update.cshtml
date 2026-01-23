@@ -88,12 +88,24 @@
 
                                 </div>
 
-                                <div class="col-6">
-
-                                    <label asp-for="PImage" class="form-label">صورة جواز سفر </label>
-                                    <input type="file" class="form-control" asp-for="PImage">
-
-                                </div>
+                                
+                        @if (Model != null && !string.IsNullOrEmpty(Model.PassportName))
+                        {
+                            <div class="mt-2">
+                                <a href="@Url.Content("~/Files/Doc/" + Model.PassportName)" target="_blank" class="form-control">
+                                    <i class='bx bx-show'></i>عرض صورة جواز سفر
+                                </a>
+                                <input hidden type="text" asp-for="PassportName" class="form-control text-muted" value="@Model.PassportName">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <label asp-for="PImage" class="form-label">صورة جواز سفر</label>
+                                <input asp-for="PImage" class="form-control" type="file" />
+                                <span asp-validation-for="PImage" class="text-danger"></span>
+                            </div>
+                        }
 
                                 <div class="col-6">
 
@@ -101,13 +113,24 @@
                                     <input type="text" class="form-control" asp-for="CaredNumber">
 
                                 </div>
-                                <div class="col-6">
-
-                                    <label asp-for="CImage" class="form-label">صورة بطاقة الشخصية</label>
-                                    <input type="file" class="form-control" asp-for="CImage">
-
-                                </div>
-
+                              
+                        @if (Model != null && !string.IsNullOrEmpty(Model.CaredName))
+                        {
+                            <div class="mt-2">
+                                <a href="@Url.Content("~/Files/Doc/" + Model.CaredName)" target="_blank" class="form-control">
+                                    <i class='bx bx-show'></i>عرض صورة بطاقة الشخصية
+                                </a>
+                                <input hidden type="text" asp-for="CaredName" class="form-control text-muted" value="@Model.CaredName">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <label asp-for="CImage" class="form-label">صورة بطاقة الشخصية</label>
+                                <input asp-for="CImage" class="form-control" type="file" />
+                                <span asp-validation-for="CImage" class="text-danger"></span>
+                            </div>
+                        }
 
                                 <div class="col-6">
 

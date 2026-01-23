@@ -50,19 +50,19 @@
             border: 4px double #5d6d7e;
             padding: 15px;
             box-sizing: border-box;
-            /* نقشة الخلفية */
+      
             background: linear-gradient(45deg, transparent 48%, #cfd8dc 49%, #cfd8dc 51%, transparent 52%) 0 0 / 15px 15px, linear-gradient(-45deg, transparent 48%, #cfd8dc 49%, #cfd8dc 51%, transparent 52%) 0 0 / 15px 15px;
             display: flex;
             flex-direction: column;
         }
 
         .content-layer {
-            /* تعديل الشفافية هنا لتظهر النقشة الخلفية وتملأ الفراغ الأبيض */
+     
             background-color: rgba(255, 255, 255, 0.75);
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 10px 30px; /* زيادة الهوامش الجانبية قليلاً */
+            padding: 10px 30px; 
             position: relative;
         }
 
@@ -76,18 +76,17 @@
             font-size: 14px;
             color: #111;
         }
-        /* زيادة ارتفاع السطر قليلاً */
+     
 
         .header-section {
             flex-shrink: 0;
         }
 
-        /* تعديل توزيع المحتوى في الوسط */
         .body-section {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly; /* توزيع العناصر لملء الفراغ */
+            justify-content: space-evenly; 
             padding: 10px 0;
         }
 
@@ -101,14 +100,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 400px; /* تكبير العلامة المائية */
-            opacity: 0.08; /* زيادة وضوحها قليلاً */
+            width: 400px; 
+            opacity: 0.08; 
             pointer-events: none;
             z-index: 0;
         }
 
         .details-box {
-            background: rgba(249, 250, 251, 0.8); /* خلفية شبه شفافة للصندوق */
+            background: rgba(249, 250, 251, 0.8); 
             border: 1px solid #d1d5db;
             padding: 15px;
             border-radius: 6px;
@@ -119,7 +118,7 @@
         .row-line {
             display: flex;
             align-items: baseline;
-            margin-bottom: 8px; /* زيادة المسافة بين الأسطر */
+            margin-bottom: 8px; 
             font-size: 15px;
         }
 
@@ -194,9 +193,7 @@
                         <div class="w-2/4">
                             <h4 class="font-bold text-sm text-gray-700">الحكومة الليبية - وزارة الاقتصاد</h4>
                             <div class="my-2 flex justify-center">
-                                @* <div class="border-2 border-black p-1 w-12 h-12 flex items-center justify-center rounded-lg shadow-sm bg-white">
-                                    <span class="font-bold text-sm">PIB</span>
-                                </div> *@
+                               
                             </div>
                             <h2 class="font-bold text-xl text-[#2c3e50]">الهيئة العامة لتشجيع الاستثمار<br>وشؤون الخصخصة</h2>
                             <div class="mt-2">
