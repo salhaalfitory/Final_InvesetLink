@@ -62,7 +62,7 @@ namespace InvestLink.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "Investor")]
+        [Authorize(Roles = "Investor")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -71,6 +71,7 @@ namespace InvestLink.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Investor")]
         [HttpPost]
         public async Task<IActionResult> Create(Investor_ProjectVM obj)
         {
@@ -153,10 +154,6 @@ namespace InvestLink.Controllers
         }
          
 
-       
-
-       
-       
         
         public async Task<IActionResult> Details(int Id)
         {
@@ -219,7 +216,7 @@ namespace InvestLink.Controllers
             return View(result);
         }
         [HttpGet]
-        [Authorize(Roles = "Admin,HeadOfServices")]
+        [Authorize(Roles = "Admin,HeadOfServices,Investor")]
         public async Task<IActionResult> ApproveFinal()
         {
 
@@ -243,7 +240,7 @@ namespace InvestLink.Controllers
 
             obj.ProjectId = request.Id;
             obj.CreatedDate = DateTime.Now;
-            obj.ExpireDate = DateTime.Now.AddMinutes(10);
+            obj.ExpireDate = DateTime.Now.AddMinutes(2);
             obj.Type = "رخصة استثمارية";
             obj.LicenseNumber = $"{DateTime.Now.Year}-LIC";
             await license.CreateAsync(obj);
@@ -261,17 +258,17 @@ namespace InvestLink.Controllers
             }
           
         }
-        [HttpPost]
-        public async Task<IActionResult> RejectFinal(int Id)
-        {
-            var request = await project.GetByIdAsync(Id);
+        //[HttpPost]
+        //public async Task<IActionResult> RejectFinal(int Id)
+        //{
+        //    var request = await project.GetByIdAsync(Id);
 
-            request.State = "مرفوض ";
-            await project.UpdateAsync(request);
-            toastNotification.AddSuccessToastMessage("تم رفض الطلب نهائياً  .");
+        //    request.State = "مرفوض ";
+        //    await project.UpdateAsync(request);
+        //    toastNotification.AddSuccessToastMessage("تم رفض الطلب نهائياً  .");
           
-            return RedirectToAction("Details", new { Id });
-        }
+        //    return RedirectToAction("Details", new { Id });
+        //}
 
       
     }

@@ -46,6 +46,7 @@ namespace InvestLink.Controllers
                 {
                     //تحقق من صحة البيانات
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
                     if (result.Succeeded)
                     {
                         toastNotification.AddSuccessToastMessage("تم تسجيل دخول بنجاح.");
@@ -168,10 +169,14 @@ namespace InvestLink.Controllers
                 if (ModelState.IsValid)
                 {
                     var user = await userManager.FindByEmailAsync(model.Email);
+
                     if (user != null)
                     {
+                        //Generate Token
                         var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                        //send Link
                         var passwordResetLink = Url.Action("ResetPassword", "Account", new { model.Email, token }, Request.Scheme);
+
                         MailSender.SendMail(new MailVM() { Email = model.Email, Title = "Reset Password", Message = passwordResetLink });
                         toastNotification.AddSuccessToastMessage("تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.");
                         return RedirectToAction("ConfirmForgetPassword");

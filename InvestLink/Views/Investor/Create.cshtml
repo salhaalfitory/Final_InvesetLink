@@ -161,14 +161,7 @@
 
                 </div>
 
-                @* <div class="col-md-6">
-                    <label class="form-label">الصفة</label>
-                    <input type="text" asp-for="Position" class="form-control">
-                    <select class="form-select" asp-for="NationalityId" >
-                        <option value="">مستثمر محلي</option>
-                        <option value="">مستثمر أجنبي</option>
-                        <</select>
-                </div> *@
+            
 
                 <div class="col-md-6">
                     <label asp-for="Position" class="form-label">صفة المستثمر</label>
@@ -209,9 +202,8 @@
                 </div>
 
                 <div class="col-md-6">
-                    @* <label class="form-label">الجنسية</label>
-                    <select class="form-select" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
-                        <option value="">Libya</option> *@
+                   <label class="form-label">الجنسية</label>
+                   
 
                         <select class="form-select mb-3" asp-for="NationalityId" asp-items="(SelectList)ViewBag.NationalityList">
                             <option value=""> اختر  الجنسية</option>

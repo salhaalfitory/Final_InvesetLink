@@ -16,7 +16,6 @@ namespace InvestLink_BLL.Models
         {
         CreationData = DateTime.Now;
         IsActive = true;
-        IsDeleted = false;
         }
 
         [Key]
@@ -28,7 +27,7 @@ namespace InvestLink_BLL.Models
         [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
         [MinLength(10)]
         [MaxLength(10)]
-        public string? PhoneNumber { get; set; }//رقم تلفون 1
+        public string PhoneNumber { get; set; }//رقم تلفون 1
         [RegularExpression("09[0-9]{8}", ErrorMessage = "0912345678: يجب ان يتكون الرقم من عشر ارقام ويبدأ 09 مثل ")]
         [MinLength(10)]
         [MaxLength(10)]

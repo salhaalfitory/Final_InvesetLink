@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InvestLink_BLL.Interfaces;
 using InvestLink_BLL.Models;
+using InvestLink_BLL.Repository;
 using InvestLink_DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -105,7 +106,7 @@ namespace InvestLink.Controllers
        
 
 
-        [Authorize(Roles = "HeadOfServices")]
+        [Authorize(Roles = "HeadOfServices,Admin")]
         public async Task<IActionResult> Expiredlicenses()
         {
 
@@ -114,8 +115,12 @@ namespace InvestLink.Controllers
             var result = mapper.Map<IEnumerable<LicenseVM>>(expiredData);
           
             var coordinators = await userManager.GetUsersInRoleAsync("FollowUpEmployee");
+            var emailsList = coordinators.Select(u => u.Email).ToList();
 
-            ViewBag.EmployeesList = new SelectList(coordinators, "Id", "UserName");
+            //   استدعاء الدالة تجيب في ايميل
+            var employees = await employee.GetEmployeesByEmailsAsync(emailsList);
+
+            ViewBag.EmployeesList = new SelectList(employees, "Id", "Name");
            
             return View(result);
         }

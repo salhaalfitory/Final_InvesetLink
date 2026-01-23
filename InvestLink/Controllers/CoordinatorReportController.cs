@@ -43,6 +43,7 @@ namespace InvestLink.Controllers
         //--------------------------------------------------
 
         #region Actions
+
         public async Task<IActionResult> Index()
         {
             var data = await coordinatorReport.GetAllAsync();
@@ -74,8 +75,6 @@ namespace InvestLink.Controllers
         public async Task<IActionResult> RejectLicenses(int projectId)
         {
 
-            
-
             var _project = await project.GetByIdAsync(projectId);
 
             _project.State = "سحب الترخيص";
@@ -83,7 +82,6 @@ namespace InvestLink.Controllers
             toastNotification.AddErrorToastMessage("تم سحب الترخيص وعدم التجديد.");
             return RedirectToAction("Index");
 
-            
         }
         public async Task<IActionResult> RejectedLicenses()
         {

@@ -16,5 +16,6 @@ namespace InvestLink_BLL.Interfaces
         Task<Employee> GetByIdAsync(int Id);
         Task UpdateAsync(Employee obj);
         Task DeleteAsync(Employee obj);
+        Task<IEnumerable<Employee>> GetEmployeesByEmailsAsync(List<string> emails);
     }
 }
