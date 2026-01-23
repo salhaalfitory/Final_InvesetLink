@@ -50,10 +50,11 @@
 
 
                         }
-                        <td>
+                      
 
                             @if (coordinators == null)
                             {
+                                  <td>
                                 <form asp-controller="License" asp-action="SendReportRequest" method="post" class="form-inline" autocomplete="off">
 
                                     <input type="hidden" name="ProjectId" value="@Item.ProjectId" />
@@ -64,14 +65,17 @@
                                         </select>
                                     </div>
 
-                                    <button type="submit" class="btn btn-info waves-effect" " onclick="this.style.display='none';">
+                                    <button type="submit" class="btn btn-info waves-effect" onclick="this.style.display='none';">
                                         <i class="material-icons">اضافة موظف</i>
                                     </button>
-                                    <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>
+                                    <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>   
                                 </form>
-                            }
+                         </td>    }
+                             
                             else
                             {
+                                  <td>
+                                  
                                 <span class="badge bg-danger text-white py-2 px-3 rounded-3 shadow-sm"
                                       style="min-width: 100px; font-size: 0.9rem; font-weight: normal;">
                                     موظف المتابعة : @coordinators.Employee.Name
@@ -92,10 +96,9 @@
                                     </button>
                                     <span id="loading" style="display:none;" class="text-muted">جاري الطلب...</span>
                                 </form>
-                            }
+                         </td>   }
 
-                        </td>
-
+                        
                 </tr>
                     
                 }

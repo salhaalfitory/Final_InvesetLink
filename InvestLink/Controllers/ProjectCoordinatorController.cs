@@ -60,6 +60,7 @@ namespace InvestLink.Controllers
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+
                 return View(obj);
             }
 

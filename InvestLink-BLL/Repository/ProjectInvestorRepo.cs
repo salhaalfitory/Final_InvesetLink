@@ -30,11 +30,7 @@ namespace InvestLink_BLL.Repository
             await db.SaveChangesAsync();
         }
 
-        //public async Task<IEnumerable<ProjectInvestor>> GetAllAsync()
-        //{
-        //    var data = await db.ProjectInvestors.ToListAsync();
-        //    return data;
-        //}
+      
 
         public async Task<IEnumerable<ProjectInvestor>> GetAllAsync(int invetorId)
         {

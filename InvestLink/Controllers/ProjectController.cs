@@ -139,13 +139,14 @@ namespace InvestLink.Controllers
                     return RedirectToAction("Index");
                     }
                     TempData["Message"] = "validation Error";
+                toastNotification.AddErrorToastMessage("يرجى تحقق من بيانات.");
                 var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك
                 ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
                 return View(obj);
                 }
             catch (Exception ex)
             {
-                toastNotification.AddErrorToastMessage("حدث خطا اثناء تقديم الطلب.");
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 TempData["Message"] = ex.Message;
                 return View(obj);
             }

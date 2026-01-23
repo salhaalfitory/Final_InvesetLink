@@ -127,12 +127,15 @@ namespace InvestLink.Controllers
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
+                toastNotification.AddErrorToastMessage(" يرجى التحقق من البيانات");
                 return View(obj);
             }
 
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                ModelState.AddModelError("", ex.Message);
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
 
@@ -169,11 +172,14 @@ namespace InvestLink.Controllers
                     return RedirectToAction("Index");
                 }
                 TempData["Message"] = "validation Error";
+                toastNotification.AddErrorToastMessage(" يرجى التحقق من البيانات");
                 return View(obj);
             }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
         }

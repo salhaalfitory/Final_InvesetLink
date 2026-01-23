@@ -60,7 +60,8 @@ namespace InvestLink.Controllers
                 {
                    UserName = model.Name,
                     Email = model.Email,
-                
+                    EmailConfirmed = true
+
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -88,17 +89,18 @@ namespace InvestLink.Controllers
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
+                    toastNotification.AddSuccessToastMessage(" يرجى التحقق من البيانات.");
                 }
             }
 
             await PopulateRolesAsync(model);
-            var nat = await nationality.GetAllAsync(); // أو أي دالة تجلب البيانات عندك
+            var nat = await nationality.GetAllAsync(); 
             ViewBag.NationalityList = new SelectList(nat, "Id", "Name");
             return View(model);
         }
         private async Task PopulateRolesAsync(EmployeeVM model)
         {
-            // جلب الأدوار وتحويلها إلى قائمة يفهمها الـ DropdownList
+            // نجيب اصلاحيات وتحويلها إلى قائمة  
             var roles = roleManager.Roles.Select(r => new SelectListItem
             {
                 Text = r.Name,
@@ -161,7 +163,7 @@ namespace InvestLink.Controllers
           
             if (result.Succeeded)
             {
-                //result = await employee.DeleteAsync(user.Id);
+                
 
                 toastNotification.AddSuccessToastMessage("تم حذف بنجاح  .");
                 return RedirectToAction("Index");
@@ -175,8 +177,24 @@ namespace InvestLink.Controllers
 
             }
         }
-    
+        public async Task<IActionResult> Block(string Id)
+        {
+            
+            var user = await userManager.FindByIdAsync(Id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
       
-      
+            var result = await userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddYears(100));
+
+            
+            return RedirectToAction("Index","Investor");
+        }
+
+
+
     }
 }

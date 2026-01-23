@@ -72,6 +72,7 @@ namespace InvestLink.Controllers
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
 
@@ -95,12 +96,13 @@ namespace InvestLink.Controllers
                     toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح.");
                     return RedirectToAction("Index");
                 }
-                toastNotification.AddSuccessToastMessage("فشل تعديل بيانات، يرجى التحقق من البيانات.");
+                toastNotification.AddSuccessToastMessage(" يرجى التحقق من البيانات.");
                 return View(obj);
             }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
         }
@@ -125,6 +127,7 @@ namespace InvestLink.Controllers
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
 
                 return View(obj);
             }

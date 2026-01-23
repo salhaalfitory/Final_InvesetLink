@@ -36,7 +36,7 @@ namespace InvestLink_BLL.Repository
         }
 
 
-        //******************
+   
         public async Task<IEnumerable<License>> GetAllAsync()
         {
             var data = await db.Licenses
@@ -73,13 +73,13 @@ namespace InvestLink_BLL.Repository
         {
             return await db.Licenses
                             .Include("Project")
-                           //.Include(x => x.Project)
+                           
                            .OrderBy(l => l.Id)
                            .LastOrDefaultAsync(x => x.ProjectId == Id);
         }
 
 
-        //******************
+    
         public async Task<IEnumerable<License>> GetExpiredLicensesAsync()
         {
            var data = await db.Licenses

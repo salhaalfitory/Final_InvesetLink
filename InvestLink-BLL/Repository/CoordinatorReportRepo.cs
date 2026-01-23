@@ -45,8 +45,8 @@ namespace InvestLink_BLL.Repository
         public async Task<CoordinatorReport> GetByIdAsync(int Id)
         {
             var data = await db.CoordinatorReports
-                               .Include(x => x.ProjectCoordinator) // لجلب بيانات المنسق صاحب التقرير
-                               .FirstOrDefaultAsync(x => x.Id == Id); // البحث برقم التقرير
+                               .Include(x => x.ProjectCoordinator) // تجيب ف  بيانات  صاحب التقرير
+                               .FirstOrDefaultAsync(x => x.Id == Id); // بحث برقم التقرير
 
             return data;
         }

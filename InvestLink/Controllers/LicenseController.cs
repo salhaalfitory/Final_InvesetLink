@@ -72,11 +72,13 @@ namespace InvestLink.Controllers
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
+                toastNotification.AddErrorToastMessage(" يرجى التحقق من البيانات");
                 return View(obj);
             }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
 
@@ -110,7 +112,7 @@ namespace InvestLink.Controllers
             var employeesData = await employee.GetAllAsync();
 
             ViewBag.EmployeesList = new SelectList(employeesData, "Id", "Name");
-            // 3. إرسال البيانات للصفحة
+           
             return View(result);
         }
 

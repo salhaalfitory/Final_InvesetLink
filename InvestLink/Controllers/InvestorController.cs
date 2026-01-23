@@ -6,6 +6,7 @@ using InvestLink_DAL.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace InvestLink.Controllers
 {
@@ -18,19 +19,19 @@ namespace InvestLink.Controllers
         private readonly IMapper mapper;
         private readonly IInvestor investor;
         private readonly INationality nationality;
-
+        private readonly IToastNotification toastNotification;
 
         #endregion
 
         //-----------------------------------------
         #region Ctor
-        public InvestorController( IMapper mapper, IInvestor investor, INationality nationality)
+        public InvestorController( IMapper mapper, IInvestor investor, INationality nationality, IToastNotification toastNotification)
         {
            
             this.mapper = mapper;
             this.investor = investor;
             this.nationality = nationality;
-
+            this.toastNotification = toastNotification;
 
         }
 
@@ -66,14 +67,17 @@ namespace InvestLink.Controllers
                     var data = mapper.Map<Investor>(obj);
 
                     await investor.CreateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم  إنشاء  بنجاح.");
                     return RedirectToAction("Index", "Project");
                 }
                 TempData["Meesage"] = "validation Error";
+                toastNotification.AddErrorToastMessage(" يرجى التحقق من البيانات");
                 return View(obj);
             }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
 
@@ -96,14 +100,17 @@ namespace InvestLink.Controllers
                 {
                     var data = mapper.Map<Investor>(obj);
                     await investor.UpdateAsync(data);
+                    toastNotification.AddSuccessToastMessage("تم تعديل بيانات بنجاح.");
                     return RedirectToAction("Index");
                 }
                 TempData["Meesage"] = "validation Error";
+                toastNotification.AddErrorToastMessage(" يرجى التحقق من البيانات");
                 return View(obj);
             }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
                 return View(obj);
             }
         }
@@ -121,20 +128,19 @@ namespace InvestLink.Controllers
             {
                 var data = mapper.Map<Investor>(obj);
                 await investor.DeleteAsync(data);
+                toastNotification.AddSuccessToastMessage("تم حذف بنجاح.");
                 return RedirectToAction("Index");
 
             }
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
+                toastNotification.AddErrorToastMessage("حدث خطأ غير متوقع.");
 
                 return View(obj);
             }
         }
-        public IActionResult Save()
-        {
-            return View();
-        }
+       
         public async Task<IActionResult> Details(int Id)
         {
             var data = await investor.GetByIdAsync(Id);

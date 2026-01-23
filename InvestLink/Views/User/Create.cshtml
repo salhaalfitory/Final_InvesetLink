@@ -17,7 +17,7 @@
 
           
 
-            <form asp-controller="User" asp-action="Create" class="row g-3">
+            <form asp-controller="User" asp-action="Create" class="row g-3" autocomplete="off">
 
                 <div class="col-12">
                 <label asp-for="Name" class="form-label">الاسم</label>
@@ -27,15 +27,15 @@
 
         <div class="col-12">
             <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
-            <input asp-for="Email" class="form-control" type="email" placeholder="example@mail.com" />
+                    <input asp-for="Email" class="form-control" type="email" placeholder="example@mail.com" autocomplete="new-email" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-        <
+        
 
         <div class="col-md-6">
             <label asp-for="Password" class="form-label">كلمة المرور</label>
-            <input asp-for="Password" class="form-control" type="password" placeholder="أدخل كلمة مرور قوية" />
+                    <input asp-for="Password" class="form-control" type="password" placeholder="أدخل كلمة مرور قوية" autocomplete="new-password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
